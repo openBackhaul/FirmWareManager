@@ -24,4 +24,4 @@ In case of a failure, the network stops following the specifications set by Engi
 
 ## Comments
 
-This application is part of the ComarchOSS replacement project.  
+This application is part of the ComarchOSS replacement project, respectively its [_FirmwareManagement](./https://github.com/openBackhaul/_FirmwareManagement) module.  
