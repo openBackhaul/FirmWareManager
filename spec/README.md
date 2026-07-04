@@ -4,12 +4,12 @@
 
 External design aspects:  
 
-- [IntegrationWithTools](https://github.com/openBackhaul/_FirmwareManagement/blob/develop/input/concepts/integratedApproach/integratedApproach.md)
+- [Integration with Tools](https://github.com/openBackhaul/_FirmwareManagement/tree/develop/components/)
 
 Internal design aspects:  
 
-- [AutomationArchitecture](./DesignAspects/AutomationArchitecture/)
-- [InformationModel](./DesignAspects/InformationModel/)
+- [AutomationArchitecture](./additionalDocumentation/AutomationArchitecture/)
+- [Information Structure](./additionalDocumentation/InformationStructure/)
 
 ## Detailed Specification
 
