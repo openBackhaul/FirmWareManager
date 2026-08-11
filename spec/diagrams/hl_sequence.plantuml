@@ -1,0 +1,179 @@
+@startuml hl_sequence
+skinparam responseMessageBelowArrow true
+
+title
+  FirmWareManager
+end title
+
+' Services
+participant "embedYourself\n" as embed
+'participant "provideFirmWare\nDomainDump" as domainDump #White
+'participant "provideConfig\nDump" as configDump #White
+'participant "initiateFw\nDataUpdate" as initFwData #White
+
+' Preparation
+participant "p1Ignite\n" as ignite #LightYellow
+participant "p1Load\nParameters" as loadParams
+participant "p1Resolve\nEsAddress" as resolveAddress
+participant "p1Load\nControlDomain" as loadCd #LightYellow
+participant "p1Pulser\n" as pulser #LightYellow
+
+' Interpretation
+
+' Validation
+
+' Measurement
+participant "p1Measure\n" as measure #LightYellow
+participant "p1Update\nMwdiReplica" as updateMwdiRep
+participant "p2LoadRawCc\n" as createRawCc
+participant "p1FieldsFilter\n" as fieldsFilter
+participant "p1Extract\nDeviceData" as extractData #LightYellow
+participant "p1Update\nOperationalDs" as updateOpDs #LightYellow
+
+' Monitoring
+' participant "p1Monitor\n" as monitor #LightYellow
+participant "p1Compare\nDevice" as compareDevice #LightYellow
+
+' Implementation
+
+
+participant "p1Store\nControlDomain" as storeCd #Yellow
+
+
+' ===================================
+
+note right embed
+  Automatically starts
+  the FW management
+end note
+embed -> ignite
+activate ignite
+
+  ' Load parameters
+  ignite -> loadParams
+  activate loadParams
+    note over loadParams
+      Loads parameters
+      from configFile
+    end note
+  ignite <-- loadParams
+  deactivate loadParams
+
+  ' Resolve ES address
+  loop FOR all esName
+    ignite -> resolveAddress
+    activate resolveAddress
+      note over resolveAddress
+        Resolves ES
+        address
+      end note
+    ignite <-- resolveAddress
+    deactivate resolveAddress
+  end loop
+
+  ' Load ControlDomain
+  ignite -> loadCd
+  activate loadCd
+    note over loadCd
+      Loads CD
+      from ES
+    end note
+  ignite <-- loadCd
+  deactivate loadCd
+
+  ' Start Pulser
+  ignite -> pulser
+  activate pulser
+    note over pulser
+      Triggers all
+      recurring tasks
+    end note
+    pulser -> measure
+
+deactivate ignite
+
+group Measurement
+  activate measure
+    note over measure
+      Updates
+      OperationalDS
+      by updated CCs
+      in MWDI Replica
+    end note
+
+    ' Update MWDI replica
+    measure -> updateMwdiRep
+    activate updateMwdiRep
+      note over updateMwdiRep
+        Replicates
+        updated CCs
+      end note
+    measure <-- updateMwdiRep
+    deactivate updateMwdiRep
+
+    group partially parallel execution of all updatedMountNames
+      measure -> createRawCc
+      activate createRawCc
+        note over createRawCc
+          Loads raw data
+          to rawCc
+        end note
+
+        ' Apply fieldsFilter
+        createRawCc -> fieldsFilter
+        activate fieldsFilter
+          note over fieldsFilter
+            Reduces structure
+            of rawCc
+          end note
+        createRawCc <-- fieldsFilter
+        deactivate fieldsFilter
+
+      measure <-- createRawCc : {rawCc}
+      deactivate createRawCc
+
+        ' Extract FW & HW Info
+        measure -> extractData
+        activate extractData
+          note over extractData
+            Extracts relevant FW and HW info
+            from rawCC and structures it in
+            FWM data format
+          end note
+        measure <-- extractData
+        deactivate extractData
+
+        ' Update OperationalDS
+        measure -> updateOpDs
+        activate updateOpDs
+          note over updateOpDs
+            Stores FW and HW info
+            to OperationalDS
+          end note
+        measure <-- updateOpDs
+        deactivate updateOpDs
+
+        measure -> compareDevice
+        activate compareDevice
+
+    end group updatedMountNames
+
+  deactivate measure
+end group Measurement
+
+group Monitoring
+  note over compareDevice
+    Compares CC in RunningDS
+    with CC in OperationalDS
+  end note
+
+  note over compareDevice
+    Potentially creates
+    entry in alarm list
+  end note
+
+  deactivate compareDevice
+
+end group Monitoring
+
+@enduml
