@@ -1,75 +1,14 @@
-# NetworkControlDomain
+# Hardware Firmware Dependencies
 
-## Relevant Operations
+    ! This document is not part of the specification !
 
-The following operations must be executed efficiently and fast.  
+    Im nachfolgenden Dokument wurde versucht einen Ansatz zur Dokumentation der Abhängigkeiten zwischen Hardwarekomponenten und Firmwarekomponenten zu entwickeln.
 
-### Measurement
+    Dieser Ansatz wurde jedoch verworfen, da er möglicherweise zu einer unnötig generischen/komplizierten InformationStructure führen könnte.
 
-**Repetitions**  
-The information about the device is updated in OperationalDS.  
-To be executed with new information being available from the network.  
+    Nun wurde zunächst für einen einfachen Fall designt, um anschließend für die komplexeren Fälle zu erweitern, sobald deren Anforderungen klarer sind.
 
-Design decision:  
-\- The input interface of the DPMDP is re-used.  
-
-This results in a frequency of 320,000 devices/day.  
-
-### Monitoring
-
-**Repetitions**  
-Alarm list must be updated based on differences between RunningDS and OperationalDS.  
-
-Design decisions:  
-\- Comparison is not triggered by time (Pulser), but by changes in either OperationalDS or RunningDS.  
-\- Comparison is limited to changed devices; its not required to compare the entire data store content.  
-
-Re-use of the DPMDP input interface and sporadic input results in a frequency of 324,000 devices/day.  
-
-**Processing**  
-The OperationalDS might contain more information about the device than the RunningDS.  
-
-Design decisions:  
-\- The comparison is limited to checking the content of the RunningDS for contradictions with the content of the OperationalDS.  
-\- Differences in some attributes (deviceModelName, actualEquipmentTypeList) lead to immediate update of the RunningDS (which might cause a need for updating the firmware attribute, too).  
-\- Apart from availability of the firmware component, its activation status is also checked.
-
-### Validation
-
-The firmware in the CandidateDS must be validated against the approvals.  
-This includes checking for compatibility with the actual hardware of the devices before transferring to RunningDS
-
-**Repetitions**  
-Changing the device group of a device requires to at least validate this device (administrative event).  
-Changing the firmware at a device group requires to at least validate all devices in this group (operational event).  
-
-Assumptions:  
-\- 50 administrative events/day  
-\- 4 operational events/year  
-\- administrative events affect a single device only  
-\- operational events affect 15,000 devices  
-
-Design decisions:  
-\- In case of an administrative event, only the affected devices are validated.  
-\- In case of an operational event, all devices are validated (not just the ones in the affected group).  
-
-This requires 50 devices/day and 160,000 devices/year, which results in 550 devices/day.  
-
-**Processing**  
-Assumptions:  
-\- The ControlConstruct::actualEquipmentTypeList in CandidateDS is copied from RunningDS, which is copied from OperationalDS.  
-\- It contains a lot of equipment types, which are covered by firmware components that are parts of some firmware package.  
-\- These equipment types are not listed in the Approval::approvedEquipmentTypeList.  
-\- So checking for all equipment types listed in ControlConstruct::actualEquipmentTypeList being covered by an entry in Approval::approvedEquipmentTypeList would fail.  
-\- If the approval of a firmware component is restricted to specific hardware, there might be more than one entry in Approval::approvedEquipmentTypeList  
-
-Design decisions:  
-\- A firmware component from ControlConstruct::firmwareList in CandidateDS is considered to be approved, if  
-  \- the combination of {Firmware::firmwareComponentName and Firmware::firmwareComponentVersion} can be found in {FirmwareResource::firmwareComponentName and FirmwareResource::firmwareComponentVersion}  
-  \- AND the value of ControlConstruct::deviceModelName can be found in Approval::deviceModelName of the approvalList of this instance of FirmwareResource  
-  \- AND  
-    \- the Approval::approvedEquipmentTypeList is either empty  
-    \- OR at least one of the values of Approval::approvedEquipmentTypeList can be found in ControlConstruct::actualEquipmentTypeList
+    Dieses Dokument dient potentiell als Reservoir für die zukünftige Erweiterung auf komplexere Fälle.
 
 ## DeviceModelTemplate
 
@@ -106,8 +45,6 @@ Follow up on the former example:
 The DeviceModelTemplate documents that the same hypothetical device model is composed from firmware relevant hardware components of categories "STAND_ALONE_UNIT" and "OUTDOOR_UNIT". The hardware component of category "STAND_ALONE_UNIT" requires a firmware component of class "PACKAGE" and the hardware component of category "OUTDOOR_UNIT" requires a firmware component of class "APPLICATION_SOFTWARE".  
 
 ## Relevant Device Information
-
-    The following text might be outdated.
 
 ### mountName
 

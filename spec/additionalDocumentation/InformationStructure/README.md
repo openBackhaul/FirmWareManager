@@ -1,13 +1,23 @@
 # Information Structure
 
-Apart from the [AutomationApplication's basic information structure at the DomainController level](./DomainController.md), the [structure specific for the Firmware domain](./NetworkControlDomain.md) has to contain the necessary information for ...
+## DomainController
 
-- executing the [RPCs for installing and activating a new firmware](OnfRpcsAndClasses.md) on the devices
-- validating the firmware in CandidateDS against
-  - the approvals and
-  - the compatibility of the hardware components of the devices
+The information structure of the DomainController is close to the one already developed for the ControllerDomainManager.  
+Few improvements have been made based on the DevicePerformanceManagementDataProcessor.  
 
-The chosen information structure has to support performance by being ...
+<p align="center">
+  <img src="./diagrams/AaDomainController.png" alt="Domain Controller" width="400"/>
+</p>
 
-- ... light weight
-- ... optimized for the most often executed operations
+## NetworkControlDomain
+
+The information structure specific for the FirmWare domain contains the necessary information for  
+
+- executing the [RPCs for installing and activating new firmware](OnfRpcsAndClasses.md) on the devices
+- validating the pairings of device and firmware in CandidateDS against firmware approvals
+
+The most relevant operations are executed in an efficient and fast way (see also [estimated number of repetitions of the most relevant operations](./EstimatedRepetitions.md)).
+
+<p align="center">
+  <img src="./diagrams/AaNetworkControlDomain.png" alt="Network Control Domain" width="400"/>
+</p>

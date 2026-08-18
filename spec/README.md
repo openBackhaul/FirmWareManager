@@ -8,7 +8,7 @@ External design aspects:
 
 Internal design aspects:  
 
-- [AutomationArchitecture](./additionalDocumentation/AutomationArchitecture/)
+- [AutomationArchitecture](./Functions/diagrams/AutomationArchitecture/AutomationArchitecture.png)
 - [Information Structure](./additionalDocumentation/InformationStructure/)
 
 ## Detailed Specification

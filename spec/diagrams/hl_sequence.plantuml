@@ -31,24 +31,53 @@ participant "p1Extract\nDeviceData" as extractData #LightYellow
 participant "p1Update\nOperationalDs" as updateOpDs #LightYellow
 
 ' Monitoring
-' participant "p1Monitor\n" as monitor #LightYellow
+participant "p1Monitor\n" as monitor #LightYellow
 participant "p1Compare\nDevice" as compareDevice #LightYellow
 
 ' Implementation
+participant "p1Implement\n" as implement #LightYellow
+participant "p1DownloadFw\n" as download #LightYellow
+participant "p1AbortDownload\n" as abort #LightYellow
+participant "p1ActivateFw\n" as activate #LightYellow
 
-
+participant "p1Notify\nAlarm" as notify #Yellow
 participant "p1Store\nControlDomain" as storeCd #Yellow
 
 
-' ===================================
+=== Remarks ==
+
+note over notify
+  Below documented
+  changes to the alarm
+  list must lead to
+  changes in the
+  ticket system
+end note
+
+note over storeCd
+  Documentation of
+  approvals and groups
+  require persistent
+  storage
+
+  ValidationSequence
+  and ErrorCodes shall
+  be store in nice 
+  format, but not in
+  ConfigFile
+  -> storage is not
+  limited to StartupDS
+end note
+
+====
 
 note right embed
   Automatically starts
   the FW management
 end note
 embed -> ignite
-activate ignite
 
+activate ignite
   ' Load parameters
   ignite -> loadParams
   activate loadParams
@@ -88,92 +117,165 @@ activate ignite
       Triggers all
       recurring tasks
     end note
-    pulser -> measure
-
 deactivate ignite
 
+pulser -> measure
+activate measure
 group Measurement
-  activate measure
-    note over measure
-      Updates
-      OperationalDS
-      by updated CCs
-      in MWDI Replica
+  note over measure
+    Updates
+    OperationalDS
+    by updated CCs
+    in MWDI Replica
+  end note
+
+  ' Update MWDI replica
+  measure -> updateMwdiRep
+  activate updateMwdiRep
+    note over updateMwdiRep
+      Replicates
+      updated CCs
     end note
+  measure <-- updateMwdiRep
+  deactivate updateMwdiRep
 
-    ' Update MWDI replica
-    measure -> updateMwdiRep
-    activate updateMwdiRep
-      note over updateMwdiRep
-        Replicates
-        updated CCs
+  group partially parallel execution of all updatedMountNames
+    measure -> createRawCc
+    activate createRawCc
+      note over createRawCc
+        Loads raw data
+        to rawCc
       end note
-    measure <-- updateMwdiRep
-    deactivate updateMwdiRep
 
-    group partially parallel execution of all updatedMountNames
-      measure -> createRawCc
-      activate createRawCc
-        note over createRawCc
-          Loads raw data
-          to rawCc
+      ' Apply fieldsFilter
+      createRawCc -> fieldsFilter
+      activate fieldsFilter
+        note over fieldsFilter
+          Reduces structure
+          of rawCc
         end note
+      createRawCc <-- fieldsFilter
+      deactivate fieldsFilter
 
-        ' Apply fieldsFilter
-        createRawCc -> fieldsFilter
-        activate fieldsFilter
-          note over fieldsFilter
-            Reduces structure
-            of rawCc
-          end note
-        createRawCc <-- fieldsFilter
-        deactivate fieldsFilter
+    measure <-- createRawCc : {rawCc}
+    deactivate createRawCc
 
-      measure <-- createRawCc : {rawCc}
-      deactivate createRawCc
+      ' Extract FW & HW Info
+      measure -> extractData
+      activate extractData
+        note over extractData
+          Extracts relevant FW and HW info
+          from rawCC and structures it in
+          FWM data format
+        end note
+      measure <-- extractData
+      deactivate extractData
 
-        ' Extract FW & HW Info
-        measure -> extractData
-        activate extractData
-          note over extractData
-            Extracts relevant FW and HW info
-            from rawCC and structures it in
-            FWM data format
-          end note
-        measure <-- extractData
-        deactivate extractData
+      ' Update OperationalDS
+      measure -> updateOpDs
+      activate updateOpDs
+        note over updateOpDs
+          Stores FW and HW info
+          to OperationalDS
+        end note
+      measure <-- updateOpDs
+      deactivate updateOpDs
 
-        ' Update OperationalDS
-        measure -> updateOpDs
-        activate updateOpDs
-          note over updateOpDs
-            Stores FW and HW info
-            to OperationalDS
-          end note
-        measure <-- updateOpDs
-        deactivate updateOpDs
-
-        measure -> compareDevice
-        activate compareDevice
-
-    end group updatedMountNames
-
-  deactivate measure
+      measure -> compareDevice
+      activate compareDevice
+  end group updatedMountNames
 end group Measurement
+pulser <-- measure
+deactivate measure
 
+pulser -> monitor
+activate monitor
 group Monitoring
-  note over compareDevice
-    Compares CC in RunningDS
-    with CC in OperationalDS
+  note over monitor
+    Compares entire
+    RunningDS with
+    OperationalDS
   end note
 
-  note over compareDevice
-    Potentially creates
-    entry in alarm list
-  end note
+  group partially parallel execution of all CCs
+    monitor -> compareDevice
+    activate compareDevice
+      note over compareDevice
+        Compares CC in
+        RunningDS with
+        CC in OperationalDS
+      end note
 
-  deactivate compareDevice
-
+      note over compareDevice
+        Potentially creates,
+        modifies or deletes
+        entries in alarm list
+      end note
+    monitor <-- compareDevice
+    deactivate compareDevice
+    deactivate compareDevice
+  end group all CCs
 end group Monitoring
+pulser <-- monitor
+deactivate monitor
+
+pulser -> implement
+activate implement
+group Implementation
+  note over implement
+    Walks through
+    alarm list and
+    calls respective
+    implementation
+    function
+  end note
+
+  group partially parallel execution of all Alarms
+    implement -> download
+    activate download
+      note over download
+        Downloads FW
+        to a device
+      end note
+
+      note over download
+        Documents attempt
+        in alarm list
+      end note
+    implement <-- download
+    deactivate download
+
+    implement -> abort
+    activate abort
+      note over abort
+        Aborts a 
+        FW download
+      end note
+
+      note over abort
+        Documents abort
+        in alarm list
+      end note
+    implement <-- abort
+    deactivate abort
+
+    implement -> activate
+    activate activate
+      note over activate
+        Activates FW
+        on a device
+      end note
+
+      note over activate
+        Documents activation
+        in alarm list
+      end note
+    implement <-- activate
+    deactivate activate
+  end group all Alarms
+end group Implementation
+pulser <-- implement
+deactivate implement
+
 
 @enduml
