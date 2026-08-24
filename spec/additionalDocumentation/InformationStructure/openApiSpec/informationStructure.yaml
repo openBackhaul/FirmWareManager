@@ -1,0 +1,83 @@
+domain-controller:
+  type: object
+  required:
+    - function
+    - validation-sequence
+    - error-code
+    - network-control-domain
+  properties:
+    function:
+      type: array
+      x-key: name
+      items:
+        type: object
+        required:
+          - name
+          - description
+          - parameter
+        properties:
+          name:
+            type: string
+            description: 'Unique and invariant name of the Function'
+          description:
+            type: string
+            description: 'Description of the Function'
+          parameter:
+            type: array
+            x-key: name
+            description: 'List of Parameters of the Function'
+            items:
+              type: object
+              required:
+                - name
+                - description
+                - owner
+                - value
+              properties:
+                name:
+                  type: string
+                  description: 'Unique and invariant name of the Parameter'
+                  pattern: '^([a-z]{1,})((-[a-z]{1,}){0,})$'
+                description:
+                  type: string
+                  description: 'Description of the Parameter'
+                owner:
+                  type: string
+                  description: 'Owner of the Parameter is allowed to modify its value'
+                  enum:
+                    - 'platform'
+                    - 'engineering'
+                    - 'user'
+                value:
+                  type: string
+                  description: 'Configurable value of the parameter. Datatype needs to be internally converted, if required'
+                enumeration:
+                  type: array
+                  description: >
+                    'Optional list of valid values of the parameter'
+                  items:
+                    type: string
+                pattern:
+                  type: string
+                  description: >
+                    'Optional regular expression defining valid values of the parameter'
+    validation-sequence:
+      type: array
+      x-key: trigger-function
+      items:
+        type: object
+    pulser:
+      type: array
+      x-key: target-function
+      items:
+        type: object
+    error-code:
+      type: array
+      x-key: error-code
+      items:
+        type: object
+    network-control-domain:
+      type: array
+      x-key: storage
+      items:
+        type: object
