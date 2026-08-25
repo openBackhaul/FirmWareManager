@@ -3,22 +3,34 @@ domain-controller:
   required:
     - function
     - validation-sequence
+    - pulser
     - error-code
     - network-control-domain
   properties:
     function:
       type: array
       x-key: name
+      description: 'List of Functions incl. their Parameters'
       items:
         type: object
         required:
           - name
+          - task
           - description
           - parameter
         properties:
           name:
             type: string
             description: 'Unique and invariant name of the Function'
+          task:
+            type: string
+            description: 'Category of the task that the function fulfills'
+            enum:
+              - 'interpretation'
+              - 'validation'
+              - 'measurement'
+              - 'monitoring'
+              - 'implementation'
           description:
             type: string
             description: 'Description of the Function'
@@ -53,31 +65,266 @@ domain-controller:
                   description: 'Configurable value of the parameter. Datatype needs to be internally converted, if required'
                 enumeration:
                   type: array
-                  description: >
-                    'Optional list of valid values of the parameter'
+                  description: 'Optional list of valid values of the parameter'
                   items:
                     type: string
                 pattern:
                   type: string
-                  description: >
-                    'Optional regular expression defining valid values of the parameter'
+                  description: 'Optional regular expression defining valid values of the parameter'
     validation-sequence:
       type: array
       x-key: trigger-function
+      description: 'List of the definitions of validation sequences'
       items:
         type: object
+        required:
+          - trigger-function
+          - sequence
+        properties:
+          trigger-function:
+            type: string
+            description: 'Unique and invariant reference towards an entry in the list of Functions. Only Functions for changing the contents of the CandidateDS are allowed to be referenced'
+          sequence:
+            type: array
+            description: 'Ordered array of Strings referencing entries in the list of Functions. Only Functions for task==validation are allowed to be referenced. The order of the entries defines the order of execution'
+            items:
+              type: string
     pulser:
       type: array
       x-key: target-function
+      description: 'List of heartbeat definitions for triggering internal Functions'
       items:
         type: object
+        required:
+          - target-function
+          - is-activated
+          - period-length
+        properties:
+          target-function:
+            type: string
+            description: 'Unique and invariant reference towards an entry in the list of Functions. Only functions that can be called without input parameters are allowed to be referenced'
+          is-activated:
+            type: boolean
+            description: 'If true, triggering the targetFunction is activated'
+          period-length:
+            type: integer
+            description: 'Time period [in ms] between two trigger of the _targetFunction'
+          starting-time:
+            type: string
+            description: 'If some value configured, triggering the targetFunction is suspended until startingTime has been reached. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+          ending-time:
+            type: string
+            description: 'If some value configured, triggering the targetFunction stops when endingTime has been reached. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
     error-code:
       type: array
       x-key: error-code
+      description: 'List of ErrorCodes with their description and corresponding ImplementationFunction'
       items:
         type: object
+        required:
+          - error-code
+          - description
+          - sequence
+        properties:
+          error-code:
+            type: integer
+            description: 'Unique and invariant code for identifying the finding. Values between 600 and 999 can be freely used and without harmonization. For expressing findings by the MeasurementFunctions, respectively for triggering ImplementationFunctions'
+          description:
+            type: string
+            description: 'Description of the ErrorCode. Internal codes: Meaningful description of the finding needed for understanding the mechanics of the application. External codes: Also used as ErrorMessage for addressing humans'
+          sequence:
+            type: array
+            description: 'Only applicable for internal ErrorCodes. Ordered array of Strings referencing entries in the list of Functions. Only Functions for task==implementation are allowed to be referenced. Ideally, each internal code would be handled by a function or a sequence of functions. The order of the entries defines the order of execution'
+            items:
+              type: string
     network-control-domain:
       type: array
       x-key: storage
+      description: 'List of NetworkControlDomains managed by the DomainController'
       items:
         type: object
+        required:
+          - storage
+          - server
+          - firmware-resource
+          - device-model
+          - device-group
+          - device
+        properties:
+          storage:
+            type: string
+            description: 'NMDA like data storages that document the NetworkControlDomain'
+            enum:
+              - 'candidate'
+              - 'startup'
+              - 'running'
+              - 'operational'
+          server:
+            type: array
+            x-key: label
+            description: 'List of server definitions'
+            items:
+              type: object
+              required:
+                - label
+                - user-name
+                - password
+                - ssh-key
+              properties:
+                label:
+                  type: string
+                  description: 'Unique and invariant label of the server, from where the firmware resource can be downloaded'
+                user-name:
+                  type: string
+                  description: 'User name to access the file server for downloading the firmware'
+                password:
+                  type: string
+                  description: 'Password to access the file server for downloading the firmware'
+                ssh-key:
+                  type: string
+                  description: 'Client key for accessing the file server'
+          firmware-resource:
+            type: array
+            x-key: name,version
+            description: 'List of firmware releases available for autonomous management'
+            items:
+              type: object
+              required:
+                - name
+                - version
+                - server
+                - source-uri
+                - file-name
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the firmware component'
+                version:
+                  type: string
+                  description: 'Version of the firmware component'
+                server:
+                  type: string
+                  description: 'Reference to a server definition that documents the access credentials for downloading the firmware components'
+                source-uri:
+                  type: string
+                  description: 'URI specifying the remote-file-path for downloading the firmware component. Format:<protocol>://<host>[:port]/path"'
+                file-name:
+                  type: string
+                  description: 'Name of the file, which is to be downloaded'
+          device-model:
+            type: array
+            x-key: name
+            description: 'List of device types'
+            items:
+              type: object
+              required:
+                - name
+                - approval
+                - default-device-group
+              properties:
+                name:
+                  type: string
+                  description: 'Unique and invariant name of the device type'
+                approval:
+                  type: array
+                  description: 'Ordered array of Strings combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) of firmware that have been approved for being operated on a ControlConstructPac::deviceModelName'
+                  items:
+                    type: string
+                default-device-group:
+                  type: string
+                  description: 'Reference to the grouping of all devices of this type that have not been willingly assigned to a specific group'
+          device-group:
+            type: array
+            x-key: label
+            description: 'List of device group definitions'
+            items:
+              type: object
+              required:
+                - label
+                - device-model
+                - target-firmware-list
+                - device
+              properties:
+                label:
+                  type: string
+                  description: 'Unique and invariant label of the device group (e.g., AGS20_FOA, RTN950_ALDI)'
+                device-model:
+                  type: string
+                  description: 'Reference towards the type of device that is common to all grouped devices'
+                purge-date:
+                  type: string
+                  description: 'Optional date on which all devices in this group will be automatically migrated to the default group of its device type and the definition of this device group will be deleted'
+                target-firmware-list:
+                  type: array
+                  description: 'Ordered array of firmware components to be operated on all grouped devices'
+                  items:
+                    type: object
+                    required:
+                      - resource
+                      - status
+                    properties:
+                      resource:
+                        type: string
+                        description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                      status:
+                        type: string
+                        description: 'Status of the firmware. It is the administrative state in RunningDS and the operational state in OperationalDS'
+                        enum:
+                          - 'active'
+                          - 'stand-by'
+                          - 'committed'
+                          - 'like-superior-firmware-component'
+                          - 'not-applicable'
+                          - 'incomplete'
+                          - 'not-yet-defined'
+                device:
+                  type: array
+                  description: 'Ordered array of Strings referencing devices that got associated with this group (either automatically (default group) or willingly by the operator (any other group))'
+                  items:
+                    type: string
+          device:
+            type: array
+            x-key: mount-name
+            description: 'List of Devices'
+            items:
+              type: object
+              required:
+                - mount-name
+                - device-model
+                - firmware-list
+              properties:
+                mount-name:
+                  type: string
+                  description: 'Unique and invariant mount name of the device at the controller'
+                device-model:
+                  type: string
+                  description: 'Invariant type of the device'
+                firmware-list:
+                  type: array
+                  description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true.'
+                  items:
+                    type: object
+                    required:
+                      - name
+                      - version
+                      - status
+                    properties:
+                      name:
+                        type: string
+                        description: 'Name of the firmware component'
+                      version:
+                        type: string
+                        description: 'Version of the firmware component'
+                      status:
+                        type: string
+                        description: 'Status of the firmware. It is the administrative state in RunningDS and the operational state in OperationalDS'
+                        enum:
+                          - 'active'
+                          - 'stand-by'
+                          - 'committed'
+                          - 'like-superior-firmware-component'
+                          - 'not-applicable'
+                          - 'incomplete'
+                          - 'not-yet-defined'
