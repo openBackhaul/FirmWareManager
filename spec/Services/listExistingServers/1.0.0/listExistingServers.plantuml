@@ -1,0 +1,27 @@
+@startuml listExistingServers
+skinparam responseMessageBelowArrow true
+
+title
+  listExistingServers
+end title
+
+participant "requestor\n" as requestor
+participant "listExistingServers\n" as lServer
+database "RunningDS" as RunDS
+
+requestor -> lServer
+activate lServer
+
+  note over lServer
+    Retrieves data
+    from RunningDS
+  end note
+  lServer -> RunDS
+  activate RunDS
+  lServer <-- RunDS
+  deactivate RunDS
+
+requestor <-- lServer: [ { label,\nuserName,\npassword,\nsshKey } ]
+deactivate lServer
+
+@enduml

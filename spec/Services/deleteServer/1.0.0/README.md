@@ -1,8 +1,6 @@
 ﻿# deleteServer
 
-## Overview
-
-
+Deletes a server definition.  
 
 ## Diagram
 
@@ -14,7 +12,16 @@
 
 Please find a detailed description of the interface in the [openAPI specification](../../../FirmWareManager.yaml).  
 
+## Variables
+
+Please find a detailed description of the [variables](./variables.yaml).  
+
+## Parameters
+
+| Parameter Name               | Description                                                                                                                                                                                       |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [parameterName]              |                                                                                                                                                                                                   |
+
 ## NPM Module
 
 [onf-core-model-ap](https://www.npmjs.com/package/onf-core-model-ap) to be complemented.  
-

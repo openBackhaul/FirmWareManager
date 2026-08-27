@@ -16,7 +16,7 @@ Internal design aspects:
 
 ### API
 
-#### ServiceList
+#### [ServiceList](./Services/status.md)
 
 - **Documenting firmware approvals (Engineering)**
   - Preparing servers
@@ -47,7 +47,7 @@ Internal design aspects:
     - [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/)
 
 - **Categorizing individual devices into device groups (Planning)**
-  - Preparing devices
+  - Preparing devices  
     (solved by function)
   - Categorizing individual devices into device groups
     - [/list-existing-devices](./Services/listExistingDevices/1.0.0/)
