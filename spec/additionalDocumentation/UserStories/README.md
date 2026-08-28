@@ -51,7 +51,6 @@ Postman _t1TestCases_ dienen der Überprüfung der Datenkonsistenz (z.B. eine Gr
     - /create-or-update-firmware-resource  
       (existing name and version combinations indicate an update)
       - t1CheckForAssuranceOfUniqueNameAndVersionCombinations
-      - p1EnsureUniqueSourceUriAndFilename
     - /delete-firmware-resource  
       (must not be deleted if still referred by TargetFirmwareType)
       - t1CheckForAssuranceOfEveryTargetFirmwareTypeHavingAFirmwareResource

@@ -27,6 +27,10 @@ Please find a detailed description of the [variables](./variables.yaml).
 |------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |            |                                                                                                                                                                                                    |
 
+## Parameters
+
+./.  
+
 ## NPM Module
 
 [onf-core-model-ap](https://www.npmjs.com/package/onf-core-model-ap) to be complemented.  

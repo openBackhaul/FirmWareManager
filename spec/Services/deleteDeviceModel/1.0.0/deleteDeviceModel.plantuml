@@ -1,0 +1,143 @@
+@startuml deleteDeviceModel
+skinparam responseMessageBelowArrow true
+
+title
+  deleteDeviceModel
+end title
+
+participant "requestor\n" as requestor
+participant "deleteDeviceModel\n" as delDevMod
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> delDevMod: { name }
+activate delDevMod
+
+  note over delDevMod
+    Checks, whether
+    DeviceModel with
+    given name exists
+  end note
+  delDevMod -> RunDS
+  activate RunDS
+  delDevMod <-- RunDS
+  deactivate RunDS
+  note over delDevMod
+    IF DeviceModel NOT existing:
+  end note
+  note left delDevMod
+    THEN
+  end note
+  requestor <-- delDevMod: 204
+  note over delDevMod
+    ELSE
+  end note
+
+  note over delDevMod
+    Checks, whether any
+    DeviceGroup of the 
+    given DeviceModel
+    is still referencing
+    any Devices
+  end note
+  loop for each existing DeviceGroup
+    delDevMod -> RunDS
+    activate RunDS
+    delDevMod <-- RunDS
+    deactivate RunDS
+  end loop
+  note over delDevMod
+    IF DeviceModel still
+    referenced by devices:
+  end note
+  note left delDevMod
+    THEN
+  end note
+  requestor <-- delDevMod: ErrorMessage
+  note over delDevMod
+    ELSE
+  end note
+
+  note over delDevMod
+    Locks RunningDS
+  end note
+  delDevMod -X RunDS
+  activate RunDS
+
+  note over delDevMod
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  delDevMod -> RunDS
+  RunDS -/ CanDS
+  activate CanDS
+
+  note over delDevMod
+    Deletes referencing
+    DeviceGroups
+  end note
+  loop for each existing DeviceGroup
+    note over delDevMod
+      Reads deviceModel
+    end note
+    delDevMod -> CanDS
+    delDevMod <-- CanDS
+    note over delDevMod
+      IF given DeviceModel referenced:
+    end note
+    note right delDevMod
+      THEN
+        - Deletes DeviceGroup
+    end note
+    delDevMod -> CanDS
+    delDevMod <-- CanDS
+  end loop
+
+  note right delDevMod
+    Deletes given DeviceModel
+  end note
+  delDevMod -> CanDS
+  delDevMod <-- CanDS
+
+  note over delDevMod
+    Triggers Validation
+  end note
+  delDevMod -> valiMan: {triggerFunction==deleteDeviceModel}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  delDevMod <-- valiMan
+  deactivate valiMan
+  note over delDevMod
+    IF validation failed:
+  end note
+  note left delDevMod
+    THEN
+  end note
+  requestor <-- delDevMod: ErrorMessage
+  note over delDevMod
+    ELSE
+  end note
+
+  note right delDevMod
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  delDevMod -> CanDS
+  CanDS -\ RunDS
+  deactivate CanDS
+
+  note right delDevMod
+    Unlocks RunningDS
+  end note
+  delDevMod -X RunDS
+  deactivate RunDS
+
+  requestor <-- delDevMod: 204
+
+deactivate delDevMod
+
+@enduml

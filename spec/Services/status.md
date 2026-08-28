@@ -21,7 +21,7 @@ Th = Thorsten
 | ------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-servers](./Services/listExistingServers/1.0.0/)     | Th | Th | Th | Th |  |
 | [/create-or-update-server](./Services/createOrUpdateServer/1.0.0/)  | Th 1) | Th 1) | Th 1) | Th |  |
-| [/delete-server](./Services/deleteServer/1.0.0/)                    |  |  |  |  |  |
+| [/delete-server](./Services/deleteServer/1.0.0/)                    | Th 1) | Th 1) | Th 1) | Th |  |
 
   > 1\) Error Codes not yet defined.  
 
@@ -29,9 +29,9 @@ Th = Thorsten
 
 | Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)    |  |  |  |  |  |
-| [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/) |  |  |  |  |  |
-| [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)                   |  |  |  |  |  |
+| [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)    | Th | Th | Th | Th |  |
+| [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/) | Th 1) | Th 1) |  |  |  |
+| [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)                   | Th 1) | Th 1) |  |  |  |
 
 ### Preparing device models
 
@@ -39,7 +39,7 @@ Th = Thorsten
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  |  |  |  |  |  |
 | [/create-device-model](./Services/createDeviceModel/1.0.0/)                 |  |  |  |  |  |
-| [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)                 |  |  |  |  |  |
+| [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)                 | Th 1) |  |  |  |  |
 
 ### Documenting firmware approvals
 

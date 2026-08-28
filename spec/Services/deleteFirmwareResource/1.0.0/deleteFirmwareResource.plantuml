@@ -1,0 +1,120 @@
+@startuml deleteFirmwareResource
+skinparam responseMessageBelowArrow true
+
+title
+  deleteFirmwareResource
+end title
+
+participant "requestor\n" as requestor
+participant "deleteFirmwareResource\n" as delServer
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> delServer: { name }
+activate delServer
+
+  note over delServer
+    Checks, whether
+    FirmwareResource
+    with given name exists
+  end note
+  delServer -> RunDS
+  activate RunDS
+  delServer <-- RunDS
+  deactivate RunDS
+  note over delServer
+    IF FirmwareResource NOT existing:
+  end note
+  note left delServer
+    THEN
+  end note
+  requestor <-- delServer: 204
+  note over delServer
+    ELSE
+  end note
+
+  note over delServer
+    Checks, whether any 
+    existing DeviceGroup
+    to reference given
+    FirmwareResource
+  end note
+  loop for each existing DeviceGroup
+    delServer -> RunDS
+    activate RunDS
+    delServer <-- RunDS
+    deactivate RunDS
+  end loop
+  note over delServer
+    IF FirmwareResource still referenced:
+  end note
+  note left delServer
+    THEN
+  end note
+  requestor <-- delServer: ErrorMessage
+  note over delServer
+    ELSE
+  end note
+
+  note over delServer
+    Locks RunningDS
+  end note
+  delServer -X RunDS
+  activate RunDS
+
+  note over delServer
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  delServer -> RunDS
+  RunDS -/ CanDS
+  activate CanDS
+
+  note right delServer
+    Deletes given FirmwareResource
+  end note
+  delServer -> CanDS
+  delServer <-- CanDS
+
+  note over delServer
+    Triggers Validation
+  end note
+  delServer -> valiMan: {triggerFunction==deleteFirmwareResource}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  delServer <-- valiMan
+  deactivate valiMan
+  note over delServer
+    IF validation failed:
+  end note
+  note left delServer
+    THEN
+  end note
+  requestor <-- delServer: ErrorMessage
+  note over delServer
+    ELSE
+  end note
+
+  note right delServer
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  delServer -> CanDS
+  CanDS -\ RunDS
+  deactivate CanDS
+
+  note right delServer
+    Unlocks RunningDS
+  end note
+  delServer -X RunDS
+  deactivate RunDS
+
+  requestor <-- delServer: 204
+
+deactivate delServer
+
+@enduml

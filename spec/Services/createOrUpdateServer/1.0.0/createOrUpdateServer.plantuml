@@ -36,7 +36,6 @@ activate couServer
   end note
   couServer -> CanDS
   couServer <-- CanDS
-
   note over couServer
     IF server already existing:
   end note
@@ -54,42 +53,41 @@ activate couServer
   couServer <-- CanDS
 
   note over couServer
-    Trigger Validation
+    Triggers Validation
   end note
   couServer -> valiMan: {triggerFunction==createOrUpdateServer}
   activate valiMan
-
     note over valiMan
       Validates
     end note
-
   couServer <-- valiMan
   deactivate valiMan
-
   note over couServer
-    IF successfully validated:
+    IF validation failed:
   end note
-  note right couServer
+  note left couServer
     THEN
-    - Overwrites RunningDS
-      with CandidateDS
-    - Sends 204
+  end note
+  requestor <-- couServer: ErrorMessage
+  note over couServer
+    ELSE
+  end note
+
+  note right couServer
+    Overwrites RunningDS
+    with CandidateDS
   end note
   couServer -> CanDS
   CanDS -\ RunDS
   deactivate CanDS
-  requestor <-- couServer: 204
-  note right couServer
-    ELSE
-    - Sends ErrorMessage
-  end note
-  requestor <-- couServer: ErrorMessage
 
   note right couServer
     Unlocks RunningDS
   end note
   couServer -X RunDS
   deactivate RunDS
+
+  requestor <-- couServer: 204
 
 deactivate couServer
 

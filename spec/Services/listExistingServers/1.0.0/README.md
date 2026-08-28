@@ -16,6 +16,10 @@ Please find a detailed description of the interface in the [openAPI specificatio
 
 Please find a detailed description of the [variables](./variables.yaml).  
 
+## Error Codes
+
+./.  
+
 ## Parameters
 
 ./.  

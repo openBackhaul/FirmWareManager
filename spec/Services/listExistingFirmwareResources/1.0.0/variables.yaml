@@ -1,13 +1,6 @@
-delete-server:
+list-existing-firmware-resources:
   type: object
-  required:
-    - label
   properties:
-    label:
-      type: string
-      description: >
-        'Unique and invariant label of the server, from where the firmware resource can be downloaded
-        from {$input#/label}'
 
     domain-controller:
       type: object
@@ -23,23 +16,11 @@ delete-server:
               storage:
                 type: string
                 enum:
-                  - 'candidate'
-              server:
-                type: array
-                x-key: label
-                description: >
-                  'List of server definitions
-                  delete [/delete-server/domain-controller/network-control-domain=candidate/server={$input#/label}]
-                  IF [/delete-server/domain-controller/network-control-domain=candidate/firmware-resource=*/server] does NOT contain {$input#/label}'
-                items:
-                  type: object
-                  properties:
-                    label:
-                      type: string
-                      description: 'Unique and invariant label of the server, from where the firmware resource can be downloaded'
+                  - 'running'
               firmware-resource:
                 type: array
                 x-key: name,version
+                description: 'List of firmware releases available for autonomous management'
                 items:
                   type: object
                   properties:
@@ -52,3 +33,9 @@ delete-server:
                     server:
                       type: string
                       description: 'Reference to a server definition that documents the access credentials for downloading the firmware components'
+                    source-uri:
+                      type: string
+                      description: 'URI specifying the remote-file-path for downloading the firmware component. Format:<protocol>://<host>[:port]/path'
+                    file-name:
+                      type: string
+                      description: 'Name of the file, which is to be downloaded'

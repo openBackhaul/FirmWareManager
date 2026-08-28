@@ -1,0 +1,137 @@
+@startuml createOrUpdateFirmwareResource
+skinparam responseMessageBelowArrow true
+
+title
+  createOrUpdateFirmwareResource
+end title
+
+participant "requestor\n" as requestor
+participant "createOrUpdateFirmwareResource\n" as couFWR
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> couFWR: { name,\nversion,\nserver,\nsource-uri,\nfile-name }
+activate couFWR
+
+  note over couFWR
+    Checks whether
+    referenced server
+    exists
+  end note
+  couFWR -> RunDS
+  activate RunDS
+  couFWR <-- RunDS
+  deactivate RunDS
+  note over couFWR
+    IF server NOT existing:
+  end note
+  note left couFWR
+    THEN
+  end note
+  requestor <-- couFWR: ErrorMessage
+  note over couFWR
+    ELSE
+  end note
+
+  note over couFWR
+    Checks, whether given
+    combination of server,
+    source-uri and file-name
+    already exists
+  end note
+  loop for each existing FirmwareResource
+    couFWR -> RunDS
+    activate RunDS
+    couFWR <-- RunDS
+    deactivate RunDS
+  end loop
+  note over couFWR
+    IF resource already referenced:
+  end note
+  note left couFWR
+    THEN
+  end note
+  requestor <-- couFWR: ErrorMessage
+  note over couFWR
+    ELSE
+  end note
+
+  note over couFWR
+    Locks RunningDS
+  end note
+  couFWR -X RunDS
+  activate RunDS
+
+  note over couFWR
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  couFWR -> RunDS
+  RunDS -/ CanDS
+  activate CanDS
+
+  note over couFWR
+    Checks for existing
+    FirmwareResource with
+    given name and version
+  end note
+  couFWR -> CanDS
+  couFWR <-- CanDS
+  note over couFWR
+    IF FirmwareResource already existing:
+  end note
+  note right couFWR
+    THEN
+    - Updates existing FirmwareResource
+  end note
+  couFWR -> CanDS
+  couFWR <-- CanDS
+  note right couFWR
+    ELSE
+    - Creates new FirmwareResource instance
+  end note
+  couFWR -> CanDS
+  couFWR <-- CanDS
+
+  note over couFWR
+    Triggers Validation
+  end note
+  couFWR -> valiMan: {triggerFunction==createOrUpdateFirmwareResource}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  couFWR <-- valiMan
+  deactivate valiMan
+  note over couFWR
+    IF validation failed:
+  end note
+  note left couFWR
+    THEN
+  end note
+  requestor <-- couFWR: ErrorMessage
+  note over couFWR
+    ELSE
+  end note
+
+  note right couFWR
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  couFWR -> CanDS
+  CanDS -\ RunDS
+  deactivate CanDS
+
+  note right couFWR
+    Unlocks RunningDS
+  end note
+  couFWR -X RunDS
+  deactivate RunDS
+
+  requestor <-- couFWR: 204
+
+deactivate couFWR
+
+@enduml

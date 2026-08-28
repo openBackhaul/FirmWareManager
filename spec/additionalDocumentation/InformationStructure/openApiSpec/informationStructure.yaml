@@ -209,7 +209,7 @@ domain-controller:
                   description: 'Reference to a server definition that documents the access credentials for downloading the firmware components'
                 source-uri:
                   type: string
-                  description: 'URI specifying the remote-file-path for downloading the firmware component. Format:<protocol>://<host>[:port]/path"'
+                  description: 'URI specifying the remote-file-path for downloading the firmware component. Format:<protocol>://<host>[:port]/path'
                 file-name:
                   type: string
                   description: 'Name of the file, which is to be downloaded'

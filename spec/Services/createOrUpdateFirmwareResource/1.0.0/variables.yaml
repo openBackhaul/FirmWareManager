@@ -1,0 +1,79 @@
+create-or-update-firmware-resource:
+  type: object
+  required:
+
+
+
+
+
+
+# old
+
+    - label
+    - user-name
+    - password
+    - ssh-key
+  properties:
+    label:
+      type: string
+      description: >
+        'Unique and invariant label of the server, from where the firmware resource can be downloaded
+        from {$input#/label}'
+    user-name:
+      type: string
+      description: >
+        'User name to access the file server for downloading the firmware
+        from {$input#/user-name}'
+    password:
+      type: string
+      description: >
+        'Password to access the file server for downloading the firmware
+        from {$input#/password}'
+    ssh-key:
+      type: string
+      description: >
+        'Client key for accessing the file server
+        from {$input#/ssh-key}'
+
+    domain-controller:
+      type: object
+      description: >
+        '! simplified representation !'
+      properties:
+        network-control-domain:
+          type: array
+          x-key: storage
+          items:
+            type: object
+            properties:
+              storage:
+                type: string
+                enum:
+                  - 'candidate'
+              server:
+                type: array
+                x-key: label
+                items:
+                  type: object
+                  properties:
+                    label:
+                      type: string
+                      description: >
+                        'Unique and invariant label of the server, from where the firmware resource can be downloaded
+                        find [/create-or-update-firmware-resource/label]
+                        or create [/create-or-update-firmware-resource/label]'
+                    user-name:
+                      type: string
+                      description: >
+                        'User name to access the file server for downloading the firmware
+                        change to [/create-or-update-firmware-resource/user-name]'
+                    password:
+                      type: string
+                      description: >
+                        'Password to access the file server for downloading the firmware
+                        change to [/create-or-update-firmware-resource/password]'
+                    ssh-key:
+                      type: string
+                      description: >
+                        'Client key for accessing the file server
+                        change to [/create-or-update-firmware-resource/ssh-key]'

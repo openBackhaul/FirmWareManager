@@ -911,6 +911,164 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
         default:
           $ref: '#/components/responses/responseForErroredServiceRequests'
+  /delete-server:
+    parameters:
+      - $ref: '#/components/parameters/user'
+      - $ref: '#/components/parameters/originator'
+      - $ref: '#/components/parameters/x-correlator'
+      - $ref: '#/components/parameters/trace-indicator'
+      - $ref: '#/components/parameters/customer-journey'
+    post:
+      operationId: deleteServer
+      summary: 'Deletes a server definition'
+      tags:
+        - IndividualServices
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - label
+              properties:
+                label:
+                  type: string
+                  description: 'Label of the server that shall be deleted'
+      responses:
+        '204':
+          description: 'Server definition deleted'
+          headers:
+            x-correlator:
+              schema:
+                type: string
+                example: '550e8400-e29b-11d4-a716-446655440000'
+              description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+            exec-time:
+              schema:
+                type: integer
+                example: 1100
+              description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+            backend-time:
+              schema:
+                type: integer
+                example: 850
+              description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
+            life-cycle-state:
+              schema:
+                type: string
+                enum:
+                  - 'EXPERIMENTAL'
+                  - 'OPERATIONAL'
+                  - 'DEPRECATED'
+                  - 'OBSOLETE'
+                  - 'UNKNOWN'
+                  - 'NOT_YET_DEFINED'
+                example: 'EXPERIMENTAL'
+              description: >
+                'Life cycle state of the consumed service
+                from [/core-model-1-4:control-construct/logical-termination-point=fwm-1-0-0-op-s-is-???/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+        '400':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+
+  /list-existing-firmware-resources:
+    parameters:
+      - $ref: '#/components/parameters/user'
+      - $ref: '#/components/parameters/originator'
+      - $ref: '#/components/parameters/x-correlator'
+      - $ref: '#/components/parameters/trace-indicator'
+      - $ref: '#/components/parameters/customer-journey'
+    post:
+      operationId: listExistingFirmwareResources
+      summary: 'Provides list of firmware resources'
+      tags:
+        - IndividualServices
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: 'List of firmware resources provided'
+          content:
+            application/json:
+              schema:
+                type: array
+                x-key: name,version
+                description: >
+                  'List of firmware releases available for autonomous management
+                  from [/list-existing-firmware-resources/domain-controller/network-control-domain=running/firmware-resource=*,*]'
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: 'Name of the firmware component'
+                    version:
+                      type: string
+                      description: 'Version of the firmware component'
+                    server:
+                      type: string
+                      description: 'Reference to a server definition that documents the access credentials for downloading the firmware components'
+                    source-uri:
+                      type: string
+                      description: 'URI specifying the remote-file-path for downloading the firmware component. Format:<protocol>://<host>[:port]/path'
+                    file-name:
+                      type: string
+                      description: 'Name of the file, which is to be downloaded'
+          headers:
+            x-correlator:
+              schema:
+                type: string
+                example: '550e8400-e29b-11d4-a716-446655440000'
+              description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+            exec-time:
+              schema:
+                type: integer
+                example: 1100
+              description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+            backend-time:
+              schema:
+                type: integer
+                example: 850
+              description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
+            life-cycle-state:
+              schema:
+                type: string
+                enum:
+                  - 'EXPERIMENTAL'
+                  - 'OPERATIONAL'
+                  - 'DEPRECATED'
+                  - 'OBSOLETE'
+                  - 'UNKNOWN'
+                  - 'NOT_YET_DEFINED'
+                example: 'EXPERIMENTAL'
+              description: >
+                'Life cycle state of the consumed service
+                from [/core-model-1-4:control-construct/logical-termination-point=fwm-1-0-0-op-s-is-???/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+        '400':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+
 
 
 ########################################################################################################################
