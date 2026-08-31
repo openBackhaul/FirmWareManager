@@ -1,0 +1,126 @@
+@startuml removeFirmwareApproval
+skinparam responseMessageBelowArrow true
+
+title
+  removeFirmwareApproval
+end title
+
+participant "requestor\n" as requestor
+participant "removeFirmwareApproval\n" as removeAppro
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> removeAppro: { deviceModelName,\nfirmwareResourceName }
+activate removeAppro
+
+  note over removeAppro
+    Checks, whether
+    firmware approval
+    exists at DeviceModel
+  end note
+  removeAppro -> RunDS
+  activate RunDS
+  removeAppro <-- RunDS
+  deactivate RunDS
+  note over removeAppro
+    IF firmware approval NOT existing:
+  end note
+  note left removeAppro
+    THEN
+  end note
+  requestor <-- removeAppro: 204
+  note over removeAppro
+    ELSE
+  end note
+
+  note over removeAppro
+    Checks, whether any
+    existing DeviceGroup
+    references the approved
+    FirmwareResource
+  end note
+  loop for each existing DeviceGroup
+    removeAppro -> RunDS
+    activate RunDS
+    removeAppro <-- RunDS
+    deactivate RunDS
+  end loop
+  note over removeAppro
+    IF FirmwareResource still referenced:
+  end note
+  note left removeAppro
+    THEN
+  end note
+  requestor <-- removeAppro: { ErrorCode,\nErrorMessage,\nlistOfReferencingDeviceGroups }
+  note over removeAppro
+    ELSE
+  end note
+
+  note over removeAppro
+    Locks RunningDS
+  end note
+  removeAppro -X RunDS
+  activate RunDS
+  note over removeAppro
+    Locks CandidateDS
+  end note
+  removeAppro -X CanDS
+  activate CanDS
+  note over removeAppro
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  removeAppro -> RunDS
+  RunDS -/ CanDS
+
+  note right removeAppro
+    Deletes given firmware approval
+  end note
+  removeAppro -> CanDS
+  removeAppro <-- CanDS
+
+  note over removeAppro
+    Triggers Validation
+  end note
+  removeAppro -> valiMan: {triggerFunction==removeFirmwareApproval}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  removeAppro <-- valiMan
+  deactivate valiMan
+  note over removeAppro
+    IF validation failed:
+  end note
+  note left removeAppro
+    THEN
+  end note
+  requestor <-- removeAppro: { ErrorCode,\nErrorMessage }
+  note over removeAppro
+    ELSE
+  end note
+
+  note right removeAppro
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  removeAppro -> CanDS
+  CanDS -\ RunDS
+  note right removeAppro
+    Unlocks CandidateDS
+  end note
+  removeAppro -X CanDS
+  deactivate CanDS
+  note right removeAppro
+    Unlocks RunningDS
+  end note
+  removeAppro -X RunDS
+  deactivate RunDS
+
+  requestor <-- removeAppro: 204
+
+deactivate removeAppro
+
+@enduml

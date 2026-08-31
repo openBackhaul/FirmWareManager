@@ -11,7 +11,7 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> delDevMod: { name }
+requestor -> delDevMod: { deviceModelName }
 activate delDevMod
 
   note over delDevMod
@@ -36,12 +36,12 @@ activate delDevMod
 
   note over delDevMod
     Checks, whether any
-    DeviceGroup of the 
+    DeviceGroup of the
     given DeviceModel
     is still referencing
     any Devices
   end note
-  loop for each existing DeviceGroup
+  loop for each existing DeviceGroup that references the given DeviceModel
     delDevMod -> RunDS
     activate RunDS
     delDevMod <-- RunDS
@@ -54,7 +54,7 @@ activate delDevMod
   note left delDevMod
     THEN
   end note
-  requestor <-- delDevMod: ErrorMessage
+  requestor <-- delDevMod: { ErrorCode,\nErrorMessage,\nlistOfNonEmptyDeviceGroups }
   note over delDevMod
     ELSE
   end note
@@ -64,7 +64,11 @@ activate delDevMod
   end note
   delDevMod -X RunDS
   activate RunDS
-
+  note over delDevMod
+    Locks CandidateDS
+  end note
+  delDevMod -X CanDS
+  activate CanDS
   note over delDevMod
     Overwrites
     CandidateDS
@@ -72,7 +76,6 @@ activate delDevMod
   end note
   delDevMod -> RunDS
   RunDS -/ CanDS
-  activate CanDS
 
   note over delDevMod
     Deletes referencing
@@ -117,7 +120,7 @@ activate delDevMod
   note left delDevMod
     THEN
   end note
-  requestor <-- delDevMod: ErrorMessage
+  requestor <-- delDevMod: { ErrorCode,\nErrorMessage }
   note over delDevMod
     ELSE
   end note
@@ -128,8 +131,11 @@ activate delDevMod
   end note
   delDevMod -> CanDS
   CanDS -\ RunDS
+  note right delDevMod
+    Unlocks CandidateDS
+  end note
+  delDevMod -X CanDS
   deactivate CanDS
-
   note right delDevMod
     Unlocks RunningDS
   end note

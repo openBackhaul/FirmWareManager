@@ -11,7 +11,7 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> delServer: { label }
+requestor -> delServer: { serverLabel }
 activate delServer
 
   note over delServer
@@ -35,7 +35,7 @@ activate delServer
 
   note over delServer
     Checks for any existing
-    FirmwareResource to 
+    FirmwareResource to
     reference given server
   end note
   loop for each existing FirmwareResource
@@ -50,7 +50,7 @@ activate delServer
   note left delServer
     THEN
   end note
-  requestor <-- delServer: ErrorMessage
+  requestor <-- delServer: { ErrorCode,\nErrorMessage,\nlistOfReferencingFirmwareResources }
   note over delServer
     ELSE
   end note
@@ -60,7 +60,11 @@ activate delServer
   end note
   delServer -X RunDS
   activate RunDS
-
+  note over delServer
+    Locks CandidateDS
+  end note
+  delServer -X CanDS
+  activate CanDS
   note over delServer
     Overwrites
     CandidateDS
@@ -68,7 +72,6 @@ activate delServer
   end note
   delServer -> RunDS
   RunDS -/ CanDS
-  activate CanDS
 
   note right delServer
     Deletes given server
@@ -92,7 +95,7 @@ activate delServer
   note left delServer
     THEN
   end note
-  requestor <-- delServer: ErrorMessage
+  requestor <-- delServer: { ErrorCode,\nErrorMessage }
   note over delServer
     ELSE
   end note
@@ -103,8 +106,11 @@ activate delServer
   end note
   delServer -> CanDS
   CanDS -\ RunDS
+  note right delServer
+    Unlocks CandidateDS
+  end note
+  delServer -X CanDS
   deactivate CanDS
-
   note right delServer
     Unlocks RunningDS
   end note

@@ -1,0 +1,168 @@
+@startuml deleteDeviceGroup
+skinparam responseMessageBelowArrow true
+
+title
+  deleteDeviceGroup
+end title
+
+participant "requestor\n" as requestor
+participant "deleteDeviceGroup\n" as delGroup
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> delGroup: { deviceGroupLabel }
+activate delGroup
+
+  note over delGroup
+    Checks, whether
+    DeviceGroup with
+    given label exists
+  end note
+  delGroup -> RunDS
+  activate RunDS
+  delGroup <-- RunDS
+  deactivate RunDS
+  note over delGroup
+    IF DeviceGroup NOT existing:
+  end note
+  note left delGroup
+    THEN
+  end note
+  requestor <-- delGroup: 204
+  note over delGroup
+    ELSE
+  end note
+
+  note over delGroup
+    Checks, whether any
+    DeviceModel references
+    given DeviceGroup as
+    defaultDeviceGroup
+  end note
+  loop for each existing DeviceModel
+    delGroup -> RunDS
+    activate RunDS
+    delGroup <-- RunDS
+    deactivate RunDS
+  end loop
+  note over delGroup
+    IF DeviceGroup referenced as defaultDeviceGroup:
+  end note
+  note left delGroup
+    THEN
+  end note
+  requestor <-- delGroup: { ErrorCode,\nErrorMessage,\nreferencingDeviceModel }
+  note over delGroup
+    ELSE
+  end note
+
+  note over delGroup
+    Locks RunningDS
+  end note
+  delGroup -X RunDS
+  activate RunDS
+  note over delGroup
+    Locks CandidateDS
+  end note
+  delGroup -X CanDS
+  activate CanDS
+  note over delGroup
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  delGroup -> RunDS
+  RunDS -/ CanDS
+
+  note over delGroup
+    Checks, whether
+    given DeviceGroup
+    still references
+    any Devices
+  end note
+  delGroup -> CanDS
+  delGroup <-- CanDS
+  note over delGroup
+    IF Devices referenced:
+  end note
+  note right delGroup
+    THEN
+  end note
+  note right delGroup
+    Read deviceModel
+    of given DeviceGroup
+  end note
+  delGroup -> CanDS
+  delGroup <-- CanDS
+  note right delGroup
+    Read defaultDeviceGroup
+    of this deviceModel
+  end note
+  delGroup -> CanDS
+  delGroup <-- CanDS
+  note right delGroup
+    Read list of devices
+    at given DeviceGroup
+  end note
+  delGroup -> CanDS
+  delGroup <-- CanDS
+  loop for each device at given DeviceGroup
+    note right delGroup
+      Create reference
+      to device at
+      defaultDeviceGroup
+    end note
+    delGroup -> CanDS
+    delGroup <-- CanDS
+  end loop
+
+  note right delGroup
+    Deletes given DeviceGroup
+  end note
+  delGroup -> CanDS
+  delGroup <-- CanDS
+
+  note over delGroup
+    Triggers Validation
+  end note
+  delGroup -> valiMan: {triggerFunction==deleteDeviceGroup}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  delGroup <-- valiMan
+  deactivate valiMan
+  note over delGroup
+    IF validation failed:
+  end note
+  note left delGroup
+    THEN
+  end note
+  requestor <-- delGroup: { ErrorCode,\nErrorMessage }
+  note over delGroup
+    ELSE
+  end note
+
+  note right delGroup
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  delGroup -> CanDS
+  CanDS -\ RunDS
+  note right delGroup
+    Unlocks CandidateDS
+  end note
+  delGroup -X CanDS
+  deactivate CanDS
+  note right delGroup
+    Unlocks RunningDS
+  end note
+  delGroup -X RunDS
+  deactivate RunDS
+
+  requestor <-- delGroup: 204
+
+deactivate delGroup
+
+@enduml

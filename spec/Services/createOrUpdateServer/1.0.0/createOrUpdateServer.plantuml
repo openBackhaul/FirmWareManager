@@ -19,7 +19,11 @@ activate couServer
   end note
   couServer -X RunDS
   activate RunDS
-
+  note over couServer
+    Locks CandidateDS
+  end note
+  couServer -X CanDS
+  activate CanDS
   note over couServer
     Overwrites
     CandidateDS
@@ -27,7 +31,6 @@ activate couServer
   end note
   couServer -> RunDS
   RunDS -/ CanDS
-  activate CanDS
 
   note over couServer
     Checks for existing
@@ -79,8 +82,11 @@ activate couServer
   end note
   couServer -> CanDS
   CanDS -\ RunDS
+  note right couServer
+    Unlocks CandidateDS
+  end note
+  couServer -X CanDS
   deactivate CanDS
-
   note right couServer
     Unlocks RunningDS
   end note

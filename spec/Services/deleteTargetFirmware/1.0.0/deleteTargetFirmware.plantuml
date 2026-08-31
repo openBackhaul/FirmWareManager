@@ -1,0 +1,106 @@
+@startuml deleteTargetFirmware
+skinparam responseMessageBelowArrow true
+
+title
+  deleteTargetFirmware
+end title
+
+participant "requestor\n" as requestor
+participant "deleteTargetFirmware\n" as delTarget
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> delTarget: { deviceGroupLabel,\nfirmwareResourceName }
+activate delTarget
+
+  note over delTarget
+    Checks, whether
+    FirmwareResource
+    gets referenced
+    by given DeviceGroup
+  end note
+  delTarget -> RunDS
+  activate RunDS
+  delTarget <-- RunDS
+  deactivate RunDS
+  note over delTarget
+    IF FirmwareResource NOT referenced:
+  end note
+  note left delTarget
+    THEN
+  end note
+  requestor <-- delTarget: 204
+  note over delTarget
+    ELSE
+  end note
+
+  note over delTarget
+    Locks RunningDS
+  end note
+  delTarget -X RunDS
+  activate RunDS
+  note over delTarget
+    Locks CandidateDS
+  end note
+  delTarget -X CanDS
+  activate CanDS
+  note over delTarget
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  delTarget -> RunDS
+  RunDS -/ CanDS
+
+  note right delTarget
+    Deletes given FirmwareResource
+    from targetFirmwareList of given
+    DeviceGroup
+  end note
+  delTarget -> CanDS
+  delTarget <-- CanDS
+
+  note over delTarget
+    Triggers Validation
+  end note
+  delTarget -> valiMan: {triggerFunction==deleteTargetFirmware}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  delTarget <-- valiMan
+  deactivate valiMan
+  note over delTarget
+    IF validation failed:
+  end note
+  note left delTarget
+    THEN
+  end note
+  requestor <-- delTarget: { ErrorCode,\nErrorMessage }
+  note over delTarget
+    ELSE
+  end note
+
+  note right delTarget
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  delTarget -> CanDS
+  CanDS -\ RunDS
+  note right delTarget
+    Unlocks CandidateDS
+  end note
+  delTarget -X CanDS
+  deactivate CanDS
+  note right delTarget
+    Unlocks RunningDS
+  end note
+  delTarget -X RunDS
+  deactivate RunDS
+
+  requestor <-- delTarget: 204
+
+deactivate delTarget
+
+@enduml

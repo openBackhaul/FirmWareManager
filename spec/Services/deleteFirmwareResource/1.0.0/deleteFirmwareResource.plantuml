@@ -11,7 +11,7 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> delServer: { name }
+requestor -> delServer: { firmwareResourceName }
 activate delServer
 
   note over delServer
@@ -35,9 +35,9 @@ activate delServer
   end note
 
   note over delServer
-    Checks, whether any 
+    Checks, whether any
     existing DeviceGroup
-    to reference given
+    is referencing given
     FirmwareResource
   end note
   loop for each existing DeviceGroup
@@ -52,7 +52,7 @@ activate delServer
   note left delServer
     THEN
   end note
-  requestor <-- delServer: ErrorMessage
+  requestor <-- delServer: { ErrorCode,\nErrorMessage,\nlistOfReferencingDeviceGroups }
   note over delServer
     ELSE
   end note
@@ -62,7 +62,11 @@ activate delServer
   end note
   delServer -X RunDS
   activate RunDS
-
+  note over delServer
+    Locks CandidateDS
+  end note
+  delServer -X CanDS
+  activate CanDS
   note over delServer
     Overwrites
     CandidateDS
@@ -70,7 +74,25 @@ activate delServer
   end note
   delServer -> RunDS
   RunDS -/ CanDS
-  activate CanDS
+
+  loop for each existing DeviceModel
+    note over delServer
+      Checks, whether there
+      is an approval of the
+      given FirmwareResource
+    end note
+    note over delServer
+      IF approval exists:
+    end note
+    note right delServer
+      THEN:
+      Deletes approval of the
+      given FirmwareResource
+      from the DeviceModel
+    end note
+    delServer -> CanDS
+    delServer <-- CanDS
+  end loop
 
   note right delServer
     Deletes given FirmwareResource
@@ -94,7 +116,7 @@ activate delServer
   note left delServer
     THEN
   end note
-  requestor <-- delServer: ErrorMessage
+  requestor <-- delServer: { ErrorCode,\nErrorMessage }
   note over delServer
     ELSE
   end note
@@ -105,8 +127,11 @@ activate delServer
   end note
   delServer -> CanDS
   CanDS -\ RunDS
+  note right delServer
+    Unlocks CandidateDS
+  end note
+  delServer -X CanDS
   deactivate CanDS
-
   note right delServer
     Unlocks RunningDS
   end note

@@ -62,7 +62,11 @@ activate couFWR
   end note
   couFWR -X RunDS
   activate RunDS
-
+  note over couFWR
+    Locks CandidateDS
+  end note
+  couFWR -X CanDS
+  activate CanDS
   note over couFWR
     Overwrites
     CandidateDS
@@ -70,7 +74,6 @@ activate couFWR
   end note
   couFWR -> RunDS
   RunDS -/ CanDS
-  activate CanDS
 
   note over couFWR
     Checks for existing
@@ -122,8 +125,11 @@ activate couFWR
   end note
   couFWR -> CanDS
   CanDS -\ RunDS
+  note right couFWR
+    Unlocks CandidateDS
+  end note
+  couFWR -X CanDS
   deactivate CanDS
-
   note right couFWR
     Unlocks RunningDS
   end note

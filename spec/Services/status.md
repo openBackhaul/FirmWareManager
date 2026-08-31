@@ -47,7 +47,7 @@ Th = Thorsten
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)    |  |  |  |  |  |
 | [/add-firmware-approval](./Services/addFirmwareApproval/1.0.0/)                         |  |  |  |  |  |
-| [/remove-firmware-approval](./Services/removeFirmwareApproval/1.0.0/)                   |  |  |  |  |  |
+| [/remove-firmware-approval](./Services/removeFirmwareApproval/1.0.0/)                   | Th 1) |  |  |  |  |
 
 ## Preparing device groups and initiating firmware roll-out (Operations)
 
@@ -57,7 +57,7 @@ Th = Thorsten
 | ----------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-device-groups](./Services/listExistingDeviceGroups/1.0.0/)    |  |  |  |  |  |
 | [/create-or-update-device-group](./Services/createOrUpdateDeviceGroup/1.0.0/) |  |  |  |  |  |
-| [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)                   |  |  |  |  |  |
+| [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)                   | Th 1) |  |  |  |  |
 
 ### Initiate firmware roll-out
 
@@ -65,7 +65,7 @@ Th = Thorsten
 | ----------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-target-firmware](./Services/listTargetFirmware/1.0.0/)     |  |  |  |  |  |
 | [/add-target-firmware](./Services/addTargetFirmware/1.0.0/)       |  |  |  |  |  |
-| [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/) |  |  |  |  |  |
+| [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/) | Th 1) |  |  |  |  |
 
 ## Categorizing individual devices into device groups (Planning)
 
