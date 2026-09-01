@@ -1,0 +1,146 @@
+@startuml removeDevicesFromDeviceGroup
+skinparam responseMessageBelowArrow true
+
+title
+  removeDevicesFromDeviceGroup
+end title
+
+participant "requestor\n" as requestor
+participant "removeDevicesFromDeviceGroup\n" as remDev
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> remDev: { deviceGroupLabel,\nmountNameList }
+activate remDev
+
+  note over remDev
+    Checks, whether
+    given DeviceGroup
+    is defaultDeviceGroup
+  end note
+  note right remDev
+    Reads deviceModel
+    from given DeviceGroup
+  end note
+  remDev -> RunDS
+  activate RunDS
+  remDev <-- RunDS
+  deactivate RunDS
+  note right remDev
+    Reads defaultDeviceGroup
+    from this deviceModel
+  end note
+  remDev -> RunDS
+  activate RunDS
+  remDev <-- RunDS
+  deactivate RunDS
+  note over remDev
+    IF given DeviceGroup is defaultDeviceGroup:
+  end note
+  note left remDev
+    THEN
+  end note
+  requestor <-- remDev: { ErrorCode,\nErrorMessage }
+  note over remDev
+    ELSE
+  end note
+
+  note over remDev
+    Reduces list of given
+    mountNames to those that
+    are actually referenced
+    by given DeviceGroup
+  end note
+  remDev -> RunDS
+  activate RunDS
+  remDev <-- RunDS
+  deactivate RunDS
+  note over remDev
+    IF list of referenced mountNames empty:
+  end note
+  note left remDev
+    THEN
+  end note
+  requestor <-- remDev: 204
+  note over remDev
+    ELSE
+  end note
+
+  note over remDev
+    Locks RunningDS
+  end note
+  remDev -X RunDS
+  activate RunDS
+  note over remDev
+    Locks CandidateDS
+  end note
+  remDev -X CanDS
+  activate CanDS
+  note over remDev
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  remDev -> RunDS
+  RunDS -/ CanDS
+
+  loop for each mountName in list of referenced mountNames
+    note right remDev
+      Creates reference
+      with mountName at
+      defaultDeviceGroup
+    end note
+    remDev -> CanDS
+    remDev <-- CanDS
+    note right remDev
+      Deletes mountName from
+      given DeviceGroup
+    end note
+    remDev -> CanDS
+    remDev <-- CanDS
+  end loop
+
+  note over remDev
+    Triggers Validation
+  end note
+  remDev -> valiMan: {triggerFunction==removeDevicesFromDeviceGroup}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  remDev <-- valiMan
+  deactivate valiMan
+  note over remDev
+    IF validation failed:
+  end note
+  note left remDev
+    THEN
+  end note
+  requestor <-- remDev: { ErrorCode,\nErrorMessage }
+  note over remDev
+    ELSE
+  end note
+
+  note right remDev
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  remDev -> CanDS
+  CanDS -\ RunDS
+  note right remDev
+    Unlocks CandidateDS
+  end note
+  remDev -X CanDS
+  deactivate CanDS
+  note right remDev
+    Unlocks RunningDS
+  end note
+  remDev -X RunDS
+  deactivate RunDS
+
+  requestor <-- remDev: 204
+
+deactivate remDev
+
+@enduml

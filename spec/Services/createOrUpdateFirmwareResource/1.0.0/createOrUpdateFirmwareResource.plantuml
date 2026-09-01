@@ -11,12 +11,12 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> couFWR: { name,\nversion,\nserver,\nsource-uri,\nfile-name }
+requestor -> couFWR: { firmwareResourceName,\nfirmwareResourceVersion,\nserverLabel,\nsourceUri,\nfileName }
 activate couFWR
 
   note over couFWR
     Checks whether
-    referenced server
+    referenced Server
     exists
   end note
   couFWR -> RunDS
@@ -24,12 +24,12 @@ activate couFWR
   couFWR <-- RunDS
   deactivate RunDS
   note over couFWR
-    IF server NOT existing:
+    IF Server NOT existing:
   end note
   note left couFWR
     THEN
   end note
-  requestor <-- couFWR: ErrorMessage
+  requestor <-- couFWR: { ErrorCode,\nErrorMessage }
   note over couFWR
     ELSE
   end note
@@ -37,7 +37,7 @@ activate couFWR
   note over couFWR
     Checks, whether given
     combination of server,
-    source-uri and file-name
+    sourceUri and fileName
     already exists
   end note
   loop for each existing FirmwareResource
@@ -47,12 +47,12 @@ activate couFWR
     deactivate RunDS
   end loop
   note over couFWR
-    IF resource already referenced:
+    IF source already documented:
   end note
   note left couFWR
     THEN
   end note
-  requestor <-- couFWR: ErrorMessage
+  requestor <-- couFWR: { ErrorCode,\nErrorMessage,\nfirmwareResourceName }
   note over couFWR
     ELSE
   end note
@@ -83,7 +83,7 @@ activate couFWR
   couFWR -> CanDS
   couFWR <-- CanDS
   note over couFWR
-    IF FirmwareResource already existing:
+    IF FirmwareResource already exists:
   end note
   note right couFWR
     THEN
@@ -93,7 +93,7 @@ activate couFWR
   couFWR <-- CanDS
   note right couFWR
     ELSE
-    - Creates new FirmwareResource instance
+    - Creates new FirmwareResource
   end note
   couFWR -> CanDS
   couFWR <-- CanDS
@@ -114,7 +114,7 @@ activate couFWR
   note left couFWR
     THEN
   end note
-  requestor <-- couFWR: ErrorMessage
+  requestor <-- couFWR: { ErrorCode,\nErrorMessage }
   note over couFWR
     ELSE
   end note

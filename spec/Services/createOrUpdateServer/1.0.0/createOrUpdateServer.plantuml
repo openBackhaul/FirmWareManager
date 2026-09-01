@@ -11,7 +11,7 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> couServer: { label,\nuserName,\npassword,\nsshKey }
+requestor -> couServer: { serverLabel,\nuserName,\npassword,\nsshKey }
 activate couServer
 
   note over couServer
@@ -71,7 +71,7 @@ activate couServer
   note left couServer
     THEN
   end note
-  requestor <-- couServer: ErrorMessage
+  requestor <-- couServer: { ErrorCode,\nErrorMessage }
   note over couServer
     ELSE
   end note

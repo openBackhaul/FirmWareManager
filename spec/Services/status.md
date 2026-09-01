@@ -23,8 +23,6 @@ Th = Thorsten
 | [/create-or-update-server](./Services/createOrUpdateServer/1.0.0/)  | Th 1) | Th 1) | Th 1) | Th |  |
 | [/delete-server](./Services/deleteServer/1.0.0/)                    | Th 1) | Th 1) | Th 1) | Th |  |
 
-  > 1\) Error Codes not yet defined.  
-
 ### Preparing firmware resources
 
 | Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
@@ -79,7 +77,7 @@ Solved by functions.
 | --------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-devices](./Services/listExistingDevices/1.0.0/)                   |  |  |  |  |  |
 | [/add-device-to-device-group](./Services/addDeviceToDeviceGroup/1.0.0/)           |  |  |  |  |  |
-| [/remove-device-from-device-group](./Services/removeDeviceFromDeviceGroup/1.0.0/) |  |  |  |  |  |
+| [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/) | Th 1) |  |  |  |  |
 
 ## Basic
 
@@ -88,3 +86,9 @@ Solved by functions.
 | Service                                                                     | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/embedYourself](./Services/embedYourself/1.0.0/)                           |  |  |  |  |  |
+
+---
+
+---
+
+  > 1\) Error Codes not yet defined.  

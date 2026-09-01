@@ -1,4 +1,4 @@
-﻿# removeDeviceFromDeviceGroup
+﻿# removeDevicesFromDeviceGroup
 
 ## Overview
 
@@ -7,7 +7,7 @@
 ## Diagram
 
 <p align="center">
-  <img src="./removeDeviceFromDeviceGroup.png" alt="removeDeviceFromDeviceGroup diagram" width="400" />
+  <img src="./removeDevicesFromDeviceGroup.png" alt="removeDevicesFromDeviceGroup diagram" width="400" />
 </p>
 
 ## Interface

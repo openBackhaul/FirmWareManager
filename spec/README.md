@@ -52,7 +52,7 @@ Internal design aspects:
   - Categorizing individual devices into device groups
     - [/list-existing-devices](./Services/listExistingDevices/1.0.0/)
     - [/add-device-to-device-group](./Services/addDeviceToDeviceGroup/1.0.0/)
-    - [/remove-device-from-device-group](./Services/removeDeviceFromDeviceGroup/1.0.0/)
+    - [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/)
 
 - **Basic**
   - Kicking-off application
