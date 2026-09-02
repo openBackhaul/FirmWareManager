@@ -1,0 +1,173 @@
+@startuml addDevicesToDeviceGroup
+skinparam responseMessageBelowArrow true
+
+title
+  addDevicesToDeviceGroup
+end title
+
+participant "requestor\n" as requestor
+participant "addDevicesToDeviceGroup\n" as addDevice
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> addDevice: { deviceGroupLabel,\n[mountNameList] }
+activate addDevice
+
+  note over addDevice
+    Checks whether given
+    deviceGroupLabel exists
+  end note
+  addDevice -> RunDS
+  activate RunDS
+  addDevice <-- RunDS
+  deactivate RunDS
+  note over addDevice
+    IF deviceGroupLabel NOT existing:
+  end note
+  note left addDevice
+    THEN
+  end note
+  requestor <-- addDevice: { ErrorCode,\nErrorMessage }
+  note over addDevice
+    ELSE
+  end note
+
+  note over addDevice
+    Checks whether any given
+    Device not existing or 
+    of the wrong deviceModel
+  end note
+  loop for each mountName in mountNameList
+    addDevice -> RunDS
+    activate RunDS
+    addDevice <-- RunDS
+    deactivate RunDS
+  end loop
+  note over addDevice
+    IF any Device NOT existing:
+  end note
+  note left addDevice
+    THEN
+  end note
+  requestor <-- addDevice: { ErrorCode,\nErrorMessage,\nmountNameList }
+  note over addDevice
+    ELSE
+  end note
+  note over addDevice
+    IF any Device of the wrong deviceModel:
+  end note
+  note left addDevice
+    THEN
+  end note
+  requestor <-- addDevice: { ErrorCode,\nErrorMessage,\nmountNameList }
+  note over addDevice
+    ELSE
+  end note
+
+  note over addDevice
+    Locks RunningDS
+  end note
+  addDevice -X RunDS
+  activate RunDS
+  note over addDevice
+    Locks CandidateDS
+  end note
+  addDevice -X CanDS
+  activate CanDS
+  note over addDevice
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  addDevice -> RunDS
+  RunDS -/ CanDS
+
+  loop for each given mountName
+    note over addDevice
+      Deletes given mountName from
+      _device of other DeviceGroups
+    end note
+    loop for each DeviceGroup
+      note over addDevice
+        Checks, whether mountName
+        in _device of DeviceGroup
+      end note
+      addDevice -> CanDS
+      addDevice <-- CanDS
+      note over addDevice
+        IF mountName in _device:
+      end note
+      note right addDevice
+        THEN
+      end note
+      note right addDevice
+        Deletes mountName from _device
+      end note
+      addDevice -> CanDS
+      addDevice <-- CanDS
+      note over addDevice
+        ELSE
+      end note
+    end loop
+
+    note over addDevice
+      Adds given mountName to
+      _device of given DeviceGroup
+    end note
+    addDevice -> CanDS
+    addDevice <-- CanDS
+
+    note over addDevice #Orange
+
+      Kopieren der targetFirmwareList 
+      von DeviceGroup nach firmwareList
+      in Device fehlt noch.
+    
+    end note
+
+  end loop
+
+  note over addDevice
+    Triggers Validation
+  end note
+  addDevice -> valiMan: {triggerFunction==addDevicesToDeviceGroup}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  addDevice <-- valiMan
+  deactivate valiMan
+  note over addDevice
+    IF validation failed:
+  end note
+  note left addDevice
+    THEN
+  end note
+  requestor <-- addDevice: { ErrorCode,\nErrorMessage }
+  note over addDevice
+    ELSE
+  end note
+
+  note right addDevice
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  addDevice -> CanDS
+  CanDS -\ RunDS
+  note right addDevice
+    Unlocks CandidateDS
+  end note
+  addDevice -X CanDS
+  deactivate CanDS
+  note right addDevice
+    Unlocks RunningDS
+  end note
+  addDevice -X RunDS
+  deactivate RunDS
+
+  requestor <-- addDevice: 204
+
+deactivate addDevice
+
+@enduml

@@ -21,7 +21,7 @@ activate lServer
   lServer <-- RunDS
   deactivate RunDS
 
-requestor <-- lServer: [ { label,\nuserName,\npassword,\nsshKey } ]
+requestor <-- lServer: [ { serverLabel,\nuserName,\npassword,\nsshKey } ]
 deactivate lServer
 
 @enduml

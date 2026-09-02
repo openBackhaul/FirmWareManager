@@ -1,4 +1,4 @@
-﻿# listTargetFirmware
+﻿# addDevicesToDeviceGroup
 
 ## Overview
 
@@ -7,7 +7,7 @@
 ## Diagram
 
 <p align="center">
-  <img src="./listTargetFirmware.png" alt="listTargetFirmware diagram" width="400" />
+  <img src="./addDevicesToDeviceGroup.png" alt="addDevicesToDeviceGroup diagram" width="400" />
 </p>
 
 ## Interface

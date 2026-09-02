@@ -1,0 +1,27 @@
+@startuml listExistingFirmwareApprovals
+skinparam responseMessageBelowArrow true
+
+title
+  listExistingFirmwareApprovals
+end title
+
+participant "requestor\n" as requestor
+participant "listExistingFirmwareApprovals\n" as lApprov
+database "RunningDS" as RunDS
+
+requestor -> lApprov: { deviceModelName }
+activate lApprov
+
+  note over lApprov
+    Retrieves data
+    from RunningDS
+  end note
+  lApprov -> RunDS
+  activate RunDS
+  lApprov <-- RunDS
+  deactivate RunDS
+
+requestor <-- lApprov: [ approvalList ]
+deactivate lApprov
+
+@enduml

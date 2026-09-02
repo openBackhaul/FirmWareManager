@@ -96,7 +96,7 @@ Postman _t1TestCases_ dienen der Überprüfung der Datenkonsistenz (z.B. eine Gr
       - p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel
   - Initiate firmware roll-out
     - (/list-existing-device-groups (to choose the one for initiating roll-out))
-    - /list-target-firmware
+    - /provide-existing-device-group
     - (/list-existing-firmware-resources (to choose from during initiating roll-out))
     - /add-or-update-target-firmware  
       (must not be added if not approved for the deviceModel of the DeviceGroup)  
@@ -124,7 +124,7 @@ Postman _t1TestCases_ dienen der Überprüfung der Datenkonsistenz (z.B. eine Gr
   - Categorizing individual devices into device groups
     - /list-existing-devices (to choose one to be added to a device group)
     - (/list-existing-device-groups (to choose one to be complemented))
-    - /add-device-to-device-group  
+    - /add-devices-to-device-group  
       (comprises  
         removing the Device from its current DeviceGroup,  
         adding the Device to the new DeviceGroup,  

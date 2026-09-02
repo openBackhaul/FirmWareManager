@@ -1,0 +1,27 @@
+@startuml listExistingDevices
+skinparam responseMessageBelowArrow true
+
+title
+  listExistingDevices
+end title
+
+participant "requestor\n" as requestor
+participant "listExistingDevices\n" as lDevices
+database "RunningDS" as RunDS
+
+requestor -> lDevices
+activate lDevices
+
+  note over lDevices
+    Retrieves data
+    from RunningDS
+  end note
+  lDevices -> RunDS
+  activate RunDS
+  lDevices <-- RunDS
+  deactivate RunDS
+
+requestor <-- lDevices: [ {mountName,\ndeviceModel,\n[firmwareList]} ]
+deactivate lDevices
+
+@enduml

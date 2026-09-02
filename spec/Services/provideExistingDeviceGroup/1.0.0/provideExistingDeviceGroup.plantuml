@@ -1,15 +1,15 @@
-@startuml listExistingFirmwareResources
+@startuml provideExistingDeviceGroup
 skinparam responseMessageBelowArrow true
 
 title
-  listExistingFirmwareResources
+  provideExistingDeviceGroup
 end title
 
 participant "requestor\n" as requestor
-participant "listExistingFirmwareResources\n" as lResources
+participant "provideExistingDeviceGroup\n" as lResources
 database "RunningDS" as RunDS
 
-requestor -> lResources
+requestor -> lResources: { deviceGroupLabel }
 activate lResources
 
   note over lResources
@@ -21,7 +21,7 @@ activate lResources
   lResources <-- RunDS
   deactivate RunDS
 
-requestor <-- lResources: [ { firmwareResourceName,\nfirmwareResourceVersion,\nserverLabel,\nsourceUri,\nfileName } ]
+requestor <-- lResources: { deviceGroupLabel,\ndeviceModelName,\n<color:LightGray>purgeDate</color>,\n[{targetFirmwareList}],\n[deviceList] }
 deactivate lResources
 
 @enduml

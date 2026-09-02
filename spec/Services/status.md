@@ -28,14 +28,14 @@ Th = Thorsten
 | Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)    | Th | Th | Th | Th |  |
-| [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/) | Th 1) | Th 1) |  |  |  |
+| [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/) | Th 1) 2) | Th 1) |  |  |  |
 | [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)                   | Th 1) | Th 1) |  |  |  |
 
 ### Preparing device models
 
 | Service                                                                     | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  |  |  |  |  |  |
+| [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  | Th |  |  |  |  |
 | [/create-device-model](./Services/createDeviceModel/1.0.0/)                 | Th 1) | Th 1) |  |  |  |
 | [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)                 | Th 1) |  |  |  |  |
 
@@ -43,7 +43,7 @@ Th = Thorsten
 
 | Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)    |  |  |  |  |  |
+| [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)    | Th |  |  |  |  |
 | [/add-firmware-approval](./Services/addFirmwareApproval/1.0.0/)                         | Th 1) |  |  |  |  |
 | [/remove-firmware-approval](./Services/removeFirmwareApproval/1.0.0/)                   | Th 1) |  |  |  |  |
 
@@ -53,7 +53,7 @@ Th = Thorsten
 
 | Service                                                                       | 1  | 2  | 3  | 4  | 5  |
 | ----------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-device-groups](./Services/listExistingDeviceGroups/1.0.0/)    |  |  |  |  |  |
+| [/list-existing-device-groups](./Services/listExistingDeviceGroups/1.0.0/)    | Th |  |  |  |  |
 | [/create-or-update-device-group](./Services/createOrUpdateDeviceGroup/1.0.0/) | Th 1) |  |  |  |  |
 | [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)                   | Th 1) |  |  |  |  |
 
@@ -61,7 +61,7 @@ Th = Thorsten
 
 | Service                                                           | 1  | 2  | 3  | 4  | 5  |
 | ----------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-target-firmware](./Services/listTargetFirmware/1.0.0/)     |  |  |  |  |  |
+| [/provide-existing-device-group](./Services/provideExistingDeviceGroup/1.0.0/)    | Th |  |  |  |  |
 | [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)       | Th 1) |  |  |  |  |
 | [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/) | Th 1) |  |  |  |  |
 
@@ -75,8 +75,8 @@ Solved by functions.
 
 | Service                                                                           | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-devices](./Services/listExistingDevices/1.0.0/)                   |  |  |  |  |  |
-| [/add-device-to-device-group](./Services/addDeviceToDeviceGroup/1.0.0/)           |  |  |  |  |  |
+| [/list-existing-devices](./Services/listExistingDevices/1.0.0/)                   | Th |  |  |  |  |
+| [/add-devices-to-device-group](./Services/addDevicesToDeviceGroup/1.0.0/)           | ! |  |  |  |  |
 | [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/) | Th 1) |  |  |  |  |
 
 ## Basic
@@ -92,3 +92,4 @@ Solved by functions.
 ---
 
   > 1\) Error Codes not yet defined.  
+  > 2\) Sollten die Attribute bei Create erzwungen werden?

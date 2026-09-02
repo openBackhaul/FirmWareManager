@@ -1,0 +1,27 @@
+@startuml listExistingDeviceModels
+skinparam responseMessageBelowArrow true
+
+title
+  listExistingDeviceModels
+end title
+
+participant "requestor\n" as requestor
+participant "listExistingDeviceModels\n" as lModels
+database "RunningDS" as RunDS
+
+requestor -> lModels
+activate lModels
+
+  note over lModels
+    Retrieves data
+    from RunningDS
+  end note
+  lModels -> RunDS
+  activate RunDS
+  lModels <-- RunDS
+  deactivate RunDS
+
+requestor <-- lModels: [ {deviceModelName,\ndefaultDeviceGroup} ]
+deactivate lModels
+
+@enduml

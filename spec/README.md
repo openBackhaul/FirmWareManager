@@ -42,7 +42,7 @@ Internal design aspects:
     - [/create-or-update-device-group](./Services/createOrUpdateDeviceGroup/1.0.0/)
     - [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)
   - Initiate firmware roll-out
-    - [/list-target-firmware](./Services/listTargetFirmware/1.0.0/)
+    - [/provide-existing-device-group](./Services/provideExistingDeviceGroup/1.0.0/)
     - [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)
     - [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/)
 
@@ -51,7 +51,7 @@ Internal design aspects:
     (solved by function)
   - Categorizing individual devices into device groups
     - [/list-existing-devices](./Services/listExistingDevices/1.0.0/)
-    - [/add-device-to-device-group](./Services/addDeviceToDeviceGroup/1.0.0/)
+    - [/add-devices-to-device-group](./Services/addDevicesToDeviceGroup/1.0.0/)
     - [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/)
 
 - **Basic**
