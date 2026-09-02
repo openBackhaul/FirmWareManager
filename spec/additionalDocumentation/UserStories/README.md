@@ -59,12 +59,11 @@ Postman _t1TestCases_ dienen der Überprüfung der Datenkonsistenz (z.B. eine Gr
     - (/list-existing-firmware-resources (to choose from during defining default firmware))
     - /create-device-model  
       (comprises  
-        creating the DeviceModel incl. approvals of the default firmwares,  
+        creating the DeviceModel
         creating the default DeviceGroup incl.  
-          targetFirmwareList with default firmwares,  
-          and device list referring all existing Devices of same deviceModel)  
+          device list referring all existing Devices of same deviceModel)  
       - t1CheckForAssuranceOfUniqueNames
-      - t1CheckForDefaultDeviceGroupAndDefaultFirmwareBeingDocumented
+      - t1CheckForDefaultDeviceGroupBeingCreated
       - p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel
     - /delete-device-model  
       (must not be deleted if a Device with same deviceModel exists)  
@@ -99,7 +98,7 @@ Postman _t1TestCases_ dienen der Überprüfung der Datenkonsistenz (z.B. eine Gr
     - (/list-existing-device-groups (to choose the one for initiating roll-out))
     - /list-target-firmware
     - (/list-existing-firmware-resources (to choose from during initiating roll-out))
-    - /add-target-firmware  
+    - /add-or-update-target-firmware  
       (must not be added if not approved for the deviceModel of the DeviceGroup)  
       (firmware of same name must differ in status)  
       - t1CheckForAssuranceOfApprovalBeingDocumentedForDeviceModel

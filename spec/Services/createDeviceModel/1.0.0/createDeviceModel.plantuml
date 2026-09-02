@@ -1,0 +1,134 @@
+@startuml createDeviceModel
+skinparam responseMessageBelowArrow true
+
+title
+  createDeviceModel
+end title
+
+participant "requestor\n" as requestor
+participant "createDeviceModel\n" as creatDevMod
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> creatDevMod: { deviceModelName }
+activate creatDevMod
+
+  note over creatDevMod
+    Checks, whether
+    DeviceModel
+    already exists
+  end note
+  creatDevMod -> RunDS
+  activate RunDS
+  creatDevMod <-- RunDS
+  deactivate RunDS
+  note over creatDevMod
+    IF DeviceModel already exists:
+  end note
+  note left creatDevMod
+    THEN
+  end note
+  requestor <-- creatDevMod: 204
+  note over creatDevMod
+    ELSE
+  end note  
+
+  note over creatDevMod
+    Locks RunningDS
+  end note
+  creatDevMod -X RunDS
+  activate RunDS
+  note over creatDevMod
+    Locks CandidateDS
+  end note
+  creatDevMod -X CanDS
+  activate CanDS
+  note over creatDevMod
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  creatDevMod -> RunDS
+  RunDS -/ CanDS
+
+  note over creatDevMod
+    Creates DeviceModel
+  end note
+  creatDevMod -> CanDS: { name==deviceModelName,\n_defaultDeviceGroup==deviceModelName }
+  creatDevMod <-- CanDS
+
+  note over creatDevMod
+    Creates default DeviceGroup
+  end note
+  creatDevMod -> CanDS: { label==deviceModelName,\n_deviceModel==deviceModelName }
+  creatDevMod <-- CanDS
+
+  note over creatDevMod
+    Adds all existing Devices with
+    deviceModel==deviceModelName
+    to default DeviceGroup
+  end note
+  loop for each existing Device
+    note over creatDevMod
+      Reads deviceModel
+    end note
+    creatDevMod -> CanDS
+    creatDevMod <-- CanDS
+    note over creatDevMod
+      IF deviceModel==deviceModelName:
+    end note
+    note right creatDevMod
+      THEN
+    end note
+    note right creatDevMod
+      Appends mountName to
+      _device of default DeviceGroup
+    end note
+    creatDevMod -> CanDS
+    creatDevMod <-- CanDS
+  end loop
+
+  note over creatDevMod
+    Triggers Validation
+  end note
+  creatDevMod -> valiMan: {triggerFunction==createDeviceModel}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  creatDevMod <-- valiMan
+  deactivate valiMan
+  note over creatDevMod
+    IF validation failed:
+  end note
+  note left creatDevMod
+    THEN
+  end note
+  requestor <-- creatDevMod: { ErrorCode,\nErrorMessage }
+  note over creatDevMod
+    ELSE
+  end note
+
+  note right creatDevMod
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  creatDevMod -> CanDS
+  CanDS -\ RunDS
+  note right creatDevMod
+    Unlocks CandidateDS
+  end note
+  creatDevMod -X CanDS
+  deactivate CanDS
+  note right creatDevMod
+    Unlocks RunningDS
+  end note
+  creatDevMod -X RunDS
+  deactivate RunDS
+
+  requestor <-- creatDevMod: 204
+
+deactivate creatDevMod
+
+@enduml

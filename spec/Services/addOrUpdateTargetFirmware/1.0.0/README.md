@@ -1,4 +1,4 @@
-﻿# addTargetFirmware
+﻿# addOrUpdateTargetFirmware
 
 ## Overview
 
@@ -7,7 +7,7 @@
 ## Diagram
 
 <p align="center">
-  <img src="./addTargetFirmware.png" alt="addTargetFirmware diagram" width="400" />
+  <img src="./addOrUpdateTargetFirmware.png" alt="addOrUpdateTargetFirmware diagram" width="400" />
 </p>
 
 ## Interface

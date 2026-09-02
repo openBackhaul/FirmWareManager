@@ -11,7 +11,7 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> couServer: { serverLabel,\nuserName,\npassword,\nsshKey }
+requestor -> couServer: { serverLabel,\n<color:LightGray>userName,\n<color:LightGray>password,\n<color:LightGray>sshKey</color> }
 activate couServer
 
   note over couServer

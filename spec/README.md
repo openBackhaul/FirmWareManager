@@ -43,7 +43,7 @@ Internal design aspects:
     - [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)
   - Initiate firmware roll-out
     - [/list-target-firmware](./Services/listTargetFirmware/1.0.0/)
-    - [/add-target-firmware](./Services/addTargetFirmware/1.0.0/)
+    - [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)
     - [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/)
 
 - **Categorizing individual devices into device groups (Planning)**

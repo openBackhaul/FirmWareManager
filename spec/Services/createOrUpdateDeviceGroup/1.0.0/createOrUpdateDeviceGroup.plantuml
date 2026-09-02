@@ -1,0 +1,189 @@
+@startuml createOrUpdateDeviceGroup
+skinparam responseMessageBelowArrow true
+
+title
+  createOrUpdateDeviceGroup
+end title
+
+participant "requestor\n" as requestor
+participant "createOrUpdateDeviceGroup\n" as couGroup
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> couGroup: { deviceGroupLabel,\n<color:LightGray>deviceModelName,\n<color:LightGray>purgeDate</color> }
+activate couGroup
+
+  note over couGroup
+    Checks whether given
+    deviceGroupLabel exists
+  end note
+  couGroup -> RunDS
+  activate RunDS
+  couGroup <-- RunDS
+  deactivate RunDS
+  note over couGroup
+    IF deviceGroupLabel NOT existing:
+  end note
+  note right couGroup
+    THEN <color:LightGray>(=new DeviceGroup)</color>
+  end note
+    note right couGroup
+      IF deviceModelName NOT given
+    end note
+    note right couGroup
+      THEN
+    end note
+    requestor <-- couGroup: { ErrorCode,\nErrorMessage }
+    note right couGroup
+      ELSE
+    end note
+    note right couGroup
+      Checks whether given
+      deviceModelName exists
+    end note
+    couGroup -> RunDS
+    activate RunDS
+    couGroup <-- RunDS
+    deactivate RunDS
+    note right couGroup
+      IF deviceModelName NOT existing:
+    end note
+    note right couGroup
+      THEN
+    end note
+    requestor <-- couGroup: { ErrorCode,\nErrorMessage }
+    note right couGroup
+      ELSE
+    end note
+  note over couGroup
+    ELSE <color:LightGray>(=DeviceGroup already existing)</color>
+  end note
+    note right couGroup
+      IF deviceModelName given
+    end note
+    note right couGroup
+      THEN
+    end note
+    note right couGroup
+      Checks whether given
+      deviceModelName is equal
+      to _deviceModel at given
+      DeviceGroup
+    end note
+    couGroup -> RunDS
+    activate RunDS
+    couGroup <-- RunDS
+    deactivate RunDS
+    note right couGroup
+      IF deviceModelName NOT equal to _deviceModel:
+    end note
+    note right couGroup
+      THEN
+    end note
+    requestor <-- couGroup: { ErrorCode,\nErrorMessage }
+    note right couGroup
+      ELSE
+    end note
+
+  note over couGroup
+    Checks whether given
+    purgeDate is reasonable
+  end note
+  note over couGroup
+    IF purgeDate is given
+  end note
+  note right couGroup
+    THEN
+  end note
+  note right couGroup
+    IF purgeDate already in past
+  end note
+  note right couGroup
+    THEN
+  end note
+  requestor <-- couGroup: { ErrorCode,\nErrorMessage }
+  note right couGroup
+    ELSE
+  end note
+  note over couGroup
+    ELSE
+  end note
+
+  note over couGroup
+    Locks RunningDS
+  end note
+  couGroup -X RunDS
+  activate RunDS
+  note over couGroup
+    Locks CandidateDS
+  end note
+  couGroup -X CanDS
+  activate CanDS
+  note over couGroup
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  couGroup -> RunDS
+  RunDS -/ CanDS
+
+  note over couGroup
+    IF deviceGroupLabel existing:
+  end note
+  note right couGroup
+    THEN
+    - Updates DeviceGroup
+  end note
+  couGroup -> CanDS
+  couGroup <-- CanDS
+  note right couGroup
+    ELSE
+    - Creates new DeviceGroup
+  end note
+  couGroup -> CanDS
+  couGroup <-- CanDS
+
+  note over couGroup
+    Triggers Validation
+  end note
+  couGroup -> valiMan: {triggerFunction==createOrUpdateDeviceGroup}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  couGroup <-- valiMan
+  deactivate valiMan
+  note over couGroup
+    IF validation failed:
+  end note
+  note left couGroup
+    THEN
+  end note
+  requestor <-- couGroup: { ErrorCode,\nErrorMessage }
+  note over couGroup
+    ELSE
+  end note
+
+  note right couGroup
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  couGroup -> CanDS
+  CanDS -\ RunDS
+  note right couGroup
+    Unlocks CandidateDS
+  end note
+  couGroup -X CanDS
+  deactivate CanDS
+  note right couGroup
+    Unlocks RunningDS
+  end note
+  couGroup -X RunDS
+  deactivate RunDS
+
+  requestor <-- couGroup: 204
+
+deactivate couGroup
+
+@enduml

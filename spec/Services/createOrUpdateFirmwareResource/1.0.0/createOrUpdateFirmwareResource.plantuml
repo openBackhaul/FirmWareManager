@@ -11,34 +11,42 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> couFWR: { firmwareResourceName,\nfirmwareResourceVersion,\nserverLabel,\nsourceUri,\nfileName }
+requestor -> couFWR: { firmwareResourceName,\nfirmwareResourceVersion,\n<color:LightGray>serverLabel,\n<color:LightGray>sourceUri,\n<color:LightGray>fileName</color> }
 activate couFWR
 
   note over couFWR
+    IF serverLabel given:
+  end note
+  note right couFWR
+    THEN:
+  end note
+  note right couFWR
     Checks whether
-    referenced Server
-    exists
+    serverLabel exists
   end note
   couFWR -> RunDS
   activate RunDS
   couFWR <-- RunDS
   deactivate RunDS
-  note over couFWR
-    IF Server NOT existing:
+  note right couFWR
+    IF serverLabel NOT existing:
   end note
-  note left couFWR
+  note right couFWR
     THEN
   end note
   requestor <-- couFWR: { ErrorCode,\nErrorMessage }
+  note right couFWR
+    ELSE
+  end note
   note over couFWR
     ELSE
   end note
 
   note over couFWR
     Checks, whether given
-    combination of server,
+    combination of serverLabel,
     sourceUri and fileName
-    already exists
+    already documented
   end note
   loop for each existing FirmwareResource
     couFWR -> RunDS
@@ -83,7 +91,8 @@ activate couFWR
   couFWR -> CanDS
   couFWR <-- CanDS
   note over couFWR
-    IF FirmwareResource already exists:
+    IF combination of firmwareResourceName
+    and firmwareResourceVersion already exists:
   end note
   note right couFWR
     THEN

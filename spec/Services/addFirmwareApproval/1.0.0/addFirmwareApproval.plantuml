@@ -1,0 +1,128 @@
+@startuml addFirmwareApproval
+skinparam responseMessageBelowArrow true
+
+title
+  addFirmwareApproval
+end title
+
+participant "requestor\n" as requestor
+participant "addFirmwareApproval\n" as addApprov
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> addApprov: { deviceModelName,\nfirmwareResourceName,\nfirmwareResourceVersion }
+activate addApprov
+
+  note over addApprov
+    Checks whether FirmwareResource 
+    with combination of firmwareResourceName
+    and firmwareResourceVersion exists
+  end note
+  addApprov -> RunDS
+  activate RunDS
+  addApprov <-- RunDS
+  deactivate RunDS
+  note over addApprov
+    IF FirmwareResource NOT existing:
+  end note
+  note left addApprov
+    THEN
+  end note
+  requestor <-- addApprov: { ErrorCode,\nErrorMessage }
+  note over addApprov
+    ELSE
+  end note
+
+  note over addApprov
+    Checks, whether approval of
+    the given FirmwareResource
+    already documented at 
+    the given DeviceModel
+  end note
+  addApprov -> RunDS
+  activate RunDS
+  addApprov <-- RunDS
+  deactivate RunDS
+  note over addApprov
+    IF approval already documented:
+  end note
+  note left addApprov
+    THEN
+  end note
+  requestor <-- addApprov: 204
+  note over addApprov
+    ELSE
+  end note
+
+  note over addApprov
+    Locks RunningDS
+  end note
+  addApprov -X RunDS
+  activate RunDS
+  note over addApprov
+    Locks CandidateDS
+  end note
+  addApprov -X CanDS
+  activate CanDS
+  note over addApprov
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  addApprov -> RunDS
+  RunDS -/ CanDS
+
+  note over addApprov
+    Appends combination of 
+    firmwareResourceName and 
+    firmwareResourceVersion 
+    to _approval at the given
+    DeviceModel
+  end note
+  addApprov -> CanDS
+  addApprov <-- CanDS
+
+  note over addApprov
+    Triggers Validation
+  end note
+  addApprov -> valiMan: {triggerFunction==addFirmwareApproval}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  addApprov <-- valiMan
+  deactivate valiMan
+  note over addApprov
+    IF validation failed:
+  end note
+  note left addApprov
+    THEN
+  end note
+  requestor <-- addApprov: { ErrorCode,\nErrorMessage }
+  note over addApprov
+    ELSE
+  end note
+
+  note right addApprov
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  addApprov -> CanDS
+  CanDS -\ RunDS
+  note right addApprov
+    Unlocks CandidateDS
+  end note
+  addApprov -X CanDS
+  deactivate CanDS
+  note right addApprov
+    Unlocks RunningDS
+  end note
+  addApprov -X RunDS
+  deactivate RunDS
+
+  requestor <-- addApprov: 204
+
+deactivate addApprov
+
+@enduml

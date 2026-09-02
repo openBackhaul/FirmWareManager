@@ -1,0 +1,142 @@
+@startuml addOrUpdateTargetFirmware
+skinparam responseMessageBelowArrow true
+
+title
+  addOrUpdateTargetFirmware
+end title
+
+participant "requestor\n" as requestor
+participant "addOrUpdateTargetFirmware\n" as addTarget
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> addTarget: { deviceGroupLabel,\nfirmwareResourceName,\nfirmwareResourceVersion,\nfirmwareStatus }
+activate addTarget
+
+  note over addTarget
+    Checks whether given
+    deviceGroupLabel exists
+  end note
+  addTarget -> RunDS
+  activate RunDS
+  addTarget <-- RunDS
+  deactivate RunDS
+  note over addTarget
+    IF deviceGroupLabel NOT existing:
+  end note
+  note left addTarget
+    THEN
+  end note
+  requestor <-- addTarget: { ErrorCode,\nErrorMessage }
+  note over addTarget
+    ELSE
+  end note
+
+  note over addTarget
+    Checks whether given combination
+    of firmwareResourceName and
+    firmwareResourceVersion exists
+  end note
+  addTarget -> RunDS
+  activate RunDS
+  addTarget <-- RunDS
+  deactivate RunDS
+  note over addTarget
+    IF FirmwareResource NOT existing:
+  end note
+  note left addTarget
+    THEN
+  end note
+  requestor <-- addTarget: { ErrorCode,\nErrorMessage }
+  note over addTarget
+    ELSE
+  end note
+
+  note over addTarget
+    Locks RunningDS
+  end note
+  addTarget -X RunDS
+  activate RunDS
+  note over addTarget
+    Locks CandidateDS
+  end note
+  addTarget -X CanDS
+  activate CanDS
+  note over addTarget
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  addTarget -> RunDS
+  RunDS -/ CanDS
+
+  note over addTarget
+    Checks whether given combination
+    of firmwareResourceName and
+    firmwareResourceVersion already
+    referenced in targetFirmwareList
+    of given DeviceGroup
+  end note
+  addTarget -> CanDS
+  addTarget <-- CanDS
+  note over addTarget
+    IF FirmwareResource already
+    referenced in targetFirmwareList:
+  end note
+  note right addTarget
+    THEN
+    - Updates status of TargetFirmware
+  end note
+  addTarget -> CanDS
+  addTarget <-- CanDS
+  note right addTarget
+    ELSE
+    - Creates new TargetFirmware entry
+  end note
+  addTarget -> CanDS
+  addTarget <-- CanDS
+
+  note over addTarget
+    Triggers Validation
+  end note
+  addTarget -> valiMan: {triggerFunction==addOrUpdateTargetFirmware}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  addTarget <-- valiMan
+  deactivate valiMan
+  note over addTarget
+    IF validation failed:
+  end note
+  note left addTarget
+    THEN
+  end note
+  requestor <-- addTarget: { ErrorCode,\nErrorMessage }
+  note over addTarget
+    ELSE
+  end note
+
+  note right addTarget
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  addTarget -> CanDS
+  CanDS -\ RunDS
+  note right addTarget
+    Unlocks CandidateDS
+  end note
+  addTarget -X CanDS
+  deactivate CanDS
+  note right addTarget
+    Unlocks RunningDS
+  end note
+  addTarget -X RunDS
+  deactivate RunDS
+
+  requestor <-- addTarget: 204
+
+deactivate addTarget
+
+@enduml
