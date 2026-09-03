@@ -1,6 +1,7 @@
 ﻿# listExistingServers
 
-Returns list of documented servers, incl. label, name of the FTP user and its password, respectively SSH key.  
+Returns list of documented Servers.  
+Server defines the authentication information that will be required by the device for downloading firmware.  
 
 ## Diagram
 

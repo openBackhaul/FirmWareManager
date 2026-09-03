@@ -1,6 +1,8 @@
 ﻿# listExistingFirmwareResources
 
-Returns list of documented firmware resources, incl. firmware name, version, server label, source URI, and file name.
+Returns list of documented FirmwareResources.  
+FirmwareResource is identified by firmware name and release.  
+It defines the file location information that will be required by the device for downloading firmware.  
 
 ## Diagram
 

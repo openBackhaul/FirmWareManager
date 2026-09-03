@@ -35,7 +35,7 @@ Th = Thorsten
 
 | Service                                                                     | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  | Th |  |  |  |  |
+| [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  | Th | Th |  |  |  |
 | [/create-device-model](./Services/createDeviceModel/1.0.0/)                 | Th 1) | Th 1) |  |  |  |
 | [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)                 | Th 1) |  |  |  |  |
 
@@ -43,7 +43,7 @@ Th = Thorsten
 
 | Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)    | Th |  |  |  |  |
+| [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)    | Th | Th |  |  |  |
 | [/add-firmware-approval](./Services/addFirmwareApproval/1.0.0/)                         | Th 1) |  |  |  |  |
 | [/remove-firmware-approval](./Services/removeFirmwareApproval/1.0.0/)                   | Th 1) |  |  |  |  |
 
