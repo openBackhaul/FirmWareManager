@@ -2,6 +2,7 @@
 
 Returns list of documented Servers.  
 Server defines the authentication information that will be required by the device for downloading firmware.  
+Service provides detailed information about Servers.  
 
 ## Diagram
 

@@ -53,7 +53,7 @@ Th = Thorsten
 
 | Service                                                                       | 1  | 2  | 3  | 4  | 5  |
 | ----------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-device-groups](./Services/listExistingDeviceGroups/1.0.0/)    | Th |  |  |  |  |
+| [/list-existing-device-groups](./Services/listExistingDeviceGroups/1.0.0/)    | Th | Th |  |  |  |
 | [/create-or-update-device-group](./Services/createOrUpdateDeviceGroup/1.0.0/) | Th 1) |  |  |  |  |
 | [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)                   | Th 1) |  |  |  |  |
 
@@ -61,7 +61,7 @@ Th = Thorsten
 
 | Service                                                           | 1  | 2  | 3  | 4  | 5  |
 | ----------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/provide-existing-device-group](./Services/provideExistingDeviceGroup/1.0.0/)    | Th |  |  |  |  |
+| [/provide-existing-device-group](./Services/provideExistingDeviceGroup/1.0.0/)    | Th | Th |  |  |  |
 | [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)       | Th 1) |  |  |  |  |
 | [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/) | Th 1) |  |  |  |  |
 
@@ -75,7 +75,7 @@ Solved by functions.
 
 | Service                                                                           | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-devices](./Services/listExistingDevices/1.0.0/)                   | Th |  |  |  |  |
+| [/list-existing-devices](./Services/listExistingDevices/1.0.0/)                   | Th | Th |  |  |  |
 | [/add-devices-to-device-group](./Services/addDevicesToDeviceGroup/1.0.0/)           | ! |  |  |  |  |
 | [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/) | Th 1) |  |  |  |  |
 

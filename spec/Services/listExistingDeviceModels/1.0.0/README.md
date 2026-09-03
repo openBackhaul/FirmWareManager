@@ -3,6 +3,8 @@
 Returns list of documented DeviceModels.  
 DeviceModel defines the device type.  
 In FWM v1.0, it is the only criterion for assuring the correct firmware on a device.  
+Service is for supporting the selection among existing DeviceModels.  
+It does not provide detailed information about DeviceModels.  
 
 ## Diagram
 
