@@ -15,28 +15,29 @@ requestor -> addDevice: { deviceGroupLabel,\n[mountNameList] }
 activate addDevice
 
   note over addDevice
-    Checks whether given
-    deviceGroupLabel exists
+    Checks whether given deviceGroupLabel
+    exists by retrieving the DeviceGroup's
+    targetFirmwareList
   end note
   addDevice -> RunDS
   activate RunDS
   addDevice <-- RunDS
   deactivate RunDS
   note over addDevice
-    IF deviceGroupLabel NOT existing:
+    IF DeviceGroup NOT existing:
   end note
   note left addDevice
     THEN
   end note
-  requestor <-- addDevice: { ErrorCode,\nErrorMessage }
+  requestor <-- addDevice: { ErrorCode,\nErrorMessage,\n[attributeList] }
   note over addDevice
     ELSE
   end note
 
   note over addDevice
     Checks whether any given
-    Device not existing or 
-    of the wrong deviceModel
+    Devices are not existing by 
+    retrieving their deviceModel
   end note
   loop for each mountName in mountNameList
     addDevice -> RunDS
@@ -45,22 +46,29 @@ activate addDevice
     deactivate RunDS
   end loop
   note over addDevice
-    IF any Device NOT existing:
+    IF any Devices NOT existing:
   end note
   note left addDevice
     THEN
   end note
-  requestor <-- addDevice: { ErrorCode,\nErrorMessage,\nmountNameList }
+  requestor <-- addDevice: { ErrorCode,\nErrorMessage,\n[mountNameList] }
   note over addDevice
     ELSE
   end note
+
   note over addDevice
-    IF any Device of the wrong deviceModel:
+    Checks whether any given
+    Devices have different 
+    deviceModel than given
+    DeviceGroup
+  end note
+  note over addDevice
+    IF any Devices of the wrong deviceModel:
   end note
   note left addDevice
     THEN
   end note
-  requestor <-- addDevice: { ErrorCode,\nErrorMessage,\nmountNameList }
+  requestor <-- addDevice: { ErrorCode,\nErrorMessage,\n[mountNameList] }
   note over addDevice
     ELSE
   end note
@@ -113,19 +121,26 @@ activate addDevice
 
     note over addDevice
       Adds given mountName to
-      _device of given DeviceGroup
+      _device at given DeviceGroup
     end note
     addDevice -> CanDS
     addDevice <-- CanDS
 
-    note over addDevice #Orange
-
-      Kopieren der targetFirmwareList 
-      von DeviceGroup nach firmwareList
-      in Device fehlt noch.
-    
+    note over addDevice
+      Deletes existing contents
+      of firmwareList at Device
     end note
+    addDevice -> CanDS
+    addDevice <-- CanDS
 
+    note over addDevice
+      Copies content of 
+      targetFirmwareList
+      of DeviceGroup into
+      firmwareList at Device
+    end note
+    addDevice -> CanDS
+    addDevice <-- CanDS
   end loop
 
   note over addDevice

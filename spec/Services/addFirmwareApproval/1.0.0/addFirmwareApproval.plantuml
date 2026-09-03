@@ -15,9 +15,9 @@ requestor -> addApprov: { deviceModelName,\nfirmwareResourceName,\nfirmwareResou
 activate addApprov
 
   note over addApprov
-    Checks whether FirmwareResource 
-    with combination of firmwareResourceName
-    and firmwareResourceVersion exists
+    Checks whether combination of
+    firmwareResourceName and
+    firmwareResourceVersion exists
   end note
   addApprov -> RunDS
   activate RunDS
@@ -29,7 +29,7 @@ activate addApprov
   note left addApprov
     THEN
   end note
-  requestor <-- addApprov: { ErrorCode,\nErrorMessage }
+  requestor <-- addApprov: { ErrorCode,\nErrorMessage,\n[attributeList] }
   note over addApprov
     ELSE
   end note

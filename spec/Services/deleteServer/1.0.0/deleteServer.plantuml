@@ -15,15 +15,15 @@ requestor -> delServer: { serverLabel }
 activate delServer
 
   note over delServer
-    Checks for server with
-    given label to exist
+    Checks whether given
+    serverLabel exists
   end note
   delServer -> RunDS
   activate RunDS
   delServer <-- RunDS
   deactivate RunDS
   note over delServer
-    IF server NOT existing:
+    IF Server NOT existing:
   end note
   note left delServer
     THEN
@@ -36,7 +36,7 @@ activate delServer
   note over delServer
     Checks for any existing
     FirmwareResource to
-    reference given server
+    reference given Server
   end note
   loop for each existing FirmwareResource
     delServer -> RunDS
@@ -45,12 +45,12 @@ activate delServer
     deactivate RunDS
   end loop
   note over delServer
-    IF server still referenced:
+    IF Server still referenced:
   end note
   note left delServer
     THEN
   end note
-  requestor <-- delServer: { ErrorCode,\nErrorMessage,\nlistOfReferencingFirmwareResources }
+  requestor <-- delServer: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
   note over delServer
     ELSE
   end note
@@ -74,7 +74,7 @@ activate delServer
   RunDS -/ CanDS
 
   note right delServer
-    Deletes given server
+    Deletes given Server
   end note
   delServer -> CanDS
   delServer <-- CanDS

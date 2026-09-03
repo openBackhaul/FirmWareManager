@@ -23,12 +23,12 @@ activate addTarget
   addTarget <-- RunDS
   deactivate RunDS
   note over addTarget
-    IF deviceGroupLabel NOT existing:
+    IF DeviceGroup NOT existing:
   end note
   note left addTarget
     THEN
   end note
-  requestor <-- addTarget: { ErrorCode,\nErrorMessage }
+  requestor <-- addTarget: { ErrorCode,\nErrorMessage,\n[attributeList] }
   note over addTarget
     ELSE
   end note
@@ -48,7 +48,7 @@ activate addTarget
   note left addTarget
     THEN
   end note
-  requestor <-- addTarget: { ErrorCode,\nErrorMessage }
+  requestor <-- addTarget: { ErrorCode,\nErrorMessage,\n[attributeList] }
   note over addTarget
     ELSE
   end note

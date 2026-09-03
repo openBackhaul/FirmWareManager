@@ -34,23 +34,22 @@ activate couServer
 
   note over couServer
     Checks for existing
-    server instance
-    with given label
+    Server with given label
   end note
   couServer -> CanDS
   couServer <-- CanDS
   note over couServer
-    IF server already existing:
+    IF Server already existing:
   end note
   note right couServer
     THEN
-    - Updates existing server
+    - Updates existing Server
   end note
   couServer -> CanDS
   couServer <-- CanDS
   note right couServer
     ELSE
-    - Creates new server instance
+    - Creates new Server
   end note
   couServer -> CanDS
   couServer <-- CanDS

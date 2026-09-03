@@ -1,6 +1,7 @@
 ﻿# createOrUpdateFirmwareResource
 
-Creates or updates a firmware resource.
+Creates a new FirmwareResource if there is none with the given name.  
+Otherwise the existing FirmwareResource is updated in the given attributes.  
 
 ## Diagram
 
@@ -12,26 +13,21 @@ Creates or updates a firmware resource.
 
 Please find a detailed description of the interface in the [openAPI specification](../../../FirmWareManager.yaml).  
 
-  > Warning:  
-  > Error Codes not yet defined in readme.  
-  > Error Codes not yet visualized in diagram.  
-  > Error Codes not yet documented in the [openAPI specification](../../../FirmWareManager.yaml).  
-
 ## Variables
 
 Please find a detailed description of the [variables](./variables.yaml).  
 
 ## Error Codes
 
-| Error Code | Error Message                                                                                                                                                                                      |
-|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|            |                                                                                                                                                                                                    |
+| Code | Message                                                                                                  |
+|------|----------------------------------------------------------------------------------------------------------|
+|      | Input incomplete                                                                                         |
+|      | Referenced object does not exist                                                                         |
+|      | Combination of serverLabel, sourceUri and fileName already documented                                    |
 
 ## Parameters
 
-| Parameter Name               | Description                                                                                                                                                                                       |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [parameterName]              |                                                                                                                                                                                                   |
+./.  
 
 ## NPM Module
 

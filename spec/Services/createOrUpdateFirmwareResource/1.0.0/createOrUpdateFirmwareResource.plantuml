@@ -15,6 +15,42 @@ requestor -> couFWR: { firmwareResourceName,\nfirmwareResourceVersion,\n<color:L
 activate couFWR
 
   note over couFWR
+    Checks, whether given
+    combination of
+    firmwareResourceName and
+    firmwareResourceVersion
+    already documented
+  end note
+  couFWR -> RunDS
+  activate RunDS
+  couFWR <-- RunDS
+  deactivate RunDS
+  note over couFWR
+    IF FirmwareResource NOT already existing:
+  end note
+  note right couFWR
+    THEN
+  end note
+  note right couFWR
+    Checks whether serverLabel,
+    sourceUri and fileName are
+    all given
+  end note
+  note right couFWR
+    IF NOT all attributes given:
+  end note
+  note right couFWR
+    THEN
+  end note
+  requestor <-- couFWR: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note right couFWR
+    ELSE
+  end note
+  note over couFWR
+    ELSE
+  end note
+
+  note over couFWR
     IF serverLabel given:
   end note
   note right couFWR
@@ -22,19 +58,19 @@ activate couFWR
   end note
   note right couFWR
     Checks whether
-    serverLabel exists
+    Server exists
   end note
   couFWR -> RunDS
   activate RunDS
   couFWR <-- RunDS
   deactivate RunDS
   note right couFWR
-    IF serverLabel NOT existing:
+    IF Server NOT existing:
   end note
   note right couFWR
     THEN
   end note
-  requestor <-- couFWR: { ErrorCode,\nErrorMessage }
+  requestor <-- couFWR: { ErrorCode,\nErrorMessage,\n[attributeList] }
   note right couFWR
     ELSE
   end note

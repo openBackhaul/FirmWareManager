@@ -23,7 +23,7 @@ activate couGroup
   couGroup <-- RunDS
   deactivate RunDS
   note over couGroup
-    IF deviceGroupLabel NOT existing:
+    IF DeviceGroup NOT existing:
   end note
   note right couGroup
     THEN <color:LightGray>(=new DeviceGroup)</color>
@@ -34,7 +34,7 @@ activate couGroup
     note right couGroup
       THEN
     end note
-    requestor <-- couGroup: { ErrorCode,\nErrorMessage }
+    requestor <-- couGroup: { ErrorCode,\nErrorMessage,\n[attributeList] }
     note right couGroup
       ELSE
     end note
@@ -47,12 +47,12 @@ activate couGroup
     couGroup <-- RunDS
     deactivate RunDS
     note right couGroup
-      IF deviceModelName NOT existing:
+      IF DeviceModel NOT existing:
     end note
     note right couGroup
       THEN
     end note
-    requestor <-- couGroup: { ErrorCode,\nErrorMessage }
+    requestor <-- couGroup: { ErrorCode,\nErrorMessage,\n[attributeList] }
     note right couGroup
       ELSE
     end note
@@ -102,7 +102,7 @@ activate couGroup
   note right couGroup
     THEN
   end note
-  requestor <-- couGroup: { ErrorCode,\nErrorMessage }
+  requestor <-- couGroup: { ErrorCode,\nErrorMessage,\n[attributeList] }
   note right couGroup
     ELSE
   end note

@@ -6,7 +6,7 @@ DeviceGroup defines a group of Devices that shall share a common firmware compos
 ## Diagram
 
 <p align="center">
-  <img src="./provideExistingDeviceGroup.png" alt="provideExistingDeviceGroup diagram" width="300" />
+  <img src="./provideExistingDeviceGroup.png" alt="provideExistingDeviceGroup diagram" width="250" />
 </p>
 
 ## Interface
