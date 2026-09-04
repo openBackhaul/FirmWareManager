@@ -86,21 +86,39 @@ activate addTarget
   end note
   note right addTarget
     THEN
-    - Updates status of TargetFirmware
+  end note
+  note right addTarget
+    Updates status of TargetFirmware
   end note
   addTarget -> CanDS
   addTarget <-- CanDS
   note right addTarget
     ELSE
-    - Creates new TargetFirmware entry
+  end note
+  note right addTarget
+    Creates new TargetFirmware entry
   end note
   addTarget -> CanDS
   addTarget <-- CanDS
 
-  note right addTarget #Orange
-    Hier fehlt der Eintrag in firmwareList of all Devices referenced by the same DeviceGroup
+  note over addTarget
+    Replicates updated target
+    into Devices of DeviceGroup
   end note
-
+  note right addTarget
+    Reads device list 
+    of DeviceGroup
+  end note
+  addTarget -> CanDS
+  addTarget <-- CanDS
+  loop for each referenced Device
+    note right addTarget
+      Replicates changes into
+      firmwareList of the Device
+    end note
+    addTarget -> CanDS
+    addTarget <-- CanDS
+  end loop
 
   note over addTarget
     Triggers Validation

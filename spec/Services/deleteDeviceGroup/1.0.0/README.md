@@ -23,7 +23,7 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 | Code | Message                                                                                                  |
 |------|----------------------------------------------------------------------------------------------------------|
-|      | To be deleted DeviceGroup is default DeviceGroup                                                        |
+|      | To be deleted DeviceGroup is default DeviceGroup                                                         |
 
 ## Parameters
 

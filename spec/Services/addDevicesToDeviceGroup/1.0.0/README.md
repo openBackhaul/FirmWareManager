@@ -2,6 +2,9 @@
 
 Documents that given Devices are belonging to given DeviceGroup.  
 Same Devices get also removed from their former DeviceGroup.  
+Updates the firmwareList of the given Devices according to the targetFirmwareList of the given DeviceGroup.  
+
+Consequences: The target firmware of the given DeviceGroup will be attempted to be loaded onto the devices and activated.  
 
 ## Diagram
 

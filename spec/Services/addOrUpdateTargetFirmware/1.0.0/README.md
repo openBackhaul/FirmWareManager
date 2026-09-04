@@ -2,7 +2,7 @@
 
 Adds a FirmwareResource to the targetFirmwareList of a given DeviceGroup.  
 If the FirmwareResource would already be referenced, changes for example to its status will be applied.  
-Adds the same firmware to the firmwareList of all Devices referenced by the same DeviceGroup.  
+Adds the same firmware to the firmwareList of all Devices referenced by the given DeviceGroup.  
 
 Consequences: The firmware will be attempted to be loaded onto the devices.  
 

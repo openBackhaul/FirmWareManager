@@ -62,7 +62,7 @@ Th = Thorsten
 | Service                                                                        | 1  | 2  | 3  | 4  | 5  |
 | ------------------------------------------------------------------------------ | -- | -- | -- | -- | -- |
 | [/provide-existing-device-group](./Services/provideExistingDeviceGroup/1.0.0/) | Th | Th |  |  |  |
-| [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)  | Fehler! | Th |  |  |  |
+| [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)  | Th | Th |  |  |  |
 | [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/)              | Th | Th |  |  |  |
 
 ## Categorizing individual devices into device groups (Planning)
@@ -79,7 +79,7 @@ Solved by functions.
 | ----------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-devices](./Services/listExistingDevices/1.0.0/)                     | Th | Th |  |  |  |
 | [/add-devices-to-device-group](./Services/addDevicesToDeviceGroup/1.0.0/)           | Th | Th |  |  |  |
-| [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/) | Th 1) |  |  |  |  |
+| [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/) | Th | Th |  |  |  |
 
 ## Basic
 
