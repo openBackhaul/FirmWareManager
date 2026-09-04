@@ -3,9 +3,6 @@ create-or-update-firmware-resource:
   required:
     - name
     - version
-    - server
-    - source-uri
-    - file-name
   properties:
     name:
       type: string
@@ -21,17 +18,17 @@ create-or-update-firmware-resource:
       type: string
       description: >
         'Label of the server, from where the firmware resource can be downloaded
-        from {$input#/server-label}'
+        from {$input#/server-label} if provided'
     source-uri:
       type: string
       description: >
         'URI specifying the remote-file-path for downloading the firmware resource.  Format:<protocol>://<host>[:port]/path
-        from {$input#/source-uri}'
+        from {$input#/source-uri} if provided'
     file-name:
       type: string
       description: >
         'Name firmware file on the server
-        from {$input#/file-name}'
+        from {$input#/file-name} if provided'
 
     domain-controller:
       type: object
@@ -71,14 +68,14 @@ create-or-update-firmware-resource:
                       type: string
                       description: >
                         'Reference to a server definition that documents the access credentials for downloading the firmware components
-                        change to value from [/create-or-update-firmware-resource/server]'
+                        set to value from [/create-or-update-firmware-resource/server] if provided'
                     source-uri:
                       type: string
                       description: >
                         'URI specifying the remote-file-path for downloading the firmware component. Format:<protocol>://<host>[:port]/path
-                        change to value from [/create-or-update-firmware-resource/source-uri]'
+                        set to value from [/create-or-update-firmware-resource/source-uri] if provided'
                     file-name:
                       type: string
                       description: >
                         'Name of the file, which is to be downloaded
-                        change to value from [/create-or-update-firmware-resource/file-name]'
+                        set to value from [/create-or-update-firmware-resource/file-name] if provided'

@@ -14,6 +14,11 @@ database "RunningDS" as RunDS
 requestor -> couFWR: { firmwareResourceName,\nfirmwareResourceVersion,\n<color:LightGray>serverLabel,\n<color:LightGray>sourceUri,\n<color:LightGray>fileName</color> }
 activate couFWR
 
+  note over couFWR #lightcoral
+    unlock bei fehlgeschlagener Validierung
+    fehlt hier auch
+  end note
+
   note over couFWR
     Checks, whether given
     combination of
