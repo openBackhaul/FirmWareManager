@@ -11,7 +11,7 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> remDev: { deviceGroupLabel,\nmountNameList }
+requestor -> remDev: { deviceGroupLabel,\n[mountNameList] }
 activate remDev
 
   note over remDev
@@ -28,6 +28,17 @@ activate remDev
   remDev <-- RunDS
   deactivate RunDS
   note right remDev
+    IF deviceGroupLabel NOT existing
+  end note
+  note right remDev
+    THEN
+  end note
+  requestor <-- remDev: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note right remDev
+    ELSE
+  end note
+
+  note right remDev
     Reads defaultDeviceGroup
     from this deviceModel
   end note
@@ -36,7 +47,8 @@ activate remDev
   remDev <-- RunDS
   deactivate RunDS
   note over remDev
-    IF given DeviceGroup is defaultDeviceGroup:
+    IF given DeviceGroup
+    equals defaultDeviceGroup:
   end note
   note left remDev
     THEN
@@ -52,12 +64,17 @@ activate remDev
     are actually referenced
     by given DeviceGroup
   end note
+  note right remDev
+    Reads _device from
+    given DeviceGroup
+  end note
   remDev -> RunDS
   activate RunDS
   remDev <-- RunDS
   deactivate RunDS
   note over remDev
-    IF list of referenced mountNames empty:
+    IF remaining list of to be
+    removed mountNames empty:
   end note
   note left remDev
     THEN
@@ -85,17 +102,40 @@ activate remDev
   remDev -> RunDS
   RunDS -/ CanDS
 
-  loop for each mountName in list of referenced mountNames
     note right remDev
-      Creates reference
-      with mountName at
-      defaultDeviceGroup
+      Reads contents of
+      targetFirmwareList
+      at default DeviceGroup
     end note
     remDev -> CanDS
     remDev <-- CanDS
+
+  loop for each remaining given mountName
     note right remDev
-      Deletes mountName from
-      given DeviceGroup
+      Deletes mountName from device
+      list at given DeviceGroup
+    end note
+    remDev -> CanDS
+    remDev <-- CanDS
+
+    note right remDev
+      Deletes contents of 
+      firmwareList at Device
+    end note
+    remDev -> CanDS
+    remDev <-- CanDS
+
+    note right remDev
+      Appends mountName to device
+      list at defaultDeviceGroup
+    end note
+    remDev -> CanDS
+    remDev <-- CanDS
+
+    note right remDev
+      Writes contents of targetFirmwareList
+      at default DeviceGroup into firmwareList
+      at Device
     end note
     remDev -> CanDS
     remDev <-- CanDS

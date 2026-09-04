@@ -1,7 +1,10 @@
 ﻿# addOrUpdateTargetFirmware
 
-Documents that a given FirmwareResource is to be used on Devices of a specific DeviceGroup.  
-Service also allows changing the status of the TargetFirmware.  
+Adds a FirmwareResource to the targetFirmwareList of a given DeviceGroup.  
+If the FirmwareResource would already be referenced, changes for example to its status will be applied.  
+Adds the same firmware to the firmwareList of all Devices referenced by the given DeviceGroup.  
+
+Consequences: The firmware will be attempted to be loaded onto the devices.  
 
 ## Diagram
 

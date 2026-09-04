@@ -11,14 +11,15 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> delTarget: { deviceGroupLabel,\nfirmwareResourceName }
+requestor -> delTarget: { deviceGroupLabel,\nfirmwareResourceName,\nfirmwareResourceVersion }
 activate delTarget
 
   note over delTarget
-    Checks, whether
-    FirmwareResource
-    gets referenced
-    by given DeviceGroup
+    Checks, whether given combination
+    of firmwareResourceName and
+    firmwareResourceVersion is 
+    referenced in targetFirmwareList
+    of given DeviceGroup
   end note
   delTarget -> RunDS
   activate RunDS
@@ -53,13 +54,31 @@ activate delTarget
   delTarget -> RunDS
   RunDS -/ CanDS
 
-  note right delTarget
+  note over delTarget
     Deletes given FirmwareResource
     from targetFirmwareList of given
     DeviceGroup
   end note
   delTarget -> CanDS
   delTarget <-- CanDS
+
+  note over delTarget
+    Reads list of Devices
+    from given DeviceGroup
+  end note
+  delTarget -> CanDS
+  delTarget <-- CanDS
+
+  loop for each listed Device
+    note over delTarget
+      Deletes given combination
+      of firmwareResourceName
+      and firmwareResourceVersion
+      from firmwareList
+    end note
+    delTarget -> CanDS
+    delTarget <-- CanDS
+  end loop
 
   note over delTarget
     Triggers Validation
@@ -82,7 +101,7 @@ activate delTarget
     ELSE
   end note
 
-  note right delTarget
+  note over delTarget
     Overwrites RunningDS
     with CandidateDS
   end note

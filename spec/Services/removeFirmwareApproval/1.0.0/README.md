@@ -1,8 +1,8 @@
 ﻿# removeFirmwareApproval
 
-Deletes a FirmwareApproval.  
-If any DeviceModel is still referencing the FirmwareApproval, the deletion will be aborted.  
-A list of DeviceModels will be returned in that case.  
+Deletes a firmware approval.  
+If the approved firmware is still referenced as target firmware by any DeviceGroup, the deletion will be aborted.  
+A list of DeviceGroups that are still referencing the formerly approved firmware will be returned in that case.  
 
 ## Diagram
 
