@@ -27,6 +27,7 @@ create-or-update-server:
         'Client key for accessing the file server
         from {$input#/ssh-key}'
 
+    # TODO wir lesen vom/schreiben in den runningDS: warum kommt hier nur der candidate vor?
     domain-controller:
       type: object
       description: >
