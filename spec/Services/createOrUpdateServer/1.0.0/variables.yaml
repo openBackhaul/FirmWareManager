@@ -58,14 +58,14 @@ create-or-update-server:
                       type: string
                       description: >
                         'User name to access the file server for downloading the firmware
-                        change to [/create-or-update-server/user-name]'
+                        change to value from [/create-or-update-server/user-name]'
                     password:
                       type: string
                       description: >
                         'Password to access the file server for downloading the firmware
-                        change to [/create-or-update-server/password]'
+                        change to value from [/create-or-update-server/password]'
                     ssh-key:
                       type: string
                       description: >
                         'Client key for accessing the file server
-                        change to [/create-or-update-server/ssh-key]'
+                        change to value from [/create-or-update-server/ssh-key]'
