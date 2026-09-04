@@ -13,7 +13,7 @@ create-or-update-firmware-resource:
       type: string
       description: >
         'Version of the firmware resource to be created or updated
-        fron {$input#/version}'
+        from {$input#/version}'
     server:
       type: string
       description: >

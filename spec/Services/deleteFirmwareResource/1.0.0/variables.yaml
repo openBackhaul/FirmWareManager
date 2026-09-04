@@ -1,0 +1,57 @@
+delete-firmware-resource:
+  type: object
+  required:
+    - name
+    - version
+  properties:
+    name:
+      type: string
+      description: >
+        'Name of the firmware resource to be deleted
+        from {$input#/name}'
+    version:
+      type: string
+      description: >
+        'Version of the firmware resource to be deleted
+        from {$input#/version}'
+
+    domain-controller:
+      type: object
+      description: >
+        '! simplified representation !'
+      properties:
+        network-control-domain:
+          type: array
+          x-key: storage
+          items:
+            type: object
+            properties:
+              storage:
+                type: string
+                enum:
+                  - 'candidate'
+              firmware-resource:
+                type: array
+                x-key: name,version
+                description: >
+                  'List of firmware releases
+                  delete [/delete-firmware-resource/domain-controller/network-control-domain=candidate/*]
+                  where [/delete-firmware-resource/domain-controller/network-control-domain=candidate/name={$input#/name}
+                      and [/delete-firmware-resource/domain-controller/network-control-domain=candidate/version={$input#/version}]
+                  IF no existing DeviceGroup is still referencing the firmware resource'
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: 'Name of the firmware component'
+                    version:
+                      type: string
+                      description: 'Version of the firmware component'
+                    server:
+                      type: string
+                      description: 'Reference to a server definition that documents the access credentials for downloading the firmware components'
+
+# TODO: variables file now seems incomplete, as we have not yet defined,
+# how the determine if a deviceGroup is still referencing the firmwareResource
+# or how approvals are deleted, etc.
