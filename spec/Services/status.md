@@ -37,7 +37,7 @@ Th = Thorsten
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  | Th | Th |  |  |  |
 | [/create-device-model](./Services/createDeviceModel/1.0.0/)                 | Th | Th |  |  |  |
-| [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)                 | Th 1) |  |  |  |  |
+| [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)                 | Th | Th |  |  |  |
 
 ### Documenting firmware approvals
 
@@ -70,6 +70,8 @@ Th = Thorsten
 ### Preparing devices  
 
 Solved by functions.
+
+ > Wie werden wir die Devices wieder los?
 
 ### Categorizing individual devices into device groups
 

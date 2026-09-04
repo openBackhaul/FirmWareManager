@@ -7,7 +7,7 @@ Removes obsolete references (approvals documented in DeviceModels).
 ## Diagram
 
 <p align="center">
-  <img src="./deleteFirmwareResource.png" alt="deleteFirmwareResource diagram" width="250" />
+  <img src="./deleteFirmwareResource.png" alt="deleteFirmwareResource diagram" width="400" />
 </p>
 
 ## Interface
