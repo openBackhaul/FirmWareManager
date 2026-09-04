@@ -1,39 +1,37 @@
 create-or-update-firmware-resource:
   type: object
   required:
-
-
-
-
-
-
-# old
-
-    - label
-    - user-name
-    - password
-    - ssh-key
+    - name
+    - version
+    - server
+    - source-uri
+    - file-name
   properties:
-    label:
+    name:
       type: string
       description: >
-        'Unique and invariant label of the server, from where the firmware resource can be downloaded
-        from {$input#/label}'
-    user-name:
+        'Name of the firmware resource to be created or updated
+        from {$input#/name}'
+    version:
       type: string
       description: >
-        'User name to access the file server for downloading the firmware
-        from {$input#/user-name}'
-    password:
+        'Version of the firmware resource to be created or updated
+        fron {$input#/version}'
+    server:
       type: string
       description: >
-        'Password to access the file server for downloading the firmware
-        from {$input#/password}'
-    ssh-key:
+        'Label of the server, from where the firmware resource can be downloaded
+        from {$input#/server-label}'
+    source-uri:
       type: string
       description: >
-        'Client key for accessing the file server
-        from {$input#/ssh-key}'
+        'URI specifying the remote-file-path for downloading the firmware resource.  Format:<protocol>://<host>[:port]/path
+        from {$input#/source-uri}'
+    file-name:
+      type: string
+      description: >
+        'Name firmware file on the server
+        from {$input#/file-name}'
 
     domain-controller:
       type: object
@@ -49,31 +47,38 @@ create-or-update-firmware-resource:
               storage:
                 type: string
                 enum:
-                  - 'candidate'
-              server:
+                  - 'running'
+              firmware-resource:
                 type: array
-                x-key: label
+                x-key: name,version
+                description: 'List of firmware releases available for autonomous management'
                 items:
                   type: object
                   properties:
-                    label:
+                    name:
                       type: string
                       description: >
-                        'Unique and invariant label of the server, from where the firmware resource can be downloaded
-                        find [/create-or-update-firmware-resource/label]
-                        or create [/create-or-update-firmware-resource/label]'
-                    user-name:
+                        'Name of the firmware component
+                        find [/create-or-update-firmware-resource/name]
+                        or create [/create-or-update-firmware-resource/name]'
+                    version:
                       type: string
                       description: >
-                        'User name to access the file server for downloading the firmware
-                        change to [/create-or-update-firmware-resource/user-name]'
-                    password:
+                        'Version of the firmware component
+                        find [/create-or-update-firmware-resource/version]
+                        or create [/create-or-update-firmware-resource/version]'
+                    server:
                       type: string
                       description: >
-                        'Password to access the file server for downloading the firmware
-                        change to [/create-or-update-firmware-resource/password]'
-                    ssh-key:
+                        'Reference to a server definition that documents the access credentials for downloading the firmware components
+                        change to value from [/create-or-update-firmware-resource/server]'
+                    source-uri:
                       type: string
                       description: >
-                        'Client key for accessing the file server
-                        change to [/create-or-update-firmware-resource/ssh-key]'
+                        'URI specifying the remote-file-path for downloading the firmware component. Format:<protocol>://<host>[:port]/path
+                        change to value from [/create-or-update-firmware-resource/source-uri]'
+                    file-name:
+                      type: string
+                      description: >
+                        'Name of the file, which is to be downloaded
+                        change to value from [/create-or-update-firmware-resource/file-name]'
