@@ -11,7 +11,15 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> remDev: { deviceGroupLabel,\nmountNameList }
+
+  note over remDev #Orange
+    Was ist wenn die DeviceGroup nicht existiert?
+    Was ist wenn ein oder mehrere Devices nicht existiert?
+  end note
+
+
+
+requestor -> remDev: { deviceGroupLabel,\n[mountNameList] }
 activate remDev
 
   note over remDev
@@ -100,6 +108,12 @@ activate remDev
     remDev -> CanDS
     remDev <-- CanDS
   end loop
+
+
+  note over remDev #Orange
+    Wurde die firmwareList der einzelnen Geräte aktualisiert?
+  end note
+
 
   note over remDev
     Triggers Validation

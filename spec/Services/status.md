@@ -45,7 +45,7 @@ Th = Thorsten
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)    | Th | Th |  |  |  |
 | [/add-firmware-approval](./Services/addFirmwareApproval/1.0.0/)                         | Th | Th |  |  |  |
-| [/remove-firmware-approval](./Services/removeFirmwareApproval/1.0.0/)                   | Th 1) |  |  |  |  |
+| [/remove-firmware-approval](./Services/removeFirmwareApproval/1.0.0/)                   | Th | Th |  |  |  |
 
 ## Preparing device groups and initiating firmware roll-out (Operations)
 
@@ -55,15 +55,15 @@ Th = Thorsten
 | ----------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-device-groups](./Services/listExistingDeviceGroups/1.0.0/)    | Th | Th |  |  |  |
 | [/create-or-update-device-group](./Services/createOrUpdateDeviceGroup/1.0.0/) | Th | Th |  |  |  |
-| [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)                   | Th 1) |  |  |  |  |
+| [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)                   | Th | Th |  |  |  |
 
 ### Initiate firmware roll-out
 
 | Service                                                                        | 1  | 2  | 3  | 4  | 5  |
 | ------------------------------------------------------------------------------ | -- | -- | -- | -- | -- |
 | [/provide-existing-device-group](./Services/provideExistingDeviceGroup/1.0.0/) | Th | Th |  |  |  |
-| [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)  | Th | Th |  |  |  |
-| [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/)              | Th 1) |  |  |  |  |
+| [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)  | Fehler! | Th |  |  |  |
+| [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/)              | Th | Th |  |  |  |
 
 ## Categorizing individual devices into device groups (Planning)
 

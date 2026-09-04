@@ -11,6 +11,7 @@ Internal design aspects:
 - [AutomationArchitecture](./Functions/diagrams/AutomationArchitecture/AutomationArchitecture.png)
 - [Information Structure](./additionalDocumentation/InformationStructure/)
 - [User Stories](./additionalDocumentation/UserStories/)
+- [Concepts of Target Firmware](./additionalDocumentation/ConceptsOfTargetFirmware/)
 
 ## Detailed Specification
 

@@ -97,6 +97,11 @@ activate addTarget
   addTarget -> CanDS
   addTarget <-- CanDS
 
+  note right addTarget #Orange
+    Hier fehlt der Eintrag in firmwareList of all Devices referenced by the same DeviceGroup
+  end note
+
+
   note over addTarget
     Triggers Validation
   end note

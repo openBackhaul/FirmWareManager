@@ -11,13 +11,13 @@ participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> removeAppro: { deviceModelName,\nfirmwareResourceName }
+requestor -> removeAppro: { deviceModelName,\nfirmwareResourceName,\nfirmwareResourceVersion }
 activate removeAppro
 
   note over removeAppro
-    Checks, whether
-    firmware approval
-    exists at DeviceModel
+    Checks, whether firmware approval
+    with given combination of name and
+    version exists at given DeviceModel
   end note
   removeAppro -> RunDS
   activate RunDS
@@ -35,24 +35,51 @@ activate removeAppro
   end note
 
   note over removeAppro
-    Checks, whether any
-    existing DeviceGroup
-    references the approved
-    FirmwareResource
+    Checks, whether to be withdrawn
+    firmware approval is still base of
+    references as target firmware in
+    DeviceGroups
   end note
   loop for each existing DeviceGroup
+    note over removeAppro
+      Checks, whether _deviceModel 
+      matches given deviceModelName
+    end note
     removeAppro -> RunDS
     activate RunDS
     removeAppro <-- RunDS
     deactivate RunDS
+      note over removeAppro
+        IF _deviceModel equals
+        given deviceModelName
+      end note
+      note right removeAppro
+        THEN
+      end note
+      note right removeAppro
+        Checks, whether combination of
+        given firmwareResourceName and 
+        firmwareResourceVersion is in
+        targetFirmwareList
+      end note
+      removeAppro -> RunDS
+      activate RunDS
+      removeAppro <-- RunDS
+      deactivate RunDS
+      note over removeAppro
+        ELSE
+      end note
   end loop
   note over removeAppro
-    IF FirmwareResource still referenced:
+    IF given combination of 
+    firmwareResourceName and
+    firmwareResourceVersion
+    in targetFirmwareList
   end note
   note left removeAppro
     THEN
   end note
-  requestor <-- removeAppro: { ErrorCode,\nErrorMessage,\nlistOfReferencingDeviceGroups }
+  requestor <-- removeAppro: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
   note over removeAppro
     ELSE
   end note

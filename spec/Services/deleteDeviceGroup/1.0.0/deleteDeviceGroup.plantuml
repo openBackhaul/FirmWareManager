@@ -15,9 +15,8 @@ requestor -> delGroup: { deviceGroupLabel }
 activate delGroup
 
   note over delGroup
-    Checks, whether
-    DeviceGroup with
-    given label exists
+    Checks, whether given
+    deviceGroupLabel exists
   end note
   delGroup -> RunDS
   activate RunDS
@@ -35,19 +34,22 @@ activate delGroup
   end note
 
   note over delGroup
-    Checks, whether any
-    DeviceModel references
-    given DeviceGroup as
-    defaultDeviceGroup
+    Checks, whether to be
+    deleted DeviceGroup is
+    a default DeviceGroup
   end note
   loop for each existing DeviceModel
+    note over delGroup
+      Read defaultDeviceGroup
+    end note  
     delGroup -> RunDS
     activate RunDS
     delGroup <-- RunDS
     deactivate RunDS
   end loop
   note over delGroup
-    IF DeviceGroup referenced as defaultDeviceGroup:
+    IF given deviceGroupLabel
+    exists in defaultDeviceGroup:
   end note
   note left delGroup
     THEN
@@ -76,46 +78,36 @@ activate delGroup
   RunDS -/ CanDS
 
   note over delGroup
-    Checks, whether
+    Reads _devices at
     given DeviceGroup
-    still references
-    any Devices
   end note
   delGroup -> CanDS
   delGroup <-- CanDS
   note over delGroup
-    IF Devices referenced:
+    IF number of Devices > 0:
   end note
   note right delGroup
     THEN
   end note
   note right delGroup
-    Read deviceModel
-    of given DeviceGroup
-  end note
-  delGroup -> CanDS
-  delGroup <-- CanDS
-  note right delGroup
-    Read defaultDeviceGroup
-    of this deviceModel
-  end note
-  delGroup -> CanDS
-  delGroup <-- CanDS
-  note right delGroup
-    Read list of devices
+    Reads deviceModel
     at given DeviceGroup
   end note
   delGroup -> CanDS
   delGroup <-- CanDS
-  loop for each device at given DeviceGroup
-    note right delGroup
-      Create reference
-      to device at
-      defaultDeviceGroup
-    end note
-    delGroup -> CanDS
-    delGroup <-- CanDS
-  end loop
+  note right delGroup
+    Reads defaultDeviceGroup
+    at this DeviceModel
+  end note
+  delGroup -> CanDS
+  delGroup <-- CanDS
+  note right delGroup
+    Appends all entries of _devices
+    at given DeviceGroup to _devices
+    at default DeviceGroup
+  end note
+  delGroup -> CanDS
+  delGroup <-- CanDS
 
   note right delGroup
     Deletes given DeviceGroup
