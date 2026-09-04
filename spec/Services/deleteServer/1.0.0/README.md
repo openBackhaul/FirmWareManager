@@ -1,6 +1,7 @@
 ﻿# deleteServer
 
-Deletes a server definition.  
+Deletes a Server.  
+Aborts if the Server is still referenced by any FirmwareResource.  
 
 ## Diagram
 

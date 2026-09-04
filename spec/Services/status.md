@@ -29,7 +29,7 @@ Th = Thorsten
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)    | Th | Th | Th | Th |  |
 | [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/) | Th | Th |  |  |  |
-| [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)                   | Th 1) | Th 1) |  |  |  |
+| [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)                   | Th | Th |  |  |  |
 
 ### Preparing device models
 

@@ -1,7 +1,8 @@
 ﻿# deleteFirmwareResource
 
-Deletes a firmware resource definition.  
-Aborts if the firmware resource is still referenced by any DeviceGroup.  
+Deletes a FirmwareResource.  
+Aborts if the FirmwareResource is still referenced by any DeviceGroup.  
+Removes obsolete references (approvals documented in DeviceModels).  
 
 ## Diagram
 
@@ -13,26 +14,19 @@ Aborts if the firmware resource is still referenced by any DeviceGroup.
 
 Please find a detailed description of the interface in the [openAPI specification](../../../FirmWareManager.yaml).  
 
-  > Warning:  
-  > Error Codes not yet defined in readme.  
-  > Error Codes not yet visualized in diagram.  
-  > Error Codes not yet documented in the [openAPI specification](../../../FirmWareManager.yaml).  
-
 ## Variables
 
 Please find a detailed description of the [variables](./variables.yaml).  
 
 ## Error Codes
 
-| Error Code | Error Message                                                                                                                                                                                      |
-|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|            |                                                                                                                                                                                                    |
+| Code | Message                                                                                                  |
+|------|----------------------------------------------------------------------------------------------------------|
+|      | To be deleted object still referenced                                                                    |
 
 ## Parameters
 
-| Parameter Name               | Description                                                                                                                                                                                       |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [parameterName]              |                                                                                                                                                                                                   |
+./.  
 
 ## NPM Module
 

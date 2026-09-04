@@ -6,140 +6,147 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "deleteFirmwareResource\n" as delServer
+participant "deleteFirmwareResource\n" as delFWR
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> delServer: { firmwareResourceName }
-activate delServer
+requestor -> delFWR: { firmwareResourceName,\nfirmwareResourceVersion }
+activate delFWR
 
-  note over delServer
-    Checks, whether
-    FirmwareResource
-    with given name exists
+  note over delFWR
+    Checks, whether FirmwareResource
+    with given combination of name and
+    version exists
   end note
-  delServer -> RunDS
+  delFWR -> RunDS
   activate RunDS
-  delServer <-- RunDS
+  delFWR <-- RunDS
   deactivate RunDS
-  note over delServer
+  note over delFWR
     IF FirmwareResource NOT existing:
   end note
-  note left delServer
+  note left delFWR
     THEN
   end note
-  requestor <-- delServer: 204
-  note over delServer
+  requestor <-- delFWR: 204
+  note over delFWR
     ELSE
   end note
 
-  note over delServer
+  note over delFWR
     Checks, whether any
     existing DeviceGroup
     is referencing given
     FirmwareResource
   end note
   loop for each existing DeviceGroup
-    delServer -> RunDS
+    delFWR -> RunDS
     activate RunDS
-    delServer <-- RunDS
+    delFWR <-- RunDS
     deactivate RunDS
   end loop
-  note over delServer
+  note over delFWR
     IF FirmwareResource still referenced:
   end note
-  note left delServer
+  note left delFWR
     THEN
   end note
-  requestor <-- delServer: { ErrorCode,\nErrorMessage,\nlistOfReferencingDeviceGroups }
-  note over delServer
+  requestor <-- delFWR: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
+  note over delFWR
     ELSE
   end note
 
-  note over delServer
+  note over delFWR
     Locks RunningDS
   end note
-  delServer -X RunDS
+  delFWR -X RunDS
   activate RunDS
-  note over delServer
+  note over delFWR
     Locks CandidateDS
   end note
-  delServer -X CanDS
+  delFWR -X CanDS
   activate CanDS
-  note over delServer
+  note over delFWR
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  delServer -> RunDS
+  delFWR -> RunDS
   RunDS -/ CanDS
 
+  note over delFWR
+    Cleans up references
+  end note
   loop for each existing DeviceModel
-    note over delServer
-      Checks, whether there
-      is an approval of the
-      given FirmwareResource
+    note over delFWR
+      Checks, whether there is an 
+      approval of the to be deleted
+      FirmwareResource documented
     end note
-    note over delServer
+    delFWR -> CanDS
+    delFWR <-- CanDS
+    note over delFWR
       IF approval exists:
     end note
-    note right delServer
-      THEN:
+    note right delFWR
+      THEN
+    end note
+    note right delFWR
       Deletes approval of the
       given FirmwareResource
       from the DeviceModel
     end note
-    delServer -> CanDS
-    delServer <-- CanDS
+    delFWR -> CanDS
+    delFWR <-- CanDS
   end loop
 
-  note right delServer
+  note right delFWR
     Deletes given FirmwareResource
   end note
-  delServer -> CanDS
-  delServer <-- CanDS
+  delFWR -> CanDS
+  delFWR <-- CanDS
 
-  note over delServer
+  note over delFWR
     Triggers Validation
   end note
-  delServer -> valiMan: {triggerFunction==deleteFirmwareResource}
+  delFWR -> valiMan: {triggerFunction==deleteFirmwareResource}
   activate valiMan
     note over valiMan
       Validates
     end note
-  delServer <-- valiMan
+  delFWR <-- valiMan
   deactivate valiMan
-  note over delServer
+  note over delFWR
     IF validation failed:
   end note
-  note left delServer
+  note left delFWR
     THEN
   end note
-  requestor <-- delServer: { ErrorCode,\nErrorMessage }
-  note over delServer
+  requestor <-- delFWR: { ErrorCode,\nErrorMessage }
+  note over delFWR
     ELSE
   end note
 
-  note right delServer
+  note right delFWR
     Overwrites RunningDS
     with CandidateDS
   end note
-  delServer -> CanDS
+  delFWR -> CanDS
   CanDS -\ RunDS
-  note right delServer
+  note right delFWR
     Unlocks CandidateDS
   end note
-  delServer -X CanDS
+  delFWR -X CanDS
   deactivate CanDS
-  note right delServer
+  note right delFWR
     Unlocks RunningDS
   end note
-  delServer -X RunDS
+  delFWR -X RunDS
   deactivate RunDS
 
-  requestor <-- delServer: 204
+  requestor <-- delFWR: 204
 
-deactivate delServer
+deactivate delFWR
 
 @enduml
