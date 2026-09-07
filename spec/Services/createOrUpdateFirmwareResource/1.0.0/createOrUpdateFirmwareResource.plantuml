@@ -161,9 +161,17 @@ activate indServ
   note over indServ
     IF validation failed:
   end note
-  note left indServ
+  note right indServ
     THEN
   end note
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
   requestor <-- indServ: { ErrorCode,\nErrorMessage }
   note over indServ
     ELSE
