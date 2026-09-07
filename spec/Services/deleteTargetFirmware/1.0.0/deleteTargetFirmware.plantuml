@@ -6,120 +6,128 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "deleteTargetFirmware\n" as delTarget
+participant "deleteTargetFirmware\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> delTarget: { deviceGroupLabel,\nfirmwareResourceName,\nfirmwareResourceVersion }
-activate delTarget
+requestor -> indServ: { deviceGroupLabel,\nfirmwareResourceName,\nfirmwareResourceVersion }
+activate indServ
 
-  note over delTarget
+  note over indServ
     Checks, whether given combination
     of firmwareResourceName and
     firmwareResourceVersion is 
     referenced in targetFirmwareList
     of given DeviceGroup
   end note
-  delTarget -> RunDS
+  indServ -> RunDS
   activate RunDS
-  delTarget <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over delTarget
+  note over indServ
     IF FirmwareResource NOT referenced:
   end note
-  note left delTarget
+  note left indServ
     THEN
   end note
-  requestor <-- delTarget: 204
-  note over delTarget
+  requestor <-- indServ: 204
+  note over indServ
     ELSE
   end note
 
-  note over delTarget
+  note over indServ
     Locks RunningDS
   end note
-  delTarget -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over delTarget
+  note over indServ
     Locks CandidateDS
   end note
-  delTarget -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over delTarget
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  delTarget -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note over delTarget
+  note over indServ
     Deletes given FirmwareResource
     from targetFirmwareList of given
     DeviceGroup
   end note
-  delTarget -> CanDS
-  delTarget <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note over delTarget
+  note over indServ
     Reads list of Devices
     from given DeviceGroup
   end note
-  delTarget -> CanDS
-  delTarget <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
   loop for each listed Device
-    note over delTarget
+    note over indServ
       Deletes given combination
       of firmwareResourceName
       and firmwareResourceVersion
       from firmwareList
     end note
-    delTarget -> CanDS
-    delTarget <-- CanDS
+    indServ -> CanDS
+    indServ <-- CanDS
   end loop
 
-  note over delTarget
+  note over indServ
     Triggers Validation
   end note
-  delTarget -> valiMan: {triggerFunction==deleteTargetFirmware}
+  indServ -> valiMan: {triggerFunction==deleteTargetFirmware}
   activate valiMan
     note over valiMan
       Validates
     end note
-  delTarget <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over delTarget
+  note over indServ
     IF validation failed:
   end note
-  note left delTarget
+  note right indServ
     THEN
   end note
-  requestor <-- delTarget: { ErrorCode,\nErrorMessage }
-  note over delTarget
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
     ELSE
   end note
 
-  note over delTarget
+  note over indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  delTarget -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right delTarget
+  note right indServ
     Unlocks CandidateDS
   end note
-  delTarget -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right delTarget
+  note right indServ
     Unlocks RunningDS
   end note
-  delTarget -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-  requestor <-- delTarget: 204
+  requestor <-- indServ: 204
 
-deactivate delTarget
+deactivate indServ
 
 @enduml

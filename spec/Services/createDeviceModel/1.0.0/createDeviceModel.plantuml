@@ -6,129 +6,137 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "createDeviceModel\n" as creatDevMod
+participant "createDeviceModel\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> creatDevMod: { deviceModelName }
-activate creatDevMod
+requestor -> indServ: { deviceModelName }
+activate indServ
 
-  note over creatDevMod
+  note over indServ
     Checks, whether
     DeviceModel
     already exists
   end note
-  creatDevMod -> RunDS
+  indServ -> RunDS
   activate RunDS
-  creatDevMod <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over creatDevMod
+  note over indServ
     IF DeviceModel already exists:
   end note
-  note left creatDevMod
+  note left indServ
     THEN
   end note
-  requestor <-- creatDevMod: 204
-  note over creatDevMod
+  requestor <-- indServ: 204
+  note over indServ
     ELSE
   end note  
 
-  note over creatDevMod
+  note over indServ
     Locks RunningDS
   end note
-  creatDevMod -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over creatDevMod
+  note over indServ
     Locks CandidateDS
   end note
-  creatDevMod -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over creatDevMod
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  creatDevMod -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note over creatDevMod
+  note over indServ
     Creates DeviceModel
   end note
-  creatDevMod -> CanDS: { name==deviceModelName,\n_defaultDeviceGroup==deviceModelName }
-  creatDevMod <-- CanDS
+  indServ -> CanDS: { name==deviceModelName,\n_defaultDeviceGroup==deviceModelName }
+  indServ <-- CanDS
 
-  note over creatDevMod
+  note over indServ
     Creates default DeviceGroup
   end note
-  creatDevMod -> CanDS: { label==deviceModelName,\n_deviceModel==deviceModelName }
-  creatDevMod <-- CanDS
+  indServ -> CanDS: { label==deviceModelName,\n_deviceModel==deviceModelName }
+  indServ <-- CanDS
 
-  note over creatDevMod
+  note over indServ
     Adds all existing Devices with
     deviceModel==deviceModelName
     to default DeviceGroup
   end note
   loop for each existing Device
-    note over creatDevMod
+    note over indServ
       Reads deviceModel
     end note
-    creatDevMod -> CanDS
-    creatDevMod <-- CanDS
-    note over creatDevMod
+    indServ -> CanDS
+    indServ <-- CanDS
+    note over indServ
       IF deviceModel==deviceModelName:
     end note
-    note right creatDevMod
+    note right indServ
       THEN
     end note
-    note right creatDevMod
+    note right indServ
       Appends mountName to
       _device of default DeviceGroup
     end note
-    creatDevMod -> CanDS
-    creatDevMod <-- CanDS
+    indServ -> CanDS
+    indServ <-- CanDS
   end loop
 
-  note over creatDevMod
+  note over indServ
     Triggers Validation
   end note
-  creatDevMod -> valiMan: {triggerFunction==createDeviceModel}
+  indServ -> valiMan: {triggerFunction==createDeviceModel}
   activate valiMan
     note over valiMan
       Validates
     end note
-  creatDevMod <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over creatDevMod
+  note over indServ
     IF validation failed:
   end note
-  note left creatDevMod
+  note right indServ
     THEN
   end note
-  requestor <-- creatDevMod: { ErrorCode,\nErrorMessage }
-  note over creatDevMod
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
     ELSE
   end note
 
-  note right creatDevMod
+  note right indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  creatDevMod -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right creatDevMod
+  note right indServ
     Unlocks CandidateDS
   end note
-  creatDevMod -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right creatDevMod
+  note right indServ
     Unlocks RunningDS
   end note
-  creatDevMod -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-  requestor <-- creatDevMod: 204
+  requestor <-- indServ: 204
 
-deactivate creatDevMod
+deactivate indServ
 
 @enduml

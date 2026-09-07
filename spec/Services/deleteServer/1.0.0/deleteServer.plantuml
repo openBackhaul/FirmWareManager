@@ -6,132 +6,140 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "deleteServer\n" as delServer
+participant "deleteServer\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> delServer: { serverLabel }
-activate delServer
+requestor -> indServ: { serverLabel }
+activate indServ
 
-  note over delServer #lightcoral
+  note over indServ #lightcoral
     hier analog, wenn die Validierung fehlschlägt,
     werden die beiden DS nicht unlocked.
     muss der ursprüngliche Zustand vom 
     Candidate wieder hergestellt werden?
   end note
-  note over delServer #lightcoral
+  note over indServ #lightcoral
     werden der Candidate jeweils komplett mit dem Running
     überschrieben und umgekehrt?
     Falls ja, was ist mit pending validations?
     Theoretisch könnten die ja fortlaufend nötig sein.
   end note
 
-  note over delServer
+  note over indServ
     Checks whether given
     serverLabel exists
   end note
-  delServer -> RunDS
+  indServ -> RunDS
   activate RunDS
-  delServer <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over delServer
+  note over indServ
     IF Server NOT existing:
   end note
-  note left delServer
+  note left indServ
     THEN
   end note
-  requestor <-- delServer: 204
-  note over delServer
+  requestor <-- indServ: 204
+  note over indServ
     ELSE
   end note
 
-  note over delServer
+  note over indServ
     Checks for any existing
     FirmwareResource to
     reference given Server
   end note
   loop for each existing FirmwareResource
-    delServer -> RunDS
+    indServ -> RunDS
     activate RunDS
-    delServer <-- RunDS
+    indServ <-- RunDS
     deactivate RunDS
   end loop
-  note over delServer
+  note over indServ
     IF Server still referenced:
   end note
-  note left delServer
+  note left indServ
     THEN
   end note
-  requestor <-- delServer: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
-  note over delServer
+  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
+  note over indServ
     ELSE
   end note
 
-  note over delServer
+  note over indServ
     Locks RunningDS
   end note
-  delServer -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over delServer
+  note over indServ
     Locks CandidateDS
   end note
-  delServer -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over delServer
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  delServer -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note right delServer
+  note right indServ
     Deletes given Server
   end note
-  delServer -> CanDS
-  delServer <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note over delServer
+  note over indServ
     Triggers Validation
   end note
-  delServer -> valiMan: {triggerFunction==deleteServer}
+  indServ -> valiMan: {triggerFunction==deleteServer}
   activate valiMan
     note over valiMan
       Validates
     end note
-  delServer <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over delServer
+  note over indServ
     IF validation failed:
   end note
-  note left delServer
+  note right indServ
     THEN
   end note
-  requestor <-- delServer: { ErrorCode,\nErrorMessage }
-  note over delServer
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
     ELSE
   end note
 
-  note right delServer
+  note right indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  delServer -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right delServer
+  note right indServ
     Unlocks CandidateDS
   end note
-  delServer -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right delServer
+  note right indServ
     Unlocks RunningDS
   end note
-  delServer -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-  requestor <-- delServer: 204
+  requestor <-- indServ: 204
 
-deactivate delServer
+deactivate indServ
 
 @enduml

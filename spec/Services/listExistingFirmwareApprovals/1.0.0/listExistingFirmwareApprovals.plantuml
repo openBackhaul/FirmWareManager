@@ -6,22 +6,22 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listExistingFirmwareApprovals\n" as lApprov
+participant "listExistingFirmwareApprovals\n" as indServ
 database "RunningDS" as RunDS
 
-requestor -> lApprov: { deviceModelName }
-activate lApprov
+requestor -> indServ: { deviceModelName }
+activate indServ
 
-  note over lApprov
+  note over indServ
     Retrieves data
     from RunningDS
   end note
-  lApprov -> RunDS
+  indServ -> RunDS
   activate RunDS
-  lApprov <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
 
-requestor <-- lApprov: [ approvalList ]
-deactivate lApprov
+requestor <-- indServ: [ approvalList ]
+deactivate indServ
 
 @enduml

@@ -6,184 +6,192 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "createOrUpdateDeviceGroup\n" as couGroup
+participant "createOrUpdateDeviceGroup\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> couGroup: { deviceGroupLabel,\n<color:LightGray>deviceModelName,\n<color:LightGray>purgeDate</color> }
-activate couGroup
+requestor -> indServ: { deviceGroupLabel,\n<color:LightGray>deviceModelName,\n<color:LightGray>purgeDate</color> }
+activate indServ
 
-  note over couGroup
+  note over indServ
     Checks whether given
     deviceGroupLabel exists
   end note
-  couGroup -> RunDS
+  indServ -> RunDS
   activate RunDS
-  couGroup <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over couGroup
+  note over indServ
     IF DeviceGroup NOT existing:
   end note
-  note right couGroup
+  note right indServ
     THEN <color:LightGray>(=new DeviceGroup)</color>
   end note
-    note right couGroup
+    note right indServ
       IF deviceModelName NOT given
     end note
-    note right couGroup
+    note right indServ
       THEN
     end note
-    requestor <-- couGroup: { ErrorCode,\nErrorMessage,\n[attributeList] }
-    note right couGroup
+    requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+    note right indServ
       ELSE
     end note
-    note right couGroup
+    note right indServ
       Checks whether given
       deviceModelName exists
     end note
-    couGroup -> RunDS
+    indServ -> RunDS
     activate RunDS
-    couGroup <-- RunDS
+    indServ <-- RunDS
     deactivate RunDS
-    note right couGroup
+    note right indServ
       IF DeviceModel NOT existing:
     end note
-    note right couGroup
+    note right indServ
       THEN
     end note
-    requestor <-- couGroup: { ErrorCode,\nErrorMessage,\n[attributeList] }
-    note right couGroup
+    requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+    note right indServ
       ELSE
     end note
-  note over couGroup
+  note over indServ
     ELSE <color:LightGray>(=DeviceGroup already existing)</color>
   end note
-    note right couGroup
+    note right indServ
       IF deviceModelName given
     end note
-    note right couGroup
+    note right indServ
       THEN
     end note
-    note right couGroup
+    note right indServ
       Checks whether given
       deviceModelName is equal
       to _deviceModel at given
       DeviceGroup
     end note
-    couGroup -> RunDS
+    indServ -> RunDS
     activate RunDS
-    couGroup <-- RunDS
+    indServ <-- RunDS
     deactivate RunDS
-    note right couGroup
+    note right indServ
       IF deviceModelName NOT equal to _deviceModel:
     end note
-    note right couGroup
+    note right indServ
       THEN
     end note
-    requestor <-- couGroup: { ErrorCode,\nErrorMessage }
-    note right couGroup
+    requestor <-- indServ: { ErrorCode,\nErrorMessage }
+    note right indServ
       ELSE
     end note
 
-  note over couGroup
+  note over indServ
     Checks whether given
     purgeDate is reasonable
   end note
-  note over couGroup
+  note over indServ
     IF purgeDate is given
   end note
-  note right couGroup
+  note right indServ
     THEN
   end note
-  note right couGroup
+  note right indServ
     IF purgeDate already in past
   end note
-  note right couGroup
+  note right indServ
     THEN
   end note
-  requestor <-- couGroup: { ErrorCode,\nErrorMessage,\n[attributeList] }
-  note right couGroup
+  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note right indServ
     ELSE
   end note
-  note over couGroup
+  note over indServ
     ELSE
   end note
 
-  note over couGroup
+  note over indServ
     Locks RunningDS
   end note
-  couGroup -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over couGroup
+  note over indServ
     Locks CandidateDS
   end note
-  couGroup -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over couGroup
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  couGroup -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note over couGroup
+  note over indServ
     IF deviceGroupLabel existing:
   end note
-  note right couGroup
+  note right indServ
     THEN
     - Updates DeviceGroup
   end note
-  couGroup -> CanDS
-  couGroup <-- CanDS
-  note right couGroup
+  indServ -> CanDS
+  indServ <-- CanDS
+  note right indServ
     ELSE
     - Creates new DeviceGroup
   end note
-  couGroup -> CanDS
-  couGroup <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note over couGroup
+  note over indServ
     Triggers Validation
   end note
-  couGroup -> valiMan: {triggerFunction==createOrUpdateDeviceGroup}
+  indServ -> valiMan: {triggerFunction==createOrUpdateDeviceGroup}
   activate valiMan
     note over valiMan
       Validates
     end note
-  couGroup <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over couGroup
+  note over indServ
     IF validation failed:
   end note
-  note left couGroup
+  note right indServ
     THEN
   end note
-  requestor <-- couGroup: { ErrorCode,\nErrorMessage }
-  note over couGroup
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
     ELSE
   end note
 
-  note right couGroup
+  note right indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  couGroup -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right couGroup
+  note right indServ
     Unlocks CandidateDS
   end note
-  couGroup -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right couGroup
+  note right indServ
     Unlocks RunningDS
   end note
-  couGroup -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-  requestor <-- couGroup: 204
+  requestor <-- indServ: 204
 
-deactivate couGroup
+deactivate indServ
 
 @enduml

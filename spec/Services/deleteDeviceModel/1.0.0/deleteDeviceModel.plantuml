@@ -6,167 +6,175 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "deleteDeviceModel\n" as delDevMod
+participant "deleteDeviceModel\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> delDevMod: { deviceModelName }
-activate delDevMod
+requestor -> indServ: { deviceModelName }
+activate indServ
 
-  note over delDevMod
+  note over indServ
     Checks whether given
     deviceModelName exists
   end note
-  delDevMod -> RunDS
+  indServ -> RunDS
   activate RunDS
-  delDevMod <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over delDevMod
+  note over indServ
     IF DeviceModel NOT existing:
   end note
-  note left delDevMod
+  note left indServ
     THEN
   end note
-  requestor <-- delDevMod: 204
-  note over delDevMod
+  requestor <-- indServ: 204
+  note over indServ
     ELSE
   end note
 
-  note over delDevMod
+  note over indServ
     Checks, whether there are any Devices
     of the to be deleted DeviceModel
   end note
   loop for each existing DeviceGroup
-    note over delDevMod
+    note over indServ
       Checks, whether _deviceModel
       in DeviceGroup references the
       given DeviceModel
     end note
-    delDevMod -> RunDS
+    indServ -> RunDS
     activate RunDS
-    delDevMod <-- RunDS
+    indServ <-- RunDS
     deactivate RunDS
-    note over delDevMod
+    note over indServ
       IF given DeviceModel referenced:
     end note
-    note right delDevMod
+    note right indServ
       THEN
     end note
-      note right delDevMod
+      note right indServ
         Reads Devices that are
         referenced in _devices
       end note
-      delDevMod -> RunDS
+      indServ -> RunDS
       activate RunDS
-      delDevMod <-- RunDS
+      indServ <-- RunDS
       deactivate RunDS
-    note over delDevMod
+    note over indServ
       ELSE
     end note
   end loop
-  note over delDevMod
+  note over indServ
     IF Devices of the to be
     deleted DeviceModel found:
   end note
-  note left delDevMod
+  note left indServ
     THEN
   end note
-  requestor <-- delDevMod: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
-  note over delDevMod
+  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
+  note over indServ
     ELSE
   end note
 
-  note over delDevMod
+  note over indServ
     Locks RunningDS
   end note
-  delDevMod -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over delDevMod
+  note over indServ
     Locks CandidateDS
   end note
-  delDevMod -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over delDevMod
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  delDevMod -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note over delDevMod
+  note over indServ
     Deletes referencing
     DeviceGroups
   end note
   loop for each existing DeviceGroup
-    note over delDevMod
+    note over indServ
       Reads deviceModel
     end note
-    delDevMod -> CanDS
-    delDevMod <-- CanDS
-    note over delDevMod
+    indServ -> CanDS
+    indServ <-- CanDS
+    note over indServ
       IF given DeviceModel referenced:
     end note
-    note right delDevMod
+    note right indServ
       THEN
     end note
-    note right delDevMod
+    note right indServ
       Deletes DeviceGroup
     end note
-    delDevMod -> CanDS
-    delDevMod <-- CanDS
-    note over delDevMod
+    indServ -> CanDS
+    indServ <-- CanDS
+    note over indServ
       ELSE
     end note
   end loop
 
-  note right delDevMod
+  note right indServ
     Deletes given DeviceModel
   end note
-  delDevMod -> CanDS
-  delDevMod <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note over delDevMod
+  note over indServ
     Triggers Validation
   end note
-  delDevMod -> valiMan: {triggerFunction==deleteDeviceModel}
+  indServ -> valiMan: {triggerFunction==deleteDeviceModel}
   activate valiMan
     note over valiMan
       Validates
     end note
-  delDevMod <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over delDevMod
+  note over indServ
     IF validation failed:
   end note
-  note left delDevMod
+  note right indServ
     THEN
   end note
-  requestor <-- delDevMod: { ErrorCode,\nErrorMessage }
-  note over delDevMod
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
     ELSE
   end note
 
-  note right delDevMod
+  note right indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  delDevMod -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right delDevMod
+  note right indServ
     Unlocks CandidateDS
   end note
-  delDevMod -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right delDevMod
+  note right indServ
     Unlocks RunningDS
   end note
-  delDevMod -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-  requestor <-- delDevMod: 204
+  requestor <-- indServ: 204
 
-deactivate delDevMod
+deactivate indServ
 
 @enduml
