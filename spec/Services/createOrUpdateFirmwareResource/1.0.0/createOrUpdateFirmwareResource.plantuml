@@ -6,188 +6,188 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "createOrUpdateFirmwareResource\n" as couFWR
+participant "createOrUpdateFirmwareResource\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> couFWR: { firmwareResourceName,\nfirmwareResourceVersion,\n<color:LightGray>serverLabel,\n<color:LightGray>sourceUri,\n<color:LightGray>fileName</color> }
-activate couFWR
+requestor -> indServ: { firmwareResourceName,\nfirmwareResourceVersion,\n<color:LightGray>serverLabel,\n<color:LightGray>sourceUri,\n<color:LightGray>fileName</color> }
+activate indServ
 
-  note over couFWR #lightcoral
+  note over indServ #lightcoral
     unlock bei fehlgeschlagener Validierung
     fehlt hier auch
   end note
 
-  note over couFWR
+  note over indServ
     Checks, whether given
     combination of
     firmwareResourceName and
     firmwareResourceVersion
     already documented
   end note
-  couFWR -> RunDS
+  indServ -> RunDS
   activate RunDS
-  couFWR <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over couFWR
+  note over indServ
     IF FirmwareResource NOT already existing:
   end note
-  note right couFWR
+  note right indServ
     THEN
   end note
-  note right couFWR
+  note right indServ
     Checks whether serverLabel,
     sourceUri and fileName are
     all given
   end note
-  note right couFWR
+  note right indServ
     IF NOT all attributes given:
   end note
-  note right couFWR
+  note right indServ
     THEN
   end note
-  requestor <-- couFWR: { ErrorCode,\nErrorMessage,\n[attributeList] }
-  note right couFWR
+  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note right indServ
     ELSE
   end note
-  note over couFWR
+  note over indServ
     ELSE
   end note
 
-  note over couFWR
+  note over indServ
     IF serverLabel given:
   end note
-  note right couFWR
+  note right indServ
     THEN:
   end note
-  note right couFWR
+  note right indServ
     Checks whether
     Server exists
   end note
-  couFWR -> RunDS
+  indServ -> RunDS
   activate RunDS
-  couFWR <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note right couFWR
+  note right indServ
     IF Server NOT existing:
   end note
-  note right couFWR
+  note right indServ
     THEN
   end note
-  requestor <-- couFWR: { ErrorCode,\nErrorMessage,\n[attributeList] }
-  note right couFWR
+  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note right indServ
     ELSE
   end note
-  note over couFWR
+  note over indServ
     ELSE
   end note
 
-  note over couFWR
+  note over indServ
     Checks, whether given
     combination of serverLabel,
     sourceUri and fileName
     already documented
   end note
   loop for each existing FirmwareResource
-    couFWR -> RunDS
+    indServ -> RunDS
     activate RunDS
-    couFWR <-- RunDS
+    indServ <-- RunDS
     deactivate RunDS
   end loop
-  note over couFWR
+  note over indServ
     IF source already documented:
   end note
-  note left couFWR
+  note left indServ
     THEN
   end note
-  requestor <-- couFWR: { ErrorCode,\nErrorMessage,\nfirmwareResourceName }
-  note over couFWR
+  requestor <-- indServ: { ErrorCode,\nErrorMessage,\nfirmwareResourceName }
+  note over indServ
     ELSE
   end note
 
-  note over couFWR
+  note over indServ
     Locks RunningDS
   end note
-  couFWR -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over couFWR
+  note over indServ
     Locks CandidateDS
   end note
-  couFWR -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over couFWR
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  couFWR -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note over couFWR
+  note over indServ
     Checks for existing
     FirmwareResource with
     given name and version
   end note
-  couFWR -> CanDS
-  couFWR <-- CanDS
-  note over couFWR
+  indServ -> CanDS
+  indServ <-- CanDS
+  note over indServ
     IF combination of firmwareResourceName
     and firmwareResourceVersion already exists:
   end note
-  note right couFWR
+  note right indServ
     THEN
     - Updates existing FirmwareResource
   end note
-  couFWR -> CanDS
-  couFWR <-- CanDS
-  note right couFWR
+  indServ -> CanDS
+  indServ <-- CanDS
+  note right indServ
     ELSE
     - Creates new FirmwareResource
   end note
-  couFWR -> CanDS
-  couFWR <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note over couFWR
+  note over indServ
     Triggers Validation
   end note
-  couFWR -> valiMan: {triggerFunction==createOrUpdateFirmwareResource}
+  indServ -> valiMan: {triggerFunction==createOrUpdateFirmwareResource}
   activate valiMan
     note over valiMan
       Validates
     end note
-  couFWR <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over couFWR
+  note over indServ
     IF validation failed:
   end note
-  note left couFWR
+  note left indServ
     THEN
   end note
-  requestor <-- couFWR: { ErrorCode,\nErrorMessage }
-  note over couFWR
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
     ELSE
   end note
 
-  note right couFWR
+  note right indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  couFWR -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right couFWR
+  note right indServ
     Unlocks CandidateDS
   end note
-  couFWR -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right couFWR
+  note right indServ
     Unlocks RunningDS
   end note
-  couFWR -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-  requestor <-- couFWR: 204
+  requestor <-- indServ: 204
 
-deactivate couFWR
+deactivate indServ
 
 @enduml

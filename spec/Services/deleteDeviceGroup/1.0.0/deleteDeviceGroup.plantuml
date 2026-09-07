@@ -6,155 +6,155 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "deleteDeviceGroup\n" as delGroup
+participant "deleteDeviceGroup\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> delGroup: { deviceGroupLabel }
-activate delGroup
+requestor -> indServ: { deviceGroupLabel }
+activate indServ
 
-  note over delGroup
+  note over indServ
     Checks, whether given
     deviceGroupLabel exists
   end note
-  delGroup -> RunDS
+  indServ -> RunDS
   activate RunDS
-  delGroup <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over delGroup
+  note over indServ
     IF DeviceGroup NOT existing:
   end note
-  note left delGroup
+  note left indServ
     THEN
   end note
-  requestor <-- delGroup: 204
-  note over delGroup
+  requestor <-- indServ: 204
+  note over indServ
     ELSE
   end note
 
-  note over delGroup
+  note over indServ
     Checks, whether to be
     deleted DeviceGroup is
     a default DeviceGroup
   end note
   loop for each existing DeviceModel
-    note over delGroup
+    note over indServ
       Read defaultDeviceGroup
     end note  
-    delGroup -> RunDS
+    indServ -> RunDS
     activate RunDS
-    delGroup <-- RunDS
+    indServ <-- RunDS
     deactivate RunDS
   end loop
-  note over delGroup
+  note over indServ
     IF given deviceGroupLabel
     exists in defaultDeviceGroup:
   end note
-  note left delGroup
+  note left indServ
     THEN
   end note
-  requestor <-- delGroup: { ErrorCode,\nErrorMessage,\nreferencingDeviceModel }
-  note over delGroup
+  requestor <-- indServ: { ErrorCode,\nErrorMessage,\nreferencingDeviceModel }
+  note over indServ
     ELSE
   end note
 
-  note over delGroup
+  note over indServ
     Locks RunningDS
   end note
-  delGroup -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over delGroup
+  note over indServ
     Locks CandidateDS
   end note
-  delGroup -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over delGroup
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  delGroup -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note over delGroup
+  note over indServ
     Reads _devices at
     given DeviceGroup
   end note
-  delGroup -> CanDS
-  delGroup <-- CanDS
-  note over delGroup
+  indServ -> CanDS
+  indServ <-- CanDS
+  note over indServ
     IF number of Devices > 0:
   end note
-  note right delGroup
+  note right indServ
     THEN
   end note
-  note right delGroup
+  note right indServ
     Reads deviceModel
     at given DeviceGroup
   end note
-  delGroup -> CanDS
-  delGroup <-- CanDS
-  note right delGroup
+  indServ -> CanDS
+  indServ <-- CanDS
+  note right indServ
     Reads defaultDeviceGroup
     at this DeviceModel
   end note
-  delGroup -> CanDS
-  delGroup <-- CanDS
-  note right delGroup
+  indServ -> CanDS
+  indServ <-- CanDS
+  note right indServ
     Appends all entries of _devices
     at given DeviceGroup to _devices
     at default DeviceGroup
   end note
-  delGroup -> CanDS
-  delGroup <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note right delGroup
+  note right indServ
     Deletes given DeviceGroup
   end note
-  delGroup -> CanDS
-  delGroup <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note over delGroup
+  note over indServ
     Triggers Validation
   end note
-  delGroup -> valiMan: {triggerFunction==deleteDeviceGroup}
+  indServ -> valiMan: {triggerFunction==deleteDeviceGroup}
   activate valiMan
     note over valiMan
       Validates
     end note
-  delGroup <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over delGroup
+  note over indServ
     IF validation failed:
   end note
-  note left delGroup
+  note left indServ
     THEN
   end note
-  requestor <-- delGroup: { ErrorCode,\nErrorMessage }
-  note over delGroup
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
     ELSE
   end note
 
-  note right delGroup
+  note right indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  delGroup -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right delGroup
+  note right indServ
     Unlocks CandidateDS
   end note
-  delGroup -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right delGroup
+  note right indServ
     Unlocks RunningDS
   end note
-  delGroup -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-  requestor <-- delGroup: 204
+  requestor <-- indServ: 204
 
-deactivate delGroup
+deactivate indServ
 
 @enduml

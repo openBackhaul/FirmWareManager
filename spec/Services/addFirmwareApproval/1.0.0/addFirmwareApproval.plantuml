@@ -6,123 +6,123 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "addFirmwareApproval\n" as addApprov
+participant "addFirmwareApproval\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> addApprov: { deviceModelName,\nfirmwareResourceName,\nfirmwareResourceVersion }
-activate addApprov
+requestor -> indServ: { deviceModelName,\nfirmwareResourceName,\nfirmwareResourceVersion }
+activate indServ
 
-  note over addApprov
+  note over indServ
     Checks whether combination of
     firmwareResourceName and
     firmwareResourceVersion exists
   end note
-  addApprov -> RunDS
+  indServ -> RunDS
   activate RunDS
-  addApprov <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over addApprov
+  note over indServ
     IF FirmwareResource NOT existing:
   end note
-  note left addApprov
+  note left indServ
     THEN
   end note
-  requestor <-- addApprov: { ErrorCode,\nErrorMessage,\n[attributeList] }
-  note over addApprov
+  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note over indServ
     ELSE
   end note
 
-  note over addApprov
+  note over indServ
     Checks, whether approval of
     the given FirmwareResource
     already documented at 
     the given DeviceModel
   end note
-  addApprov -> RunDS
+  indServ -> RunDS
   activate RunDS
-  addApprov <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over addApprov
+  note over indServ
     IF approval already documented:
   end note
-  note left addApprov
+  note left indServ
     THEN
   end note
-  requestor <-- addApprov: 204
-  note over addApprov
+  requestor <-- indServ: 204
+  note over indServ
     ELSE
   end note
 
-  note over addApprov
+  note over indServ
     Locks RunningDS
   end note
-  addApprov -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over addApprov
+  note over indServ
     Locks CandidateDS
   end note
-  addApprov -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over addApprov
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  addApprov -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note over addApprov
+  note over indServ
     Appends combination of 
     firmwareResourceName and 
     firmwareResourceVersion 
     to _approval at the given
     DeviceModel
   end note
-  addApprov -> CanDS
-  addApprov <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note over addApprov
+  note over indServ
     Triggers Validation
   end note
-  addApprov -> valiMan: {triggerFunction==addFirmwareApproval}
+  indServ -> valiMan: {triggerFunction==addFirmwareApproval}
   activate valiMan
     note over valiMan
       Validates
     end note
-  addApprov <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over addApprov
+  note over indServ
     IF validation failed:
   end note
-  note left addApprov
+  note left indServ
     THEN
   end note
-  requestor <-- addApprov: { ErrorCode,\nErrorMessage }
-  note over addApprov
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
     ELSE
   end note
 
-  note right addApprov
+  note right indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  addApprov -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right addApprov
+  note right indServ
     Unlocks CandidateDS
   end note
-  addApprov -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right addApprov
+  note right indServ
     Unlocks RunningDS
   end note
-  addApprov -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-  requestor <-- addApprov: 204
+  requestor <-- indServ: 204
 
-deactivate addApprov
+deactivate indServ
 
 @enduml

@@ -6,22 +6,22 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listExistingServers\n" as lServer
+participant "listExistingServers\n" as indServ
 database "RunningDS" as RunDS
 
-requestor -> lServer
-activate lServer
+requestor -> indServ
+activate indServ
 
-  note over lServer
+  note over indServ
     Retrieves data
     from RunningDS
   end note
-  lServer -> RunDS
+  indServ -> RunDS
   activate RunDS
-  lServer <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
 
-requestor <-- lServer: [ { serverLabel,\nuserName,\npassword,\nsshKey } ]
-deactivate lServer
+requestor <-- indServ: [ { serverLabel,\nuserName,\npassword,\nsshKey } ]
+deactivate indServ
 
 @enduml

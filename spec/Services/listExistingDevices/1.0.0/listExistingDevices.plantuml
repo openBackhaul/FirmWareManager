@@ -6,22 +6,22 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listExistingDevices\n" as lDevices
+participant "listExistingDevices\n" as indServ
 database "RunningDS" as RunDS
 
-requestor -> lDevices
-activate lDevices
+requestor -> indServ
+activate indServ
 
-  note over lDevices
+  note over indServ
     Retrieves data
     from RunningDS
   end note
-  lDevices -> RunDS
+  indServ -> RunDS
   activate RunDS
-  lDevices <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
 
-requestor <-- lDevices: [ {mountName,\ndeviceModel,\n[firmwareList]} ]
-deactivate lDevices
+requestor <-- indServ: [ {mountName,\ndeviceModel,\n[firmwareList]} ]
+deactivate indServ
 
 @enduml

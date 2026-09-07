@@ -6,22 +6,22 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listExistingDeviceModels\n" as lModels
+participant "listExistingDeviceModels\n" as indServ
 database "RunningDS" as RunDS
 
-requestor -> lModels
-activate lModels
+requestor -> indServ
+activate indServ
 
-  note over lModels
+  note over indServ
     Retrieves data
     from RunningDS
   end note
-  lModels -> RunDS
+  indServ -> RunDS
   activate RunDS
-  lModels <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
 
-requestor <-- lModels: [ {deviceModelName,\ndefaultDeviceGroup} ]
-deactivate lModels
+requestor <-- indServ: [ {deviceModelName,\ndefaultDeviceGroup} ]
+deactivate indServ
 
 @enduml

@@ -6,108 +6,108 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "createOrUpdateServer\n" as couServer
+participant "createOrUpdateServer\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> couServer: { serverLabel,\n<color:LightGray>userName,\n<color:LightGray>password,\n<color:LightGray>sshKey</color> }
-activate couServer
+requestor -> indServ: { serverLabel,\n<color:LightGray>userName,\n<color:LightGray>password,\n<color:LightGray>sshKey</color> }
+activate indServ
 
-  note over couServer #LightCoral
+  note over indServ #LightCoral
     (1) Der CandidateDS wird mit dem Inhalt vom RunningDS überschrieben,
     also auch der Server.
     Im InformationStructure Diagram steht aber dass es Server nur
     im RunningDS geben soll (mit <<R>> markiert)
     Ist das nicht inkonsistent?
   end note
-  note over couServer #LightCoral
+  note over indServ #LightCoral
     (2) Wenn die Validierung fehlschlägt:
     - werden die DS nicht unlocked.
     - Sollte die Änderung im Candidate nicht auch u.U. rückgängig gemacht werden?
       (Jenachdem was genau da validiert werden soll...)
   end note
 
-  note over couServer
+  note over indServ
     Locks RunningDS
   end note
-  couServer -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over couServer
+  note over indServ
     Locks CandidateDS
   end note
-  couServer -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over couServer
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  couServer -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note over couServer
+  note over indServ
     Checks for existing
     Server with given label
   end note
-  couServer -> CanDS
-  couServer <-- CanDS
-  note over couServer
+  indServ -> CanDS
+  indServ <-- CanDS
+  note over indServ
     IF Server already existing:
   end note
-  note right couServer
+  note right indServ
     THEN
     - Updates existing Server
   end note
-  couServer -> CanDS
-  couServer <-- CanDS
-  note right couServer
+  indServ -> CanDS
+  indServ <-- CanDS
+  note right indServ
     ELSE
     - Creates new Server
   end note
-  couServer -> CanDS
-  couServer <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note over couServer
+  note over indServ
     Triggers Validation
   end note
-  couServer -> valiMan: {triggerFunction==createOrUpdateServer}
+  indServ -> valiMan: {triggerFunction==createOrUpdateServer}
   activate valiMan
     note over valiMan
       Validates
     end note
-  couServer <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over couServer
+  note over indServ
     IF validation failed:
   end note
-  note left couServer
+  note left indServ
     THEN
   end note
-  requestor <-- couServer: { ErrorCode,\nErrorMessage }
-  note over couServer
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
     ELSE
   end note
 
-  note right couServer
+  note right indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  couServer -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right couServer
+  note right indServ
     Unlocks CandidateDS
   end note
-  couServer -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right couServer
+  note right indServ
     Unlocks RunningDS
   end note
-  couServer -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-  requestor <-- couServer: 204
+  requestor <-- indServ: 204
 
-deactivate couServer
+deactivate indServ
 
 @enduml
