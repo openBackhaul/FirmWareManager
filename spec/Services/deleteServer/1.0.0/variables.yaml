@@ -9,6 +9,10 @@ delete-server:
         'Unique and invariant label of the server, from where the firmware resource can be downloaded
         from {$input#/label}'
 
+
+    # TODO: wie bei createOrUpdateServer: wieso taucht hier der runningDS nirgends auf?
+    # in den wird zwar nicht direkt geschrieben, aber aus ihm wird gelesen und ggf. wird er dann mit dem 
+    # Candidate überschrieben.
     domain-controller:
       type: object
       description: >

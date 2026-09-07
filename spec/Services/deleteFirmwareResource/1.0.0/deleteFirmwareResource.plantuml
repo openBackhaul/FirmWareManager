@@ -14,6 +14,10 @@ database "RunningDS" as RunDS
 requestor -> delFWR: { firmwareResourceName,\nfirmwareResourceVersion }
 activate delFWR
 
+  note over delFWR #LightCoral
+    unlock bei Validierungsfehler?
+  end note
+
   note over delFWR
     Checks, whether FirmwareResource
     with given combination of name and
