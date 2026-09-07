@@ -14,19 +14,6 @@ database "RunningDS" as RunDS
 requestor -> indServ: { serverLabel }
 activate indServ
 
-  note over indServ #lightcoral
-    hier analog, wenn die Validierung fehlschlägt,
-    werden die beiden DS nicht unlocked.
-    muss der ursprüngliche Zustand vom 
-    Candidate wieder hergestellt werden?
-  end note
-  note over indServ #lightcoral
-    werden der Candidate jeweils komplett mit dem Running
-    überschrieben und umgekehrt?
-    Falls ja, was ist mit pending validations?
-    Theoretisch könnten die ja fortlaufend nötig sein.
-  end note
-
   note over indServ
     Checks whether given
     serverLabel exists

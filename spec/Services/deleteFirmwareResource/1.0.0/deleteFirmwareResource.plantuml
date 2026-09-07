@@ -14,10 +14,6 @@ database "RunningDS" as RunDS
 requestor -> indServ: { firmwareResourceName,\nfirmwareResourceVersion }
 activate indServ
 
-  note over indServ #LightCoral
-    unlock bei Validierungsfehler?
-  end note
-
   note over indServ
     Checks, whether FirmwareResource
     with given combination of name and
