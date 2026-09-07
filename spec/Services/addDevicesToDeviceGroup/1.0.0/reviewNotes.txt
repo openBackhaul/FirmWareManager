@@ -1,0 +1,14 @@
+(1) in schritt 1 ist der Service provideExistingDeviceGroup gemeint, korrekt?
+(2) was soll beim ersten FEhlerfall in der attributesList zurückgegeben werden?
+
+(3) bei "checks whether any given devices are not existing by retrieving their deviceModel":
+womit wir das gemacht? soll es dafür eine Funktion geben? Es gibt ja keinen Service, der einen
+mountName als Input hat und das abfragt. (Oder wird hier einfach listExistingDevices aufgerufen
+und dann in einer Schleife die abgearbeitet? Dann ist aber das Bild imho nicht ganz korrekt, weil
+es dann keine Schleife auf dem RunningDS gibt...)
+
+
+(4) bei der Schleife "loop for each given mountName" steht
+"delets given mountName from _device of other DeviceGroups"
+- ein device kann nur in einer deviceGroup stehen (außer ggf. während das verändert wird), korrekt?
+Der Text impliziert aber dass es in mehreren deviceGroups stehen kann.

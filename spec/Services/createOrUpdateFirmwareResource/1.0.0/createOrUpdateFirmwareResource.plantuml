@@ -14,11 +14,6 @@ database "RunningDS" as RunDS
 requestor -> indServ: { firmwareResourceName,\nfirmwareResourceVersion,\n<color:LightGray>serverLabel,\n<color:LightGray>sourceUri,\n<color:LightGray>fileName</color> }
 activate indServ
 
-  note over indServ #lightcoral
-    unlock bei fehlgeschlagener Validierung
-    fehlt hier auch
-  end note
-
   note over indServ
     Checks, whether given
     combination of

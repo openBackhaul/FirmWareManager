@@ -1,0 +1,8 @@
+(1)
+wieso gibt es nur createDeviceModel, statt createOrUpdateDeviceModel?
+wenn man die defaultFirmware oder defaultDeviceGroup ändern wollen würde, wäre das nicht möglich,
+außer man löscht das deviceModel erst und legt es dann komplett neu an.
+
+(2)
+in der InformationStructure wird zwar erwähnt, dass mit listExistingFirmwareResources eine Auswahl
+für die defaultFirwmare getroffen werden kann, aber im Diagram wird die defaultFirmware gar nicht gesetzt

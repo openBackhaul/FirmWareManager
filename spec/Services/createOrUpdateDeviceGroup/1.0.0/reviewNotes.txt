@@ -1,0 +1,2 @@
+macht es hier Sinn das purgeDate als Parameter optional zu machen, 
+und ggf. wenn es nicht übergeben wird einen default einzustellen?
