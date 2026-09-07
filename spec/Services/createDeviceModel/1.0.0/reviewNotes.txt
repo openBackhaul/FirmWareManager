@@ -4,4 +4,5 @@ wenn man die defaultFirmware oder defaultDeviceGroup ändern wollen würde, wär
 außer man löscht das deviceModel erst und legt es dann komplett neu an.
 
 (2)
-die defaultFirmware wird gar nicht gesetzt
+in der InformationStructure wird zwar erwähnt, dass mit listExistingFirmwareResources eine Auswahl
+für die defaultFirwmare getroffen werden kann, aber im Diagram wird die defaultFirmware gar nicht gesetzt
