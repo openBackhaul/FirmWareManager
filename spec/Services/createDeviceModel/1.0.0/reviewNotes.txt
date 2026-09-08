@@ -1,3 +1,5 @@
+# TODO
+
 (1)
 wieso gibt es nur createDeviceModel, statt createOrUpdateDeviceModel?
 wenn man die defaultFirmware oder defaultDeviceGroup ändern wollen würde, wäre das nicht möglich,

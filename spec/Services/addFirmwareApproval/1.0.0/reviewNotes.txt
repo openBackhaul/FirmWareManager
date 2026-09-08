@@ -1,3 +1,5 @@
+# TODO
+
 Wenn die FirmwareREssource nicht existiert wird eine attributeList zurückgegeben.
 Was genau soll da drinstehen?
 

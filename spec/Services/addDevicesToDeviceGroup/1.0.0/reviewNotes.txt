@@ -1,3 +1,5 @@
+# TODO
+
 (1) in schritt 1 ist der Service provideExistingDeviceGroup gemeint, korrekt?
 (2) was soll beim ersten FEhlerfall in der attributesList zurückgegeben werden?
 
