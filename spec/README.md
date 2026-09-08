@@ -22,17 +22,21 @@ Internal design aspects:
 - **Documenting firmware approvals (Engineering)**
   - Preparing servers
     - [/list-existing-servers](./Services/listExistingServers/1.0.0/)
+    - [/list-incomplete-servers](./Services/listIncompleteServers/1.0.0/)
     - [/create-or-update-server](./Services/createOrUpdateServer/1.0.0/)
     - [/delete-server](./Services/deleteServer/1.0.0/)
   - Preparing firmware resources
     - [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)
+    - [/list-incomplete-firmware-resources](./Services/listIncompleteFirmwareResources/1.0.0/)
     - [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/)
     - [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)
   - Preparing device models
     - [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)
+    - [/list-unknown-device-models](./Services/listUnknownDeviceModels/1.0.0/)
     - [/create-device-model](./Services/createDeviceModel/1.0.0/)
     - [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)
   - Documenting firmware approvals
+    - [/list-device-models-without-approvals](./Services/listDeviceModelsWithoutApprovals/1.0.0/)
     - [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)
     - [/add-firmware-approval](./Services/addFirmwareApproval/1.0.0/)
     - [/remove-firmware-approval](./Services/removeFirmwareApproval/1.0.0/)
@@ -43,6 +47,7 @@ Internal design aspects:
     - [/create-or-update-device-group](./Services/createOrUpdateDeviceGroup/1.0.0/)
     - [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)
   - Initiate firmware roll-out
+    - [/list-device-groups-without-target-firmware](./Services/listDeviceGroupsWithoutTargetFirmware/1.0.0/)
     - [/provide-existing-device-group](./Services/provideExistingDeviceGroup/1.0.0/)
     - [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)
     - [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/)
@@ -52,6 +57,7 @@ Internal design aspects:
     (solved by function)
   - Categorizing individual devices into device groups
     - [/list-existing-devices](./Services/listExistingDevices/1.0.0/)
+    - [/list-device-groups-without-devices](./Services/listDeviceGroupsWithoutDevices/1.0.0/)
     - [/add-devices-to-device-group](./Services/addDevicesToDeviceGroup/1.0.0/)
     - [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/)
 

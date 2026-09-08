@@ -40,6 +40,7 @@ _p1ValidierungFunktionAufrufe_ dienen der Überprüfung der interpretierten Eing
 - **Documenting firmware approvals (Engineering)**
   - Preparing servers
     - /list-existing-servers
+    - <span style="color:red">/list-incomplete-servers</span> (to choose one to be completed)
     - /create-or-update-server
       - t1CheckForAssuranceOfUniqueLabels
     - /delete-server  
@@ -47,6 +48,7 @@ _p1ValidierungFunktionAufrufe_ dienen der Überprüfung der interpretierten Eing
       - t1CheckForAssuranceOfEveryFirmwareResourceHavingAServer
   - Preparing firmware resources
     - /list-existing-firmware-resources
+    - <span style="color:red">/list-incomplete-firmware-resources</span> (to choose one to be completed)
     - (/list-existing-servers (to choose from during create or update))
     - /create-or-update-firmware-resource  
       (existing name and version combinations indicate an update)
@@ -60,6 +62,7 @@ _p1ValidierungFunktionAufrufe_ dienen der Überprüfung der interpretierten Eing
       - t1CheckForDeletionOfAllExistingApprovalsOfDeletedFirmwareResource
   - Preparing device models
     - /list-existing-device-models
+    - <span style="color:red">/list-unknown-device-models</span> (to choose one to be created)
     - /create-device-model  
       (comprises  
         creating the DeviceModel  
@@ -77,6 +80,7 @@ _p1ValidierungFunktionAufrufe_ dienen der Überprüfung der interpretierten Eing
       - (p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel)
   - Documenting firmware approvals
     - (/list-existing-device-models (to choose the one for documenting an approval))
+    - <span style="color:red">/list-device-models-without-approvals</span> (to choose one for documenting an approval)
     - /list-existing-firmware-approvals
     - (/list-existing-firmware-resources (to choose from during add))
     - /add-firmware-approval
@@ -107,6 +111,7 @@ _p1ValidierungFunktionAufrufe_ dienen der Überprüfung der interpretierten Eing
       - (p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel)
   - Initiate firmware roll-out
     - (/list-existing-device-groups (to choose the one for initiating roll-out))
+    - <span style="color:red">/list-device-groups-without-target-firmware</span> (to choose the one for initiating roll-out))
     - /provide-existing-device-group
     - (/list-existing-firmware-resources (to choose from during initiating roll-out))
     - /add-or-update-target-firmware  
@@ -128,6 +133,7 @@ _p1ValidierungFunktionAufrufe_ dienen der Überprüfung der interpretierten Eing
   - Categorizing individual devices into device groups
     - /list-existing-devices (to choose one to be added to a device group)
     - (/list-existing-device-groups (to choose one to be complemented))
+    - <span style="color:red">/list-device-groups-without-devices</span> (to choose one to be complemented)
     - /add-devices-to-device-group  
       (comprises  
         removing the Device from its current DeviceGroup,  
@@ -142,7 +148,7 @@ _p1ValidierungFunktionAufrufe_ dienen der Überprüfung der interpretierten Eing
       - (p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel)
       - (p1EnsureEveryDeviceHasFirmwareAsTargetOfItsGroup)
       - (p1EnsureEveryDeviceReferencingExclusivelyApprovedFirmware)
-    - **/remove-device-from-device-group**
+    - /remove-device-from-device-group
       (comprises  
         removing the Device from its current DeviceGroup,  
         adding the Device to the default DeviceGroup of its deviceModel,
@@ -155,9 +161,6 @@ _p1ValidierungFunktionAufrufe_ dienen der Überprüfung der interpretierten Eing
       - (p1EnsureEveryDeviceReferencingExclusivelyApprovedFirmware)
 
 - Datenpflege
-  - List of unknown DeviceModels
-  - List of DeviceGroups without TargetFirmware
-  - List of DeviceGroups without Devices
   - List of * with incomplete Data
 
 ## Open Points
