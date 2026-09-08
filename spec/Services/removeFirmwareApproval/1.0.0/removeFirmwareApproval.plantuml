@@ -66,15 +66,27 @@ activate indServ
       activate RunDS
       indServ <-- RunDS
       deactivate RunDS
+      note right indServ
+        IF given FirmwareResource
+        in targetFirmwareList
+      end note
+      note right indServ
+        THEN
+      end note
+      note right indServ
+        Appends deviceGroupLabel to
+        [listOfReferencingObjects]
+      end note
+      note right indServ
+        ELSE
+      end note
       note over indServ
         ELSE
       end note
   end loop
   note over indServ
-    IF given combination of 
-    firmwareResourceName and
-    firmwareResourceVersion
-    in targetFirmwareList
+    IF entries in
+    [listOfReferencingObjects]
   end note
   note left indServ
     THEN

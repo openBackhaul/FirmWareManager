@@ -21,7 +21,9 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-./.
+| Code | Message                                     |
+|------|---------------------------------------------|
+|      | Referenced object does not exist            |
 
 ## Parameters
 

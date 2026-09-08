@@ -17,7 +17,7 @@ activate indServ
   note over indServ
     Checks whether given deviceGroupLabel
     exists by retrieving the DeviceGroup's
-    targetFirmwareList
+    _deviceModel
   end note
   indServ -> RunDS
   activate RunDS
@@ -57,10 +57,9 @@ activate indServ
   end note
 
   note over indServ
-    Checks whether any given
-    Devices have different 
-    deviceModel than given
-    DeviceGroup
+    Checks whether value of deviceModel
+    at any given Devices differ from value
+    of _deviceModel at given DeviceGroup
   end note
   note over indServ
     IF any Devices of the wrong deviceModel:
@@ -134,10 +133,18 @@ activate indServ
     indServ <-- CanDS
 
     note over indServ
-      Copies content of 
+      Transfers content of 
       targetFirmwareList
       of DeviceGroup into
       firmwareList at Device
+    end note
+    note right indServ
+      Read targetFirmwareList from DeviceGroup
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+    note right indServ
+      Update firmwareList at Device
     end note
     indServ -> CanDS
     indServ <-- CanDS

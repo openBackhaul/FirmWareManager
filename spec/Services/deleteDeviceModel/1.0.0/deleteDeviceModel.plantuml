@@ -48,6 +48,10 @@ activate indServ
     indServ <-- RunDS
     deactivate RunDS
     note over indServ
+      <color:LightGray>Stores result for later use</color>
+      <color:LightGray>in [referencingDeviceGroups]</color>
+    end note
+    note over indServ
       IF given DeviceModel referenced:
     end note
     note right indServ
@@ -61,13 +65,16 @@ activate indServ
       activate RunDS
       indServ <-- RunDS
       deactivate RunDS
+      note right indServ
+        <color:LightGray>Appends result for later use</color>
+        <color:LightGray>in [listOfReferencingObjects]</color>
+      end note
     note over indServ
       ELSE
     end note
   end loop
   note over indServ
-    IF Devices of the to be
-    deleted DeviceModel found:
+    IF entries in [listOfReferencingObjects]:
   end note
   note left indServ
     THEN
@@ -99,26 +106,12 @@ activate indServ
     Deletes referencing
     DeviceGroups
   end note
-  loop for each existing DeviceGroup
-    note over indServ
-      Reads deviceModel
-    end note
-    indServ -> CanDS
-    indServ <-- CanDS
-    note over indServ
-      IF given DeviceModel referenced:
-    end note
-    note right indServ
-      THEN
-    end note
+  loop for [referencingDeviceGroups]
     note right indServ
       Deletes DeviceGroup
     end note
     indServ -> CanDS
     indServ <-- CanDS
-    note over indServ
-      ELSE
-    end note
   end loop
 
   note right indServ

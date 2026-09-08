@@ -1,9 +1,8 @@
 ﻿# deleteDeviceGroup
 
 Deletes a DeviceGroup.  
-If the DeviceGroup to be deleted is referenced in defaultDeviceGroup at any DeviceModel, the deletion will be aborted.  
-The deviceModelName will be returned in that case.  
-If the DeviceGroup to be deleted is referencing any Devices, same references get created in their default DeviceGroup.  
+It does not delete default DeviceGroups, but returns the deviceModelName in that case.  
+If the to be deleted DeviceGroup is referencing any Devices, these references get transferred to the default DeviceGroup of the deviceModel, before the deletion is executed.  
 
 ## Diagram
 
@@ -21,9 +20,9 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-| Code | Message                                                                                                  |
-|------|----------------------------------------------------------------------------------------------------------|
-|      | To be deleted DeviceGroup is default DeviceGroup                                                         |
+| Code | Message                                           |
+|------|---------------------------------------------------|
+|      | To be deleted DeviceGroup is default DeviceGroup  |
 
 ## Parameters
 

@@ -17,6 +17,7 @@ activate indServ
   note over indServ
     Checks whether given
     deviceGroupLabel exists
+    by reading deviceModel
   end note
   indServ -> RunDS
   activate RunDS
@@ -36,19 +37,23 @@ activate indServ
   note over indServ
     Checks whether given combination
     of firmwareResourceName and
-    firmwareResourceVersion exists
+    firmwareResourceVersion has 
+    been approved for deviceModel
+  end note
+  note over indServ
+    Read [approval] from deviceModel
   end note
   indServ -> RunDS
   activate RunDS
   indServ <-- RunDS
   deactivate RunDS
   note over indServ
-    IF FirmwareResource NOT existing:
+    IF given FirmwareResource NOT in [approval]:
   end note
   note left indServ
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
   note over indServ
     ELSE
   end note
@@ -104,6 +109,12 @@ activate indServ
   note over indServ
     Replicates updated target
     into Devices of DeviceGroup
+  end note
+  note left valiMan #Yellow
+    Attention:
+    There is no protection against
+    too many TargetFirmware or wrong
+    compositions of TargetFirmware!
   end note
   note right indServ
     Reads device list 

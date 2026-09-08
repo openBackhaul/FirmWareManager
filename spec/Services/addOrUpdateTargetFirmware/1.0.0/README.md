@@ -4,6 +4,8 @@ Adds a FirmwareResource to the targetFirmwareList of a given DeviceGroup.
 If the FirmwareResource would already be referenced, changes for example to its status will be applied.  
 Adds the same firmware to the firmwareList of all Devices referenced by the given DeviceGroup.  
 
+Attention: There is no protection against too many TargetFirmware or wrong compositions of TargetFirmware!
+
 Consequences: The firmware will be attempted to be loaded onto the devices.  
 
 ## Diagram
@@ -22,9 +24,10 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-| Code | Message                                                                                                  |
-|------|----------------------------------------------------------------------------------------------------------|
-|      | Referenced object does not exist                                                                         |
+| Code | Message                                     |
+|------|---------------------------------------------|
+|      | Referenced object does not exist            |
+|      | Firmware not approved for this device model |
 
 ## Parameters
 

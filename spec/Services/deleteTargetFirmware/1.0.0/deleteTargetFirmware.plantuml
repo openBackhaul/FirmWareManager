@@ -15,6 +15,25 @@ requestor -> indServ: { deviceGroupLabel,\nfirmwareResourceName,\nfirmwareResour
 activate indServ
 
   note over indServ
+    Checks whether given
+    deviceGroupLabel exists
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+  note over indServ
+    IF DeviceGroup NOT existing:
+  end note
+  note left indServ
+    THEN
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note over indServ
+    ELSE
+  end note
+
+  note over indServ
     Checks, whether given combination
     of firmwareResourceName and
     firmwareResourceVersion is 

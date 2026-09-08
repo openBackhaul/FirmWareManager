@@ -19,12 +19,13 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-| Code | Message                                                                                                  |
-|------|----------------------------------------------------------------------------------------------------------|
-|      | Input incomplete                                                                                         |
-|      | Referenced object does not exist                                                                         |
-|      | Mismatch between deviceGroupLabel and deviceModelName                                                    |
-|      | Attribute's value is not valid                                                                           |
+| Code | Message                                                           |
+|------|-------------------------------------------------------------------|
+|      | Input incomplete                                                  |
+|      | Referenced object does not exist                                  |
+|      | Mismatch between deviceGroupLabel and deviceModelName             |
+|      | Default DeviceGroup cannot have purgeDate                         |
+|      | Attribute's value is not valid                                    |
 
 ## Parameters
 

@@ -40,7 +40,7 @@ activate indServ
 
   note right indServ
     Reads defaultDeviceGroup
-    from this deviceModel
+    from this DeviceModel
   end note
   indServ -> RunDS
   activate RunDS

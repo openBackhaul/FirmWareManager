@@ -13,21 +13,6 @@ database "RunningDS" as RunDS
 
 requestor -> indServ: { serverLabel,\n<color:LightGray>userName,\n<color:LightGray>password,\n<color:LightGray>sshKey</color> }
 activate indServ
-
-  note over indServ #LightCoral
-    (1) Der CandidateDS wird mit dem Inhalt vom RunningDS überschrieben,
-    also auch der Server.
-    Im InformationStructure Diagram steht aber dass es Server nur
-    im RunningDS geben soll (mit <<R>> markiert)
-    Ist das nicht inkonsistent?
-  end note
-  note over indServ #LightCoral
-    (2) Wenn die Validierung fehlschlägt:
-    - werden die DS nicht unlocked.
-    - Sollte die Änderung im Candidate nicht auch u.U. rückgängig gemacht werden?
-      (Jenachdem was genau da validiert werden soll...)
-  end note
-
   note over indServ
     Locks RunningDS
   end note

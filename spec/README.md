@@ -100,6 +100,9 @@ Internal design aspects:
 
 #### Interpretation
 
+- **Automated purging of device groups**
+  - [p1PurgeDeviceGroup](./Functions/Interpretation/p1PurgeDeviceGroup/1.0.0/)
+
 #### Validation
 
 #### Measurement
