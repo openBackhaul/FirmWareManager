@@ -12,3 +12,9 @@ es dann keine Schleife auf dem RunningDS gibt...)
 "delets given mountName from _device of other DeviceGroups"
 - ein device kann nur in einer deviceGroup stehen (außer ggf. während das verändert wird), korrekt?
 Der Text impliziert aber dass es in mehreren deviceGroups stehen kann.
+
+
+
+generell:
+was ist mit einem speziellen errorCode für fehlgeschlagene Validierung?
+(der dann durchgereicht würde, könnte man im Readme der Tabelle noch entsprechend aufführen)
