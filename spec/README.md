@@ -17,7 +17,7 @@ Internal design aspects:
 
 ### API
 
-#### [ServiceList](./Services/status.md)
+#### ServiceList
 
 - **Documenting firmware approvals (Engineering)**
   - Preparing servers
