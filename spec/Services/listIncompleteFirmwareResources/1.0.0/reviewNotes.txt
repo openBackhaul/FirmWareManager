@@ -1,0 +1,6 @@
+# TODO
+how can there be incomplete FirmwareResources.
+Should this not already be detected during create/update and rejected?
+or is this just for legacy firmware, that's rolled out on the device already but without knowing the server details, yet?
+(i.e. similar to the unknown deviceModels)
+maybe this could be explained briefly in the readme

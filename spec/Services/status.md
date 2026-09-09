@@ -29,7 +29,7 @@ Th = Thorsten
 | Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)    | Th | Th | Th | Th | Ka 3) |
-| [/list-incomplete-firmware-resources](./Services/listIncompleteFirmwareResources/1.0.0/)| Th | Th |   |   |  |
+| [/list-incomplete-firmware-resources](./Services/listIncompleteFirmwareResources/1.0.0/)| Th | Th |   |   | Ka 3) |
 | [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/) | Th | Th |  |  | Ka 3) |
 | [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)                   | Th | Th |  |  | Ka 3) |
 
@@ -38,7 +38,7 @@ Th = Thorsten
 | Service                                                                     | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  | Th | Th |  |  | Ka 3) |
-| [/list-unknown-device-models](./Services/listUnknownDeviceModels/1.0.0/)    | Th | Th |  |  |  |
+| [/list-unknown-device-models](./Services/listUnknownDeviceModels/1.0.0/)    | Th | Th |  |  | Ka 3) |
 | [/create-device-model](./Services/createDeviceModel/1.0.0/)                 | Th | Th |  |  |  |
 | [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)                 | Th | Th |  |  |  |
 
