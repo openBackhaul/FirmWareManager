@@ -19,25 +19,25 @@ Th = Thorsten
 
 | Service                                                             | 1  | 2  | 3  | 4  | 5  |
 | ------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-servers](./Services/listExistingServers/1.0.0/)     | Th | Th | Th | Th |  |
-| [/list-incomplete-servers](./Services/listIncompleteServers/1.0.0/) | Th | Th |   |   |  |
-| [/create-or-update-server](./Services/createOrUpdateServer/1.0.0/)  | Th | Th | Th | Th |  |
-| [/delete-server](./Services/deleteServer/1.0.0/)                    | Th | Th | Th 1) | Th |  |
+| [/list-existing-servers](./Services/listExistingServers/1.0.0/)     | Th | Th | Th | Th | Ka 3) |
+| [/list-incomplete-servers](./Services/listIncompleteServers/1.0.0/) | Th | Th |   |   | Ka 3) |
+| [/create-or-update-server](./Services/createOrUpdateServer/1.0.0/)  | Th | Th | Th | Th | Ka 3) |
+| [/delete-server](./Services/deleteServer/1.0.0/)                    | Th | Th | Th 1) | Th | Ka 3) |
 
 ### Preparing firmware resources
 
 | Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)    | Th | Th | Th | Th |  |
+| [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)    | Th | Th | Th | Th | Ka 3) |
 | [/list-incomplete-firmware-resources](./Services/listIncompleteFirmwareResources/1.0.0/)| Th | Th |   |   |  |
-| [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/) | Th | Th |  |  |  |
-| [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)                   | Th | Th |  |  |  |
+| [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/) | Th | Th |  |  | Ka 3) |
+| [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)                   | Th | Th |  |  | Ka 3) |
 
 ### Preparing device models
 
 | Service                                                                     | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  | Th | Th |  |  |  |
+| [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  | Th | Th |  |  | Ka 3) |
 | [/list-unknown-device-models](./Services/listUnknownDeviceModels/1.0.0/)    | Th | Th |  |  |  |
 | [/create-device-model](./Services/createDeviceModel/1.0.0/)                 | Th | Th |  |  |  |
 | [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)                 | Th | Th |  |  |  |
@@ -101,3 +101,4 @@ Solved by functions.
 
   > 1\) Error Codes not yet defined.  
   > 2\) Sollten die Attribute bei Create erzwungen werden?
+  > 3\) Readme & diagram reviewed
