@@ -13,8 +13,7 @@ requestor -> indServ: { deviceModelName }
 activate indServ
 
   note over indServ
-    Retrieves data
-    from RunningDS
+    Retrieves approvals
   end note
   indServ -> RunDS
   activate RunDS

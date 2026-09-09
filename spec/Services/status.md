@@ -20,6 +20,7 @@ Th = Thorsten
 | Service                                                             | 1  | 2  | 3  | 4  | 5  |
 | ------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-servers](./Services/listExistingServers/1.0.0/)     | Th | Th | Th | Th |  |
+| [/list-incomplete-servers](./Services/listIncompleteServers/1.0.0/) | Th | Th |   |   |  |
 | [/create-or-update-server](./Services/createOrUpdateServer/1.0.0/)  | Th | Th | Th | Th |  |
 | [/delete-server](./Services/deleteServer/1.0.0/)                    | Th | Th | Th 1) | Th |  |
 
@@ -28,6 +29,7 @@ Th = Thorsten
 | Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)    | Th | Th | Th | Th |  |
+| [/list-incomplete-firmware-resources](./Services/listIncompleteFirmwareResources/1.0.0/)| Th | Th |   |   |  |
 | [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/) | Th | Th |  |  |  |
 | [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)                   | Th | Th |  |  |  |
 
@@ -36,6 +38,7 @@ Th = Thorsten
 | Service                                                                     | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  | Th | Th |  |  |  |
+| [/list-unknown-device-models](./Services/listUnknownDeviceModels/1.0.0/)    | Th | Th |  |  |  |
 | [/create-device-model](./Services/createDeviceModel/1.0.0/)                 | Th | Th |  |  |  |
 | [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)                 | Th | Th |  |  |  |
 
@@ -43,6 +46,7 @@ Th = Thorsten
 
 | Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
+| [/list-device-models-without-approvals](./Services/listDeviceModelsWithoutApprovals/1.0.0/) | Th | Th |  |  |  |
 | [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)    | Th | Th |  |  |  |
 | [/add-firmware-approval](./Services/addFirmwareApproval/1.0.0/)                         | Th | Th |  |  |  |
 | [/remove-firmware-approval](./Services/removeFirmwareApproval/1.0.0/)                   | Th | Th |  |  |  |
@@ -61,6 +65,7 @@ Th = Thorsten
 
 | Service                                                                        | 1  | 2  | 3  | 4  | 5  |
 | ------------------------------------------------------------------------------ | -- | -- | -- | -- | -- |
+| [/list-device-groups-without-target-firmware](./Services/listDeviceGroupsWithoutTargetFirmware/1.0.0/) | Th | Th |  |  |  |
 | [/provide-existing-device-group](./Services/provideExistingDeviceGroup/1.0.0/) | Th | Th |  |  |  |
 | [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)  | Th | Th |  |  |  |
 | [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/)              | Th | Th |  |  |  |
@@ -78,6 +83,7 @@ Solved by functions.
 | Service                                                                             | 1  | 2  | 3  | 4  | 5  |
 | ----------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-devices](./Services/listExistingDevices/1.0.0/)                     | Th | Th |  |  |  |
+| [/list-device-groups-without-devices](./Services/listDeviceGroupsWithoutDevices/1.0.0/) | Th | Th |  |  |  |
 | [/add-devices-to-device-group](./Services/addDevicesToDeviceGroup/1.0.0/)           | Th | Th |  |  |  |
 | [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/) | Th | Th |  |  |  |
 

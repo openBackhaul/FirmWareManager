@@ -1,0 +1,49 @@
+@startuml listIncompleteFirmwareResources
+skinparam responseMessageBelowArrow true
+
+title
+  listIncompleteFirmwareResources
+end title
+
+participant "requestor\n" as requestor
+participant "listIncompleteFirmwareResources\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Retrieves
+    [FirmwareResources]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+
+  loop for each FirmwareResource
+    note over indServ
+      If NOT
+          ( server.length > 0
+          AND
+          sourceUri.length > 0
+          AND
+          fileName.length > 0 )
+    end note
+    note right indServ
+      THEN
+    end note
+    note right indServ
+      Appends combination of name and
+      version of FirmwareResource to
+      [incompleteFirmwareResourceList]
+    end note
+    note over indServ
+      ELSE
+    end note
+  end loop
+
+requestor <-- indServ: { [incompleteFirmwareResourceList] }
+deactivate indServ
+
+@enduml

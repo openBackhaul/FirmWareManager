@@ -1,0 +1,42 @@
+@startuml listDeviceModelsWithoutApprovals
+skinparam responseMessageBelowArrow true
+
+title
+  listDeviceModelsWithoutApprovals
+end title
+
+participant "requestor\n" as requestor
+participant "listDeviceModelsWithoutApprovals\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ
+activate indServ
+
+    note over indServ
+      Retrieves [DeviceModels]
+    end note
+    indServ -> RunDS
+    activate RunDS
+    indServ <-- RunDS
+    deactivate RunDS
+
+  loop for each DeviceModel
+    note over indServ
+      If [approval].length NOT > 0
+    end note
+    note right indServ
+      THEN
+    end note
+    note right indServ
+      Appends name of DeviceModel
+      to [deviceModelList]
+    end note
+    note over indServ
+      ELSE
+    end note
+  end loop
+
+requestor <-- indServ: { [deviceModelList] }
+deactivate indServ
+
+@enduml

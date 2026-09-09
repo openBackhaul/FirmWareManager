@@ -1,6 +1,6 @@
 # listIncompleteFirmwareResources
 
-Lists all FirmwareResources that have incomplete data.
+Lists FirmwareResources that have incomplete data.
 
 ## Diagram
 
@@ -18,13 +18,7 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-  > Muss angepasst werden:
-
-| Code | Message                                                                                                  |
-|------|----------------------------------------------------------------------------------------------------------|
-|      | Input incomplete                                                                                         |
-|      | Referenced object does not exist                                                                         |
-|      | Combination of serverLabel, sourceUri and fileName already documented                                    |
+./.
 
 ## Parameters
 

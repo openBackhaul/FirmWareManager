@@ -1,0 +1,47 @@
+@startuml listIncompleteServers
+skinparam responseMessageBelowArrow true
+
+title
+  listIncompleteServers
+end title
+
+participant "requestor\n" as requestor
+participant "listIncompleteServers\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Retrieves [Servers]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+
+  loop for each Server
+    note over indServ
+      If NOT
+        ( userName.length > 0
+        AND
+          (password.length > 0
+          OR
+          sshKey.length > 0 ) )
+    end note
+    note right indServ
+      THEN
+    end note
+    note right indServ
+      Appends label of Server
+      to [incompleteServerList]
+    end note
+    note over indServ
+      ELSE
+    end note
+  end loop
+
+requestor <-- indServ: { [incompleteServerList] }
+deactivate indServ
+
+@enduml

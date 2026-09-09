@@ -13,8 +13,7 @@ requestor -> indServ
 activate indServ
 
   note over indServ
-    Retrieves data
-    from RunningDS
+    Retrieves Servers
   end note
   indServ -> RunDS
   activate RunDS

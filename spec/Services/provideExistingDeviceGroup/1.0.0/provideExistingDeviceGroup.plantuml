@@ -13,8 +13,7 @@ requestor -> indServ: { deviceGroupLabel }
 activate indServ
 
   note over indServ
-    Retrieves data
-    from RunningDS
+    Retrieves DeviceGroup
   end note
   indServ -> RunDS
   activate RunDS
