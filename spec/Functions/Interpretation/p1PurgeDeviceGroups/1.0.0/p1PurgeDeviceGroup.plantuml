@@ -1,0 +1,55 @@
+@startuml p1PurgeDeviceGroups
+skinparam responseMessageBelowArrow true
+
+title
+  p1PurgeDeviceGroups
+end title
+
+participant "pulser\n" as pulser
+participant "p1PurgeDeviceGroups\n" as indServ
+participant "/deleteDeviceGroup\n" as delGroup
+participant "p1ValidationManager\n" as valiMan
+database "RunningDS" as RunDS
+
+pulser -> indServ
+activate indServ
+
+  loop for [DeviceGroup]
+    note over indServ
+      Reads purgeDate
+      of DeviceGroup
+    end note
+    indServ -> RunDS
+    activate RunDS
+    indServ <-- RunDS
+    deactivate RunDS
+    note over indServ
+      IF purgeDate exceeded:
+    end note
+    note right indServ
+      THEN
+    end note
+    note right indServ
+      Initiates deletion of DeviceGroup
+    end note
+    indServ -> delGroup : { deviceGroupLabel }
+    activate delGroup
+      note over delGroup
+        Deletes DeviceGroup
+        Adds Devices to default DeviceGroup
+        Updates [firmwareList] of Devices
+      end note
+    indServ <-- delGroup
+    deactivate delGroup
+    note right indServ
+      <color:LightGray>ignores any errors</color>
+    end note
+    note over indServ
+      ELSE
+    end note
+  end loop
+
+pulser <-- indServ: 204
+deactivate indServ
+
+@enduml

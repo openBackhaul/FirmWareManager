@@ -20,10 +20,10 @@ Th = Thorsten
 | Function        |  1  |  2  |  3  |  4  |  5  |
 |-----------------|-----|-----|-----|-----|-----|
 | p1CreateDevices | Th  | Th  |     |     |     |
-| p1DeleteDevices |     |     |     |     |     |
+| p1DeleteDevices | Th  | Th  |     |     |     |
 
 ### Purging DeviceGroups
 
-| Function           |  1  |  2  |  3  |  4  |  5  |
-|--------------------|-----|-----|-----|-----|-----|
-| p1PurgeDeviceGroup |     |     |     |     |     |
+| Function            |  1  |  2  |  3  |  4  |  5  |
+|---------------------|-----|-----|-----|-----|-----|
+| p1PurgeDeviceGroups | Th  | Th  |     |     |     |

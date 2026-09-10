@@ -92,7 +92,7 @@ Internal design aspects:
   - [p1DeleteDevices](./Functions/Interpretation/p1DeleteDevices/1.0.0/)
 
 - **Purging DeviceGroups**
-  - [p1PurgeDeviceGroup](./Functions/Interpretation/p1PurgeDeviceGroup/1.0.0/)
+  - [p1PurgeDeviceGroups](./Functions/Interpretation/p1PurgeDeviceGroups/1.0.0/)
 
 #### Validation
 
