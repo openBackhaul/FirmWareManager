@@ -33,10 +33,10 @@ The information structure specific for the firmware domain contains the necessar
 
 The transformation of the Papyrus class diagram into the OpenAPI like representation is done by GitHub Copilot.  
 
-> Warning!  
-> This method does not produce reproducible results!  
-> The old and the new informationStructure.yaml have to be manually compared side by side.  
-> It must be assured by human review that actually exclusively the willingly made changes got into the new file.
+**Warning!**  
+This method does not produce reproducible results!  
+The old and the new informationStructure.yaml have to be manually compared side by side.  
+It must be assured by human review that actually exclusively the willingly made changes got into the new file.
 
 The following two files have to be provided as context for the transformation:  
 

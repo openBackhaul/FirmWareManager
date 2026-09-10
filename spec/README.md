@@ -85,6 +85,33 @@ Internal design aspects:
 
 ### Functions
 
+#### Interpretation
+
+- **Preparing devices**
+  - [p1CreateDevices](./Functions/Interpretation/p1CreateDevices/1.0.0/)
+  - [p1DeleteDevices](./Functions/Interpretation/p1DeleteDevices/1.0.0/)
+
+- **Purging DeviceGroups**
+  - [p1PurgeDeviceGroup](./Functions/Interpretation/p1PurgeDeviceGroup/1.0.0/)
+
+#### Validation
+
+- **Ensuring Device to DeviceGroup consistency**
+  - [p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel](./Functions/Validation/p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel/1.0.0/)
+
+- **Ensuring Device To firmware consistency**
+  - [p1EnsureEveryDeviceReferencingExclusivelyApprovedFirmware](./Functions/Validation/p1EnsureEveryDeviceReferencingExclusivelyApprovedFirmware/1.0.0/)
+  - [p1EnsureEveryDeviceHasFirmwareAsTargetOfItsGroup](./Functions/Validation/p1EnsureEveryDeviceHasFirmwareAsTargetOfItsGroup/1.0.0/)
+
+- **Basic**
+  - [p1ValidationManager](./Functions/Validation/p1ValidationManager/1.0.0/)
+
+#### Measurement
+
+#### Monitoring
+
+#### Implementation
+
 #### Administrative
 
 - p1ManageFirmware  
@@ -104,25 +131,4 @@ Internal design aspects:
 - p1TransmittingKafka  
   _[if Kafka is used for error reporting]_  
 
-#### Interpretation
-
-- **Automated purging of device groups**
-  - [p1PurgeDeviceGroup](./Functions/Interpretation/p1PurgeDeviceGroup/1.0.0/)
-
-#### Validation
-
-#### Measurement
-
-- p2LoadRawCc  
-
-- p1FieldsFilter  
-
-#### Monitoring
-
-#### Implementation
-
-### Most relevant Data Structures
-
-#### Internal Data Structures
-
-#### Output Formats
+#### Internal Data Structure

@@ -440,7 +440,7 @@
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_qyDVt5f6EfGarpAJ9uU5dg" name="sourceUri" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_ZNESAJhoEfGarpAJ9uU5dg" annotatedElement="_qyDVt5f6EfGarpAJ9uU5dg">
-              <body>URI specifying the remote-file-path for downloading the firmware component. Format:&lt;protocol>://&lt;host>[:port]/path&quot;</body>
+              <body>URI specifying the remote-file-path for downloading the firmware component. Format:&lt;protocol>://&lt;host>[:port]/path;</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedAttribute>
@@ -465,7 +465,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_P9xbcJhpEfGarpAJ9uU5dg"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_P97McJhpEfGarpAJ9uU5dg" value="*"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_0T_iYZhwEfGarpAJ9uU5dg" name="_defaultDeviceGroup" type="_wO6R4Jf4EfGarpAJ9uU5dg" isUnique="false" isReadOnly="true" aggregation="shared" association="_0T5bwJhwEfGarpAJ9uU5dg">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_0T_iYZhwEfGarpAJ9uU5dg" name="_defaultDeviceGroup" type="_wO6R4Jf4EfGarpAJ9uU5dg" isUnique="false" isReadOnly="true" association="_0T5bwJhwEfGarpAJ9uU5dg">
             <ownedComment xmi:type="uml:Comment" xmi:id="_TpC5sJhxEfGarpAJ9uU5dg" annotatedElement="_0T_iYZhwEfGarpAJ9uU5dg">
               <body>Reference to the grouping of all devices of this type that have not been willingly assigned to a specific group</body>
             </ownedComment>
@@ -485,16 +485,16 @@
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_wO6R45f4EfGarpAJ9uU5dg" name="purgeDate" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_wO6R5Jf4EfGarpAJ9uU5dg" annotatedElement="_wO6R45f4EfGarpAJ9uU5dg">
-              <body>Optional date on which all devices in this group will be automatically migrated to the default group of its device type and the definition of this device group will be deleted&#xD;
+              <body>Optional date on which all devices in this group will be automatically migrated to the default group of its device type and the definition of this device group will be deleted. Format: yyyy-mm-ddThh:mm:ss+hh:mm. Pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$&#xD;
 </body>
             </ownedComment>
-            <type xmi:type="uml:PrimitiveType" href="../_FirmwareManagement/CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_cQ5hkJypEfGVBaRc8l0nOQ" name="targetFirmwareList" type="_zP1hUJyPEfGVBaRc8l0nOQ" isOrdered="true" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_cQ5hkZypEfGVBaRc8l0nOQ" annotatedElement="_cQ5hkJypEfGVBaRc8l0nOQ">
               <body>Ordered array of firmware components to be operated on all grouped devices</body>
             </ownedComment>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cQ5hkpypEfGVBaRc8l0nOQ" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cQ5hkpypEfGVBaRc8l0nOQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cQ5hk5ypEfGVBaRc8l0nOQ" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_LLplIJf5EfGarpAJ9uU5dg" name="_device" type="_KzOCoJcrEfGarpAJ9uU5dg" isOrdered="true" isUnique="false" aggregation="shared" association="_LLnv8Jf5EfGarpAJ9uU5dg">
@@ -526,6 +526,12 @@
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ujQv0JcxEfGarpAJ9uU5dg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ujeLMJcxEfGarpAJ9uU5dg" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_K8-vUKznEfGugp3kck48_g" name="lastUpdate" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_61X9IKznEfGugp3kck48_g" annotatedElement="_K8-vUKznEfGugp3kck48_g">
+              <body>Date on which the device was last measured. Format: yyyy-mm-ddThh:mm:ss+hh:mm. Pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedAttribute>
         </packagedElement>
       </packagedElement>
@@ -862,4 +868,7 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_KzOpsZcrEfGarpAJ9uU5dg" base_StructuralFeature="_KzOCoZcrEfGarpAJ9uU5dg" partOfObjectKey="1" isInvariant="true"/>
   <OpenModel_Profile:Reference xmi:id="_MRv98KByEfGVBaRc8l0nOQ" base_Element="_KzOCoZcrEfGarpAJ9uU5dg" reference="ControlConstructPac::externalLabel"/>
   <OpenModel_Profile:key xmi:id="_KzRF8JcrEfGarpAJ9uU5dg" base_Property="_KzOCoZcrEfGarpAJ9uU5dg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_K8-vUaznEfGugp3kck48_g" base_Property="_K8-vUKznEfGugp3kck48_g" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_K9JucKznEfGugp3kck48_g" base_StructuralFeature="_K8-vUKznEfGugp3kck48_g"/>
+  <OpenModel_Profile:O xmi:id="_hKF1QKzoEfGugp3kck48_g" base_Element="_K8-vUKznEfGugp3kck48_g"/>
 </xmi:XMI>

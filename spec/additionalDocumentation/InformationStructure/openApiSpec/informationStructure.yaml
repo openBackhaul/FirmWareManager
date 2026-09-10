@@ -255,7 +255,8 @@ domain-controller:
                   description: 'Reference towards the type of device that is common to all grouped devices'
                 purge-date:
                   type: string
-                  description: 'Optional date on which all devices in this group will be automatically migrated to the default group of its device type and the definition of this device group will be deleted'
+                  description: 'Optional date on which all devices in this group will be automatically migrated to the default group of its device type and the definition of this device group will be deleted. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
+                  pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
                 target-firmware-list:
                   type: array
                   description: 'Ordered array of firmware components to be operated on all grouped devices'
@@ -293,7 +294,7 @@ domain-controller:
               required:
                 - mount-name
                 - device-model
-                - firmware-list
+                - last-update
               properties:
                 mount-name:
                   type: string
@@ -303,6 +304,10 @@ domain-controller:
                   description: 'Invariant type of the device'
                 firmware-list:
                   type: array
+                  required:
+                    - name
+                    - version
+                    - status
                   description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true.'
                   items:
                     type: object
@@ -328,3 +333,7 @@ domain-controller:
                           - 'not-applicable'
                           - 'incomplete'
                           - 'not-yet-defined'
+                last-update:
+                  type: string
+                  description: 'Date on which the device was last measured. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
+                  pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'

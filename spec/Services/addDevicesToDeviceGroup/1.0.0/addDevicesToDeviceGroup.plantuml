@@ -139,12 +139,12 @@ activate indServ
       firmwareList at Device
     end note
     note right indServ
-      Read targetFirmwareList from DeviceGroup
+      Reads targetFirmwareList from DeviceGroup
     end note
     indServ -> CanDS
     indServ <-- CanDS
     note right indServ
-      Update firmwareList at Device
+      Updates firmwareList at Device
     end note
     indServ -> CanDS
     indServ <-- CanDS
