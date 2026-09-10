@@ -2,7 +2,10 @@
 
 Deletes a DeviceGroup.  
 It does not delete default DeviceGroups, but returns the deviceModelName in that case.  
-If the to be deleted DeviceGroup is referencing any Devices, these references get transferred to the default DeviceGroup of the deviceModel, before the deletion is executed.  
+If the to be deleted DeviceGroup is referencing any Devices, these references get transferred to the default DeviceGroup of the same deviceModel.  
+Transfer to default DeviceGroup includes updating the firmwareList of the transferred Devices.  
+
+Consequences: As referenced Devices get transferred to the default DeviceGroup, these device might undergo firmware download and activation.  
 
 ## Diagram
 

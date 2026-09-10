@@ -152,8 +152,7 @@ activate indServ
   indServ -X RunDS
   deactivate RunDS
 
-  pulser <-- indServ: 204
-
+pulser <-- indServ: 204
 deactivate indServ
 
 @enduml

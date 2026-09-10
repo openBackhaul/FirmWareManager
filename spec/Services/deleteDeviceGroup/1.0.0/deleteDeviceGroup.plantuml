@@ -16,7 +16,8 @@ activate indServ
 
   note over indServ
     Checks, whether given
-    deviceGroupLabel exists
+    DeviceGroup exists by
+    reading its deviceModel
   end note
   indServ -> RunDS
   activate RunDS
@@ -34,22 +35,20 @@ activate indServ
   end note
 
   note over indServ
-    Checks, whether to be
-    deleted DeviceGroup is
-    a default DeviceGroup
+    Assures that given DeviceGroup
+    is not default DeviceGroup
   end note
-  loop for each existing DeviceModel
-    note over indServ
-      Read defaultDeviceGroup
-    end note  
-    indServ -> RunDS
-    activate RunDS
-    indServ <-- RunDS
-    deactivate RunDS
-  end loop
+  note over indServ
+    Reads defaultDeviceGroup
+    of referenced DeviceModel
+  end note  
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
   note over indServ
     IF given deviceGroupLabel
-    exists in defaultDeviceGroup:
+    equals defaultDeviceGroup:
   end note
   note left indServ
     THEN
@@ -78,42 +77,42 @@ activate indServ
   RunDS -/ CanDS
 
   note over indServ
-    Reads _devices at
+    Reads [devices] at
     given DeviceGroup
   end note
   indServ -> CanDS
   indServ <-- CanDS
+
   note over indServ
-    IF number of Devices > 0:
-  end note
-  note right indServ
-    THEN
-  end note
-  note right indServ
-    Reads deviceModel
-    at given DeviceGroup
-  end note
-  indServ -> CanDS
-  indServ <-- CanDS
-  note right indServ
-    Reads defaultDeviceGroup
-    at this DeviceModel
-  end note
-  indServ -> CanDS
-  indServ <-- CanDS
-  note right indServ
-    Appends all entries of _devices
-    at given DeviceGroup to _devices
+    Reads [targetFirmwareList]
     at default DeviceGroup
   end note
   indServ -> CanDS
   indServ <-- CanDS
 
-  note right indServ
-    Deletes given DeviceGroup
+  note over indServ
+    Deletes given
+    DeviceGroup
   end note
   indServ -> CanDS
   indServ <-- CanDS
+
+  loop for [devices]
+    note over indServ
+      Appends mountName to [devices]
+      of default DeviceGroup
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+
+    note over indServ
+      Transfers [targetFirmwareList]
+      of default DeviceGroup to
+      [firmwareList] of Device
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+  end loop
 
   note over indServ
     Triggers Validation
