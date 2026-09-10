@@ -1,0 +1,231 @@
+@startuml createOrUpdateDeviceGroup
+skinparam responseMessageBelowArrow true
+
+title
+  createOrUpdateDeviceGroup
+end title
+
+participant "requestor\n" as requestor
+participant "createOrUpdateDeviceGroup\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> indServ: { deviceGroupLabel,\n<color:LightGray>deviceModelName,\n<color:LightGray>purgeDate</color> }
+activate indServ
+
+  note over indServ
+    Checks whether given
+    deviceGroupLabel exists
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+
+  ' if deviceGroup does not exist
+  group Checks applied in case DeviceGroup not existing
+    note over indServ
+      IF DeviceGroup NOT existing:
+    end note
+    note right indServ
+      THEN <color:LightGray>(=new DeviceGroup)</color>
+    end note
+      note right indServ
+        IF deviceModelName NOT given
+      end note
+      note left indServ
+        THEN
+      end note
+      requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+
+      note right indServ
+        Checks whether given
+        deviceModelName exists
+      end note
+      indServ -> RunDS
+      activate RunDS
+      indServ <-- RunDS
+      deactivate RunDS
+      note right indServ
+        IF DeviceModel NOT existing:
+      end note
+      note left indServ
+        THEN
+      end note
+      requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+    end group
+
+  ' if deviceGroup already exists
+  group Checks applied in case DeviceGroup already exists
+
+    note over indServ
+      ELSE <color:LightGray>(=DeviceGroup already existing)</color>
+    end note
+
+      ' DeviceModelName given but mismatch
+      group Insufficient DeviceModelName
+        note over indServ
+          IF deviceModelName given
+        end note
+        note right indServ
+          THEN
+        end note
+        note right indServ
+          Checks whether given
+          deviceModelName is equal
+          to _deviceModel at given
+          DeviceGroup
+        end note
+        note right indServ
+          Reads _deviceModel
+          at given DeviceGroup
+        end note
+        indServ -> RunDS
+        activate RunDS
+        indServ <-- RunDS
+        deactivate RunDS
+        note right indServ
+          _IF deviceModelName NOT 
+          equal to _deviceModel:
+        end note
+        note left indServ
+          _THEN
+        end note
+        requestor <-- indServ: { ErrorCode,\nErrorMessage }
+        end group
+
+    ' now check if purgeDate is given
+    group PurgeDate checks
+      note over indServ
+        IF purgeDate is given:
+      end note
+      note right indServ
+        THEN
+      end note
+      note right indServ
+        Checks whether given
+        purgeDate is allowed
+      end note
+        note right indServ
+          Reads defaultDeviceGroup
+          from deviceModel referred
+          by given DeviceGroup
+        end note
+        indServ -> RunDS
+        activate RunDS
+        indServ <-- RunDS
+        deactivate RunDS
+      note right indServ
+        _IF given deviceGroupLabel
+        equals defaultDeviceGroup
+      end note
+      note left indServ
+        THEN
+      end note
+      requestor <-- indServ: { ErrorCode,\nErrorMessage }
+      note right indServ
+        Checks whether given
+        purgeDate is reasonable
+      end note
+      note right indServ
+        _IF purgeDate already in past
+      end note
+      note left indServ
+        THEN
+      end note
+      requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+    end group
+
+  end group
+
+' hier passiert zeug wenn der input geprüft wurde
+  note over indServ
+    Locks RunningDS
+  end note
+  indServ -X RunDS
+  activate RunDS
+  note over indServ
+    Locks CandidateDS
+  end note
+  indServ -X CanDS
+  activate CanDS
+  note over indServ
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  indServ -> RunDS
+  RunDS -/ CanDS
+
+  note over indServ
+    IF deviceGroupLabel existing:
+  end note
+  note right indServ
+    THEN
+  end note
+  note right indServ
+    Updates DeviceGroup
+  end note
+  indServ -> CanDS
+  indServ <-- CanDS
+  note right indServ
+    ELSE
+  end note
+  note right indServ
+    Creates new DeviceGroup
+  end note
+  indServ -> CanDS
+  indServ <-- CanDS
+
+  note over indServ
+    Triggers Validation
+  end note
+  indServ -> valiMan: {triggerFunction==createOrUpdateDeviceGroup}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  indServ <-- valiMan
+  deactivate valiMan
+  note over indServ
+    IF validation failed:
+  end note
+  note right indServ
+    THEN
+  end note
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
+    ELSE
+  end note
+
+  note right indServ
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  indServ -> CanDS
+  CanDS -\ RunDS
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  deactivate CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  deactivate RunDS
+
+  requestor <-- indServ: 204
+
+deactivate indServ
+
+@enduml

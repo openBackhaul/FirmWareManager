@@ -1,7 +1,3 @@
 # TODO:
-man könnte überlegen, ob es schon ist, über alle Geräte zu iterieren, um die unbekannten DeviceModels zu finden,
+man könnte überlegen, ob es schön ist, über alle Geräte zu iterieren, um die unbekannten DeviceModels zu finden,
 oder ob man das nicht irgendwie effizienter abspeichern kann.
-ZB wenn man ein Gerät neu hinzufügt, könnte man prüfen, ob das Model bekannt ist und falls nicht das in einer unknown-Liste speichern.
-Wenn man dann ein neues deviceModel anlegt könnte man das aus der Liste rauslöschen. (Wenn man ein deviceModel komplett löscht, muss
-es aber umgekehrt nicht in die Liste, weil die DeviceModels ja erst gelöscht werden dürfen, wenn sie nicht mehr irgendwo benutzt werden).
-Vielleicht kann man das als eigenes Datenobjekt im Info-Modell aufnehmen....

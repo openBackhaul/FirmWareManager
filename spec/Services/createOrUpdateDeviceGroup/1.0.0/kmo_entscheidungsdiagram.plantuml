@@ -1,0 +1,57 @@
+@startuml
+
+skinparam ArrowThickness 2
+
+start
+
+if (Device Group exists?) then (<color:green>Yes</color>)
+    if (Device Model Name provided?) then (<color:green>Yes</color>)
+        if (Matches current Device Model?) then (<color:green>Yes</color>)
+        else (<color:red>No</color>)
+            :Error:\nDEVICE_MODEL_MISMATCH;
+            stop
+        endif
+    endif
+
+    if (Purge Date provided?) then (<color:green>Yes</color>)
+        if (Is Default Device Group?) then (<color:green>Yes</color>)
+            :Error:\nPURGE_NOT_ALLOWED_FOR_DEFAULT_GROUP;
+            stop
+        else (<color:red>No</color>)
+        endif
+
+        if (Purge Date valid and in the future?) then (<color:green>Yes</color>)
+        else (<color:red>No</color>)
+            :Error:\nINVALID_PURGE_DATE;
+            stop
+        endif
+    endif
+
+else (<color:red>No</color>)
+
+    if (Device Model Name provided?) then (<color:green>Yes</color>)
+        if (Device Model exists?) then (<color:green>Yes</color>)
+        else (<color:red>No</color>)
+            :Error:\nDEVICE_MODEL_NOT_FOUND;
+            stop
+        endif
+    else (<color:red>No</color>)
+        :Error:\nDEVICE_MODEL_REQUIRED;
+        stop
+    endif
+
+endif
+
+:Create or Update Device Group;
+
+:Run Validation;
+
+if (Validation successful?) then (<color:green>Yes</color>)
+    :HTTP 204;
+    stop
+else (<color:red>No</color>)
+    :Validation Error;
+    stop
+endif
+
+@enduml
