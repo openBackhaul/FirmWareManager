@@ -16,6 +16,7 @@ database "DomainController" as DC
 pulser -> indServ
 activate indServ
 
+  ' Get retention period settings
   note over indServ
     Reads parameters
     from DomainController
@@ -25,6 +26,7 @@ activate indServ
     indServ <-- DC: { maximumPermissibleAge }
     deactivate DC
 
+  ' Iterate over ODS devices to check for obsolescence
   loop for each ODS:Device
     note over indServ
       Checks, whether lastUpdate
@@ -57,6 +59,8 @@ activate indServ
       ELSE
     end note
   end loop
+
+  ' If nothing to delete: finished
   note over indServ
     IF [obsoleteDevice].length = 0:
   end note
@@ -68,6 +72,7 @@ activate indServ
     ELSE
   end note  
 
+  ' Else copy RDS to CDS
   note over indServ
     Locks RunningDS
   end note
@@ -86,6 +91,7 @@ activate indServ
   indServ -> RunDS
   RunDS -/ CanDS
 
+  ' Delete obsolete devices from CDS
   loop for [obsoleteDevice]
     note over indServ
       Deletes obsolete RDS:Device
@@ -129,6 +135,7 @@ activate indServ
     end loop
   end loop
 
+  ' Write updated CDS back to RDS
   note right indServ
     Overwrites RunningDS
     with CandidateDS
