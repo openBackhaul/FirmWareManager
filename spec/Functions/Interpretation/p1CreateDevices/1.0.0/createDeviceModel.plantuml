@@ -16,6 +16,7 @@ database "OperationalDS" as OpDS
 pulser -> indServ
 activate indServ
 
+  ' Read devices from ODS
   note over indServ
     Reads list of ODS:Devices
   end note
@@ -23,6 +24,9 @@ activate indServ
   activate OpDS
   indServ <-- OpDS
   deactivate OpDS
+
+
+  ' Loop over ODS devices, add them to [newDevices]
   loop for each ODS:Device
     note over indServ
       Checks, whether it can
@@ -38,25 +42,41 @@ activate indServ
     note right indServ
       THEN
     end note
+    note right indServ #LightCoral
+      Imho fehlt hier ein Schritt, in dem
+      das DeviceModel bestimmt wird
+      (anhand des CC.deviceModelNames)
+    end note
+
     note right indServ
       Add mountName and deviceModel
-      of ODS:Device to [newDevice]
+      of ODS:Device to [newDevices]
+    end note
+    note over indServ #lightBlue
+      ELSE würde ich weglassen
+      (beim Programmierung muss man ja auch
+      kein else angeben, wenn es keins gibt)
     end note
     note over indServ
       ELSE
     end note
   end loop
   note over indServ
-    IF [newDevice].length = 0:
+    IF [newDevices].length = 0:
   end note
   note left indServ
     THEN
   end note
   pulser <-- indServ: 204
+  note over indServ #lightBlue
+    Else würde ich hier auch weglassen.
+    das 204 terminiert ja.
+  end note
   note over indServ
     ELSE
   end note  
 
+  ' Lock DataStores and copy RDS to CDS
   note over indServ
     Locks RunningDS
   end note
@@ -75,7 +95,8 @@ activate indServ
   indServ -> RunDS
   RunDS -/ CanDS
 
-  loop for [newDevice]
+  ' Create new devices in RDS
+  loop for [newDevices]
     note over indServ
       Creates new RDS:Devices
     end note
@@ -88,8 +109,7 @@ activate indServ
     end note
     note over indServ
       Attempts to address DeviceModel
-      referenced in deviceModel of
-      RDS:Device for reading its 
+      RDS:Device.deviceModel for reading its 
       defaultDeviceGroup
     end note
     indServ -> CanDS
@@ -108,7 +128,7 @@ activate indServ
       ELSE
     end note
     note over indServ
-      Adds mountName of RDS:Device
+      Adds RDS:Device.mountName
       to [device] at defaultDeviceGroup
     end note
     indServ -> CanDS
@@ -116,11 +136,10 @@ activate indServ
 
     note over indServ
       Transfers content of
-      [targetFirmwareList]
-      of defaultDeviceGroup
-      to [firmwareList] at
-      RDS:Device
+      defaultDeviceGroup.[targetFirmwareList]
+      to RDS:Device.[firmwareList]
     end note
+
     note right indServ
       Reads [targetFirmwareList]
       at defaultDeviceGroup
@@ -128,13 +147,14 @@ activate indServ
     indServ -> CanDS
     indServ <-- CanDS
     note right indServ
-      Updates [firmwareList]
-      at RDS:Device
+      Updates
+      RDS:Device.[firmwareList]
     end note
     indServ -> CanDS
     indServ <-- CanDS
   end loop
 
+  ' Write changes from CDS to RDS and unlock DataStores
   note right indServ
     Overwrites RunningDS
     with CandidateDS

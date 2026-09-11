@@ -1,0 +1,5 @@
+# TODO
+
+updated the diagram:
+- added some note boxes
+- refined some of the instructions for better readbility
