@@ -1,0 +1,214 @@
+@startuml p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel
+skinparam responseMessageBelowArrow true
+
+title
+  p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel
+end title
+
+participant "p1ValidationManager\n" as valiMan
+participant "p1EnsureEveryDeviceBeingReferred\nByOneDeviceGroupOfItsDeviceModel" as valiFun
+database "CandidateDS" as CanDS
+
+activate CanDS
+valiMan -> valiFun: { triggerFunction }
+activate valiFun
+
+  note over valiFun
+    Composes [helper] from
+      deviceModelName (key)
+      [groupedDevices]
+      [existingDevices]
+  end note
+
+  loop for each DeviceModel
+    note over valiFun
+      Creates an entry in helper
+      with deviceModelName = name
+    end note
+  end loop
+  note over valiFun
+    Creates an additional entry in helper
+    with deviceModelName = 'unknown'
+  end note
+
+  loop for each DeviceGroup
+    note over valiFun
+      Read deviceModel
+    end note
+    valiFun -> CanDS
+    valiFun <-- CanDS
+    note over valiFun
+      Read [device]
+    end note
+    valiFun -> CanDS
+    valiFun <-- CanDS
+    note over valiFun
+      Append [device] to
+      helper={deviceModel}/[groupedDevices]
+    end note
+    note over valiFun
+      IF deviceModel in helper not existing
+    end note
+    note left valiFun
+      THEN
+    end note
+    note left valiFun
+      Abort validation
+    end note
+    valiMan <-- valiFun: { ErrorCode,\nErrorMessage,\ndeviceGroupLabel }
+    note over valiFun
+      ELSE
+    end note
+  end loop
+
+  loop for each Device
+    note over valiFun
+      Read deviceModel
+    end note
+    valiFun -> CanDS
+    valiFun <-- CanDS
+    note over valiFun
+      Append mountName to
+      helper={deviceModel}/[existingDevices]
+    end note
+    note over valiFun
+      IF deviceModel in helper not existing
+    end note
+    note right valiFun
+      THEN
+    end note
+    note right valiFun
+      Append mountName to
+      helper='unknown'/[existingDevices]
+    end note
+    note over valiFun
+      ELSE
+    end note
+  end loop
+
+  note over valiFun
+    Check for Devices in
+    multiple DeviceGroups
+  end note
+  note over valiFun
+    Create [allGroupedDevices]
+  end note
+  loop for [helper]
+    note over valiFun
+      Append [groupedDevices]
+      to [allGroupedDevices]
+    end note
+  end loop
+  note over valiFun
+    Extract duplicates found in 
+    [allGroupedDevices] into 
+    [duplicates]
+  end note
+  note over valiFun
+    IF [duplicates].length > 0:
+  end note
+  note left valiFun
+    THEN
+  end note
+  note left valiFun
+    Abort validation
+  end note
+  valiMan <-- valiFun: { ErrorCode,\nErrorMessage,\n[duplicates] }
+  note over valiFun
+    ELSE
+  end note
+
+  note over valiFun
+    Check for every Device being referred
+    by a DeviceGroup of its known DeviceModel
+  end note
+  note over valiFun
+    Create [ungroupedDevices]
+  end note
+  loop for [helper]
+    loop for [existingDevices]
+      note over valiFun
+        Check whether Device 
+        is in [groupedDevices]
+      end note
+      note over valiFun
+        IF Device not in [groupedDevices]
+      end note
+      note right valiFun
+        THEN
+      end note
+      note right valiFun
+        Append Device to [ungroupedDevices]
+      end note
+      note over valiFun
+        ELSE
+      end note
+    end loop
+  end loop
+  note over valiFun
+    IF [ungroupedDevices].length > 0:
+  end note
+  note left valiFun
+    THEN
+  end note
+  note left valiFun
+    Abort validation
+  end note
+  valiMan <-- valiFun: { ErrorCode,\nErrorMessage,\n[ungroupedDevices] }
+  note over valiFun
+    ELSE
+  end note
+
+  note over valiFun
+    Check for Devices of unknown DeviceModel
+    not being referred by any DeviceGroup
+  end note
+  note over valiFun
+    Create [referredUnknownDevices]
+  end note
+  loop for each helper='unknown'/[existingDevices]
+    loop for [helper]
+      note over valiFun
+        Check whether Device is in [groupedDevices]
+      end note
+    note over valiFun
+      IF Device is in [groupedDevices]
+    end note
+    note right valiFun
+      THEN
+    end note
+    note right valiFun
+      Append Device to [referredUnknownDevices]
+    end note
+
+  note over valiFun #Orange
+    Hier ist schlecht, dass nicht übermittelt wird, in welcher DeviceGroup
+    die Devices mit unbekanntem DeviceModel gefunden wurden
+  end note
+
+
+    note over valiFun
+      ELSE
+    end note
+  end loop
+  note over valiFun
+    IF [referredUnknownDevices].length > 0:
+  end note
+  note left valiFun
+    THEN
+  end note
+  note left valiFun
+    Abort validation
+  end note
+  valiMan <-- valiFun: { ErrorCode,\nErrorMessage,\n[referredUnknownDevices] }
+  note over valiFun
+    ELSE
+  end note
+
+
+
+valiMan <-- valiFun: 204
+deactivate valiFun
+deactivate CanDS
+
+@enduml

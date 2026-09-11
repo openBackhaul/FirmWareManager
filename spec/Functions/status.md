@@ -27,3 +27,14 @@ Th = Thorsten
 | Function            |  1  |  2  |  3  |  4  |  5  |
 |---------------------|-----|-----|-----|-----|-----|
 | p1PurgeDeviceGroups | Th  | Th  |     |     |     |
+
+## Validation
+
+Es wurden Verzeichnisse und README-Dateien für drei ValidationFunctions erstellt.  
+Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.  
+
+### Basic
+
+| Function            |  1  |  2  |  3  |  4  |  5  |
+|---------------------|-----|-----|-----|-----|-----|
+| p1PurgeDeviceGroups | Th  | Th  |     |     |     |

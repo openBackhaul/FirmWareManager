@@ -1,0 +1,58 @@
+@startuml p1ValidationManager
+skinparam responseMessageBelowArrow true
+
+title
+  p1ValidationManager
+end title
+
+participant "requestor\n" as requestor
+participant "p1ValidationManager\n" as valiMan
+participant "<i>ValidationFunction</i>\n" as valiFun
+database "DomainController" as DC
+
+requestor -> valiMan: { triggerFunction }
+activate valiMan
+
+  note over valiMan
+    Reads [sequence] from
+    [ValidationSequence] 
+    at DomainController
+  end note
+    valiMan -> DC:  .../validation-sequence={triggerFunction}/sequence
+    activate DC
+    valiMan <-- DC: [sequence]
+    deactivate DC
+
+  loop for [sequence]
+    note over valiMan
+      Calls ValidationFunction
+      according to sequence
+    end note
+    valiMan -> valiFun: { triggerFunction }
+    activate valiFun
+      note over valiFun
+        Validates
+        CandidateDS
+        contents
+      end note
+    valiMan <-- valiFun
+    deactivate valiFun
+    note over valiMan
+      IF response NOT 204
+    end note
+    note left valiMan
+      THEN
+    end note
+    note left valiMan
+      Abort validation
+    end note
+    requestor <-- valiMan: { ErrorCode,\nErrorMessage }
+    note over valiMan
+      ELSE
+    end note
+  end loop
+
+requestor <-- valiMan: 204
+deactivate valiMan
+
+@enduml

@@ -189,8 +189,7 @@ activate indServ
   indServ -X RunDS
   deactivate RunDS
 
-  requestor <-- indServ: 204
-
+requestor <-- indServ: 204
 deactivate indServ
 
 @enduml

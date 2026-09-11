@@ -1,0 +1,128 @@
+@startuml p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel
+skinparam responseMessageBelowArrow true
+
+title
+  p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel
+end title
+
+participant "p1ValidationManager\n" as valiMan
+participant "p1EnsureEveryDeviceBeingReferred\nByOneDeviceGroupOfItsDeviceModel" as valiFun
+database "CandidateDS" as CanDS
+
+activate CanDS
+valiMan -> valiFun: { triggerFunction }
+activate valiFun
+
+  note over valiFun
+    Create [allDevices] from
+    mountNames of all [Device]
+  end note
+  valiFun -> CanDS
+  valiFun <-- CanDS
+
+  note over valiFun
+    Read [DeviceModel]
+  end note
+  valiFun -> CanDS
+  valiFun <-- CanDS
+  loop for each DeviceModel
+    note over valiFun
+      Instantiate 
+      [allGroupedDevices]
+      attribute
+    end note
+
+    loop for each DeviceGroup
+      note over valiFun
+        Read deviceModel
+      end note
+      valiFun -> CanDS
+      valiFun <-- CanDS
+      note over valiFun
+        IF DeviceGroup:deviceModel
+              == DeviceModel:name:
+      end note
+      note right valiFun
+        THEN
+      end note
+      note right valiFun
+        Read [device]
+      end note
+      valiFun -> CanDS
+      valiFun <-- CanDS
+      note right valiFun
+        Append all [device]
+        to [allGroupedDevices]
+      end note
+      note over valiFun
+        ELSE
+      end note
+    end loop
+
+    note over valiFun
+      Search [allGroupedDevices] for duplicate devices
+    end note
+    note over valiFun
+      IF duplicate devices found:
+    end note
+    note left valiFun
+      THEN
+    end note
+    note left valiFun
+      Abort validation
+    end note
+    valiMan <-- valiFun: { ErrorCode,\nErrorMessage,\n[duplicates] }
+    note over valiFun
+      ELSE
+    end note
+
+    note over valiFun
+      Delete all [allGroupedDevices]
+      from [allDevices]
+    end note
+  end loop
+
+  loop for remaining [allDevices]
+    note over valiFun
+      Read deviceModel
+    end note
+    valiFun -> CanDS
+    valiFun <-- CanDS
+    note over valiFun
+      Check whether DeviceModel exists
+    end note
+    valiFun -> CanDS
+    valiFun <-- CanDS
+    note over valiFun
+      IF DeviceModel exists:
+    end note
+    note right valiFun
+      THEN
+    end note
+    note right valiFun
+      Append device to
+      [ungroupedDevices]
+    end note
+    note over valiFun
+      ELSE
+    end note
+  end loop
+  note over valiFun
+    IF [ungroupedDevices].length > 0:
+  end note
+  note left valiFun
+    THEN
+  end note
+  note left valiFun
+    Abort validation
+  end note
+  valiMan <-- valiFun: { ErrorCode,\nErrorMessage,\n[ungroupedDevices] }
+  note over valiFun
+    ELSE
+  end note
+
+valiMan <-- valiFun: 204
+deactivate valiFun
+deactivate CanDS
+
+@enduml
