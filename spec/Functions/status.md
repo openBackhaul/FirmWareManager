@@ -36,6 +36,8 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 ### Basic
 
+**TODO: wieso wird hier p1PurgeDeviceGroups nochmal aufgeführt?**
+
 | Function            |  1  |  2  |  3  |  4  |  5  |  6  |
 |---------------------|-----|-----|-----|-----|-----|-----|
 | p1PurgeDeviceGroups | Th  | Th  |     |     |     |     |

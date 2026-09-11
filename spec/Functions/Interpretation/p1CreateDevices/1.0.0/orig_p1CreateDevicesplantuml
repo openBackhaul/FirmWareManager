@@ -1,0 +1,158 @@
+@startuml p1CreateDevices
+skinparam responseMessageBelowArrow true
+
+title
+  p1CreateDevices
+end title
+
+participant "pulser\n" as pulser
+participant "p1CreateDevices\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+database "OperationalDS" as OpDS
+
+
+pulser -> indServ
+activate indServ
+
+  note over indServ
+    Reads list of ODS:Devices
+  end note
+  indServ -> OpDS
+  activate OpDS
+  indServ <-- OpDS
+  deactivate OpDS
+  loop for each ODS:Device
+    note over indServ
+      Checks, whether it can
+      be found in RDS:Devices
+    end note
+    indServ -> RunDS
+    activate RunDS
+    indServ <-- RunDS
+    deactivate RunDS
+    note over indServ
+      IF cannot be found:
+    end note
+    note right indServ
+      THEN
+    end note
+    note right indServ
+      Add mountName and deviceModel
+      of ODS:Device to [newDevice]
+    end note
+    note over indServ
+      ELSE
+    end note
+  end loop
+  note over indServ
+    IF [newDevice].length = 0:
+  end note
+  note left indServ
+    THEN
+  end note
+  pulser <-- indServ: 204
+  note over indServ
+    ELSE
+  end note  
+
+  note over indServ
+    Locks RunningDS
+  end note
+  indServ -X RunDS
+  activate RunDS
+  note over indServ
+    Locks CandidateDS
+  end note
+  indServ -X CanDS
+  activate CanDS
+  note over indServ
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  indServ -> RunDS
+  RunDS -/ CanDS
+
+  loop for [newDevice]
+    note over indServ
+      Creates new RDS:Devices
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+
+    note over indServ
+      Adds new RDS:Device
+      to default DeviceGroup
+    end note
+    note over indServ
+      Attempts to address DeviceModel
+      referenced in deviceModel of
+      RDS:Device for reading its 
+      defaultDeviceGroup
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+    note over indServ
+      IF DeviceModel does not exist:
+    end note
+    note right indServ
+      THEN
+    end note
+    note right indServ
+      No further action
+      at this Device
+    end note
+    note over indServ
+      ELSE
+    end note
+    note over indServ
+      Adds mountName of RDS:Device
+      to [device] at defaultDeviceGroup
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+
+    note over indServ
+      Transfers content of
+      [targetFirmwareList]
+      of defaultDeviceGroup
+      to [firmwareList] at
+      RDS:Device
+    end note
+    note right indServ
+      Reads [targetFirmwareList]
+      at defaultDeviceGroup
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+    note right indServ
+      Updates [firmwareList]
+      at RDS:Device
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+  end loop
+
+  note right indServ
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  indServ -> CanDS
+  CanDS -\ RunDS
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  deactivate CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  deactivate RunDS
+
+pulser <-- indServ: 204
+deactivate indServ
+
+@enduml
