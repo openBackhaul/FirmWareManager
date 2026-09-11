@@ -6,23 +6,23 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listIncompleteFirmwareResources\n" as indServ
+participant "listIncompleteFirmwareResources\n" as cur
 database "RunningDS" as RunDS
 
-requestor -> indServ
-activate indServ
+requestor -> cur
+activate cur
 
-  note over indServ
+  note over cur
     Retrieves
     [FirmwareResources]
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
 
   loop for each FirmwareResource
-    note over indServ
+    note over cur
       If NOT
           ( server.length > 0
           AND
@@ -30,20 +30,20 @@ activate indServ
           AND
           fileName.length > 0 )
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    note right indServ
+    note right cur
       Appends combination of name and
       version of FirmwareResource to
       [incompleteFirmwareResourceList]
     end note
-    note over indServ
+    note over cur
       ELSE
     end note
   end loop
 
-requestor <-- indServ: { [incompleteFirmwareResourceList] }
-deactivate indServ
+requestor <-- cur: { [incompleteFirmwareResourceList] }
+deactivate cur
 
 @enduml

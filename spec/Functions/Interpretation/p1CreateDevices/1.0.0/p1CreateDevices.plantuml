@@ -6,173 +6,173 @@ title
 end title
 
 participant "pulser\n" as pulser
-participant "p1CreateDevices\n" as indServ
+participant "p1CreateDevices\n" as cur
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 database "OperationalDS" as OpDS
 
 
-pulser -> indServ
-activate indServ
+pulser -> cur
+activate cur
 
   ' Read devices from ODS
-  note over indServ
+  note over cur
     Reads list of ODS:Devices
   end note
-  indServ -> OpDS
+  cur -> OpDS
   activate OpDS
-  indServ <-- OpDS
+  cur <-- OpDS
   deactivate OpDS
 
 
   ' Loop over ODS devices, add them to [newDevices]
   loop for each ODS:Device
-    note over indServ
+    note over cur
       Checks, whether it can
       be found in RDS:Devices
     end note
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
-    note over indServ
+    note over cur
       IF cannot be found:
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    note right indServ #LightCoral
+    note right cur #LightCoral
       Imho fehlt hier ein Schritt, in dem
       das DeviceModel bestimmt wird
       (anhand des CC.deviceModelNames)
     end note
 
-    note right indServ
+    note right cur
       Add mountName and deviceModel
       of ODS:Device to [newDevices]
     end note
-    note over indServ #lightBlue
+    note over cur #lightBlue
       ELSE würde ich weglassen
       (beim Programmierung muss man ja auch
       kein else angeben, wenn es keins gibt)
     end note
-    note over indServ
+    note over cur
       ELSE
     end note
   end loop
-  note over indServ
+  note over cur
     IF [newDevices].length = 0:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  pulser <-- indServ: 204
-  note over indServ #lightBlue
+  pulser <-- cur: 204
+  note over cur #lightBlue
     Else würde ich hier auch weglassen.
     das 204 terminiert ja.
   end note
-  note over indServ
+  note over cur
     ELSE
   end note  
 
   ' Lock DataStores and copy RDS to CDS
-  note over indServ
+  note over cur
     Locks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   activate RunDS
-  note over indServ
+  note over cur
     Locks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   activate CanDS
-  note over indServ
+  note over cur
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  indServ -> RunDS
+  cur -> RunDS
   RunDS -/ CanDS
 
   ' Create new devices in RDS
   loop for [newDevices]
-    note over indServ
+    note over cur
       Creates new RDS:Devices
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
 
-    note over indServ
+    note over cur
       Adds new RDS:Device
       to default DeviceGroup
     end note
-    note over indServ
+    note over cur
       Attempts to address DeviceModel
       RDS:Device.deviceModel for reading its 
       defaultDeviceGroup
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
-    note over indServ
+    cur -> CanDS
+    cur <-- CanDS
+    note over cur
       IF DeviceModel does not exist:
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    note right indServ
+    note right cur
       No further action
       at this Device
     end note
-    note over indServ
+    note over cur
       ELSE
     end note
-    note over indServ
+    note over cur
       Adds RDS:Device.mountName
       to [device] at defaultDeviceGroup
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
 
-    note over indServ
+    note over cur
       Transfers content of
       defaultDeviceGroup.[targetFirmwareList]
       to RDS:Device.[firmwareList]
     end note
 
-    note right indServ
+    note right cur
       Reads [targetFirmwareList]
       at defaultDeviceGroup
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
-    note right indServ
+    cur -> CanDS
+    cur <-- CanDS
+    note right cur
       Updates
       RDS:Device.[firmwareList]
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
   end loop
 
   ' Write changes from CDS to RDS and unlock DataStores
-  note right indServ
+  note right cur
     Overwrites RunningDS
     with CandidateDS
   end note
-  indServ -> CanDS
+  cur -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   deactivate CanDS
-  note right indServ
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   deactivate RunDS
 
-pulser <-- indServ: 204
-deactivate indServ
+pulser <-- cur: 204
+deactivate cur
 
 @enduml

@@ -6,37 +6,37 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listDeviceGroupsWithoutDevices\n" as indServ
+participant "listDeviceGroupsWithoutDevices\n" as cur
 database "RunningDS" as RunDS
 
-requestor -> indServ
-activate indServ
+requestor -> cur
+activate cur
 
-    note over indServ
+    note over cur
       Retrieves [DeviceGroups]
     end note
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
 
   loop for each DeviceGroup
-    note over indServ
+    note over cur
       If [device].length NOT > 0
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    note right indServ
+    note right cur
       Appends label of DeviceGroup
       to [deviceGroupList]
     end note
-    note over indServ
+    note over cur
       ELSE
     end note
   end loop
 
-requestor <-- indServ: { [deviceGroupList] }
-deactivate indServ
+requestor <-- cur: { [deviceGroupList] }
+deactivate cur
 
 @enduml

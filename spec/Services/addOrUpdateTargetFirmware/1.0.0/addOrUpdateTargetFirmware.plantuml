@@ -6,107 +6,107 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "addOrUpdateTargetFirmware\n" as indServ
+participant "addOrUpdateTargetFirmware\n" as cur
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> indServ: { deviceGroupLabel,\nfirmwareResourceName,\nfirmwareResourceVersion,\nfirmwareStatus }
-activate indServ
+requestor -> cur: { deviceGroupLabel,\nfirmwareResourceName,\nfirmwareResourceVersion,\nfirmwareStatus }
+activate cur
 
-  note over indServ
+  note over cur
     Checks whether given
     deviceGroupLabel exists
     by reading deviceModel
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF DeviceGroup NOT existing:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Checks whether given combination
     of firmwareResourceName and
     firmwareResourceVersion has 
     been approved for deviceModel
   end note
-  note over indServ
+  note over cur
     Read [approval] from deviceModel
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF given FirmwareResource NOT in [approval]:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage }
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Locks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   activate RunDS
-  note over indServ
+  note over cur
     Locks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   activate CanDS
-  note over indServ
+  note over cur
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  indServ -> RunDS
+  cur -> RunDS
   RunDS -/ CanDS
 
-  note over indServ
+  note over cur
     Checks whether given combination
     of firmwareResourceName and
     firmwareResourceVersion already
     referenced in targetFirmwareList
     of given DeviceGroup
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
-  note over indServ
+  cur -> CanDS
+  cur <-- CanDS
+  note over cur
     IF FirmwareResource already
     referenced in targetFirmwareList:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Updates status of TargetFirmware
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
-  note right indServ
+  cur -> CanDS
+  cur <-- CanDS
+  note right cur
     ELSE
   end note
-  note right indServ
+  note right cur
     Creates new TargetFirmware entry
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
+  cur -> CanDS
+  cur <-- CanDS
 
-  note over indServ
+  note over cur
     Replicates updated target
     into Devices of DeviceGroup
   end note
@@ -116,68 +116,68 @@ activate indServ
     too many TargetFirmware or wrong
     compositions of TargetFirmware!
   end note
-  note right indServ
+  note right cur
     Reads device list 
     of DeviceGroup
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
+  cur -> CanDS
+  cur <-- CanDS
   loop for each referenced Device
-    note right indServ
+    note right cur
       Replicates changes into
       firmwareList of the Device
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
   end loop
 
-  note over indServ
+  note over cur
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==addOrUpdateTargetFirmware}
+  cur -> valiMan: {triggerFunction==addOrUpdateTargetFirmware}
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  cur <-- valiMan
   deactivate valiMan
-  note over indServ
+  note over cur
     IF validation failed:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
-  note right indServ
+  cur -X CanDS
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
+  cur -X RunDS
+  requestor <-- cur: { ErrorCode,\nErrorMessage }
+  note over cur
     ELSE
   end note
 
-  note right indServ
+  note right cur
     Overwrites RunningDS
     with CandidateDS
   end note
-  indServ -> CanDS
+  cur -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   deactivate CanDS
-  note right indServ
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   deactivate RunDS
 
-requestor <-- indServ: 204
-deactivate indServ
+requestor <-- cur: 204
+deactivate cur
 
 @enduml

@@ -6,224 +6,224 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "createOrUpdateDeviceGroup\n" as indServ
+participant "createOrUpdateDeviceGroup\n" as cur
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> indServ: { deviceGroupLabel,\n<color:LightGray>deviceModelName,\n<color:LightGray>purgeDate</color> }
-activate indServ
+requestor -> cur: { deviceGroupLabel,\n<color:LightGray>deviceModelName,\n<color:LightGray>purgeDate</color> }
+activate cur
 
-  note over indServ
+  note over cur
     Checks whether given
     deviceGroupLabel exists
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF DeviceGroup NOT existing:
   end note
-  note right indServ
+  note right cur
     THEN <color:LightGray>(=new DeviceGroup)</color>
   end note
-    note right indServ
+    note right cur
       IF deviceModelName NOT given
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
-    note right indServ
+    requestor <-- cur: { ErrorCode,\nErrorMessage,\n[attributeList] }
+    note right cur
       ELSE
     end note
-    note right indServ
+    note right cur
       Checks whether given
       deviceModelName exists
     end note
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
-    note right indServ
+    note right cur
       IF DeviceModel NOT existing:
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
-    note right indServ
+    requestor <-- cur: { ErrorCode,\nErrorMessage,\n[attributeList] }
+    note right cur
       ELSE
     end note
-  note over indServ
+  note over cur
     ELSE <color:LightGray>(=DeviceGroup already existing)</color>
   end note
-    note over indServ
+    note over cur
       IF deviceModelName given
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    note right indServ
+    note right cur
       Checks whether given
       deviceModelName is equal
       to _deviceModel at given
       DeviceGroup
     end note
-    note right indServ
+    note right cur
       Reads _deviceModel
       at given DeviceGroup
     end note
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
-    note right indServ
+    note right cur
       _IF deviceModelName NOT 
       equal to _deviceModel:
     end note
-    note right indServ
+    note right cur
       _THEN
     end note
-    requestor <-- indServ: { ErrorCode,\nErrorMessage }
-    note right indServ
+    requestor <-- cur: { ErrorCode,\nErrorMessage }
+    note right cur
       _ELSE
     end note
 
-  note over indServ
+  note over cur
     IF purgeDate is given:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Checks whether given
     purgeDate is allowed
   end note
-    note right indServ
+    note right cur
       Reads defaultDeviceGroup
       from deviceModel referred
       by given DeviceGroup
     end note
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
-  note right indServ
+  note right cur
     _IF given deviceGroupLabel
     equals defaultDeviceGroup
   end note
-  note right indServ
+  note right cur
     _THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note right indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage }
+  note right cur
     _ELSE
   end note
-  note right indServ
+  note right cur
     Checks whether given
     purgeDate is reasonable
   end note
-  note right indServ
+  note right cur
     _IF purgeDate already in past
   end note
-  note right indServ
+  note right cur
     _THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
-  note right indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note right cur
     _ELSE
   end note
-  note over indServ
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Locks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   activate RunDS
-  note over indServ
+  note over cur
     Locks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   activate CanDS
-  note over indServ
+  note over cur
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  indServ -> RunDS
+  cur -> RunDS
   RunDS -/ CanDS
 
-  note over indServ
+  note over cur
     IF deviceGroupLabel existing:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Updates DeviceGroup
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
-  note right indServ
+  cur -> CanDS
+  cur <-- CanDS
+  note right cur
     ELSE
   end note
-  note right indServ
+  note right cur
     Creates new DeviceGroup
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
+  cur -> CanDS
+  cur <-- CanDS
 
-  note over indServ
+  note over cur
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==createOrUpdateDeviceGroup}
+  cur -> valiMan: {triggerFunction==createOrUpdateDeviceGroup}
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  cur <-- valiMan
   deactivate valiMan
-  note over indServ
+  note over cur
     IF validation failed:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
-  note right indServ
+  cur -X CanDS
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
+  cur -X RunDS
+  requestor <-- cur: { ErrorCode,\nErrorMessage }
+  note over cur
     ELSE
   end note
 
-  note right indServ
+  note right cur
     Overwrites RunningDS
     with CandidateDS
   end note
-  indServ -> CanDS
+  cur -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   deactivate CanDS
-  note right indServ
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   deactivate RunDS
 
-requestor <-- indServ: 204
-deactivate indServ
+requestor <-- cur: 204
+deactivate cur
 
 @enduml

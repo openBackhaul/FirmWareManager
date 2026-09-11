@@ -6,21 +6,21 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listExistingDevices\n" as indServ
+participant "listExistingDevices\n" as cur
 database "RunningDS" as RunDS
 
-requestor -> indServ
-activate indServ
+requestor -> cur
+activate cur
 
-  note over indServ
+  note over cur
     Retrieves Devices
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
 
-requestor <-- indServ: [ {mountName,\ndeviceModel,\n[firmwareList]} ]
-deactivate indServ
+requestor <-- cur: [ {mountName,\ndeviceModel,\n[firmwareList]} ]
+deactivate cur
 
 @enduml

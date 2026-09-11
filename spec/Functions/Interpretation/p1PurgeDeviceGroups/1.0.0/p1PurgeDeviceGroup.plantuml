@@ -6,50 +6,50 @@ title
 end title
 
 participant "pulser\n" as pulser
-participant "p1PurgeDeviceGroups\n" as indServ
+participant "p1PurgeDeviceGroups\n" as cur
 participant "/deleteDeviceGroup\n" as delGroup
 participant "p1ValidationManager\n" as valiMan
 database "RunningDS" as RunDS
 
-pulser -> indServ
-activate indServ
+pulser -> cur
+activate cur
 
   loop for [DeviceGroup]
-    note over indServ
+    note over cur
       Reads purgeDate
       of DeviceGroup
     end note
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
-    note over indServ
+    note over cur
       IF purgeDate exceeded:
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    note right indServ
+    note right cur
       Initiates deletion of DeviceGroup
     end note
-    indServ -> delGroup : { deviceGroupLabel }
+    cur -> delGroup : { deviceGroupLabel }
     activate delGroup
       note over delGroup
         Deletes DeviceGroup
         Adds Devices to default DeviceGroup
         Updates [firmwareList] of Devices
       end note
-    indServ <-- delGroup
+    cur <-- delGroup
     deactivate delGroup
-    note right indServ
+    note right cur
       <color:LightGray>ignores any errors</color>
     end note
-    note over indServ
+    note over cur
       ELSE
     end note
   end loop
 
-pulser <-- indServ: 204
-deactivate indServ
+pulser <-- cur: 204
+deactivate cur
 
 @enduml

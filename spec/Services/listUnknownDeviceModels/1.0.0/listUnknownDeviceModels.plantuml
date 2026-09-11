@@ -6,45 +6,45 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listUnknownDeviceModels\n" as indServ
+participant "listUnknownDeviceModels\n" as cur
 database "RunningDS" as RunDS
 
-requestor -> indServ
-activate indServ
+requestor -> cur
+activate cur
 
-  note over indServ
+  note over cur
     Retrieves
     [DeviceModels]
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
   loop for each Device
-    note over indServ
+    note over cur
       Retrieves deviceModel
     end note
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
-    note over indServ
+    note over cur
       If deviceModel NOT equal to
       any name in [DeviceModels]
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    note right indServ
+    note right cur
       Appends deviceModel to
       [unknownDeviceModelList]
     end note
-    note over indServ
+    note over cur
       ELSE
     end note
   end loop
 
-requestor <-- indServ: { [unknownDeviceModelList] }
-deactivate indServ
+requestor <-- cur: { [unknownDeviceModelList] }
+deactivate cur
 
 @enduml
