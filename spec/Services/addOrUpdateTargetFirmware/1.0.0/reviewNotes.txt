@@ -1,3 +1,0 @@
-# TODO
-
-was genau soll in der attributeList zurückgegeben werden?

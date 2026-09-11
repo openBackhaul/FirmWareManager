@@ -13,7 +13,11 @@ Folgende Aspekte sollten eventuell außen vor bleiben:
 
 1. Konformität der Daten mit der erwarteten Datenstruktur (vor allem in der generischen Ebene)
 
-## Eingrenzung der Zielsetzung
+Folgende Aspekte sollten sicher außen vor bleiben:
+
+1. Konformität des Istzustands mit den ursprünglichen Anforderungen
+
+## Eingrenzung der Zielsetzung von ValidationFunctions
 
 Die Validierung schließt die Interpretation einer generisch formulierten Absicht ab.  
 
@@ -28,6 +32,12 @@ Entscheidend für die Effektivität erscheint, dass die Validierung nach anderen
 Sollte eine alternative Berechnungsmethode nicht zu Verfügung stehen, erscheint der Versuch einer Validierung sinnlos.  
 
 Da das Informationsmodell für die Methoden der Interpretation optimiert ist, scheint der Rechenaufwand im Rahmen der Validierung nicht nur zusätzlich, sondern auch höher zu sein.  
+
+## Datenreinheit
+
+Abweichungen von der erwarteten Datenstruktur stehen nicht zwingend in Zusammenhang mit der jüngsten Formulierung einer Absicht.  
+
+Sie könnten außerhalb der Validierung in zyklischen Prozessen bereinigt werden (durch Pulser aktivierte InterpretationFunctions).  
 
 ## Konkret für den FirmWareManager
 

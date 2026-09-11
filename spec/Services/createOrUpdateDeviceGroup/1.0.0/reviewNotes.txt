@@ -1,12 +1,3 @@
 # TODO
-macht es hier Sinn das purgeDate als Parameter optional zu machen, 
-und ggf. wenn es nicht übergeben wird einen default einzustellen?
 
-was genau soll in der AttributeList beim Fehlerfall zurückgebeben werden?
-
-da das Diagramm so verschachtelte Entscheidungspfade abbildet, finde ich das irgendwie schwierig zu verstehen.
-ich verstehe das so, dass der Teil "IF deviceModelName given" erst geprüft wird und ein Error zurückgegeben wird,
-wenn das nicht ok ist.  Und dass danach, unabhängig davon ob es den deviceModelName gab das purgeDate geprüft wird.
-Ich würde das _THEN / _ELSE in dem Fall ändern zu nur THEN ohne das _ELSE (wenn das THEN ausgeführt wird, gibt es ja 
-schon einen Abbruch durch Fehlermeldung) und einen Rahmen drummachen.
-Siehe Diagram-Vorschlag; vielleicht wird es ja auch von alleine übersichtlicher, wenn weitere Functions eingeführt werden.
+Aufspalten in createDeviceGroup und updateDeviceGroup 

@@ -3,3 +3,5 @@ Warum wird statt des Services listIncompleteServers nicht beim
 Anlegen eines Servers sichergestellt, dass alle Attribute übergeben wurden?
 Sollen incomplete Servers zunächst als Platzhalter dienen?
 könnte man kurz im Readme beschreiben
+
+Thorsten: Welche Attribute werden denn immer benötigt?

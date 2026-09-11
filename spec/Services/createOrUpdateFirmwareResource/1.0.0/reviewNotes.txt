@@ -1,0 +1,3 @@
+# TODO
+
+Aufspalten in createDeviceGroup und updateDeviceGroup?
