@@ -13,7 +13,7 @@ requestor -> indServ
 activate indServ
 
   note over indServ
-    Retrieves Servers
+    Retrieves Devices
   end note
   indServ -> RunDS
   activate RunDS
