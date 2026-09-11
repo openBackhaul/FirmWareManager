@@ -1,0 +1,8 @@
+# TODO
+wenn die deviceGroup nicht existiert, aus der gelöscht werden soll,
+wird ein Fehler zurückgegeben.
+Bei den delete Services wird stattdessen oft ein 204 zurückgegeben, wenn
+das was man löschen will, gar nicht da ist.
+Das ist etwas uneinheitlich.
+(Ist das absichtlich so, damit man eine Indikation hat, dass man die Devices
+dann ggf. aus einer anderen DeviceGroup löschen müsste?)

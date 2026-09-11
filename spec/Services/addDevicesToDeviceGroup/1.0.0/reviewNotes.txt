@@ -20,3 +20,9 @@ Der Text impliziert aber dass es in mehreren deviceGroups stehen kann.
 generell:
 was ist mit einem speziellen errorCode für fehlgeschlagene Validierung?
 (der dann durchgereicht würde, könnte man im Readme der Tabelle noch entsprechend aufführen)
+
+potentiell muss man über alle deviceGroups und alle Geräte darin laufen, bis man alle
+Geräte umgehangen hat (wenn's blöd läuft.).
+Für die Detail-Spec sollten wir berücksichtigen, dass die Traversierung gemäß eines intelligente
+Musters vorgehen sollte (wenn es zB AGS20-Geräte sind, macht es Sinn erst deviceGroups mit AGS20 im Namen zu bearbeiten, 
+weil man dann voraussichtlich frühzeitig abbrechen kann, usw.)

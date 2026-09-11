@@ -83,9 +83,9 @@ Solved by functions.
 | Service                                                                             | 1  | 2  | 3  | 4  | 5  |
 | ----------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
 | [/list-existing-devices](./Services/listExistingDevices/1.0.0/)                     | Th | Th |  |  | Ka 3) |
-| [/list-device-groups-without-devices](./Services/listDeviceGroupsWithoutDevices/1.0.0/) | Th | Th |  |  |  |
-| [/add-devices-to-device-group](./Services/addDevicesToDeviceGroup/1.0.0/)           | Th | Th |  |  |  |
-| [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/) | Th | Th |  |  |  |
+| [/list-device-groups-without-devices](./Services/listDeviceGroupsWithoutDevices/1.0.0/) | Th | Th |  |  | Ka 3) |
+| [/add-devices-to-device-group](./Services/addDevicesToDeviceGroup/1.0.0/)           | Th | Th |  |  | Ka 3) |
+| [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/) | Th | Th |  |  | Ka 3) |
 
 ## Basic
 
