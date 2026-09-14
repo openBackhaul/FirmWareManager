@@ -39,6 +39,10 @@ activate cur
     reference given Server
   end note
   loop for each existing FirmwareResource
+    note over cur #LightSalmon
+      hier ggf. eine Textbox ergänzen,
+      was gemacht wird.
+    end note
     cur -> RunDS
     activate RunDS
     cur <-- RunDS

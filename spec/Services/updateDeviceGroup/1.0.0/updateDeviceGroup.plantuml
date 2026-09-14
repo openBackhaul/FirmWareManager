@@ -31,6 +31,8 @@ activate cur
   requestor <-- cur: { ErrorCode,\nErrorMessage1,\n[attributeList] }
   note over cur #LightBlue
     ELSE unneeded
+    (falls das entfernt wird, sollten andere 
+    Diagramme entsprechend auch angepasst werden.)
   end note
   note over cur
     ELSE
