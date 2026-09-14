@@ -29,6 +29,9 @@ activate cur
     THEN
   end note
   requestor <-- cur: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  note over cur #LightBlue
+    ELSE unneeded
+  end note
   note over cur
     ELSE
   end note
@@ -45,6 +48,9 @@ activate cur
     THEN
   end note
   requestor <-- cur: { ErrorCode,\nErrorMessage2,\n[attributeList] }
+  note over cur #LightBlue
+    ELSE unneeded
+  end note
   note over cur
     ELSE
   end note
@@ -83,6 +89,9 @@ activate cur
     THEN
   end note
   requestor <-- cur: { ErrorCode,\nErrorMessage3,\n[attributeList] }
+  note over cur #LightBlue
+    ELSE würde ich beide weglassen
+  end note
   note right cur
     ELSE
   end note
