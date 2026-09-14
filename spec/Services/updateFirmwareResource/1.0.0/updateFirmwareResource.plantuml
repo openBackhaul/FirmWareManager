@@ -32,6 +32,9 @@ activate cur
     THEN
   end note
   requestor <-- cur: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  note over cur #LightBlue
+    ELSE unneeded
+  end note
   note over cur
     ELSE
   end note
@@ -50,8 +53,11 @@ activate cur
   end note
   note left cur
     THEN
-  end note
+  end note  
   requestor <-- cur: { ErrorCode,\nErrorMessage2,\n[attributeList] }
+  note over cur #LightBlue
+    ELSE unneeded
+  end note
   note over cur
     ELSE
   end note
@@ -67,6 +73,12 @@ activate cur
     activate RunDS
     cur <-- RunDS
     deactivate RunDS
+    
+    note over cur #LightSalmon
+      sollte die Textbox mit dem was gemacht
+      werden nicht eher hier drin stehen?
+    end note
+
   end loop
   note over cur
     IF source already documented:
@@ -75,6 +87,9 @@ activate cur
     THEN
   end note
   requestor <-- cur: { ErrorCode,\nErrorMessage3,\nfirmwareResourceName }
+  note over cur #LightBlue
+    ELSE unneeded
+  end note
   note over cur
     ELSE
   end note
