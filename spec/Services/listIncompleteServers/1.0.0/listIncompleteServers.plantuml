@@ -6,22 +6,22 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listIncompleteServers\n" as cur
+participant "listIncompleteServers\n" as indServ
 database "RunningDS" as RunDS
 
-requestor -> cur
-activate cur
+requestor -> indServ
+activate indServ
 
-  note over cur
+  note over indServ
     Retrieves [Servers]
   end note
-  cur -> RunDS
+  indServ -> RunDS
   activate RunDS
-  cur <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
 
   loop for each Server
-    note over cur
+    note over indServ
       If NOT
         ( userName.length > 0
         AND
@@ -29,19 +29,19 @@ activate cur
           OR
           sshKey.length > 0 ) )
     end note
-    note right cur
+    note right indServ
       THEN
     end note
-    note right cur
+    note right indServ
       Appends label of Server
       to [incompleteServerList]
     end note
-    note over cur
+    note over indServ
       ELSE
     end note
   end loop
 
-requestor <-- cur: { [incompleteServerList] }
-deactivate cur
+requestor <-- indServ: { [incompleteServerList] }
+deactivate indServ
 
 @enduml

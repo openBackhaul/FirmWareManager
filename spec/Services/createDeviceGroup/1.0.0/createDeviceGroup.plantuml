@@ -7,148 +7,148 @@ end title
 
 
 participant "requestor\n" as requestor
-participant "createDeviceGroup\n" as cur
+participant "createDeviceGroup\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> cur: { deviceGroupLabel,\ndeviceModelName,\n<color:LightGray>purgeDate</color> }
-activate cur
+requestor -> indServ: { deviceGroupLabel,\ndeviceModelName,\n<color:LightGray>purgeDate</color> }
+activate indServ
 
-  note over cur
+  note over indServ
     Checks whether given
     deviceGroupLabel exists
   end note
-  cur -> RunDS
+  indServ -> RunDS
   activate RunDS
-  cur <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over cur
+  note over indServ
     IF DeviceGroup already exists:
   end note
-  note left cur
+  note left indServ
     THEN
   end note
-  requestor <-- cur: { ErrorCode,\nErrorMessage1 }
-  note over cur #LightBlue
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
+  note over indServ #LightBlue
     ELSE unneeded
   end note
-  note over cur
+  note over indServ
     ELSE
   end note
 
-  note over cur
+  note over indServ
     Checks whether given
     deviceModelName exists
   end note
-  cur -> RunDS
+  indServ -> RunDS
   activate RunDS
-  cur <-- RunDS
+  indServ <-- RunDS
   deactivate RunDS
-  note over cur
+  note over indServ
     IF DeviceModel NOT existing:
   end note
-  note left cur
+  note left indServ
     THEN
   end note
-  requestor <-- cur: { ErrorCode,\nErrorMessage2,\n[attributeList] }
-  note over cur #LightBlue
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[attributeList] }
+  note over indServ #LightBlue
     ELSE unneeded
   end note
-  note over cur
+  note over indServ
     ELSE
   end note
 
-  note over cur
+  note over indServ
     Checks whether potentially
     given purgeDate is reasonable
   end note
-  note over cur
+  note over indServ
     IF purgeDate is given 
         AND already in past:
   end note
-  note left cur
+  note left indServ
     THEN
   end note
-  requestor <-- cur: { ErrorCode,\nErrorMessage3,\n[attributeList] }
-  note over cur #LightBlue
+  requestor <-- indServ: { ErrorCode,\nErrorMessage3,\n[attributeList] }
+  note over indServ #LightBlue
     ELSE unneeded
   end note
-  note over cur
+  note over indServ
     ELSE
   end note
 
-  note over cur
+  note over indServ
     Locks RunningDS
   end note
-  cur -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over cur
+  note over indServ
     Locks CandidateDS
   end note
-  cur -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over cur
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  cur -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note over cur
+  note over indServ
     Creates new DeviceGroup
   end note
-  cur -> CanDS
-  cur <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note over cur
+  note over indServ
     Triggers Validation
   end note
-  cur -> valiMan: {triggerFunction==createDeviceGroup}
+  indServ -> valiMan: {triggerFunction==createDeviceGroup}
   activate valiMan
     note over valiMan
       Validates
     end note
-  cur <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over cur
+  note over indServ
     IF validation failed:
   end note
-  note right cur
+  note right indServ
     THEN
   end note
-  note right cur
+  note right indServ
     Unlocks CandidateDS
   end note
-  cur -X CanDS
-  note right cur
+  indServ -X CanDS
+  note right indServ
     Unlocks RunningDS
   end note
-  cur -X RunDS
-  requestor <-- cur: { ErrorCode,\nErrorMessage4 }
-  note over cur
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage4 }
+  note over indServ
     ELSE
   end note
 
-  note right cur
+  note right indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  cur -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right cur
+  note right indServ
     Unlocks CandidateDS
   end note
-  cur -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right cur
+  note right indServ
     Unlocks RunningDS
   end note
-  cur -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-requestor <-- cur: 204
-deactivate cur
+requestor <-- indServ: 204
+deactivate indServ
 
 @enduml

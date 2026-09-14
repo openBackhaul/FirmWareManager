@@ -6,100 +6,100 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "createOrUpdateServer\n" as cur
+participant "createOrUpdateServer\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> cur: { serverLabel,\n<color:LightGray>userName,\n<color:LightGray>password,\n<color:LightGray>sshKey</color> }
-activate cur
-  note over cur
+requestor -> indServ: { serverLabel,\n<color:LightGray>userName,\n<color:LightGray>password,\n<color:LightGray>sshKey</color> }
+activate indServ
+  note over indServ
     Locks RunningDS
   end note
-  cur -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over cur
+  note over indServ
     Locks CandidateDS
   end note
-  cur -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over cur
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  cur -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  note over cur
+  note over indServ
     Checks for existing
     Server with given label
   end note
-  cur -> CanDS
-  cur <-- CanDS
-  note over cur
+  indServ -> CanDS
+  indServ <-- CanDS
+  note over indServ
     IF Server already existing:
   end note
-  note right cur
+  note right indServ
     THEN
     - Updates existing Server
   end note
-  cur -> CanDS
-  cur <-- CanDS
-  note right cur
+  indServ -> CanDS
+  indServ <-- CanDS
+  note right indServ
     ELSE
     - Creates new Server
   end note
-  cur -> CanDS
-  cur <-- CanDS
+  indServ -> CanDS
+  indServ <-- CanDS
 
-  note over cur
+  note over indServ
     Triggers Validation
   end note
-  cur -> valiMan: {triggerFunction==createOrUpdateServer}
+  indServ -> valiMan: {triggerFunction==createOrUpdateServer}
   activate valiMan
     note over valiMan
       Validates
     end note
-  cur <-- valiMan
+  indServ <-- valiMan
   deactivate valiMan
-  note over cur
+  note over indServ
     IF validation failed:
   end note
-  note right cur
+  note right indServ
     THEN
   end note
-  note right cur
+  note right indServ
     Unlocks CandidateDS
   end note
-  cur -X CanDS
-  note right cur
+  indServ -X CanDS
+  note right indServ
     Unlocks RunningDS
   end note
-  cur -X RunDS
-  requestor <-- cur: { ErrorCode,\nErrorMessage }
-  note over cur
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
     ELSE
   end note
 
-  note right cur
+  note right indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  cur -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right cur
+  note right indServ
     Unlocks CandidateDS
   end note
-  cur -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right cur
+  note right indServ
     Unlocks RunningDS
   end note
-  cur -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-requestor <-- cur: 204
-deactivate cur
+requestor <-- indServ: 204
+deactivate indServ
 
 @enduml
