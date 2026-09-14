@@ -1,0 +1,4 @@
+# TODO
+wieso wird hier ein Fehler zurückgegeben, wenn das deviceModel nicht existiert,
+statt eines 204?
+Das ist über die Services hinweg etwas inkonsistent.
