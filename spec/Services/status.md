@@ -17,58 +17,63 @@ Th = Thorsten
 
 ### Preparing servers
 
-| Service                                                             | 1  | 2  | 3  | 4  | 5  |
-| ------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-servers](./Services/listExistingServers/1.0.0/)     | Th | Th | Th | Th | Ka 3) |
-| [/list-incomplete-servers](./Services/listIncompleteServers/1.0.0/) | Th | Th |   |   | Ka 3) |
-| [/create-or-update-server](./Services/createOrUpdateServer/1.0.0/)  | Th | Th | Th | Th | Ka 3) |
-| [/delete-server](./Services/deleteServer/1.0.0/)                    | Th | Th | Th 1) | Th | Ka 3) |
+| Service                                                    | 1  | 2  | 5  | 3     | 4  | 5  |
+| ---------------------------------------------------------- | -- | -- | -- | ----- | -- | -- |
+| [/list-existing-servers](./listExistingServers/1.0.0/)     | Th | Th | Ka | Th    | Th |    |
+| [/list-incomplete-servers](./listIncompleteServers/1.0.0/) | Th | Th | Ka |       |    |    |
+| [/create-server](./createOrUpdateServer/1.0.0/)            | Th | Th |    |       |    |    |
+| [/update-server](./createOrUpdateServer/1.0.0/)            | Th | Th |    |       |    |    |
+| [/delete-server](./deleteServer/1.0.0/)                    | Th | Th | Ka | Th 1) | Th |    |
+
+  > Technische Klärung der benötigten Inputparameter und ggf. deren Formatierung erforderlich.  
 
 ### Preparing firmware resources
 
-| Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
-| --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)    | Th | Th | Th | Th | Ka 3) |
-| [/list-incomplete-firmware-resources](./Services/listIncompleteFirmwareResources/1.0.0/)| Th | Th |   |   | Ka 3) |
-| [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/) | Th | Th |  |  | Ka 3) |
-| [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)                   | Th | Th |  |  | Ka 3) |
+| Service                                                                                 | 1  | 2  | 5  | 3  | 4  | 5  |
+| --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/list-existing-firmware-resources](./listExistingFirmwareResources/1.0.0/)             | Th | Th | Ka | Th | Th |    |
+| [/list-incomplete-firmware-resources](./listIncompleteFirmwareResources/1.0.0/)         | Th | Th | Ka |    |    |    |
+| [/create-firmware-resource](./createFirmwareResource/1.0.0/)                            | Th | Th |    |    |    |    |
+| [/update-firmware-resource](./updateFirmwareResource/1.0.0/)                            | Th | Th |    |    |    |    |
+| [/delete-firmware-resource](./deleteFirmwareResource/1.0.0/)                            | Th | Th | Ka |    |    |    |
 
 ### Preparing device models
 
-| Service                                                                     | 1  | 2  | 3  | 4  | 5  |
-| --------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)  | Th | Th |  |  | Ka 3) |
-| [/list-unknown-device-models](./Services/listUnknownDeviceModels/1.0.0/)    | Th | Th |  |  | Ka 3) |
-| [/create-device-model](./Services/createDeviceModel/1.0.0/)                 | Th | Th |  |  | Ka 3) |
-| [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)                 | Th | Th |  |  | Ka 3) |
+| Service                                                                     | 1  | 2  | 5  | 3  | 4  | 5  |
+| --------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/list-existing-device-models](./listExistingDeviceModels/1.0.0/)           | Th | Th | Ka |    |    |    |
+| [/list-unknown-device-models](./listUnknownDeviceModels/1.0.0/)             | Th | Th | Ka |    |    |    |
+| [/create-device-model](./createDeviceModel/1.0.0/)                          | Th | Th | Ka |    |    |    |
+| [/delete-device-model](./deleteDeviceModel/1.0.0/)                          | Th | Th | Ka |    |    |    |
 
 ### Documenting firmware approvals
 
-| Service                                                                                 | 1  | 2  | 3  | 4  | 5  |
-| --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-device-models-without-approvals](./Services/listDeviceModelsWithoutApprovals/1.0.0/) | Th | Th |  |  | Ka 3) |
-| [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)    | Th | Th |  |  | Ka 3) |
-| [/add-firmware-approval](./Services/addFirmwareApproval/1.0.0/)                         | Th | Th |  |  | Ka 3) |
-| [/remove-firmware-approval](./Services/removeFirmwareApproval/1.0.0/)                   | Th | Th |  |  | Ka 3) |
+| Service                                                                                 | 1  | 2  | 5  | 3  | 4  | 5  |
+| --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/list-device-models-without-approvals](./listDeviceModelsWithoutApprovals/1.0.0/)      | Th | Th | Ka |    |    |    |
+| [/list-existing-firmware-approvals](./listExistingFirmwareApprovals/1.0.0/)             | Th | Th | Ka |    |    |    |
+| [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                                  | Th | Th | Ka |    |    |    |
+| [/remove-firmware-approval](./removeFirmwareApproval/1.0.0/)                            | Th | Th | Ka |    |    |    |
 
 ## Preparing device groups and initiating firmware roll-out (Operations)
 
 ### Preparing device groups
 
-| Service                                                                       | 1  | 2  | 3  | 4  | 5  |
-| ----------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-device-groups](./Services/listExistingDeviceGroups/1.0.0/)    | Th | Th |  |  | Ka 3) |
-| [/create-or-update-device-group](./Services/createOrUpdateDeviceGroup/1.0.0/) | Th | Th |  |  | Ka 3) |
-| [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)                   | Th | Th |  |  | Ka 3) |
+| Service                                                                       | 1  | 2  | 5  | 3  | 4  | 5  |
+| ----------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/list-existing-device-groups](./listExistingDeviceGroups/1.0.0/)             | Th | Th | Ka |    |    |    |
+| [/create-device-group](./createDeviceGroup/1.0.0/)                            | Th | Th |    |    |    |    |
+| [/update-device-group](./updateDeviceGroup/1.0.0/)                            | Th | Th |    |    |    |    |
+| [/delete-device-group](./deleteDeviceGroup/1.0.0/)                            | Th | Th | Ka |    |    |    |
 
 ### Initiate firmware roll-out
 
-| Service                                                                        | 1  | 2  | 3  | 4  | 5  |
-| ------------------------------------------------------------------------------ | -- | -- | -- | -- | -- |
-| [/list-device-groups-without-target-firmware](./Services/listDeviceGroupsWithoutTargetFirmware/1.0.0/) | Th | Th |  |  | Ka 3) |
-| [/provide-existing-device-group](./Services/provideExistingDeviceGroup/1.0.0/) | Th | Th |  |  | Ka 3) |
-| [/add-or-update-target-firmware](./Services/addOrUpdateTargetFirmware/1.0.0/)  | Th | Th |  |  | Ka 3) |
-| [/delete-target-firmware](./Services/deleteTargetFirmware/1.0.0/)              | Th | Th |  |  | Ka 3) |
+| Service                                                                                       | 1  | 2  | 5  | 3  | 4  | 5  |
+| --------------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/list-device-groups-without-target-firmware](./listDeviceGroupsWithoutTargetFirmware/1.0.0/) | Th | Th | Ka |    |    |    |
+| [/provide-existing-device-group](./provideExistingDeviceGroup/1.0.0/)                         | Th | Th | Ka |    |    |    |
+| [/add-or-update-target-firmware](./addOrUpdateTargetFirmware/1.0.0/)                          | Th | Th | Ka |    |    |    |
+| [/delete-target-firmware](./deleteTargetFirmware/1.0.0/)                                      | Th | Th | Ka |    |    |    |
 
 ## Categorizing individual devices into device groups (Planning)
 
@@ -80,25 +85,23 @@ Solved by functions.
 
 ### Categorizing individual devices into device groups
 
-| Service                                                                             | 1  | 2  | 3  | 4  | 5  |
-| ----------------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/list-existing-devices](./Services/listExistingDevices/1.0.0/)                     | Th | Th |  |  | Ka 3) |
-| [/list-device-groups-without-devices](./Services/listDeviceGroupsWithoutDevices/1.0.0/) | Th | Th |  |  | Ka 3) |
-| [/add-devices-to-device-group](./Services/addDevicesToDeviceGroup/1.0.0/)           | Th | Th |  |  | Ka 3) |
-| [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/) | Th | Th |  |  | Ka 3) |
+| Service                                                                             | 1  | 2  | 5  | 3  | 4  | 5  |
+| ----------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/list-existing-devices](./listExistingDevices/1.0.0/)                              | Th | Th | Ka |    |    |    |
+| [/list-device-groups-without-devices](./listDeviceGroupsWithoutDevices/1.0.0/)      | Th | Th | Ka |    |    |    |
+| [/add-devices-to-device-group](./addDevicesToDeviceGroup/1.0.0/)                    | Th | Th | Ka |    |    |    |
+| [/remove-devices-from-device-group](./removeDevicesFromDeviceGroup/1.0.0/)          | Th | Th | Ka |    |    |    |
 
 ## Basic
 
 ### Kicking-off application
 
-| Service                                                                     | 1  | 2  | 3  | 4  | 5  |
-| --------------------------------------------------------------------------- | -- | -- | -- | -- | -- |
-| [/embedYourself](./Services/embedYourself/1.0.0/)                           |  |  |  |  |  |
+| Service                                  | 1 | 2 | 5 | 3 | 4 | 5 |
+| ---------------------------------------- | - | - | - | - | - | - |
+| [/embedYourself](./embedYourself/1.0.0/) |   |   |   |   |   |   |
 
 ---
 
 ---
 
   > 1\) Error Codes not yet defined.  
-  > 2\) Sollten die Attribute bei Create erzwungen werden?
-  > 3\) Readme & diagram reviewed

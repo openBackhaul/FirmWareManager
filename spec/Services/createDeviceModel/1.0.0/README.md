@@ -3,6 +3,8 @@
 Creates a new DeviceModel and a corresponding default DeviceGroup, if deviceModelName not already existing.  
 Adds all existing Devices with deviceModel==deviceModelName to the default DeviceGroup.  
 
+The value of defaultDeviceGroup is invariant, means DeviceModel and default DeviceGroup are permanently associated.  
+
 ## Diagram
 
 <p align="center">

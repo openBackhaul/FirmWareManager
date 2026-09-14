@@ -28,7 +28,8 @@ Internal design aspects:
   - Preparing firmware resources
     - [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)
     - [/list-incomplete-firmware-resources](./Services/listIncompleteFirmwareResources/1.0.0/)
-    - [/create-or-update-firmware-resource](./Services/createOrUpdateFirmwareResource/1.0.0/)
+    - [/create-firmware-resource](./Services/createFirmwareResource/1.0.0/)
+    - [/update-firmware-resource](./Services/updateFirmwareResource/1.0.0/)
     - [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)
   - Preparing device models
     - [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)
@@ -44,7 +45,8 @@ Internal design aspects:
 - **Preparing device groups and initiating firmware roll-out (Operations)**
   - Preparing device groups
     - [/list-existing-device-groups](./Services/listExistingDeviceGroups/1.0.0/)
-    - [/create-or-update-device-group](./Services/createOrUpdateDeviceGroup/1.0.0/)
+    - [/create-device-group](./Services/createDeviceGroup/1.0.0/)
+    - [/update-device-group](./Services/updateDeviceGroup/1.0.0/)
     - [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)
   - Initiate firmware roll-out
     - [/list-device-groups-without-target-firmware](./Services/listDeviceGroupsWithoutTargetFirmware/1.0.0/)
