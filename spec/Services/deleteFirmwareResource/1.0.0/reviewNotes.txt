@@ -1,0 +1,4 @@
+# TODO
+
+warum wird ein Fehler zurückgegeben, wennd die FirmwareResource nicht existiert?
+Bei zB delteDeviceGroup wird in dem Fall stattdessen ein 204 zurückgeben.

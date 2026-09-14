@@ -23,7 +23,7 @@ Th = Thorsten
 | [/list-incomplete-servers](./listIncompleteServers/1.0.0/) | Th | Th | Ka |       |    |    |
 | [/create-server](./createOrUpdateServer/1.0.0/)            | Th | Th | Ka |       |    |    |
 | [/update-server](./createOrUpdateServer/1.0.0/)            | Th | Th | Ka |       |    |    |
-| [/delete-server](./deleteServer/1.0.0/)                    | Th | Th |    | Th 1) | Th |    |
+| [/delete-server](./deleteServer/1.0.0/)                    | Th | Th | Ka | Th 1) | Th |    |
 
   > Technische Klärung der benötigten Inputparameter und ggf. deren Formatierung erforderlich.  
 
@@ -34,7 +34,7 @@ Th = Thorsten
 | [/list-existing-firmware-resources](./listExistingFirmwareResources/1.0.0/)             | Th | Th | Ka | Th | Th |    |
 | [/create-firmware-resource](./createFirmwareResource/1.0.0/)                            | Th | Th | Ka |    |    |    |
 | [/update-firmware-resource](./updateFirmwareResource/1.0.0/)                            | Th | Th | Ka |    |    |    |
-| [/delete-firmware-resource](./deleteFirmwareResource/1.0.0/)                            | Th | Th |    |    |    |    |
+| [/delete-firmware-resource](./deleteFirmwareResource/1.0.0/)                            | Th | Th | Ka |    |    |    |
 
 ### Preparing device models
 
@@ -63,7 +63,7 @@ Th = Thorsten
 | [/list-existing-device-groups](./listExistingDeviceGroups/1.0.0/)             | Th | Th | Ka |    |    |    |
 | [/create-device-group](./createDeviceGroup/1.0.0/)                            | Th | Th | Ka |    |    |    |
 | [/update-device-group](./updateDeviceGroup/1.0.0/)                            | Th | Th | Ka |    |    |    |
-| [/delete-device-group](./deleteDeviceGroup/1.0.0/)           X                | Th | Th | Ka |    |    |    |
+| [/delete-device-group](./deleteDeviceGroup/1.0.0/)                            | Th | Th |  |    |    |    |
 
 ### Initiate firmware roll-out
 
