@@ -13,11 +13,11 @@ requestor -> indServ
 activate indServ
 
   note over indServ
-    Retrieves DeviceGroups
+    Reads [DeviceGroup]
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: [DeviceGroup]
   deactivate RunDS
 
 requestor <-- indServ: [ {deviceGroupLabel,\ndeviceModelName} ]

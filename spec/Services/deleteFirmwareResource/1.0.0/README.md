@@ -2,7 +2,7 @@
 
 Deletes a FirmwareResource.  
 Aborts if the FirmwareResource is still referenced by any DeviceGroup.  
-Removes obsolete references (approvals documented in DeviceModels).  
+Removes obsolete references (approvals documented at DeviceModels).  
 
 ## Diagram
 
@@ -20,9 +20,11 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-| Code | Message                                                                                                  |
-|------|----------------------------------------------------------------------------------------------------------|
-|      | To be deleted object still referenced                                                                    |
+|#| Code | Message                               |
+|-|------|---------------------------------------|
+|1|      | Referenced object does not exist      |
+|2|      | To be deleted object still referenced |
+|3|      | _[provided by ValidationFunctions]_   |
 
 ## Parameters
 

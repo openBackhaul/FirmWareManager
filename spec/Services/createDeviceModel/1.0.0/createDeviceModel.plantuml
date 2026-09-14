@@ -15,9 +15,8 @@ requestor -> indServ: { deviceModelName }
 activate indServ
 
   note over indServ
-    Checks, whether
-    DeviceModel
-    already exists
+    Checks whether given
+    deviceModelName exists
   end note
   indServ -> RunDS
   activate RunDS
@@ -29,10 +28,10 @@ activate indServ
   note left indServ
     THEN
   end note
-  requestor <-- indServ: 204
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
   note over indServ
     ELSE
-  end note  
+  end note
 
   note over indServ
     Locks RunningDS
@@ -69,12 +68,12 @@ activate indServ
     deviceModel==deviceModelName
     to default DeviceGroup
   end note
+  note over indServ
+    Reads [Device]
+  end note
+  indServ -> CanDS
+  indServ <-- CanDS
   loop for each existing Device
-    note over indServ
-      Reads deviceModel
-    end note
-    indServ -> CanDS
-    indServ <-- CanDS
     note over indServ
       IF deviceModel==deviceModelName:
     end note
@@ -83,10 +82,13 @@ activate indServ
     end note
     note right indServ
       Appends mountName to
-      _device of default DeviceGroup
+      [device] at default DeviceGroup
     end note
     indServ -> CanDS
     indServ <-- CanDS
+    note over indServ
+      ELSE
+    end note
   end loop
 
   note over indServ
@@ -113,7 +115,7 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2 }
   note over indServ
     ELSE
   end note

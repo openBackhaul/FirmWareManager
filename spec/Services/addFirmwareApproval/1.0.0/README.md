@@ -1,6 +1,6 @@
 ﻿# addFirmwareApproval
 
-Documents that a FirmwareResource is allowed to be used on Devices of a specific DeviceModel.  
+Documents that a FirmwareResource is allowed to be used on Devices of the provided DeviceModel.  
 
 ## Diagram
 
@@ -18,9 +18,11 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-| Code | Message                                                                                                  |
-|------|----------------------------------------------------------------------------------------------------------|
-|      | Referenced object does not exist                                                                         |
+|#| Code | Message                                                           |
+|-|------|-------------------------------------------------------------------|
+|1|      | Referenced object does not exist                                  |
+|2|      | Referenced object does not exist                                  |
+|3|      | _[provided by ValidationFunctions]_                               |
 
 ## Parameters
 

@@ -18,7 +18,7 @@ activate indServ
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: [FirmwareResources]
   deactivate RunDS
 
 requestor <-- indServ: [ { firmwareResourceName,\nfirmwareResourceVersion,\nserverLabel,\nsourceUri,\nfileName } ]

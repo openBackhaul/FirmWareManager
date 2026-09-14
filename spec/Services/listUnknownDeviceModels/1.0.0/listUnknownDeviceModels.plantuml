@@ -18,19 +18,21 @@ activate indServ
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: [DeviceModels]
+  deactivate RunDS
+
+  note over indServ
+    Checks [Devices] for deviceModel not
+    being available as name at [DeviceModels]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [Devices]
   deactivate RunDS
   loop for each Device
     note over indServ
-      Retrieves deviceModel
-    end note
-    indServ -> RunDS
-    activate RunDS
-    indServ <-- RunDS
-    deactivate RunDS
-    note over indServ
       If deviceModel NOT equal to
-      any name in [DeviceModels]
+      name at any [DeviceModel]
     end note
     note right indServ
       THEN

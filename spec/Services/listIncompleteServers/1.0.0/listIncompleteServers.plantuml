@@ -17,8 +17,16 @@ activate indServ
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: [Servers]
   deactivate RunDS
+
+  note over RunDS #Orange
+    Es ist fachlich unklar welche Attribute
+    zwingend benötigt werden, bzw. welche
+    auch fehlen dürfen müssen.
+    Ggf. ist die Vollständigkeitsuntersuchung
+    unten anzupassen.
+  end note
 
   loop for each Server
     note over indServ

@@ -15,8 +15,28 @@ requestor -> indServ: { deviceModelName,\nfirmwareResourceName,\nfirmwareResourc
 activate indServ
 
   note over indServ
-    Checks whether combination of
-    firmwareResourceName and
+    Checks whether given
+    deviceModelName exists
+    by reading DeviceModel
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: {DeviceModel}
+  deactivate RunDS
+  note over indServ
+    IF DeviceModel NOT existing:
+  end note
+  note left indServ
+    THEN
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  note over indServ
+    ELSE
+  end note
+
+  note over indServ
+    Checks whether given combination
+    of firmwareResourceName and
     firmwareResourceVersion exists
   end note
   indServ -> RunDS
@@ -29,23 +49,23 @@ activate indServ
   note left indServ
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[attributeList] }
   note over indServ
     ELSE
   end note
 
   note over indServ
-    Checks, whether approval of
-    the given FirmwareResource
-    already documented at 
-    the given DeviceModel
+    Checks whether given combination
+    of firmwareResourceName and
+    firmwareResourceVersion is already
+    approved for given DeviceModel
   end note
-  indServ -> RunDS
-  activate RunDS
-  indServ <-- RunDS
-  deactivate RunDS
   note over indServ
-    IF approval already documented:
+    IF given combination of
+    firmwareResourceName and
+    firmwareResourceVersion
+    already in [approval] at
+    DeviceModel:
   end note
   note left indServ
     THEN
@@ -77,7 +97,7 @@ activate indServ
     Appends combination of 
     firmwareResourceName and 
     firmwareResourceVersion 
-    to _approval at the given
+    to [approval] at the given
     DeviceModel
   end note
   indServ -> CanDS
@@ -107,7 +127,7 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  requestor <-- indServ: { ErrorCode,\nErrorMessage3 }
   note over indServ
     ELSE
   end note

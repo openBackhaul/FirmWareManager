@@ -23,11 +23,11 @@ Internal design aspects:
   - Preparing servers
     - [/list-existing-servers](./Services/listExistingServers/1.0.0/)
     - [/list-incomplete-servers](./Services/listIncompleteServers/1.0.0/)
-    - [/create-or-update-server](./Services/createOrUpdateServer/1.0.0/)
+    - [/create-server](./Services/createServer/1.0.0/)
+    - [/update-server](./Services/updateServer/1.0.0/)
     - [/delete-server](./Services/deleteServer/1.0.0/)
   - Preparing firmware resources
     - [/list-existing-firmware-resources](./Services/listExistingFirmwareResources/1.0.0/)
-    - [/list-incomplete-firmware-resources](./Services/listIncompleteFirmwareResources/1.0.0/)
     - [/create-firmware-resource](./Services/createFirmwareResource/1.0.0/)
     - [/update-firmware-resource](./Services/updateFirmwareResource/1.0.0/)
     - [/delete-firmware-resource](./Services/deleteFirmwareResource/1.0.0/)

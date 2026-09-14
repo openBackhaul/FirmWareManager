@@ -18,7 +18,7 @@ activate indServ
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: [FirmwareResources]
   deactivate RunDS
 
   loop for each FirmwareResource
