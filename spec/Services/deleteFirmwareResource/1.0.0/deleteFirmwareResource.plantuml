@@ -6,154 +6,154 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "deleteFirmwareResource\n" as indServ
+participant "deleteFirmwareResource\n" as cur
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> indServ: { firmwareResourceName,\nfirmwareResourceVersion }
-activate indServ
+requestor -> cur: { firmwareResourceName,\nfirmwareResourceVersion }
+activate cur
 
-  note over indServ
+  note over cur
     Checks, whether FirmwareResource
     with given combination of name and
     version exists
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF FirmwareResource NOT existing:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: 204
-  note over indServ
+  requestor <-- cur: 204
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Checks, whether any
     existing DeviceGroup
     is referencing given
     FirmwareResource
   end note
   loop for each existing DeviceGroup
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
   end loop
-  note over indServ
+  note over cur
     IF FirmwareResource still referenced:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Locks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   activate RunDS
-  note over indServ
+  note over cur
     Locks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   activate CanDS
-  note over indServ
+  note over cur
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  indServ -> RunDS
+  cur -> RunDS
   RunDS -/ CanDS
 
-  note over indServ
+  note over cur
     Cleans up references
   end note
   loop for each existing DeviceModel
-    note over indServ
+    note over cur
       Checks, whether there is an 
       approval of the to be deleted
       FirmwareResource documented
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
-    note over indServ
+    cur -> CanDS
+    cur <-- CanDS
+    note over cur
       IF approval exists:
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    note right indServ
+    note right cur
       Deletes approval of the
       given FirmwareResource
       from the DeviceModel
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
   end loop
 
-  note right indServ
+  note right cur
     Deletes given FirmwareResource
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
+  cur -> CanDS
+  cur <-- CanDS
 
-  note over indServ
+  note over cur
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==deleteFirmwareResource}
+  cur -> valiMan: {triggerFunction==deleteFirmwareResource}
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  cur <-- valiMan
   deactivate valiMan
-  note over indServ
+  note over cur
     IF validation failed:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
-  note right indServ
+  cur -X CanDS
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
+  cur -X RunDS
+  requestor <-- cur: { ErrorCode,\nErrorMessage }
+  note over cur
     ELSE
   end note
 
-  note right indServ
+  note right cur
     Overwrites RunningDS
     with CandidateDS
   end note
-  indServ -> CanDS
+  cur -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   deactivate CanDS
-  note right indServ
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   deactivate RunDS
 
-requestor <-- indServ: 204
-deactivate indServ
+requestor <-- cur: 204
+deactivate cur
 
 @enduml

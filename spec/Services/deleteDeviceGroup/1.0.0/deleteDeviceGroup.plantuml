@@ -6,161 +6,161 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "deleteDeviceGroup\n" as indServ
+participant "deleteDeviceGroup\n" as cur
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> indServ: { deviceGroupLabel }
-activate indServ
+requestor -> cur: { deviceGroupLabel }
+activate cur
 
-  note over indServ
+  note over cur
     Checks, whether given
     DeviceGroup exists by
     reading its deviceModel
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF DeviceGroup NOT existing:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: 204
-  note over indServ
+  requestor <-- cur: 204
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Assures that given DeviceGroup
     is not default DeviceGroup
   end note
-  note over indServ
+  note over cur
     Reads defaultDeviceGroup
     of referenced DeviceModel
   end note  
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF given deviceGroupLabel
     equals defaultDeviceGroup:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\nreferencingDeviceModel }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage,\nreferencingDeviceModel }
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Locks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   activate RunDS
-  note over indServ
+  note over cur
     Locks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   activate CanDS
-  note over indServ
+  note over cur
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  indServ -> RunDS
+  cur -> RunDS
   RunDS -/ CanDS
 
-  note over indServ
+  note over cur
     Reads [devices] at
     given DeviceGroup
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
+  cur -> CanDS
+  cur <-- CanDS
 
-  note over indServ
+  note over cur
     Reads [targetFirmwareList]
     at default DeviceGroup
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
+  cur -> CanDS
+  cur <-- CanDS
 
-  note over indServ
+  note over cur
     Deletes given
     DeviceGroup
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
+  cur -> CanDS
+  cur <-- CanDS
 
   loop for [devices]
-    note over indServ
+    note over cur
       Appends mountName to [devices]
       of default DeviceGroup
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
 
-    note over indServ
+    note over cur
       Transfers [targetFirmwareList]
       of default DeviceGroup to
       [firmwareList] of Device
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
   end loop
 
-  note over indServ
+  note over cur
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==deleteDeviceGroup}
+  cur -> valiMan: {triggerFunction==deleteDeviceGroup}
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  cur <-- valiMan
   deactivate valiMan
-  note over indServ
+  note over cur
     IF validation failed:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
-  note right indServ
+  cur -X CanDS
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
+  cur -X RunDS
+  requestor <-- cur: { ErrorCode,\nErrorMessage }
+  note over cur
     ELSE
   end note
 
-  note right indServ
+  note right cur
     Overwrites RunningDS
     with CandidateDS
   end note
-  indServ -> CanDS
+  cur -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   deactivate CanDS
-  note right indServ
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   deactivate RunDS
 
-requestor <-- indServ: 204
-deactivate indServ
+requestor <-- cur: 204
+deactivate cur
 
 @enduml

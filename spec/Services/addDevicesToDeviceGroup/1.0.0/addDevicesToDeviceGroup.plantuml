@@ -6,197 +6,197 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "addDevicesToDeviceGroup\n" as indServ
+participant "addDevicesToDeviceGroup\n" as cur
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> indServ: { deviceGroupLabel,\n[mountNameList] }
-activate indServ
+requestor -> cur: { deviceGroupLabel,\n[mountNameList] }
+activate cur
 
-  note over indServ
+  note over cur
     Checks whether given deviceGroupLabel
     exists by retrieving the DeviceGroup's
     _deviceModel
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF DeviceGroup NOT existing:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Checks whether any given
     Devices are not existing by 
     retrieving their deviceModel
   end note
   loop for each mountName in mountNameList
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
   end loop
-  note over indServ
+  note over cur
     IF any Devices NOT existing:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[mountNameList] }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage,\n[mountNameList] }
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Checks whether value of deviceModel
     at any given Devices differ from value
     of _deviceModel at given DeviceGroup
   end note
-  note over indServ
+  note over cur
     IF any Devices of the wrong deviceModel:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[mountNameList] }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage,\n[mountNameList] }
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Locks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   activate RunDS
-  note over indServ
+  note over cur
     Locks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   activate CanDS
-  note over indServ
+  note over cur
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  indServ -> RunDS
+  cur -> RunDS
   RunDS -/ CanDS
 
   loop for each given mountName
-    note over indServ
+    note over cur
       Deletes given mountName from
       _device of other DeviceGroups
     end note
     loop for each DeviceGroup
-      note over indServ
+      note over cur
         Checks, whether mountName
         in _device of DeviceGroup
       end note
-      indServ -> CanDS
-      indServ <-- CanDS
-      note over indServ
+      cur -> CanDS
+      cur <-- CanDS
+      note over cur
         IF mountName in _device:
       end note
-      note right indServ
+      note right cur
         THEN
       end note
-      note right indServ
+      note right cur
         Deletes mountName from _device
       end note
-      indServ -> CanDS
-      indServ <-- CanDS
-      note over indServ
+      cur -> CanDS
+      cur <-- CanDS
+      note over cur
         ELSE
       end note
     end loop
 
-    note over indServ
+    note over cur
       Adds given mountName to
       _device at given DeviceGroup
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
 
-    note over indServ
+    note over cur
       Deletes existing contents
       of firmwareList at Device
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
 
-    note over indServ
+    note over cur
       Transfers content of 
       targetFirmwareList
       of DeviceGroup into
       firmwareList at Device
     end note
-    note right indServ
+    note right cur
       Reads targetFirmwareList from DeviceGroup
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
-    note right indServ
+    cur -> CanDS
+    cur <-- CanDS
+    note right cur
       Updates firmwareList at Device
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
   end loop
 
-  note over indServ
+  note over cur
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==addDevicesToDeviceGroup}
+  cur -> valiMan: {triggerFunction==addDevicesToDeviceGroup}
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  cur <-- valiMan
   deactivate valiMan
-  note over indServ
+  note over cur
     IF validation failed:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
-  note right indServ
+  cur -X CanDS
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
+  cur -X RunDS
+  requestor <-- cur: { ErrorCode,\nErrorMessage }
+  note over cur
     ELSE
   end note
 
-  note right indServ
+  note right cur
     Overwrites RunningDS
     with CandidateDS
   end note
-  indServ -> CanDS
+  cur -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   deactivate CanDS
-  note right indServ
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   deactivate RunDS
 
-requestor <-- indServ: 204
-deactivate indServ
+requestor <-- cur: 204
+deactivate cur
 
 @enduml

@@ -6,167 +6,167 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "removeFirmwareApproval\n" as indServ
+participant "removeFirmwareApproval\n" as cur
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> indServ: { deviceModelName,\nfirmwareResourceName,\nfirmwareResourceVersion }
-activate indServ
+requestor -> cur: { deviceModelName,\nfirmwareResourceName,\nfirmwareResourceVersion }
+activate cur
 
-  note over indServ
+  note over cur
     Checks, whether firmware approval
     with given combination of name and
     version exists at given DeviceModel
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF firmware approval NOT existing:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: 204
-  note over indServ
+  requestor <-- cur: 204
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Checks, whether to be withdrawn
     firmware approval is still base of
     references as target firmware in
     DeviceGroups
   end note
   loop for each existing DeviceGroup
-    note over indServ
+    note over cur
       Checks, whether _deviceModel 
       matches given deviceModelName
     end note
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
-      note over indServ
+      note over cur
         IF _deviceModel equals
         given deviceModelName
       end note
-      note right indServ
+      note right cur
         THEN
       end note
-      note right indServ
+      note right cur
         Checks, whether combination of
         given firmwareResourceName and 
         firmwareResourceVersion is in
         targetFirmwareList
       end note
-      indServ -> RunDS
+      cur -> RunDS
       activate RunDS
-      indServ <-- RunDS
+      cur <-- RunDS
       deactivate RunDS
-      note right indServ
+      note right cur
         IF given FirmwareResource
         in targetFirmwareList
       end note
-      note right indServ
+      note right cur
         THEN
       end note
-      note right indServ
+      note right cur
         Appends deviceGroupLabel to
         [listOfReferencingObjects]
       end note
-      note right indServ
+      note right cur
         ELSE
       end note
-      note over indServ
+      note over cur
         ELSE
       end note
   end loop
-  note over indServ
+  note over cur
     IF entries in
     [listOfReferencingObjects]
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage,\n[listOfReferencingObjects] }
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Locks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   activate RunDS
-  note over indServ
+  note over cur
     Locks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   activate CanDS
-  note over indServ
+  note over cur
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  indServ -> RunDS
+  cur -> RunDS
   RunDS -/ CanDS
 
-  note right indServ
+  note right cur
     Deletes given firmware approval
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
+  cur -> CanDS
+  cur <-- CanDS
 
-  note over indServ
+  note over cur
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==removeFirmwareApproval}
+  cur -> valiMan: {triggerFunction==removeFirmwareApproval}
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  cur <-- valiMan
   deactivate valiMan
-  note over indServ
+  note over cur
     IF validation failed:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
-  note right indServ
+  cur -X CanDS
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
+  cur -X RunDS
+  requestor <-- cur: { ErrorCode,\nErrorMessage }
+  note over cur
     ELSE
   end note
 
-  note right indServ
+  note right cur
     Overwrites RunningDS
     with CandidateDS
   end note
-  indServ -> CanDS
+  cur -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   deactivate CanDS
-  note right indServ
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   deactivate RunDS
 
-requestor <-- indServ: 204
-deactivate indServ
+requestor <-- cur: 204
+deactivate cur
 
 @enduml

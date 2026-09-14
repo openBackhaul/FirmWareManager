@@ -21,8 +21,8 @@ Th = Thorsten
 | ---------------------------------------------------------- | -- | -- | -- | ----- | -- | -- |
 | [/list-existing-servers](./listExistingServers/1.0.0/)     | Th | Th | Ka | Th    | Th |    |
 | [/list-incomplete-servers](./listIncompleteServers/1.0.0/) | Th | Th | Ka |       |    |    |
-| [/create-server](./createOrUpdateServer/1.0.0/)            | Th | Th |    |       |    |    |
-| [/update-server](./createOrUpdateServer/1.0.0/)            | Th | Th |    |       |    |    |
+| [/create-server](./createOrUpdateServer/1.0.0/)            | Th | Th | Ka |       |    |    |
+| [/update-server](./createOrUpdateServer/1.0.0/)            | Th | Th | Ka |       |    |    |
 | [/delete-server](./deleteServer/1.0.0/)                    | Th | Th | Ka | Th 1) | Th |    |
 
   > Technische Klärung der benötigten Inputparameter und ggf. deren Formatierung erforderlich.  
