@@ -55,6 +55,12 @@ activate cur
       Appends mountName and deviceModel
       of ODS:Device to [obsoleteDevice]
     end note
+
+    note over cur #lightBlue
+      ELSE würde ich weglassen
+      (beim Programmierung muss man ja auch
+      kein else angeben, wenn es keins gibt)
+    end note
     note over cur
       ELSE
     end note
@@ -62,12 +68,16 @@ activate cur
 
   ' If nothing to delete: finished
   note over cur
-    IF [obsoleteDevice].length = 0:
+    IF [obsoleteDevice].length == 0:
   end note
   note left cur
     THEN
   end note
   pulser <-- cur: 204
+  note over cur #lightBlue
+      ELSE hier auch weglassen,
+      204 terminiert.
+  end note
   note over cur
     ELSE
   end note  
@@ -106,15 +116,15 @@ activate cur
       cur -> CanDS
       cur <-- CanDS
       note over cur
-        IF DeviceGroup:deviceModel 
-              = obsoleteDevice:deviceModel:
+        IF DeviceGroup.deviceModel 
+              == obsoleteDevice.deviceModel
       end note
       note right cur
         THEN
       end note
       note right cur
         Check, whether obsoleteDevice:mountName
-        is contained in DeviceGroup:[device]
+        is contained in DeviceGroup.[device]
       end note
       note right cur
         _IF obsoleteDevice referenced by DeviceGroup:
@@ -125,6 +135,10 @@ activate cur
       note right cur
         Remove obsoleteDevice:mountName
         from DeviceGroup:[device]
+      end note
+
+      note over cur #lightBlue
+        beide _ELSE/ELSE können weg
       end note
       note right cur
         _ELSE

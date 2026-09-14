@@ -44,6 +44,10 @@ activate cur
     note right cur
       <color:LightGray>ignores any errors</color>
     end note
+
+    note over cur #lightBlue
+      ELSE würde ich weglassen
+    end note
     note over cur
       ELSE
     end note

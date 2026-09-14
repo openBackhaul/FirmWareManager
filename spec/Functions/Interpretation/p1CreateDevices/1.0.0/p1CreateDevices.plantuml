@@ -62,7 +62,7 @@ activate cur
     end note
   end loop
   note over cur
-    IF [newDevices].length = 0:
+    IF [newDevices].length == 0:
   end note
   note left cur
     THEN
