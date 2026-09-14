@@ -6,22 +6,22 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listExistingFirmwareResources\n" as indServ
+participant "listExistingFirmwareResources\n" as cur
 database "RunningDS" as RunDS
 
-requestor -> indServ
-activate indServ
+requestor -> cur
+activate cur
 
-  note over indServ
+  note over cur
     Retrieves
     FirmwareResources
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
 
-requestor <-- indServ: [ { firmwareResourceName,\nfirmwareResourceVersion,\nserverLabel,\nsourceUri,\nfileName } ]
-deactivate indServ
+requestor <-- cur: [ { firmwareResourceName,\nfirmwareResourceVersion,\nserverLabel,\nsourceUri,\nfileName } ]
+deactivate cur
 
 @enduml

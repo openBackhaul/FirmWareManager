@@ -6,188 +6,188 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "removeDevicesFromDeviceGroup\n" as indServ
+participant "removeDevicesFromDeviceGroup\n" as cur
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> indServ: { deviceGroupLabel,\n[mountNameList] }
-activate indServ
+requestor -> cur: { deviceGroupLabel,\n[mountNameList] }
+activate cur
 
-  note over indServ
+  note over cur
     Checks, whether
     given DeviceGroup
     is defaultDeviceGroup
   end note
-  note right indServ
+  note right cur
     Reads deviceModel
     from given DeviceGroup
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note right indServ
+  note right cur
     IF deviceGroupLabel NOT existing
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
-  note right indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  note right cur
     ELSE
   end note
 
-  note right indServ
+  note right cur
     Reads defaultDeviceGroup
     from this DeviceModel
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF given DeviceGroup
     equals defaultDeviceGroup:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage }
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Reduces list of given
     mountNames to those that
     are actually referenced
     by given DeviceGroup
   end note
-  note right indServ
+  note right cur
     Reads _device from
     given DeviceGroup
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF remaining list of to be
     removed mountNames empty:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: 204
-  note over indServ
+  requestor <-- cur: 204
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Locks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   activate RunDS
-  note over indServ
+  note over cur
     Locks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   activate CanDS
-  note over indServ
+  note over cur
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  indServ -> RunDS
+  cur -> RunDS
   RunDS -/ CanDS
 
-    note right indServ
+    note right cur
       Reads contents of
       targetFirmwareList
       at default DeviceGroup
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
 
   loop for each remaining given mountName
-    note right indServ
+    note right cur
       Deletes mountName from device
       list at given DeviceGroup
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
 
-    note right indServ
+    note right cur
       Deletes contents of 
       firmwareList at Device
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
 
-    note right indServ
+    note right cur
       Appends mountName to device
       list at defaultDeviceGroup
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
 
-    note right indServ
+    note right cur
       Writes contents of targetFirmwareList
       at default DeviceGroup into firmwareList
       at Device
     end note
-    indServ -> CanDS
-    indServ <-- CanDS
+    cur -> CanDS
+    cur <-- CanDS
   end loop
 
-  note over indServ
+  note over cur
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==removeDevicesFromDeviceGroup}
+  cur -> valiMan: {triggerFunction==removeDevicesFromDeviceGroup}
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  cur <-- valiMan
   deactivate valiMan
-  note over indServ
+  note over cur
     IF validation failed:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
-  note right indServ
+  cur -X CanDS
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
+  cur -X RunDS
+  requestor <-- cur: { ErrorCode,\nErrorMessage }
+  note over cur
     ELSE
   end note
 
-  note right indServ
+  note right cur
     Overwrites RunningDS
     with CandidateDS
   end note
-  indServ -> CanDS
+  cur -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   deactivate CanDS
-  note right indServ
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   deactivate RunDS
 
-requestor <-- indServ: 204
-deactivate indServ
+requestor <-- cur: 204
+deactivate cur
 
 @enduml

@@ -6,21 +6,21 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listExistingFirmwareApprovals\n" as indServ
+participant "listExistingFirmwareApprovals\n" as cur
 database "RunningDS" as RunDS
 
-requestor -> indServ: { deviceModelName }
-activate indServ
+requestor -> cur: { deviceModelName }
+activate cur
 
-  note over indServ
+  note over cur
     Retrieves approvals
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
 
-requestor <-- indServ: [ approvalList ]
-deactivate indServ
+requestor <-- cur: [ approvalList ]
+deactivate cur
 
 @enduml

@@ -6,151 +6,166 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "updateFirmwareResource\n" as indServ
+participant "updateFirmwareResource\n" as cur
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> indServ: { firmwareResourceName,\nfirmwareResourceVersion,\n<color:LightGray>serverLabel,\n<color:LightGray>sourceUri,\n<color:LightGray>fileName</color> }
-activate indServ
+requestor -> cur: { firmwareResourceName,\nfirmwareResourceVersion,\n<color:LightGray>serverLabel,\n<color:LightGray>sourceUri,\n<color:LightGray>fileName</color> }
+activate cur
 
-  note over indServ
+  note over cur
     Checks, whether given
     combination of
     firmwareResourceName and
     firmwareResourceVersion
     already exists
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF FirmwareResource NOT existing:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  note over cur #LightBlue
+    ELSE unneeded
+  end note
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Checks whether potentially
     given serverLabel exists
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF serverLabel is given
       AND NOT existing:
   end note
-  note left indServ
+  note left cur
     THEN
+  end note  
+  requestor <-- cur: { ErrorCode,\nErrorMessage2,\n[attributeList] }
+  note over cur #LightBlue
+    ELSE unneeded
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[attributeList] }
-  note over indServ
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Checks, whether given
     combination of serverLabel,
     sourceUri and fileName
     already documented
   end note
   loop for each existing FirmwareResource
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
+    
+    note over cur #LightSalmon
+      sollte die Textbox mit dem was gemacht
+      werden nicht eher hier drin stehen?
+    end note
+
   end loop
-  note over indServ
+  note over cur
     IF source already documented:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage3,\nfirmwareResourceName }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage3,\nfirmwareResourceName }
+  note over cur #LightBlue
+    ELSE unneeded
+  end note
+  note over cur
     ELSE
   end note
 
-  note over indServ
+  note over cur
     Locks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   activate RunDS
-  note over indServ
+  note over cur
     Locks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   activate CanDS
-  note over indServ
+  note over cur
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  indServ -> RunDS
+  cur -> RunDS
   RunDS -/ CanDS
 
-  note over indServ
+  note over cur
     Uses provided attributes for
     updating FirmwareResource
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
+  cur -> CanDS
+  cur <-- CanDS
 
-  note over indServ
+  note over cur
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==updateFirmwareResource}
+  cur -> valiMan: {triggerFunction==updateFirmwareResource}
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  cur <-- valiMan
   deactivate valiMan
-  note over indServ
+  note over cur
     IF validation failed:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
-  note right indServ
+  cur -X CanDS
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage4 }
-  note over indServ
+  cur -X RunDS
+  requestor <-- cur: { ErrorCode,\nErrorMessage4 }
+  note over cur
     ELSE
   end note
 
-  note right indServ
+  note right cur
     Overwrites RunningDS
     with CandidateDS
   end note
-  indServ -> CanDS
+  cur -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   deactivate CanDS
-  note right indServ
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   deactivate RunDS
 
-requestor <-- indServ: 204
-deactivate indServ
+requestor <-- cur: 204
+deactivate cur
 
 @enduml

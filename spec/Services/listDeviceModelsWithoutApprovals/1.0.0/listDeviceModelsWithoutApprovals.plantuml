@@ -6,37 +6,37 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "listDeviceModelsWithoutApprovals\n" as indServ
+participant "listDeviceModelsWithoutApprovals\n" as cur
 database "RunningDS" as RunDS
 
-requestor -> indServ
-activate indServ
+requestor -> cur
+activate cur
 
-    note over indServ
+    note over cur
       Retrieves [DeviceModels]
     end note
-    indServ -> RunDS
+    cur -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    cur <-- RunDS
     deactivate RunDS
 
   loop for each DeviceModel
-    note over indServ
+    note over cur
       If [approval].length NOT > 0
     end note
-    note right indServ
+    note right cur
       THEN
     end note
-    note right indServ
+    note right cur
       Appends name of DeviceModel
       to [deviceModelList]
     end note
-    note over indServ
+    note over cur
       ELSE
     end note
   end loop
 
-requestor <-- indServ: { [deviceModelList] }
-deactivate indServ
+requestor <-- cur: { [deviceModelList] }
+deactivate cur
 
 @enduml

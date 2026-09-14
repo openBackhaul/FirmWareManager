@@ -6,21 +6,21 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "provideExistingDeviceGroup\n" as indServ
+participant "provideExistingDeviceGroup\n" as cur
 database "RunningDS" as RunDS
 
-requestor -> indServ: { deviceGroupLabel }
-activate indServ
+requestor -> cur: { deviceGroupLabel }
+activate cur
 
-  note over indServ
+  note over cur
     Retrieves DeviceGroup
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
 
-requestor <-- indServ: { deviceGroupLabel,\ndeviceModelName,\n<color:LightGray>purgeDate</color>,\n[{targetFirmwareList}],\n[deviceList] }
-deactivate indServ
+requestor <-- cur: { deviceGroupLabel,\ndeviceModelName,\n<color:LightGray>purgeDate</color>,\n[{targetFirmwareList}],\n[deviceList] }
+deactivate cur
 
 @enduml

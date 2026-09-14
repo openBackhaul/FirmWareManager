@@ -6,13 +6,13 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "createServer\n" as indServ
+participant "createServer\n" as cur
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 
-requestor -> indServ: { serverLabel,\n<color:LightGray>userName,\n<color:LightGray>password,\n<color:LightGray>sshKey</color> }
-activate indServ
+requestor -> cur: { serverLabel,\n<color:LightGray>userName,\n<color:LightGray>password,\n<color:LightGray>sshKey</color> }
+activate cur
 
   note over valiMan #Orange
     Es ist fachlich unklar welche Attribute
@@ -23,22 +23,22 @@ activate indServ
     zu dokumentieren.
   end note
 
-  note over indServ
+  note over cur
     Checks, whether given
     serverLabel already exists
   end note
-  indServ -> RunDS
+  cur -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  cur <-- RunDS
   deactivate RunDS
-  note over indServ
+  note over cur
     IF Server already exists:
   end note
-  note left indServ
+  note left cur
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
-  note over indServ
+  requestor <-- cur: { ErrorCode,\nErrorMessage1 }
+  note over cur
     ELSE
   end note
 
@@ -53,78 +53,78 @@ activate indServ
     ein Pattern zu prüfen.
   end note
 
-  note over indServ
+  note over cur
     Locks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   activate RunDS
-  note over indServ
+  note over cur
     Locks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   activate CanDS
-  note over indServ
+  note over cur
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  indServ -> RunDS
+  cur -> RunDS
   RunDS -/ CanDS
 
-  note over indServ
+  note over cur
     Creates new Server
     with provided attributes
   end note
-  indServ -> CanDS
-  indServ <-- CanDS
+  cur -> CanDS
+  cur <-- CanDS
 
-  note over indServ
+  note over cur
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==createServer}
+  cur -> valiMan: {triggerFunction==createServer}
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  cur <-- valiMan
   deactivate valiMan
-  note over indServ
+  note over cur
     IF validation failed:
   end note
-  note right indServ
+  note right cur
     THEN
   end note
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
-  note right indServ
+  cur -X CanDS
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage2 }
-  note over indServ
+  cur -X RunDS
+  requestor <-- cur: { ErrorCode,\nErrorMessage2 }
+  note over cur
     ELSE
   end note
 
-  note right indServ
+  note right cur
     Overwrites RunningDS
     with CandidateDS
   end note
-  indServ -> CanDS
+  cur -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note right cur
     Unlocks CandidateDS
   end note
-  indServ -X CanDS
+  cur -X CanDS
   deactivate CanDS
-  note right indServ
+  note right cur
     Unlocks RunningDS
   end note
-  indServ -X RunDS
+  cur -X RunDS
   deactivate RunDS
 
-requestor <-- indServ: 204
-deactivate indServ
+requestor <-- cur: 204
+deactivate cur
 
 @enduml
