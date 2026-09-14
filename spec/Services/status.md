@@ -33,7 +33,7 @@ Th = Thorsten
 | --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
 | [/list-existing-firmware-resources](./listExistingFirmwareResources/1.0.0/)             | Th | Th | Ka | Th | Th |    |
 | [/list-incomplete-firmware-resources](./listIncompleteFirmwareResources/1.0.0/)         | Th | Th | Ka |    |    |    |
-| [/create-firmware-resource](./createFirmwareResource/1.0.0/)                            | Th | Th |    |    |    |    |
+| [/create-firmware-resource](./createFirmwareResource/1.0.0/)                            | Th | Th | Ka |    |    |    |
 | [/update-firmware-resource](./updateFirmwareResource/1.0.0/)                            | Th | Th |    |    |    |    |
 | [/delete-firmware-resource](./deleteFirmwareResource/1.0.0/)                            | Th | Th | Ka |    |    |    |
 
