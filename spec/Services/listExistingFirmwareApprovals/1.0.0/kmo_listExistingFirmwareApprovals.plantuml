@@ -1,0 +1,42 @@
+@startuml listExistingFirmwareApprovals
+skinparam responseMessageBelowArrow true
+
+title
+  listExistingFirmwareApprovals
+end title
+
+participant "requestor\n" as requestor
+participant "listExistingFirmwareApprovals\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ: { deviceModelName }
+activate indServ
+
+  note over indServ
+    Checks whether given
+    deviceModelName exists
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+  note over indServ
+    IF DeviceModel NOT existing:
+  end note
+  note left indServ
+    THEN
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+
+  note over indServ
+    Retrieves [approval]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+
+requestor <-- indServ: [ approval ]
+deactivate indServ
+
+@enduml

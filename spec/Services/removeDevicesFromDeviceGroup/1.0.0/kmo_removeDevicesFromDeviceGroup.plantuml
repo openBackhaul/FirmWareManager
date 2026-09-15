@@ -1,0 +1,184 @@
+@startuml removeDevicesFromDeviceGroup
+skinparam responseMessageBelowArrow true
+
+title
+  removeDevicesFromDeviceGroup
+end title
+
+participant "requestor\n" as requestor
+participant "removeDevicesFromDeviceGroup\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> indServ: { deviceGroupLabel,\n[mountNameList] }
+activate indServ
+
+  note over indServ
+    Checks, whether
+    given DeviceGroup
+    is defaultDeviceGroup
+  end note
+  note right indServ
+    Reads deviceModel
+    from given DeviceGroup
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+  note right indServ
+    IF deviceGroupLabel NOT existing
+  end note
+  note left indServ
+    THEN
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+
+  note right indServ
+    Reads defaultDeviceGroup
+    from this DeviceModel
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+  note over indServ
+    IF given DeviceGroup
+    equals defaultDeviceGroup:
+  end note
+  note left indServ
+    THEN
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+
+  note over indServ
+    Reduces list of given
+    mountNames to those that
+    are actually referenced
+    by given DeviceGroup
+  end note
+  note right indServ
+    Reads _device from
+    given DeviceGroup
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+  note over indServ
+    IF remaining list of to be
+    removed mountNames empty:
+  end note
+  note left indServ
+    THEN
+  end note
+  requestor <-- indServ: 204
+
+  note over indServ
+    Locks RunningDS
+  end note
+  indServ -X RunDS
+  activate RunDS
+  note over indServ
+    Locks CandidateDS
+  end note
+  indServ -X CanDS
+  activate CanDS
+  note over indServ
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  indServ -> RunDS
+  RunDS -/ CanDS
+
+    note right indServ
+      Reads contents of
+      targetFirmwareList
+      at default DeviceGroup
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+
+  loop for each remaining given mountName
+    note right indServ
+      Deletes mountName from device
+      list at given DeviceGroup
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+
+    note right indServ
+      Deletes contents of 
+      firmwareList at Device
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+
+    note right indServ
+      Appends mountName to device
+      list at defaultDeviceGroup
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+
+    note right indServ
+      Writes contents of targetFirmwareList
+      at default DeviceGroup into firmwareList
+      at Device
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+  end loop
+
+  note over indServ
+    Triggers Validation
+  end note
+  indServ -> valiMan: {triggerFunction==removeDevicesFromDeviceGroup}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  indServ <-- valiMan
+  deactivate valiMan
+  note over indServ
+    IF validation failed:
+  end note
+  note right indServ
+    THEN
+  end note
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  note over indServ
+    ELSE
+  end note
+
+  note right indServ
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  indServ -> CanDS
+  CanDS -\ RunDS
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  deactivate CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  deactivate RunDS
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

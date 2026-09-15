@@ -1,0 +1,159 @@
+@startuml deleteFirmwareResource
+skinparam responseMessageBelowArrow true
+
+title
+  deleteFirmwareResource
+end title
+
+participant "requestor\n" as requestor
+participant "deleteFirmwareResource\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> indServ: { firmwareResourceName,\nfirmwareResourceVersion }
+activate indServ
+
+  note over indServ
+    Checks whether given combination
+    of firmwareResourceName and
+    firmwareResourceVersion exists
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+  note over indServ
+    IF FirmwareResource NOT existing:
+  end note
+  note left indServ
+    THEN
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+
+  note over indServ
+    Checks, whether any
+    existing DeviceGroup
+    is referencing given
+    FirmwareResource
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [DeviceGroup]
+  deactivate RunDS
+  loop for each existing DeviceGroup
+    note over indServ
+      IF combination of firmwareResourceName
+      and firmwareResourceVersion referenced
+      in targetFirmwareList:
+    end note
+    note left indServ
+      THEN
+    end note
+    note left indServ
+      Add deviceGroupLabel
+      to [listOfReferencingObjects]
+    end note
+  end loop
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[listOfReferencingObjects] }
+
+  note over indServ
+    Locks RunningDS
+  end note
+  indServ -X RunDS
+  activate RunDS
+  note over indServ
+    Locks CandidateDS
+  end note
+  indServ -X CanDS
+  activate CanDS
+  note over indServ
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  indServ -> RunDS
+  RunDS -/ CanDS
+
+  note over indServ
+    Cleans up references by deleting
+    obsolete approvals in [DeviceModel]
+  end note
+    indServ -> CanDS
+    indServ <-- CanDS: [DeviceModel]
+  loop for each existing DeviceModel
+    note over indServ
+      IF combination of
+      firmwareResourceName and 
+      firmwareResourceVersion
+      found in [approval]:
+    end note
+    note right indServ
+      THEN
+    end note
+    note right indServ
+      Deletes combination of
+      firmwareResourceName and 
+      firmwareResourceVersion
+      from [approval]
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+  end loop
+
+  note right indServ
+    Deletes given FirmwareResource
+  end note
+  indServ -> CanDS
+  indServ <-- CanDS
+
+  note over indServ
+    Triggers Validation
+  end note
+  indServ -> valiMan: {triggerFunction==deleteFirmwareResource}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  indServ <-- valiMan
+  deactivate valiMan
+  note over indServ
+    IF validation failed:
+  end note
+  note right indServ
+    THEN
+  end note
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage3 }
+  note over indServ
+    ELSE
+  end note
+
+  note right indServ
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  indServ -> CanDS
+  CanDS -\ RunDS
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  deactivate CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  deactivate RunDS
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

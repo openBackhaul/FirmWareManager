@@ -1,0 +1,49 @@
+@startuml listUnknownDeviceModels
+skinparam responseMessageBelowArrow true
+
+title
+  listUnknownDeviceModels
+end title
+
+participant "requestor\n" as requestor
+participant "listUnknownDeviceModels\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Retrieves
+    [DeviceModels]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [DeviceModels]
+  deactivate RunDS
+
+  note over indServ
+    Checks [Devices] for deviceModel not
+    being available as name at [DeviceModels]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [Devices]
+  deactivate RunDS
+  loop for each Device
+    note over indServ
+      If deviceModel NOT equal to
+      name at any [DeviceModel]
+    end note
+    note right indServ
+      THEN
+    end note
+    note right indServ
+      Appends deviceModel to
+      [unknownDeviceModelList]
+    end note
+  end loop
+
+requestor <-- indServ: { [unknownDeviceModelList] }
+deactivate indServ
+
+@enduml

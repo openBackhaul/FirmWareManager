@@ -1,0 +1,152 @@
+@startuml deleteDeviceModel
+skinparam responseMessageBelowArrow true
+
+title
+  deleteDeviceModel
+end title
+
+participant "requestor\n" as requestor
+participant "deleteDeviceModel\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> indServ: { deviceModelName }
+activate indServ
+
+  note over indServ
+    Checks whether given
+    deviceModelName exists
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+  note over indServ
+    IF DeviceModel NOT existing:
+  end note
+  note left indServ
+    THEN
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+
+  note over indServ
+    Checks, whether there are any Devices
+    of the to be deleted DeviceModel
+  end note
+  note over indServ
+    Reads [Device]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [Device]
+  deactivate RunDS
+  loop for each Device
+    note over indServ
+      IF deviceModel==given deviceModelName:
+    end note
+    note left indServ
+      THEN
+    end note
+    note left indServ
+      Append mountName to
+      [listOfReferencingObjects]
+    end note
+  end loop
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[listOfReferencingObjects] }
+
+  note over indServ
+    Locks RunningDS
+  end note
+  indServ -X RunDS
+  activate RunDS
+  note over indServ
+    Locks CandidateDS
+  end note
+  indServ -X CanDS
+  activate CanDS
+  note over indServ
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  indServ -> RunDS
+  RunDS -/ CanDS
+
+  note over indServ
+    Deletes referencing
+    DeviceGroups
+  end note
+  note over indServ
+    Reads [DeviceGroup]
+  end note
+  indServ -> CanDS
+  indServ <-- CanDS: [DeviceGroup]
+  loop for each DeviceGroup
+    note over indServ
+      IF deviceModel==given deviceModelName:
+    end note
+    note right indServ
+      THEN
+    end note
+    note right indServ
+      Deletes DeviceGroup
+    end note
+  end loop
+
+  note over indServ
+    Deletes given DeviceModel
+  end note
+  indServ -> CanDS
+  indServ <-- CanDS
+
+  note over indServ
+    Triggers Validation
+  end note
+  indServ -> valiMan: {triggerFunction==deleteDeviceModel}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  indServ <-- valiMan
+  deactivate valiMan
+  note over indServ
+    IF validation failed:
+  end note
+  note right indServ
+    THEN
+  end note
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage3 }
+  note over indServ
+    ELSE
+  end note
+
+  note right indServ
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  indServ -> CanDS
+  CanDS -\ RunDS
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  deactivate CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  deactivate RunDS
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml
