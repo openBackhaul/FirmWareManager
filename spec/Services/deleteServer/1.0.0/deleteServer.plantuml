@@ -39,6 +39,9 @@ activate indServ
     is referencing given
     Server
   end note
+  note over indServ
+    Reads [FirmwareResource]
+  end note
   indServ -> RunDS
   activate RunDS
   indServ <-- RunDS: [FirmwareResource]

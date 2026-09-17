@@ -1,8 +1,7 @@
 ﻿# addDevicesToDeviceGroup
 
-Documents that given Devices are belonging to given DeviceGroup.  
-Same Devices get also removed from their former DeviceGroup.  
-Updates the firmwareList of the given Devices according to the targetFirmwareList of the given DeviceGroup.  
+References to the given Devices get transferred from their current DeviceGroup to the given DeviceGroup.  
+Transfer to given DeviceGroup includes updating the firmwareList of the transferred Devices.  
 
 Consequences: The target firmware of the given DeviceGroup will be attempted to be loaded onto the devices and activated.  
 
@@ -22,11 +21,12 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-| Code | Message                                                                                                  |
-|------|----------------------------------------------------------------------------------------------------------|
-|      | Referenced object does not exist                                                                         |
-|      | Referenced device is unknown                                                                             |
-|      | Referenced device of the wrong device type                                                               |
+|#| Code | Message                                                           |
+|-|------|-------------------------------------------------------------------|
+|1|      | Referenced object does not exist                                  |
+|2|      | Referenced device is unknown                                      |
+|3|      | Referenced device of the wrong device type                        |
+|4|      | _[provided by ValidationFunctions]_                               |
 
 ## Parameters
 

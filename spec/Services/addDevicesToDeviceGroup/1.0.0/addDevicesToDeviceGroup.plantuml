@@ -15,66 +15,80 @@ requestor -> indServ: { deviceGroupLabel,\n[mountNameList] }
 activate indServ
 
   note over indServ
-    Checks whether given deviceGroupLabel
-    exists by retrieving the DeviceGroup's
-    _deviceModel
+    Checks whether given
+    deviceGroupLabel exists
+    by reading the deviceModel
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: DeviceGroup::deviceModel
   deactivate RunDS
   note over indServ
     IF DeviceGroup NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
-  note over indServ
-    ELSE
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  note left indServ
+    }
   end note
 
-  note over indServ
-    Checks whether any given
-    Devices are not existing by 
-    retrieving their deviceModel
-  end note
-  loop for each mountName in mountNameList
-    note over indServ #LightSalmon
-      hier ggf. eine Textbox ergänzen,
-      was gemacht wird.
+  loop for each Device given in [mountNameList]
+    note over indServ
+      Checks whether
+        - given mountName exists by reading deviceModel
+        - Device::deviceModel equals DeviceGroup::deviceModel
     end note
-
     indServ -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    indServ <-- RunDS: Device::deviceModel
     deactivate RunDS
+    note over indServ
+      IF Device NOT existing:
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      Add mountName to [unknownDevices]
+    end note
+    note right indServ
+      }
+    end note
+    note over indServ
+      IF Device::deviceModel 
+          != DeviceGroup::deviceModel
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      Add mountName to [wrongTypeDevices]
+    end note
+    note right indServ
+      }
+    end note
   end loop
   note over indServ
-    IF any Devices NOT existing:
+    IF [unknownDevices].length > 0:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[mountNameList] }
-  note over indServ
-    ELSE
-  end note
-
-  note over indServ
-    Checks whether value of deviceModel
-    at any given Devices differ from value
-    of _deviceModel at given DeviceGroup
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[unknownDevices] }
+  note left indServ
+    }
   end note
   note over indServ
-    IF any Devices of the wrong deviceModel:
+    IF [wrongTypeDevices].length > 0:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[mountNameList] }
-  note over indServ
-    ELSE
+  requestor <-- indServ: { ErrorCode,\nErrorMessage3,\n[wrongTypeDevices] }
+  note left indServ
+    }
   end note
 
   note over indServ
@@ -95,61 +109,61 @@ activate indServ
   indServ -> RunDS
   RunDS -/ CanDS
 
-  loop for each given mountName
+  loop for each Device given in [mountNameList]
     note over indServ
       Deletes given mountName from
-      _device of other DeviceGroups
+      [device] of all DeviceGroups
     end note
     loop for each DeviceGroup
       note over indServ
         Checks, whether mountName
-        in _device of DeviceGroup
+        in [device] at DeviceGroup
       end note
       indServ -> CanDS
       indServ <-- CanDS
       note over indServ
-        IF mountName in _device:
+        IF mountName in [device]:
       end note
       note right indServ
-        THEN
+        THEN {
       end note
       note right indServ
-        Deletes mountName from _device
+        Deletes mountName from [device]
       end note
       indServ -> CanDS
       indServ <-- CanDS
-      note over indServ
-        ELSE
+      note right indServ
+        }
       end note
     end loop
 
     note over indServ
       Adds given mountName to
-      _device at given DeviceGroup
+      [device] at given DeviceGroup
     end note
     indServ -> CanDS
     indServ <-- CanDS
 
     note over indServ
       Deletes existing contents
-      of firmwareList at Device
+      of [firmwareList] at Device
     end note
     indServ -> CanDS
     indServ <-- CanDS
 
     note over indServ
       Transfers content of 
-      targetFirmwareList
+      [targetFirmwareList]
       of DeviceGroup into
-      firmwareList at Device
+      [firmwareList] at Device
     end note
     note right indServ
-      Reads targetFirmwareList from DeviceGroup
+      Reads [targetFirmwareList] at DeviceGroup
     end note
     indServ -> CanDS
     indServ <-- CanDS
     note right indServ
-      Updates firmwareList at Device
+      Updates [firmwareList] at Device
     end note
     indServ -> CanDS
     indServ <-- CanDS
@@ -169,7 +183,7 @@ activate indServ
     IF validation failed:
   end note
   note right indServ
-    THEN
+    THEN {
   end note
   note right indServ
     Unlocks CandidateDS
@@ -179,23 +193,23 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
-    ELSE
+  requestor <-- indServ: { ErrorCode,\nErrorMessage4 }
+  note right indServ
+    }
   end note
 
-  note right indServ
+  note over indServ
     Overwrites RunningDS
     with CandidateDS
   end note
   indServ -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note over indServ
     Unlocks CandidateDS
   end note
   indServ -X CanDS
   deactivate CanDS
-  note right indServ
+  note over indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS

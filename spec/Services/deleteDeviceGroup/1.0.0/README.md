@@ -5,7 +5,7 @@ It does not delete default DeviceGroups, but returns the deviceModelName in that
 If the to be deleted DeviceGroup is referencing any Devices, these references get transferred to the default DeviceGroup of the same deviceModel.  
 Transfer to default DeviceGroup includes updating the firmwareList of the transferred Devices.  
 
-Consequences: As referenced Devices get transferred to the default DeviceGroup, these device might undergo firmware download and activation.  
+Consequences: Devices transferred to the default DeviceGroup, might undergo firmware download and activation.  
 
 ## Diagram
 
@@ -23,9 +23,11 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-| Code | Message                                           |
-|------|---------------------------------------------------|
-|      | To be deleted DeviceGroup is default DeviceGroup  |
+|#| Code | Message                                                           |
+|-|------|-------------------------------------------------------------------|
+|1|      | Referenced object does not exist                                  |
+|2|      | Deletion denied as it is a default DeviceGroup                    |
+|3|      | _[provided by ValidationFunctions]_                               |
 
 ## Parameters
 

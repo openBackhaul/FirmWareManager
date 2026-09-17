@@ -17,10 +17,10 @@ activate indServ
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: [Devices]
   deactivate RunDS
 
-requestor <-- indServ: [ {mountName,\ndeviceModel,\n[firmwareList]} ]
+requestor <-- indServ: [mountName]
 deactivate indServ
 
 @enduml

@@ -16,11 +16,12 @@ activate indServ
 
   note over indServ
     Checks whether given
-    deviceGroupLabel exists
+    deviceGroupLabel exists by
+    reading [targetFirmwareList]
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: [targetFirmwareList]
   deactivate RunDS
   note over indServ
     IF DeviceGroup NOT existing:
@@ -28,29 +29,25 @@ activate indServ
   note left indServ
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\n[attributeList] }
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
   note over indServ
     ELSE
   end note
 
   note over indServ
-    Checks, whether given combination
+    Checks whether given combination
     of firmwareResourceName and
-    firmwareResourceVersion is 
-    referenced in targetFirmwareList
-    of given DeviceGroup
+    firmwareResourceVersion actually
+    referenced in [targetFirmwareList]
   end note
-  indServ -> RunDS
-  activate RunDS
-  indServ <-- RunDS
-  deactivate RunDS
   note over indServ
-    IF FirmwareResource NOT referenced:
+    IF FirmwareResource NOT
+    in [targetFirmwareList]:
   end note
   note left indServ
     THEN
   end note
-  requestor <-- indServ: 204
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2 }
   note over indServ
     ELSE
   end note
@@ -75,25 +72,29 @@ activate indServ
 
   note over indServ
     Deletes given FirmwareResource
-    from targetFirmwareList of given
-    DeviceGroup
+    from [targetFirmwareList] of
+    given DeviceGroup
   end note
   indServ -> CanDS
   indServ <-- CanDS
 
   note over indServ
-    Reads list of Devices
-    from given DeviceGroup
+    Deletes given FirmwareResource
+    from [firmwareList] of all Devices
+    referenced in [devices] of the
+    given DeviceGroup
+  end note
+  note right indServ
+    Reads [device] at
+    given DeviceGroup
   end note
   indServ -> CanDS
-  indServ <-- CanDS
-
-  loop for each listed Device
-    note over indServ
-      Deletes given combination
-      of firmwareResourceName
-      and firmwareResourceVersion
-      from firmwareList
+  indServ <-- CanDS: [device]
+  loop for each referenced Device
+    note right indServ
+      Deletes given
+      FirmwareResource
+      from [firmwareList]
     end note
     indServ -> CanDS
     indServ <-- CanDS
@@ -123,7 +124,7 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
+  requestor <-- indServ: { ErrorCode,\nErrorMessage3 }
   note over indServ
     ELSE
   end note

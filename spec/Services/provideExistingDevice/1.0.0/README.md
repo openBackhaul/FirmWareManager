@@ -1,11 +1,11 @@
-# provideExistingDeviceGroup
+﻿# provideExistingDevice
 
-Returns detailed information about a DeviceGroup.  
+Returns detailed information about a Device.  
 
 ## Diagram
 
 <p align="center">
-  <img src="./provideExistingDeviceGroup.png" alt="provideExistingDeviceGroup diagram" width="250" />
+  <img src="./provideExistingDevice.png" alt="provideExistingDevice diagram" width="250" />
 </p>
 
 ## Interface

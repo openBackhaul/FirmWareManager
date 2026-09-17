@@ -1,8 +1,6 @@
 ﻿# listExistingDevices
 
-Returns list of documented Devices.  
-Device defines the composition of firmware that shall be installed under the same mountName.  
-Service provides detailed information about Devices.  
+Returns list of mountNames of documented Devices.  
 
 ## Diagram
 

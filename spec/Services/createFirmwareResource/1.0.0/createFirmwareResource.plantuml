@@ -29,15 +29,11 @@ activate indServ
     IF FirmwareResource already exists:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
-
-  note over indServ #LightBlue
-    ELSE unneeded
-  end note
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over indServ
@@ -52,14 +48,11 @@ activate indServ
     IF Server NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[attributeList] }
-  note over indServ #LightBlue
-    ELSE unneeded
-  end note
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over indServ
@@ -69,28 +62,29 @@ activate indServ
     already documented
   end note
   loop for each existing FirmwareResource
-    note over indServ #LightSalmon
-      hier ggf. eine Textbox ergänzen,
-      was gemacht wird.
+    note right indServ
+      read FirmwareResource
     end note
     indServ -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    indServ <-- RunDS: {FirmwareResource}
     deactivate RunDS
+    note right indServ
+      Compares combination of 
+      serverLabel, sourceUri
+      and fileName
+    end note
+    note over indServ
+      IF source already documented:
+    end note
+    note left indServ
+      THEN {
+    end note
+    requestor <-- indServ: { ErrorCode,\nErrorMessage3,\nfirmwareResourceName }
+    note left indServ
+      }
+    end note
   end loop
-  note over indServ
-    IF source already documented:
-  end note
-  note left indServ
-    THEN
-  end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage3,\nfirmwareResourceName }
-  note over indServ #LightBlue
-    ELSE unneeded
-  end note
-  note over indServ
-    ELSE
-  end note
 
   note over indServ
     Locks RunningDS
@@ -130,7 +124,7 @@ activate indServ
     IF validation failed:
   end note
   note right indServ
-    THEN
+    THEN {
   end note
   note right indServ
     Unlocks CandidateDS
@@ -141,22 +135,22 @@ activate indServ
   end note
   indServ -X RunDS
   requestor <-- indServ: { ErrorCode,\nErrorMessage4 }
-  note over indServ
-    ELSE
+  note right indServ
+    }
   end note
 
-  note right indServ
+  note over indServ
     Overwrites RunningDS
     with CandidateDS
   end note
   indServ -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note over indServ
     Unlocks CandidateDS
   end note
   indServ -X CanDS
   deactivate CanDS
-  note right indServ
+  note over indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS

@@ -15,13 +15,13 @@ requestor -> indServ: { deviceGroupLabel }
 activate indServ
 
   note over indServ
-    Checks, whether given
-    DeviceGroup exists by
-    reading its deviceModel
+    Checks whether given
+    deviceGroupLabel exists
+    by reading its deviceModel
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: deviceModel
   deactivate RunDS
   note over indServ
     IF DeviceGroup NOT existing:
@@ -29,14 +29,14 @@ activate indServ
   note left indServ
     THEN
   end note
-  requestor <-- indServ: 204
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
   note over indServ
     ELSE
   end note
 
   note over indServ
     Assures that given DeviceGroup
-    is not default DeviceGroup
+    is not a default DeviceGroup
   end note
   note over indServ
     Reads defaultDeviceGroup
@@ -44,16 +44,15 @@ activate indServ
   end note  
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: defaultDeviceGroup
   deactivate RunDS
   note over indServ
-    IF given deviceGroupLabel
-    equals defaultDeviceGroup:
+    IF defaultDeviceGroup==given deviceGroupLabel:
   end note
   note left indServ
     THEN
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage,\nreferencingDeviceModel }
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\nreferencingDeviceModel }
   note over indServ
     ELSE
   end note
@@ -77,18 +76,20 @@ activate indServ
   RunDS -/ CanDS
 
   note over indServ
-    Reads [devices] at
+    Reads [device] at
     given DeviceGroup
+    (list of mountName 
+    (=key attribute value))
   end note
   indServ -> CanDS
-  indServ <-- CanDS
+  indServ <-- CanDS: [device]
 
   note over indServ
     Reads [targetFirmwareList]
     at default DeviceGroup
   end note
   indServ -> CanDS
-  indServ <-- CanDS
+  indServ <-- CanDS: [targetFirmwareList]
 
   note over indServ
     Deletes given
@@ -97,10 +98,18 @@ activate indServ
   indServ -> CanDS
   indServ <-- CanDS
 
-  loop for [devices]
+  loop for each Device
     note over indServ
       Appends mountName to [devices]
       of default DeviceGroup
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+
+    note over indServ
+      Delete existing
+      [firmwareList]
+      at Device
     end note
     indServ -> CanDS
     indServ <-- CanDS
@@ -128,7 +137,7 @@ activate indServ
     IF validation failed:
   end note
   note right indServ
-    THEN
+    THEN {
   end note
   note right indServ
     Unlocks CandidateDS
@@ -138,23 +147,23 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage }
-  note over indServ
-    ELSE
+  requestor <-- indServ: { ErrorCode,\nErrorMessage3 }
+  note right indServ
+    }
   end note
 
-  note right indServ
+  note over indServ
     Overwrites RunningDS
     with CandidateDS
   end note
   indServ -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note over indServ
     Unlocks CandidateDS
   end note
   indServ -X CanDS
   deactivate CanDS
-  note right indServ
+  note over indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS

@@ -27,11 +27,11 @@ activate indServ
     IF DeviceModel NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over indServ
@@ -47,11 +47,11 @@ activate indServ
     IF FirmwareResource NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[attributeList] }
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over indServ
@@ -68,11 +68,11 @@ activate indServ
     DeviceModel:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: 204
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over indServ
@@ -117,7 +117,7 @@ activate indServ
     IF validation failed:
   end note
   note right indServ
-    THEN
+    THEN {
   end note
   note right indServ
     Unlocks CandidateDS
@@ -128,22 +128,22 @@ activate indServ
   end note
   indServ -X RunDS
   requestor <-- indServ: { ErrorCode,\nErrorMessage3 }
-  note over indServ
-    ELSE
+  note right indServ
+    }
   end note
 
-  note right indServ
+  note over indServ
     Overwrites RunningDS
     with CandidateDS
   end note
   indServ -> CanDS
   CanDS -\ RunDS
-  note right indServ
+  note over indServ
     Unlocks CandidateDS
   end note
   indServ -X CanDS
   deactivate CanDS
-  note right indServ
+  note over indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS

@@ -17,7 +17,7 @@ activate indServ
     end note
     indServ -> RunDS
     activate RunDS
-    indServ <-- RunDS
+    indServ <-- RunDS: [DeviceModel]
     deactivate RunDS
 
   loop for each DeviceModel

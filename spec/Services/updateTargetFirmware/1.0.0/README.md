@@ -1,15 +1,16 @@
-﻿# removeDevicesFromDeviceGroup
+﻿# updateTargetFirmware
 
-References to the given Devices get transferred from the given DeviceGroup to the default DeviceGroup of their DeviceModel.  
-(Does not indicate errors, if a given Device does not exist or is not referenced by the given DeviceGroup.)  
-Updates the firmwareList of the given Devices according to the targetFirmwareList of the default DeviceGroup.  
+Updates an entry in the targetFirmwareList of a given DeviceGroup in the provided attributes (currently limited to the administrative state of the firmware).  
+Replicates the same changes into the firmwareList of all Devices referenced by the given DeviceGroup.  
 
-Consequences: The target firmware of the default DeviceGroup will be attempted to be loaded onto the devices and activated.  
+Attention: There is no protection against activating too many TargetFirmware or a wrong combination of TargetFirmware!
+
+Consequences: The firmware will be attempted to be loaded onto the devices.  
 
 ## Diagram
 
 <p align="center">
-  <img src="./removeDevicesFromDeviceGroup.png" alt="removeDevicesFromDeviceGroup diagram" width="400" />
+  <img src="./updateTargetFirmware.png" alt="updateTargetFirmware diagram" width="250" />
 </p>
 
 ## Interface
@@ -25,7 +26,7 @@ Please find a detailed description of the [variables](./variables.yaml).
 |#| Code | Message                                                           |
 |-|------|-------------------------------------------------------------------|
 |1|      | Referenced object does not exist                                  |
-|2|      | Cannot remove Devices from default DeviceGroup                    |
+|2|      | Firmware not referenced in targetFirmwareList                     |
 |3|      | _[provided by ValidationFunctions]_                               |
 
 ## Parameters

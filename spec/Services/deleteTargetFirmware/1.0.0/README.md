@@ -21,9 +21,11 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-| Code | Message                                     |
-|------|---------------------------------------------|
-|      | Referenced object does not exist            |
+|#| Code | Message                                                           |
+|-|------|-------------------------------------------------------------------|
+|1|      | Referenced object does not exist                                  |
+|2|      | Firmware not referenced in targetFirmwareList                     |
+|3|      | _[provided by ValidationFunctions]_                               |
 
 ## Parameters
 

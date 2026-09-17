@@ -13,11 +13,30 @@ requestor -> indServ: { deviceGroupLabel }
 activate indServ
 
   note over indServ
-    Retrieves DeviceGroup
+    Checks whether given
+    deviceGroupLabel exists
   end note
   indServ -> RunDS
   activate RunDS
   indServ <-- RunDS
+  deactivate RunDS
+  note over indServ
+    IF DeviceGroup NOT existing:
+  end note
+  note left indServ
+    THEN
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  note over indServ
+    ELSE
+  end note
+
+  note over indServ
+    Retrieves DeviceGroup
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: {DeviceGroup}
   deactivate RunDS
 
 requestor <-- indServ: { deviceGroupLabel,\ndeviceModelName,\n<color:LightGray>purgeDate</color>,\n[{targetFirmwareList}],\n[deviceList] }

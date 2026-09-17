@@ -1,27 +1,28 @@
-@startuml listExistingFirmwareApprovals
+@startuml provideExistingDevice
 skinparam responseMessageBelowArrow true
 
 title
-  listExistingFirmwareApprovals
+  provideExistingDevice
 end title
 
 participant "requestor\n" as requestor
-participant "listExistingFirmwareApprovals\n" as indServ
+participant "provideExistingDevice\n" as indServ
 database "RunningDS" as RunDS
 
-requestor -> indServ: { deviceModelName }
+requestor -> indServ: { mountName }
 activate indServ
 
   note over indServ
     Checks whether given
-    deviceModelName exists
+    mountName exists by
+    retrieving {Device}
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: {Device}
   deactivate RunDS
   note over indServ
-    IF DeviceModel NOT existing:
+    IF Device NOT existing:
   end note
   note left indServ
     THEN
@@ -31,15 +32,7 @@ activate indServ
     ELSE
   end note
 
-  note over indServ
-    Retrieves [approval]
-  end note
-  indServ -> RunDS
-  activate RunDS
-  indServ <-- RunDS: [approval]
-  deactivate RunDS
-
-requestor <-- indServ: [ approval ]
+requestor <-- indServ: { mountName,\ndeviceModel,\n[firmwareList],\nlastUpdate }
 deactivate indServ
 
 @enduml
