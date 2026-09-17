@@ -26,11 +26,11 @@ activate indServ
     IF Server NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over valiMan #Orange

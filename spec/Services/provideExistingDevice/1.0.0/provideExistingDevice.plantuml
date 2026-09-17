@@ -15,7 +15,7 @@ activate indServ
   note over indServ
     Checks whether given
     mountName exists by
-    retrieving {Device}
+    reading {Device}
   end note
   indServ -> RunDS
   activate RunDS
@@ -25,11 +25,11 @@ activate indServ
     IF Device NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
 requestor <-- indServ: { mountName,\ndeviceModel,\n[firmwareList],\nlastUpdate }

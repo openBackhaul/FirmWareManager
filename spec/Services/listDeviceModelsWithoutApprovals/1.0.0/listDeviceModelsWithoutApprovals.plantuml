@@ -12,27 +12,26 @@ database "RunningDS" as RunDS
 requestor -> indServ
 activate indServ
 
+  loop for each DeviceModel
     note over indServ
-      Reads [DeviceModel]
+      Reads DeviceModel
     end note
     indServ -> RunDS
     activate RunDS
-    indServ <-- RunDS: [DeviceModel]
+    indServ <-- RunDS: DeviceModel
     deactivate RunDS
-
-  loop for each DeviceModel
     note over indServ
       If [approval].length NOT > 0
     end note
     note right indServ
-      THEN
+      THEN {
     end note
     note right indServ
       Appends name of DeviceModel
       to [deviceModelList]
     end note
-    note over indServ
-      ELSE
+    note right indServ
+      }
     end note
   end loop
 

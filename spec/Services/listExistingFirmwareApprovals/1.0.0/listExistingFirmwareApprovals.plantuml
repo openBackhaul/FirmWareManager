@@ -15,6 +15,7 @@ activate indServ
   note over indServ
     Checks whether given
     deviceModelName exists
+    by reading [approval]
   end note
   indServ -> RunDS
   activate RunDS
@@ -24,20 +25,12 @@ activate indServ
     IF DeviceModel NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
-
-  note over indServ
-    Retrieves [approval]
-  end note
-  indServ -> RunDS
-  activate RunDS
-  indServ <-- RunDS: [approval]
-  deactivate RunDS
 
 requestor <-- indServ: [ approval ]
 deactivate indServ

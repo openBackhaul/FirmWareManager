@@ -27,18 +27,18 @@ activate indServ
     IF DeviceGroup NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over indServ
     Assures that given DeviceGroup
     is not a default DeviceGroup
   end note
-  note over indServ
+  note right indServ
     Reads defaultDeviceGroup
     of referenced DeviceModel
   end note  
@@ -47,14 +47,15 @@ activate indServ
   indServ <-- RunDS: defaultDeviceGroup
   deactivate RunDS
   note over indServ
-    IF defaultDeviceGroup==given deviceGroupLabel:
+    IF defaultDeviceGroup
+          ==given deviceGroupLabel:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage2,\nreferencingDeviceModel }
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over indServ

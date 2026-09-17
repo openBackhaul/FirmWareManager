@@ -13,36 +13,38 @@ requestor -> indServ
 activate indServ
 
   note over indServ
-    Retrieves
-    [DeviceModels]
+    Reads [DeviceModel]
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS: [DeviceModels]
+  indServ <-- RunDS: [DeviceModel]
   deactivate RunDS
 
   note over indServ
-    Checks [Devices] for deviceModel not
-    being available as name at [DeviceModels]
+    Checks [Device] for deviceModel not
+    existing as name at any DeviceModel
   end note
-  indServ -> RunDS
-  activate RunDS
-  indServ <-- RunDS: [Devices]
-  deactivate RunDS
   loop for each Device
+    note right indServ
+      Reads Device
+    end note
+    indServ -> RunDS
+    activate RunDS
+    indServ <-- RunDS: Device
+    deactivate RunDS
     note over indServ
       If deviceModel NOT equal to
       name at any [DeviceModel]
     end note
     note right indServ
-      THEN
+      THEN {
     end note
     note right indServ
       Appends deviceModel to
       [unknownDeviceModelList]
     end note
-    note over indServ
-      ELSE
+    note right indServ
+      }
     end note
   end loop
 

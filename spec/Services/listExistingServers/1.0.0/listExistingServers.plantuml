@@ -13,11 +13,11 @@ requestor -> indServ
 activate indServ
 
   note over indServ
-    Retrieves Servers
+    Reads [Server]
   end note
   indServ -> RunDS
   activate RunDS
-  indServ <-- RunDS
+  indServ <-- RunDS: [Server]
   deactivate RunDS
 
 requestor <-- indServ: [ { serverLabel,\nuserName,\npassword,\nsshKey } ]

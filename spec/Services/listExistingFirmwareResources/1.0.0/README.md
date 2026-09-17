@@ -1,7 +1,6 @@
 ﻿# listExistingFirmwareResources
 
 Returns list of documented FirmwareResources.  
-FirmwareResource defines the file location information that will be required by the device for downloading firmware.  
 Service provides detailed information about FirmwareResources.  
 
 ## Diagram

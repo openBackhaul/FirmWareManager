@@ -1,3 +1,0 @@
-# TODO:
-man könnte überlegen, ob es schön ist, über alle Geräte zu iterieren, um die unbekannten DeviceModels zu finden,
-oder ob man das nicht irgendwie effizienter abspeichern kann.

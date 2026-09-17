@@ -35,7 +35,7 @@ activate indServ
     IF Server already exists:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
   note left indServ

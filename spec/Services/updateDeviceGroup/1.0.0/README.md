@@ -26,7 +26,6 @@ Please find a detailed description of the [variables](./variables.yaml).
 |3|      | Default DeviceGroup cannot have purgeDate                         |
 |4|      | _[provided by ValidationFunctions]_                               |
 
-
 ## Parameters
 
 ./.  

@@ -46,7 +46,7 @@ activate indServ
     IF DeviceModel NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[attributeList] }
   note left indServ

@@ -1,3 +1,0 @@
-# TODO
-Would it not be good, if the service would also return the defaultFirmware?
-So far there seems not to be a service which does that.

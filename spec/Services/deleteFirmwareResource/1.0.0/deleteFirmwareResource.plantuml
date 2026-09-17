@@ -27,40 +27,52 @@ activate indServ
     IF FirmwareResource NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over indServ
-    Checks, whether any
-    existing DeviceGroup
-    is referencing given
-    FirmwareResource
+    Checks, whether any existing
+    DeviceGroup is referencing
+    the given FirmwareResource
   end note
-  indServ -> RunDS
-  activate RunDS
-  indServ <-- RunDS: [DeviceGroup]
-  deactivate RunDS
   loop for each existing DeviceGroup
+    note right indServ
+      Reads DeviceGroup
+    end note
+    indServ -> RunDS
+    activate RunDS
+    indServ <-- RunDS: DeviceGroup
+    deactivate RunDS
     note over indServ
-      IF combination of firmwareResourceName
-      and firmwareResourceVersion referenced
-      in targetFirmwareList:
+      IF given combination of
+      firmwareResourceName and
+      firmwareResourceVersion
+      referenced in targetFirmwareList:
     end note
     note left indServ
-      THEN
+      THEN {
     end note
     note left indServ
-      Add deviceGroupLabel
+      Adds deviceGroupLabel
       to [listOfReferencingObjects]
     end note
+    note left indServ
+      }
+    end note
   end loop
-  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[listOfReferencingObjects] }
   note over indServ
-    ELSE
+    IF [listOfReferencingObjects].length > 0:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[listOfReferencingObjects] }
+  note left indServ
+    }
   end note
 
   note over indServ
@@ -85,9 +97,12 @@ activate indServ
     Cleans up references by deleting
     obsolete approvals in [DeviceModel]
   end note
-    indServ -> CanDS
-    indServ <-- CanDS: [DeviceModel]
   loop for each existing DeviceModel
+    note right indServ
+      Reads DeviceModel
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS: DeviceModel
     note over indServ
       IF combination of
       firmwareResourceName and 
@@ -95,7 +110,7 @@ activate indServ
       found in [approval]:
     end note
     note right indServ
-      THEN
+      THEN {
     end note
     note right indServ
       Deletes combination of
@@ -105,6 +120,9 @@ activate indServ
     end note
     indServ -> CanDS
     indServ <-- CanDS
+    note right indServ
+      }
+    end note
   end loop
 
   note right indServ

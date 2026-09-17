@@ -26,10 +26,6 @@ Please find a detailed description of the [variables](./variables.yaml).
 |2|      | To be deleted object still referenced                             |
 |3|      | _[provided by ValidationFunctions]_                               |
 
-| Code | Message                                                                                                  |
-|------|----------------------------------------------------------------------------------------------------------|
-|      | To be deleted object still referenced                                                                    |
-
 ## Parameters
 
 ./.  

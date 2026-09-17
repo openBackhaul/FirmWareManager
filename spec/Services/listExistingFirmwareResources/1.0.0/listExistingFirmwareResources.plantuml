@@ -13,8 +13,8 @@ requestor -> indServ
 activate indServ
 
   note over indServ
-    Retrieves
-    FirmwareResources
+    Reads
+    [FirmwareResources]
   end note
   indServ -> RunDS
   activate RunDS

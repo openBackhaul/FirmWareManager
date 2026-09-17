@@ -12,28 +12,27 @@ database "RunningDS" as RunDS
 requestor -> indServ
 activate indServ
 
+  loop for each DeviceGroup
     note over indServ
-      Retrieves [DeviceGroup]
+      Reads DeviceGroup
     end note
     indServ -> RunDS
     activate RunDS
-    indServ <-- RunDS: [DeviceGroup]
+    indServ <-- RunDS: DeviceGroup
     deactivate RunDS
-
-  loop for each DeviceGroup
     note over indServ
       If [targetFirmwareList].length NOT > 0
     end note
     note left indServ
-      THEN
+      THEN {
     end note
     note left indServ
       Appends label of
       DeviceGroup to
       [deviceGroupList]
     end note
-    note over indServ
-      ELSE
+    note left indServ
+      }
     end note
   end loop
 

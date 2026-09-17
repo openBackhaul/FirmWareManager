@@ -27,11 +27,11 @@ activate indServ
     IF DeviceGroup NOT existing:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over indServ
@@ -45,11 +45,11 @@ activate indServ
     in [targetFirmwareList]:
   end note
   note left indServ
-    THEN
+    THEN {
   end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage2 }
-  note over indServ
-    ELSE
+  note left indServ
+    }
   end note
 
   note over indServ
@@ -71,8 +71,9 @@ activate indServ
   RunDS -/ CanDS
 
   note over indServ
-    Overwrites provided attributes
-    of given TargetFirmware at
+    Uses provided attributes
+    for updating given 
+    TargetFirmware at
     given DeviceGroup
   end note
   indServ -> CanDS
