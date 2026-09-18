@@ -56,19 +56,19 @@ activate indServ
       Add combination of
       firmwareResourceName and 
       firmwareResourceVersion to
-      [listOfReferencingObjects]
+      [referencingObject]
     end note
     note left indServ
       }
     end note
   end loop
   note over indServ
-    IF [listOfReferencingObjects].length > 0:
+    IF [referencingObject].length > 0:
   end note
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[listOfReferencingObjects] }
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[referencingObject] }
   note left indServ
     }
   end note

@@ -38,4 +38,6 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 | Function            |  1  |  2  |  3  |  4  |  5  |  6  |
 |---------------------|-----|-----|-----|-----|-----|-----|
-| p1PurgeDeviceGroups | Th  | Th  |     |     |     |     |
+| p1ManageFirmware    |     |     |     |     |     |     |
+| p1LoadParameters    |     |     |     |     |     |     |
+| p1ResolveEsAddress  |     |     |     |     |     |     |

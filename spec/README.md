@@ -116,23 +116,8 @@ Internal design aspects:
 
 #### Implementation
 
-#### Administrative
+#### Basic
 
-- p1ManageFirmware  
-  Basic process started by embedYourself  
-
-- p1LoadParameters  
-
-- p1ResolveEsAddress  
-  For storing StartupDS (persistent copy of RunningDS)  
-
-- p1UpdateMwdiReplica  
-  _[if MWDI replication is used for measuring]_  
-
-- p1InitKafka  
-  _[if Kafka is used for error reporting]_  
-
-- p1TransmittingKafka  
-  _[if Kafka is used for error reporting]_  
-
-#### Internal Data Structure
+- [p1ManageFirmware](./Functions/Basic/p1ManageFirmware/1.0.0/)  
+- [p1LoadParameters](./Functions/Basic/p1LoadParameters/1.0.0/)  
+- [p1ResolveEsAddress](./Functions/Basic/p1ResolveEsAddress/1.0.0/)  

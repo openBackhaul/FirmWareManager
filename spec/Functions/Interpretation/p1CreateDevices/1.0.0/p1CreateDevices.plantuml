@@ -5,174 +5,183 @@ title
   p1CreateDevices
 end title
 
-participant "pulser\n" as pulser
-participant "p1CreateDevices\n" as cur
+participant "pulser\n" as requestor
+participant "p1CreateDevices\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 database "OperationalDS" as OpDS
 
+requestor -> indServ
+activate indServ
 
-pulser -> cur
-activate cur
-
-  ' Read devices from ODS
-  note over cur
-    Reads list of ODS:Devices
-  end note
-  cur -> OpDS
-  activate OpDS
-  cur <-- OpDS
-  deactivate OpDS
-
-
-  ' Loop over ODS devices, add them to [newDevices]
   loop for each ODS:Device
-    note over cur
-      Checks, whether it can
-      be found in RDS:Devices
+    note over indServ
+      Reads ODS:Device
     end note
-    cur -> RunDS
+    indServ -> OpDS
+    activate OpDS
+    indServ <-- OpDS: {mountName, deviceModel, ...}
+    deactivate OpDS
+    note over indServ
+      Checks, whether mountName can
+      be found in RDS:[Device]
+    end note
+    indServ -> RunDS
     activate RunDS
-    cur <-- RunDS
+    indServ <-- RunDS
     deactivate RunDS
-    note over cur
+    note over indServ
       IF cannot be found:
     end note
-    note right cur
-      THEN
+    note right indServ
+      THEN {
     end note
-    note right cur #LightCoral
-      Imho fehlt hier ein Schritt, in dem
-      das DeviceModel bestimmt wird
-      (anhand des CC.deviceModelNames)
+    note right indServ
+      Creates a new entry in [{newDevice}]
+      from mountName and deviceModel of
+      ODS:Device
     end note
-
-    note right cur
-      Add mountName and deviceModel
-      of ODS:Device to [newDevices]
-    end note
-    note over cur #lightBlue
-      ELSE würde ich weglassen
-      (beim Programmierung muss man ja auch
-      kein else angeben, wenn es keins gibt)
-    end note
-    note over cur
-      ELSE
+    note right indServ
+      }
     end note
   end loop
-  note over cur
-    IF [newDevices].length == 0:
+  note over indServ
+    IF [{newDevice}].length==0:
   end note
-  note left cur
-    THEN
+  note left indServ
+    THEN {
   end note
-  pulser <-- cur: 204
-  note over cur #lightBlue
-    Else würde ich hier auch weglassen.
-    das 204 terminiert ja.
-  end note
-  note over cur
-    ELSE
+  requestor <-- indServ: 204
+  note left indServ
+    }
   end note  
 
-  ' Lock DataStores and copy RDS to CDS
-  note over cur
+  note over indServ
     Locks RunningDS
   end note
-  cur -X RunDS
+  indServ -X RunDS
   activate RunDS
-  note over cur
+  note over indServ
     Locks CandidateDS
   end note
-  cur -X CanDS
+  indServ -X CanDS
   activate CanDS
-  note over cur
+  note over indServ
     Overwrites
     CandidateDS
     with RunningDS
   end note
-  cur -> RunDS
+  indServ -> RunDS
   RunDS -/ CanDS
 
-  ' Create new devices in RDS
-  loop for [newDevices]
-    note over cur
-      Creates new RDS:Devices
+  loop for each newDevice
+    note over indServ
+      Creates new RDS:Device from
+      mountName and deviceModel
     end note
-    cur -> CanDS
-    cur <-- CanDS
+    indServ -> CanDS
+    indServ <-- CanDS
 
-    note over cur
-      Adds new RDS:Device
-      to default DeviceGroup
+    note over indServ
+      Attempts to add new RDS:Device
+      to its default DeviceGroup
     end note
-    note over cur
-      Attempts to address DeviceModel
-      RDS:Device.deviceModel for reading its 
+    note right indServ
+      Attempts to read the
       defaultDeviceGroup
+      at deviceModel
     end note
-    cur -> CanDS
-    cur <-- CanDS
-    note over cur
+    indServ -> CanDS
+    indServ <-- CanDS: defaultDeviceGroup
+    note right indServ
       IF DeviceModel does not exist:
     end note
-    note right cur
-      THEN
+    note right indServ
+      THEN {
     end note
-    note right cur
+    note right indServ
       No further action
-      at this Device
+      at this new Device
     end note
-    note over cur
-      ELSE
+    note right indServ
+      }
     end note
-    note over cur
-      Adds RDS:Device.mountName
+    note right indServ
+      Adds mountName of RDS:Device
       to [device] at defaultDeviceGroup
     end note
-    cur -> CanDS
-    cur <-- CanDS
-
-    note over cur
+    indServ -> CanDS
+    indServ <-- CanDS
+ 
+    note over indServ
       Transfers content of
-      defaultDeviceGroup.[targetFirmwareList]
-      to RDS:Device.[firmwareList]
+      [targetFirmwareList]
+      of defaultDeviceGroup
+      to [firmwareList] at
+      new RDS:Device
     end note
-
-    note right cur
+    note right indServ
       Reads [targetFirmwareList]
       at defaultDeviceGroup
     end note
-    cur -> CanDS
-    cur <-- CanDS
-    note right cur
-      Updates
-      RDS:Device.[firmwareList]
+    indServ -> CanDS
+    indServ <-- CanDS
+    note right indServ
+      Updates [firmwareList]
+      at RDS:Device
     end note
-    cur -> CanDS
-    cur <-- CanDS
+    indServ -> CanDS
+    indServ <-- CanDS
   end loop
 
-  ' Write changes from CDS to RDS and unlock DataStores
-  note right cur
+  note over indServ
+    Triggers Validation
+  end note
+  indServ -> valiMan: {triggerFunction==addDevicesToDeviceGroup}
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  indServ <-- valiMan
+  deactivate valiMan
+  note over indServ
+    IF validation failed:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
+  note right indServ
+    }
+  end note
+
+  note over indServ
     Overwrites RunningDS
     with CandidateDS
   end note
-  cur -> CanDS
+  indServ -> CanDS
   CanDS -\ RunDS
-  note right cur
+  note over indServ
     Unlocks CandidateDS
   end note
-  cur -X CanDS
+  indServ -X CanDS
   deactivate CanDS
-  note right cur
+  note over indServ
     Unlocks RunningDS
   end note
-  cur -X RunDS
+  indServ -X RunDS
   deactivate RunDS
 
-pulser <-- cur: 204
-deactivate cur
+requestor <-- indServ: 204
+deactivate indServ
 
 @enduml

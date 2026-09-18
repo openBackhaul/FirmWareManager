@@ -1,8 +1,0 @@
-# TODO
-
-updated the diagram:
-- added some note boxes
-- refined some of the instructions for better readbility
-
-kept a copy of the original diagram file (orig_diagramname.plantuml)
-corrected diagram file name

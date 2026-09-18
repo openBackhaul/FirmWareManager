@@ -7,6 +7,8 @@ Transfer to default DeviceGroup includes updating the firmwareList of the transf
 
 Consequences: Devices transferred to the default DeviceGroup, might undergo firmware download and activation.  
 
+Dependencies: The p1PurgeDeviceGroups function depends on calling this service.  
+
 ## Diagram
 
 <p align="center">

@@ -5,55 +5,73 @@ title
   p1PurgeDeviceGroups
 end title
 
-participant "pulser\n" as pulser
-participant "p1PurgeDeviceGroups\n" as cur
+participant "pulser\n" as requestor
+participant "p1PurgeDeviceGroups\n" as indServ
 participant "/deleteDeviceGroup\n" as delGroup
 participant "p1ValidationManager\n" as valiMan
 database "RunningDS" as RunDS
 
-pulser -> cur
-activate cur
+requestor -> indServ
+activate indServ
 
-  loop for [DeviceGroup]
-    note over cur
-      Reads purgeDate
-      of DeviceGroup
+  loop for each DeviceGroup
+    note over indServ
+      Reads DeviceGroup
     end note
-    cur -> RunDS
+    indServ -> RunDS
     activate RunDS
-    cur <-- RunDS
+    indServ <-- RunDS: {label, purgeDate ... }
     deactivate RunDS
-    note over cur
+    note over indServ
       IF purgeDate exceeded:
     end note
-    note right cur
-      THEN
+    note over indServ
+      THEN {
     end note
-    note right cur
-      Initiates deletion of DeviceGroup
-    end note
-    cur -> delGroup : { deviceGroupLabel }
+  note right indServ
+    Deletes outdated DeviceGroup
+    by calling /deleteDeviceGroup
+  end note
+    indServ -> delGroup: { label }
     activate delGroup
       note over delGroup
         Deletes DeviceGroup
         Adds Devices to default DeviceGroup
         Updates [firmwareList] of Devices
       end note
-    cur <-- delGroup
+    indServ <-- delGroup: { ErrorCode,\nErrorMessage }
     deactivate delGroup
-    note right cur
-      <color:LightGray>ignores any errors</color>
-    end note
 
-    note over cur #lightBlue
-      ELSE würde ich weglassen
+    note right indServ
+      IF ResponseCode != 204:
     end note
-    note over cur
-      ELSE
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      Append label to
+      [unpurgedDevice]
+    end note
+    note right indServ
+      }
+    end note
+    note over indServ
+      }
     end note
   end loop
 
-pulser <-- cur: 204
-deactivate cur
+  note over indServ
+    IF [unpurgedDevice].length > 0:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[unpurgedDevice] }
+  note left indServ
+    }
+  end note
+
+requestor <-- indServ: 204
+deactivate indServ
 
 @enduml

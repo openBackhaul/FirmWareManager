@@ -1,11 +1,11 @@
 # p1CreateDevices
 
-Function gets triggered by the Pulser.  
+Function gets triggered by Pulser.  
 p1CreateDevices checks for Devices that exist in OperationalDS but not in RunningDS.  
 New Devices get  
 \- created in RunningDS  
 \- referenced by the default DeviceGroup of the corresponding DeviceModel  
-\- equipped with the targetFirmwareList of the default DeviceGroup.  
+\- equipped with the targetFirmwareList of the default DeviceGroup  
 
 Consequences: The target firmware of the new Devices' DeviceModel will be attempted to be loaded onto the devices and activated.  
 
@@ -25,7 +25,9 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-./.  
+|#| Code | Message                                                           |
+|-|------|-------------------------------------------------------------------|
+|1|      | _[provided by ValidationFunctions]_                               |
 
 ## Parameters
 
