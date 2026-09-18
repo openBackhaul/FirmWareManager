@@ -65,7 +65,7 @@ Internal design aspects:
     - [/add-devices-to-device-group](./Services/addDevicesToDeviceGroup/1.0.0/)
     - [/remove-devices-from-device-group](./Services/removeDevicesFromDeviceGroup/1.0.0/)
 
-- **Basic**
+- **Administrative**
   - Kicking-off application
     - [/embedYourself](./Services/embedYourself/1.0.0/)
   - Configuring application
@@ -116,8 +116,12 @@ Internal design aspects:
 
 #### Implementation
 
-#### Basic
+#### Administrative
 
-- [p1ManageFirmware](./Functions/Basic/p1ManageFirmware/1.0.0/)  
-- [p1LoadParameters](./Functions/Basic/p1LoadParameters/1.0.0/)  
-- [p1ResolveEsAddress](./Functions/Basic/p1ResolveEsAddress/1.0.0/)  
+- **Kicking-off application**
+  - [p1ManageFirmware](./Functions/Administrative/p1ManageFirmware/1.0.0/)  
+  - [p1LoadParameters](./Functions/Administrative/p1LoadParameters/)  
+  - [p1ResolveEsAddress](./Functions/Administrative/p1ResolveEsAddress/)  
+
+- **CyclicProcesses**
+  - [p1Pulser](./Functions/Administrative/p1Pulser/1.0.0/)

@@ -50,7 +50,7 @@ activate indServ
   end note
   note left indServ
     THEN {
-  end note  
+  end note
   requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[attributeList] }
   note left indServ
     }

@@ -30,7 +30,7 @@ activate embed
   end note
 
   note right embed
-    Automatically start
+    Automatically starts
     p1ManageFirmware
   end note
   embed -> manaFW

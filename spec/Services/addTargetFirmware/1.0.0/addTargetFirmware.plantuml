@@ -60,7 +60,7 @@ activate indServ
   note over indServ
     Checks whether given combination
     of firmwareResourceName and
-    firmwareResourceVersion has 
+    firmwareResourceVersion has
     been approved for deviceModel
   end note
   note over indServ
@@ -136,7 +136,7 @@ activate indServ
     indServ <-- CanDS
     note right indServ
       Transfer [targetFirmwareList]
-      of given DeviceGroup into 
+      of given DeviceGroup into
       [firmwareList] at the Device
     end note
     indServ -> CanDS

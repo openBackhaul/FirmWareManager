@@ -93,13 +93,13 @@ Solved by functions.
 | [/add-devices-to-device-group](./addDevicesToDeviceGroup/1.0.0/)                    | Th | Th | Ka |    |    |    |
 | [/remove-devices-from-device-group](./removeDevicesFromDeviceGroup/1.0.0/)          | Th | Th | Ka |    |    |    |
 
-## Basic
+## Administrative
 
 ### Kicking-off application
 
-| Service                                  | 1 | 2 | 5 | 3 | 4 | 5 |
-| ---------------------------------------- | - | - | - | - | - | - |
-| [/embedYourself](./embedYourself/1.0.0/) |   |   |   |   |   |   |
+| Service                                  | 1  | 2  | 5  | 3  | 4  | 5  |
+| ---------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/embedYourself](./embedYourself/1.0.0/) | Th | Th |    |    |    |    |
 
 ---
 

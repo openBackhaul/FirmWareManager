@@ -72,7 +72,7 @@ activate indServ
 
   note over indServ
     Uses provided attributes
-    for updating given 
+    for updating given
     TargetFirmware at
     given DeviceGroup
   end note
@@ -88,7 +88,7 @@ activate indServ
   note left valiMan #Yellow
     Attention:
     There is no protection against activating
-    too many TargetFirmware or a wrong 
+    too many TargetFirmware or a wrong
     combination of TargetFirmware!
   end note
   note right indServ
@@ -105,7 +105,7 @@ activate indServ
     indServ <-- CanDS
     note right indServ
       Transfer [targetFirmwareList]
-      of given DeviceGroup into 
+      of given DeviceGroup into
       [firmwareList] at the Device
     end note
     indServ -> CanDS

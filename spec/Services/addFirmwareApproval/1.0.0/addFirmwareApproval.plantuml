@@ -94,9 +94,9 @@ activate indServ
   RunDS -/ CanDS
 
   note over indServ
-    Appends combination of 
-    firmwareResourceName and 
-    firmwareResourceVersion 
+    Appends combination of
+    firmwareResourceName and
+    firmwareResourceVersion
     to [approval] at the given
     DeviceModel
   end note

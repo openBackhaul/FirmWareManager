@@ -116,7 +116,7 @@ activate indServ
     indServ <-- CanDS
 
     note over indServ
-      Deletes contents of 
+      Deletes contents of
       [firmwareList] at Device
     end note
     indServ -> CanDS

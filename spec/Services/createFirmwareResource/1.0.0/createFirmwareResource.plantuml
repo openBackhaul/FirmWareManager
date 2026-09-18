@@ -70,7 +70,7 @@ activate indServ
     indServ <-- RunDS: {FirmwareResource}
     deactivate RunDS
     note right indServ
-      Compares combination of 
+      Compares combination of
       serverLabel, sourceUri
       and fileName
     end note

@@ -41,7 +41,7 @@ activate indServ
   note right indServ
     Reads defaultDeviceGroup
     of referenced DeviceModel
-  end note  
+  end note
   indServ -> RunDS
   activate RunDS
   indServ <-- RunDS: defaultDeviceGroup
@@ -79,7 +79,7 @@ activate indServ
   note over indServ
     Reads [device] at
     given DeviceGroup
-    (list of mountName 
+    (list of mountName
     (=key attribute value))
   end note
   indServ -> CanDS

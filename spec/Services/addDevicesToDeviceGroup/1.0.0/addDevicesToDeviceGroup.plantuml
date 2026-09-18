@@ -57,7 +57,7 @@ activate indServ
       }
     end note
     note over indServ
-      IF Device::deviceModel 
+      IF Device::deviceModel
           != DeviceGroup::deviceModel
     end note
     note right indServ
@@ -152,7 +152,7 @@ activate indServ
     indServ <-- CanDS
 
     note over indServ
-      Transfers content of 
+      Transfers content of
       [targetFirmwareList]
       of DeviceGroup into
       [firmwareList] at Device

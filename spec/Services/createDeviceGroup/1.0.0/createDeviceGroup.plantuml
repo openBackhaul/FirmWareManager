@@ -58,7 +58,7 @@ activate indServ
     given purgeDate is reasonable
   end note
   note over indServ
-    IF purgeDate is given 
+    IF purgeDate is given
         AND already in past:
   end note
   note left indServ
