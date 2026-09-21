@@ -9,13 +9,16 @@ External design aspects:
 Internal design aspects:  
 
 - [AutomationArchitecture](./Functions/diagrams/AutomationArchitecture/AutomationArchitecture.png)
-- [Information Structure](./additionalDocumentation/InformationStructure/)
 - [User Stories](./additionalDocumentation/UserStories/)
 - [Concepts of Target Firmware](./additionalDocumentation/ConceptsOfTargetFirmware/)
 
 ## Detailed Specification
 
 ### API
+
+#### Open API specification (Swagger)
+
+  [FirmWareManager](./FirmWareManager.yaml)  
 
 #### ServiceList
 
@@ -71,21 +74,26 @@ Internal design aspects:
   - Configuring application
     - t.b.d.
 
-#### ProfileList and ProfileInstanceList
+### Initial Data
 
-  _[do we still need this?]_  
+#### configFile
 
-#### ForwardingList
+- configFile (JSON)
+  - [FirmWareManager+config](./InitialData/configFile/FirmWareManager+config.json)
 
-  _[do we still need this?]_
+- ProfileList and ProfileInstanceList
+  - _[do we still need this?]_
 
-#### Open API specification (Swagger)
+- ForwardingList
+  - _[do we still need this?]_
 
-  [FirmWareManager](./FirmWareManager.yaml)  
+#### Domain
 
-#### CONFIGfile (JSON)
+- Schema
+  - [Information Structure](./InitialData/Domain/Schema/)
 
-  [FirmWareManager+config](./FirmWareManager+config.json)  
+- Initial StartupDS
+  - [Initial StartupDS Structure](./InitialData/Domain/Startup/)
 
 ### Functions
 
