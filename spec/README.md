@@ -128,8 +128,10 @@ Internal design aspects:
 
 - **Kicking-off application**
   - [p1ManageFirmware](./Functions/Administrative/p1ManageFirmware/1.0.0/)  
+  - [p1LoadEsAddresses](./Functions/Administrative/p1LoadEsAddresses/1.0.0/)
   - [p1LoadParameters](./Functions/Administrative/p1LoadParameters/)  
   - [p1ResolveEsAddress](./Functions/Administrative/p1ResolveEsAddress/)  
+  - [p1CreateDomainControllerFromStartupDS](./Functions/Administrative/p1CreateDomainControllerFromStartupDS/1.0.0/)
 
 - **CyclicProcesses**
   - [p1Pulser](./Functions/Administrative/p1Pulser/1.0.0/)
