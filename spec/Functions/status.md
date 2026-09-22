@@ -38,7 +38,14 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 | Function            |  1  |  2  |  3  |  4  |  5  |  6  |
 |---------------------|-----|-----|-----|-----|-----|-----|
-| p1ManageFirmware    |     |     |     |     |     |     |
-| p1LoadParameters    | ./. | Th  |     |     |     |     |
-| p1ResolveEsAddress  | ./. | Th  |     |     |     |     |
+| p1ManageFirmware    |     |     | (Ka)  |     |     |     |
+| p1LoadParameters    | ./. | Th  | Ka  |     |     |     |
+| p1ResolveEsAddress  | ./. | Th  | Ka  |     |     |     |
 | p1Pulser            |     |     |     |     |     |     |
+
+fehlt noch in Liste
+
+| Function                             |  1  |  2  |  3  |  4  |  5  |  6  |
+|--------------------------------------|-----|-----|-----|-----|-----|-----|
+| p1CreateDomainControllerFromStartup  |     |     |     |     |     |     |
+| p1LoadEsAddresses                    |     |     |     |     |     |     |

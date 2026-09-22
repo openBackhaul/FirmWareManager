@@ -31,6 +31,9 @@ domain-controller:
               - 'measurement'
               - 'monitoring'
               - 'implementation'
+            # TODO: könnte (Hilfs-)funktionen geben, die in keine dieser Kategorien gehören?
+            # zB die eher für das FMW-Management selbst sind, als für die Aufgaben, die der FMW hinsichtlich der
+            # FW-Verwaltung macht?
           description:
             type: string
             description: 'Description of the Function'
@@ -120,6 +123,7 @@ domain-controller:
     error-code:
       type: array
       x-key: error-code
+      #TODO: ist die Beschreibung korrekt? dürfen das nur Implementation Functions sein? zB bei errorCode steht unten auch MeasurementFunctions. Was ist mit den anderen?
       description: 'List of ErrorCodes with their description and corresponding ImplementationFunction'
       items:
         type: object
@@ -153,6 +157,9 @@ domain-controller:
           - device-group
           - device
         properties:
+          # TODO: generell - es gibt hier oft Arrays (firmwareResources, deviceGroups, devices), die Attributnamen sind aber alle Singular
+          # (ich vermute, dass das wohl Absicht ist, weil das den Klassennamen aus dem Datenmodell im UML-Diagramm entspricht - aber wäre Plural nicht doch besser und Singular nur, wenn man auf ein einzelnes Element daraus referenziert?
+          # zb bei firmwareResource auf einen einzelnen Server aus der Liste Servers?)
           storage:
             type: string
             description: 'NMDA like data storages that document the NetworkControlDomain'
@@ -219,6 +226,9 @@ domain-controller:
             description: 'List of device types'
             items:
               type: object
+              # TODO: approval ist hier als required markiert, aber im Service createDeviceModel taucht approval gar auf - das wird erst via addFirmwareApproval gesetzt
+              # Annahme ist also, dass das Array am Anfang auch leer sein darf, korrekt?
+              # Macht das Sinn das hier nochmal dazuzuschreiben? (Die defaultDeviceGroup wird im Gegensatz dazu ja direkt beim createDeviceModel zugewiesen.)
               required:
                 - name
                 - approval
@@ -309,6 +319,8 @@ domain-controller:
                     - version
                     - status
                   description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true.'
+                  # TODO: gilt das individualActivationIsAvail für alle Gerätetypen oder nur gesichert für Huawei?
+                  # Falls nur für Huawei würde ich das hier schon entsprechend kennzeichnen
                   items:
                     type: object
                     required:

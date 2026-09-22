@@ -1,0 +1,196 @@
+@startuml p1ManageFirmware
+skinparam responseMessageBelowArrow true
+
+title
+  p1ManageFirmware
+end title
+
+participant "embedYourself\n" as embed
+participant "p1ManageFirmware\n" as p1ManaFw
+participant "p1LoadEsAddresses\n" as p1LEA
+participant "p1LoadParameters\n" as p1LP
+participant "p1ResolveEsAddress\n" as p1REA
+participant "p1CreateDomainController\nFromStartupDS" as p1CDCFS
+participant "p1Pulser\n" as p1Puls
+database "DomainController" as DC
+database "StartupDS" as StartDS
+
+note right embed
+  Automatically starts
+  p1ManageFirmware
+end note
+embed -> p1ManaFw : {}
+activate p1ManaFw
+
+  note over p1ManaFw
+    Instantiates DomainController
+  end note
+
+  p1ManaFw -> p1LEA
+  activate p1LEA
+    note over p1LEA
+      Loads ElasticSearch
+      addresses from configFile
+    end note
+
+    p1LEA -> p1LP : {functionName=\n"p1LoadEsAddresses"}
+    activate p1LP
+      note over p1LP
+        Loads parameters
+        from configFile
+      end note
+    p1LEA <-- p1LP : { {parameters},\n{configFile} }
+    deactivate p1LP
+    note over p1LEA
+      IF error
+    end note
+    note right p1LEA
+      THEN {
+    end note
+    note right p1LEA
+      Documents error
+    end note
+    p1LEA -> DC : {functionName="p1LoadParameters",\nerrorMessage}
+    p1ManaFw <-- p1LEA : { ErrorCode,\nErrorMessage1 }
+    note right p1LEA
+      }
+    end note
+
+    loop FOR all esName
+      p1LEA -> p1REA : { {/parameters/sub-function=p1ResolveEsAddress},\n{configFile},\nesName }
+      activate p1REA
+        note over p1REA
+          Resolves ES address
+        end note
+      p1LEA <-- p1REA : { {esAddress} }
+      deactivate p1REA
+      note over p1LEA
+        IF error
+      end note
+      note right p1LEA
+        THEN {
+      end note
+      note right p1LEA
+        Documents error
+      end note
+      p1LEA -> DC : {functionName="p1ResolveEsAddress",\nerrorMessage}
+      p1ManaFw <-- p1LEA : { ErrorCode,\nErrorMessage2 }
+      note right p1LEA
+        }
+      end note
+
+      note over p1LEA
+        Instantiates EsAddress
+      end note
+    end loop
+  p1ManaFw <-- p1LEA
+  deactivate p1LEA
+
+  p1ManaFw -> p1CDCFS
+  activate p1CDCFS
+    note over p1CDCFS
+      Populates DomainController
+      from ElasticSearch
+    end note
+
+    note over p1CDCFS
+      Reads esName of
+      StartupDS from
+      configFile
+    end note
+    note over p1CDCFS #LightBlue
+      hier ggf. erwähnen,
+      dass der StartupDS
+      = RunningDS ist
+    end note
+    p1CDCFS -> p1LP : {functionName=\n"p1CreateDomainControllerFromStartupDS"}
+    activate p1LP
+      note over p1LP
+        Loads parameters
+        from configFile
+      end note
+    p1CDCFS <-- p1LP : { {parameters},\n{configFile} }
+    deactivate p1LP
+    note over p1CDCFS
+      IF error
+    end note
+    note right p1CDCFS
+      THEN {
+    end note
+    note right p1CDCFS
+      Documents error
+    end note
+    p1CDCFS -> DC : {functionName="p1LoadParameters",\nerrorMessage}
+    p1ManaFw <-- p1CDCFS : { ErrorCode,\nErrorMessage3 }
+    note right p1CDCFS
+      }
+    end note
+
+    note over p1CDCFS
+      Loads DomainController
+      from ElasticSearch
+    end note
+        note left StartDS #Orange
+          Benötigt Spezifikation eines initialen DC
+        end note
+    p1CDCFS -> StartDS
+    activate StartDS
+    p1CDCFS <-- StartDS
+    deactivate StartDS
+
+    note over p1CDCFS
+      Populates
+      DomainController
+      and RunningDS
+    end note
+    p1CDCFS -> DC
+    activate DC
+    p1CDCFS <-- DC
+    deactivate DC
+    note over p1CDCFS
+      IF error
+    end note
+    note right p1CDCFS
+      THEN {
+    end note
+    note right p1CDCFS
+      Documents error
+    end note
+    p1CDCFS -> DC : {functionName="p1CreateDomainControllerFromStartupDS",\nerrorMessage}
+    p1ManaFw <-- p1CDCFS : { ErrorCode,\nErrorMessage4 }
+    note right p1CDCFS
+      }
+    end note
+  p1ManaFw <-- p1CDCFS
+  deactivate p1CDCFS
+  
+  p1ManaFw -> p1Puls
+  activate p1Puls
+    loop endless
+      note over p1Puls
+        Invokes function
+        cyclically 
+      end note
+      note over p1Puls
+        IF error
+      end note
+      note right p1Puls
+        THEN {
+      end note
+      note right p1Puls
+        Documents error
+      end note
+      p1Puls -> DC : {functionName="p1Pulser",\nerrorMessage}
+      note right p1Puls
+        }
+      end note
+    end loop
+  p1ManaFw <-- p1Puls
+  deactivate p1Puls
+
+  note over p1LP #Orange
+    Wie und wann soll StartupDS aktualisiert werden?
+    Zyklisch? Oder bei Änderungen?
+  end note
+
+@enduml
