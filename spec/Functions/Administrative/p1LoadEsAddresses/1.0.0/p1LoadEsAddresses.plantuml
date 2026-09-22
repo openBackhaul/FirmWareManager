@@ -1,0 +1,82 @@
+@startuml p1LoadEsAddresses
+skinparam responseMessageBelowArrow true
+
+title
+  p1LoadEsAddresses
+end title
+
+participant "requestor\n" as requestor
+participant "p1LoadEsAddresses\n" as p1LEA
+participant "p1LoadParameters\n" as p1LP
+participant "p1ResolveEsAddress\n" as p1REA
+database "DomainController" as DC
+
+  requestor -> p1LEA
+  activate p1LEA
+    note over p1LEA
+      Loads ElasticSearch
+      address information
+      from configFile
+    end note
+    p1LEA -> p1LP: {functionName=\n"p1LoadEsAddresses"}
+    activate p1LP
+      note over p1LP
+        Loads parameters
+        from configFile
+      end note
+    p1LEA <-- p1LP: { {parameters},\n{configFile} }
+    deactivate p1LP
+    note over p1LEA
+      IF error
+    end note
+    note right p1LEA
+      THEN {
+    end note
+    note right p1LEA
+      Documents error
+    end note
+    p1LEA -> DC: {functionName="p1LoadParameters",\nerrorMessage}
+    requestor <-- p1LEA: { ErrorCode,\nErrorMessage1 }
+    note right p1LEA
+      }
+    end note
+
+    loop FOR all esName
+      note over p1LEA
+        Creates proper data
+        object from address
+        information
+      end note
+      p1LEA -> p1REA: { {/parameters/sub-function=p1ResolveEsAddress},\n{configFile},\nesName }
+      activate p1REA
+        note over p1REA
+          Resolves ES address
+        end note
+      p1LEA <-- p1REA: { {esAddress} }
+      deactivate p1REA
+      note over p1LEA
+        IF error
+      end note
+      note right p1LEA
+        THEN {
+      end note
+      note right p1LEA
+        Documents error
+      end note
+      p1LEA -> DC: {functionName="p1ResolveEsAddress",\nerrorMessage}
+      requestor <-- p1LEA: { ErrorCode,\nErrorMessage2 }
+      note right p1LEA
+        }
+      end note
+
+      note over p1LEA
+        Makes ES address
+        available at
+        DomainController
+      end note
+      p1LEA -> DC
+    end loop
+  requestor <-- p1LEA
+  deactivate p1LEA
+
+@enduml

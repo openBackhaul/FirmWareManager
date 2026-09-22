@@ -36,9 +36,11 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 ### Basic
 
-| Function            |  1  |  2  |  3  |  4  |  5  |  6  |
-|---------------------|-----|-----|-----|-----|-----|-----|
-| p1ManageFirmware    |     |     |     |     |     |     |
-| p1LoadParameters    | ./. | Th  |     |     |     |     |
-| p1ResolveEsAddress  | ./. | Th  |     |     |     |     |
-| p1Pulser            |     |     |     |     |     |     |
+| Function                              |  1  |  2  |  3  |  4  |  5  |  6  |
+|---------------------------------------|-----|-----|-----|-----|-----|-----|
+| p1ManageFirmware                      |     |     |     |     |     |     |
+| p1LoadEsAddresses                     | Th  | Th  | o   |     |     |     |
+| p1LoadParameters                      | ./. | Th  |     |     |     |     |
+| p1ResolveEsAddress                    | ./. | Th  |     |     |     |     |
+| p1CreateDomainControllerFromStartupDS |     |     |     |     |     |     |
+| p1Pulser                              |     |     |     |     |     |     |
