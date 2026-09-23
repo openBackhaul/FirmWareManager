@@ -364,10 +364,6 @@ domain-controller:
                   description: 'Invariant type of the device'
                 firmware-list:
                   type: array
-                  required:
-                    - name
-                    - version
-                    - status
                   description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true'
                   items:
                     type: object
