@@ -1,0 +1,43 @@
+load-es-addresses:
+  type: object
+  properties:
+    function-name:
+      type: string
+      enum:
+        - 'p1LoadEsAddresses'
+
+    parameters:
+      type: object
+      description: >
+        'Hierarchical object holding the parameter settings
+        from {$p1LoadParameters.output#/parameters}'
+    config-file:
+      type: object
+      description: >
+        'configFile content
+        from {$p1LoadParameters.output#/config-file}'
+
+    es-address:
+      type: array
+      x-key: name
+      items:
+        type: object
+        required:
+          - name
+          - address
+        properties:
+          name:
+            type: string
+            description: 'ElasticSearch name'
+            enum:
+              - 'mwdiEsClient'
+              - 'domainControllerEsClient'
+              # TODO: logging client auch?
+              #- 'loggingEsClient'
+          address:
+            type: object
+            description: >
+              'ElasticSearch address
+              from {$p1ResolveEsAddress.output#/es-address}'
+
+    # TODO: possibly add something here for domainController, too
