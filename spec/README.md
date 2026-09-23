@@ -71,8 +71,14 @@ Internal design aspects:
 - **Administrative**
   - Kicking-off application
     - [/embedYourself](./Services/embedYourself/1.0.0/)
-  - Configuring application
-    - t.b.d.
+  - Administrate ElasticSearch indexes
+    - [/list-existing-es-addresses](./Services/listExistingEsAddresses/1.0.0/)
+    - [/update-es-address](./Services/updateEsAddress/1.0.0/)
+  - Analyzing historical errors
+    - [/list-historical-errors](./Services/listHistoricalErrors/1.0.0/)
+  - Administrate Pulsers
+    - [/list-existing-pulsers](./Services/listExistingPulsers/1.0.0/)
+    - [/update-pulser](./Services/updatePulser/1.0.0/)
 
 ### Initial Data
 
@@ -93,7 +99,8 @@ Internal design aspects:
   - [Information Structure](./InitialData/Domain/Schema/)
 
 - Initial StartupDS
-  - [Initial StartupDS Structure](./InitialData/Domain/Startup/)
+  - [Initial StartupDS Structure](./InitialData/Domain/Startup/)  
+    Contains the configuration information that is directly attached to the DomainController and the persistent copy of the RunningDS (StartupDS).  
 
 ### Functions
 
@@ -131,7 +138,7 @@ Internal design aspects:
   - [p1LoadEsAddresses](./Functions/Administrative/p1LoadEsAddresses/1.0.0/)
   - [p1LoadParameters](./Functions/Administrative/p1LoadParameters/)  
   - [p1ResolveEsAddress](./Functions/Administrative/p1ResolveEsAddress/)  
-  - [p1CreateDomainControllerFromStartupDS](./Functions/Administrative/p1CreateDomainControllerFromStartupDS/1.0.0/)
+  - [p1CreateDcFromStartupDS](./Functions/Administrative/p1CreateDcFromStartupDS/1.0.0/)
 
 - **CyclicProcesses**
   - [p1Pulser](./Functions/Administrative/p1Pulser/1.0.0/)

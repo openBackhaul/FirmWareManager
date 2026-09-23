@@ -47,12 +47,12 @@ Th = Thorsten
 
 ### Documenting firmware approvals
 
-| Service                                                                                 | 1  | 2  | 5  | 3  | 4  | 5  |
-| --------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-device-models-without-approvals](./listDeviceModelsWithoutApprovals/1.0.0/)      | Th | Th | Ka |    |    |    |
-| [/list-existing-firmware-approvals](./listExistingFirmwareApprovals/1.0.0/)             | Th | Th | Ka |    |    |    |
-| [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                                  | Th | Th |    |    |    |    |
-| [/remove-firmware-approval](./removeFirmwareApproval/1.0.0/)                            | Th | Th |    |    |    |    |
+| Service                                                                            | 1  | 2  | 5  | 3  | 4  | 5  |
+| ---------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/list-device-models-without-approvals](./listDeviceModelsWithoutApprovals/1.0.0/) | Th | Th | Ka |    |    |    |
+| [/list-existing-firmware-approvals](./listExistingFirmwareApprovals/1.0.0/)        | Th | Th | Ka |    |    |    |
+| [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                             | Th | Th |    |    |    |    |
+| [/remove-firmware-approval](./removeFirmwareApproval/1.0.0/)                       | Th | Th |    |    |    |    |
 
 ## Preparing device groups and initiating firmware roll-out (Operations)
 
@@ -85,13 +85,13 @@ Solved by functions.
 
 ### Categorizing individual devices into device groups
 
-| Service                                                                             | 1  | 2  | 5  | 3  | 4  | 5  |
-| ----------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-existing-devices](./listExistingDevices/1.0.0/)                              | Th | Th | Ka |    |    |    |
-| [/provide-existing-device](./provideExistingDevice/1.0.0/)                          | Th | Th |    |    |    |    |
-| [/list-device-groups-without-devices](./listDeviceGroupsWithoutDevices/1.0.0/)      | Th | Th | Ka |    |    |    |
-| [/add-devices-to-device-group](./addDevicesToDeviceGroup/1.0.0/)                    | Th | Th | Ka |    |    |    |
-| [/remove-devices-from-device-group](./removeDevicesFromDeviceGroup/1.0.0/)          | Th | Th | Ka |    |    |    |
+| Service                                                                        | 1  | 2  | 5  | 3  | 4  | 5  |
+| ------------------------------------------------------------------------------ | -- | -- | -- | -- | -- | -- |
+| [/list-existing-devices](./listExistingDevices/1.0.0/)                         | Th | Th | Ka |    |    |    |
+| [/provide-existing-device](./provideExistingDevice/1.0.0/)                     | Th | Th |    |    |    |    |
+| [/list-device-groups-without-devices](./listDeviceGroupsWithoutDevices/1.0.0/) | Th | Th | Ka |    |    |    |
+| [/add-devices-to-device-group](./addDevicesToDeviceGroup/1.0.0/)               | Th | Th | Ka |    |    |    |
+| [/remove-devices-from-device-group](./removeDevicesFromDeviceGroup/1.0.0/)     | Th | Th | Ka |    |    |    |
 
 ## Administrative
 
@@ -100,6 +100,26 @@ Solved by functions.
 | Service                                  | 1  | 2  | 5  | 3  | 4  | 5  |
 | ---------------------------------------- | -- | -- | -- | -- | -- | -- |
 | [/embedYourself](./embedYourself/1.0.0/) | Th | Th |    |    |    |    |
+
+### Administrate ElasticSearch indexes
+
+| Service                                                         | 1  | 2  | 5  | 3  | 4  | 5  |
+| --------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/list-existing-es-addresses](./listExistingEsAddresses/1.0.0/) |    |    |    |    |    |    |
+| [/update-es-address](./updateEsAddress/1.0.0/)                  |    |    |    |    |    |    |
+
+### Analyzing historical errors
+
+| Service                                                   | 1  | 2  | 5  | 3  | 4  | 5  |
+| --------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/list-historical-errors](./listHistoricalErrors/1.0.0/)  |    |    |    |    |    |    |
+
+### Administrate Pulsers
+
+| Service                                                | 1  | 2  | 5  | 3  | 4  | 5  |
+| ------------------------------------------------------ | -- | -- | -- | -- | -- | -- |
+| [/list-existing-pulsers](./listExistingPulsers/1.0.0/) |    |    |    |    |    |    |
+| [/update-pulser](./updatePulser/1.0.0/)                |    |    |    |    |    |    |
 
 ---
 
