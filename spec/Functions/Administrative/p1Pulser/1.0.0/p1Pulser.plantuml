@@ -1,0 +1,75 @@
+@startuml p1Pulser
+skinparam responseMessageBelowArrow true
+
+title
+  p1Pulser
+end title
+
+participant "requestor\n" as requestor
+participant "p1Pulser\n" as p1Puls
+participant "p1TargetFunction\n" as p1Target
+database "DomainController" as DC
+
+requestor -> p1Puls
+activate p1Puls
+  note over p1Puls
+    Cyclically
+    invokes
+    functions
+  end note
+
+loop endless
+  note over p1Puls
+    Reads Pulser from
+    DomainController
+  end note
+  p1Puls -> DC
+  p1Puls <-- DC: [Pulser]
+  loop for each Pulser
+
+    note over p1Puls
+      Checks whether Pulser is active
+    end note
+    note over p1Puls
+      IF isActivated:
+    end note
+    note right p1Puls
+      ???
+    end note
+
+    note over p1Puls
+      Checks startingTime
+    end note
+    note over p1Puls
+      IF ... ?
+    end note
+
+
+    note over p1Puls
+      Checks periodLength
+    end note
+    note over p1Puls
+      IF ... ?
+    end note
+
+    note over p1Puls
+      Invokes targetFunction
+    end note
+    p1Puls -> p1Target
+    p1Puls <-- p1Target
+    note over p1Puls
+      IF error
+    end note
+    note right p1Puls
+      THEN {
+    end note
+    note right p1Puls
+      Documents error
+    end note
+    p1Puls -> DC : {functionName="p1Pulser",\nerrorMessage}
+    note right p1Puls
+      }
+    end note
+  end loop
+
+@enduml

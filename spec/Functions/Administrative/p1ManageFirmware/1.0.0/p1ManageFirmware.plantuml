@@ -69,36 +69,19 @@ activate p1ManaFw
       StartupDS from
       configFile
     end note
-    p1CDCFS -> p1LP : {functionName=\n"p1CreateDomainControllerFromStartupDS"}
+    p1CDCFS -> p1LP
     activate p1LP
       note over p1LP
         Loads parameters
         from configFile
       end note
-    p1CDCFS <-- p1LP : { {parameters},\n{configFile} }
+    p1CDCFS <-- p1LP
     deactivate p1LP
-    note over p1CDCFS
-      IF error
-    end note
-    note right p1CDCFS
-      THEN {
-    end note
-    note right p1CDCFS
-      Documents error
-    end note
-    p1CDCFS -> DC : {functionName="p1LoadParameters",\nerrorMessage}
-    p1ManaFw <-- p1CDCFS : { ErrorCode,\nErrorMessage3 }
-    note right p1CDCFS
-      }
-    end note
 
     note over p1CDCFS
       Loads DomainController
       from ElasticSearch
     end note
-        note left StartDS #Orange
-          Benötigt Spezifikation eines initialen DC
-        end note
     p1CDCFS -> StartDS
     activate StartDS
     p1CDCFS <-- StartDS
@@ -110,49 +93,16 @@ activate p1ManaFw
       and RunningDS
     end note
     p1CDCFS -> DC
-    activate DC
-    p1CDCFS <-- DC
-    deactivate DC
-    note over p1CDCFS
-      IF error
-    end note
-    note right p1CDCFS
-      THEN {
-    end note
-    note right p1CDCFS
-      Documents error
-    end note
-    p1CDCFS -> DC : {functionName="p1CreateDomainControllerFromStartupDS",\nerrorMessage}
-    p1ManaFw <-- p1CDCFS : { ErrorCode,\nErrorMessage4 }
-    note right p1CDCFS
-      }
-    end note
   p1ManaFw <-- p1CDCFS
   deactivate p1CDCFS
   
   p1ManaFw -> p1Puls
   activate p1Puls
-    loop endless
-      note over p1Puls
-        Invokes function
-        cyclically 
-      end note
-      note over p1Puls
-        IF error
-      end note
-      note right p1Puls
-        THEN {
-      end note
-      note right p1Puls
-        Documents error
-      end note
-      p1Puls -> DC : {functionName="p1Pulser",\nerrorMessage}
-      note right p1Puls
-        }
-      end note
-    end loop
-  p1ManaFw <-- p1Puls
-  deactivate p1Puls
+    note over p1Puls
+      Cyclically
+      invokes
+      functions
+    end note
 
   note over p1LP #Orange
     Wie und wann soll StartupDS aktualisiert werden?

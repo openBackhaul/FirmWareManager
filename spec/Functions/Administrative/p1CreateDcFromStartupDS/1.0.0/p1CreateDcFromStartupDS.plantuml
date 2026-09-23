@@ -1,0 +1,82 @@
+@startuml p1CreateDcFromStartupDS
+skinparam responseMessageBelowArrow true
+
+title
+  p1CreateDcFromStartupDS
+end title
+
+participant "requestor\n" as requestor
+participant "p1CreateDc\nFromStartupDS" as p1CDCFS
+participant "p1LoadParameters\n" as p1LP
+database "DomainController" as DC
+database "StartupDS" as StartDS
+
+requestor -> p1CDCFS
+activate p1CDCFS
+  note over p1CDCFS
+    Populates DomainController
+    from ElasticSearch
+  end note
+
+  note over p1CDCFS
+    Reads esName of
+    StartupDS from
+    configFile
+  end note
+  p1CDCFS -> p1LP : {functionName=\n"p1CreateDcFromStartupDS"}
+  activate p1LP
+    note over p1LP
+      Loads parameters
+      from configFile
+    end note
+  p1CDCFS <-- p1LP : { {parameters}, ... }
+  deactivate p1LP
+  note over p1CDCFS
+    IF error
+  end note
+  note right p1CDCFS
+    THEN {
+  end note
+  note right p1CDCFS
+    Documents error
+  end note
+  p1CDCFS -> DC : {functionName="p1LoadParameters",\nerrorMessage}
+  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage1 }
+  note right p1CDCFS
+    }
+  end note
+
+  note over p1CDCFS
+    Loads DomainController
+    from ElasticSearch
+  end note
+  p1CDCFS -> StartDS: { dataStoreEsClient://data-store/domain-controller }
+  activate StartDS
+  p1CDCFS <-- StartDS: { DomainController }
+  deactivate StartDS
+
+  note over p1CDCFS
+    Populates
+    DomainController
+    and RunningDS
+    from StartupDS
+  end note
+  p1CDCFS -> DC
+  note over p1CDCFS
+    IF error
+  end note
+  note right p1CDCFS
+    THEN {
+  end note
+  note right p1CDCFS
+    Documents error
+  end note
+  p1CDCFS -> DC : {functionName="p1CreateDcFromStartupDS",\nerrorMessage}
+  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage2 }
+  note right p1CDCFS
+    }
+  end note
+requestor <-- p1CDCFS
+deactivate p1CDCFS
+
+@enduml
