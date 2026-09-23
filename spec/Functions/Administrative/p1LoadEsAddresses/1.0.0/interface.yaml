@@ -90,15 +90,31 @@ x-javascript-interface:
             application/json:
               schema:
                 type: object
-                # TODO
+                required:
+                  - name
+                  - address
+                properties:
+                  name:
+                    type: string
+                    description: >
+                      'ElasticSearch index name
+                      from [/load-es-addresses/es-address=*/name]
+                      to be written into [/domain-controller/elastic-search-addresses[*]/name]'
+                  address:
+                    type: object
+                    description: >
+                      'ElasticSearch index address
+                      from [/load-es-addresses/es-address=*/address]
+                      to be written into [/domain-controller/elastic-search-addresses[*]/address]'
         output:
           sucess:
             description: 'ES address made available at DomainController'
             content:
               schema:
-                type: string
-                enum:
-                  - 'ES address made available'
+                schema:
+                  type: string
+                  enum:
+                    - 'ES address made available'
           error:
             description: 'ES address could not be made available at DomainController'
             content:
@@ -110,7 +126,7 @@ x-javascript-interface:
 
 
 # TODO
-# - Das DomainController-Schema enthält keine ES-Attribute
+# - Das DomainController-Schema enthält keine ES-Attribute -> Schema erweitern?
 # - Eine der ES-Adressen ist die Adresse vom DomainController selbst...
 
 

@@ -39,5 +39,3 @@ load-es-addresses:
             description: >
               'ElasticSearch address
               from {$p1ResolveEsAddress.output#/es-address}'
-
-    # TODO: possibly add something here for domainController, too
