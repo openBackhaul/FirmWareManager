@@ -21,15 +21,19 @@ load-es-addresses:
       description: >
         'Error message if p1LoadParameters failed
         from {$p1LoadParameters.output#/error}'
-
-    es-address:
+    resolve-es-address-error:
+      type: string
+      description: >
+        'Error message if p1ResolveEsAddress failed
+        from {$p1ResolveEsAddress.output#/error}'
+    
+    es-names:
       type: array
       x-key: name
       items:
         type: object
         required:
           - name
-          - address
         properties:
           name:
             type: string
@@ -37,15 +41,54 @@ load-es-addresses:
             enum:
               - 'mwdiEsClient'
               - 'domainControllerEsClient'
-              # TODO: logging client auch?
-              #- 'loggingEsClient'
-          address:
-            type: object
+
+    es-address:
+      type: array
+      x-key: es-name
+      description: 'List of ElasticSearch addresses'
+      items:
+        type: object
+        required:
+          - es-name
+          - url
+          - api-key
+          - index-alias
+          - service-records-policy
+          - operational-state
+          - life-cycle-state
+        properties:
+          es-name:
+            type: string
             description: >
-              'ElasticSearch address
-              from {$p1ResolveEsAddress.output#/es-address}'
-    resolve-es-address-error:
-      type: string
-      description: >
-        'Error message if p1ResolveEsAddress failed
-        from {$p1ResolveEsAddress.output#/error}'
+              'ElasticSearch name
+              from {$p1ResolveEsAddress.input/es-name}'
+          url:
+            type: string
+            description: >
+              'ElasticSearch URL
+              from {$p1ResolveEsAddress.output/es-address/url}'
+          api-key:
+            type: string
+            description: >
+              'ElasticSearch API key
+              from {$p1ResolveEsAddress.output/es-address/api-key}'
+          index-alias:
+            type: string
+            description: >
+              'ElasticSearch index alias
+              from {$p1ResolveEsAddress.output/es-address/index-alias}'
+          service-records-policy:
+            type: string
+            description: >
+              'Service records policy
+              from {$p1ResolveEsAddress.output/es-address/service-records-policy}'
+          operational-state:
+            type: string
+            description: >
+              'Operational state
+              from {$p1ResolveEsAddress.output/es-address/operational-state}'
+          life-cycle-state:
+            type: string
+            description: >
+              'Life cycle state
+              from {$p1ResolveEsAddress.output/es-address/life-cycle-state}'

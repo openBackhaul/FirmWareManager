@@ -40,10 +40,36 @@ x-javascript-interface:
               application/json:
                 schema:
                   type: string
-      # @Katharina -> Bitte Logging eines von der generischen Funktion gemeldeten Fehlers als ProcessingStep dokumentieren.
-      # @Katharina -> Bitte Dokumentation einer CreateOperation auf den RAM (hier DomainController) mit output:, success: und description: abschließen
-      # @Katharina -> Es wird unterstellt, dass das neue Object immer erfolgreich erstellt werden kann.
-      # @Katharina -> Bei UpdateOperationen oder LeseOperationen ist als error mindestens der Fall, dass das Object nicht gefunden wurde, zu berücksichtigen.
+        documentLoadParametersError:
+          input:
+            description: 'Adds a new entry to the DomainController historicalErrorList'
+            content:
+              application/json:
+                schema:
+                  type: object
+                  required:
+                    - function-name
+                    - load-parameters-error
+                  properties:
+                    function-name:
+                      type: string
+                      enum:
+                        'p1LoadParameters'
+                      description: >
+                        'Name of function with error
+                        written to [/domain-controller/historical-error-list[n]/errored-function]'
+                    load-parameters-error:
+                      type: string
+                      description: >
+                        'Error message
+                        from [/load-es-addresses/load-parameters-error]
+                        written to [/domain-controller/historical-error-list[n]/error-message]'
+                    timestamp:
+                      type: string
+                      pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+                      description: >
+                        'Current timestamp. Format: yyyy-mm-ddThh:mm:ss+hh:mm
+                        written to [/domain-controller/historical-error-list[n]/timestamp]'
       p1ResolveEsAddress:
         input:
           required: true
@@ -70,7 +96,7 @@ x-javascript-interface:
                     type: string
                     description: >
                       'ElasticSearch name
-                      from [/load-es-addresses/es-address=*/name]'
+                      from [/load-es-addresses/es-names=*/name]'
         output:
           success:
             description: 'ES address successfully resolved'
@@ -87,10 +113,36 @@ x-javascript-interface:
               application/json:
                 schema:
                   type: string
-      # @Katharina -> Bitte Logging eines von der generischen Funktion gemeldeten Fehlers als ProcessingStep dokumentieren.
-      # @Katharina -> Bitte Dokumentation einer CreateOperation auf den RAM (hier DomainController) mit output:, success: und description: abschließen
-      # @Katharina -> Es wird unterstellt, dass das neue Object immer erfolgreich erstellt werden kann.
-      # @Katharina -> Bei UpdateOperationen oder LeseOperationen ist als error mindestens der Fall, dass das Object nicht gefunden wurde, zu berücksichtigen.
+        documentResolveEsAddressError:
+          input:
+            description: 'Adds a new entry to the DomainController historicalErrorList'
+            content:
+              application/json:
+                schema:
+                  type: object
+                  required:
+                    - function-name
+                    - load-parameters-error
+                  properties:
+                    function-name:
+                      type: string
+                      enum:
+                        'p1ResolveEsAddress'
+                      description: >
+                        'Name of function with error
+                        written to [/domain-controller/historical-error-list[n]/errored-function]'
+                    load-parameters-error:
+                      type: string
+                      description: >
+                        'Error message
+                        from [/load-es-addresses/resolve-es-address-error]
+                        written to [/domain-controller/historical-error-list[n]/error-message]'
+                    timestamp:
+                      type: string
+                      pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+                      description: >
+                        'Current timestamp. Format: yyyy-mm-ddThh:mm:ss+hh:mm
+                        written to [/domain-controller/historical-error-list[n]/timestamp]'
       writeEsAddress:
         input:
           required: true
@@ -99,39 +151,33 @@ x-javascript-interface:
               schema:
                 type: object
                 required:
-                  - name
-                  - address
+                  - es-address
                 properties:
-                  name:
-                    type: string
-                    description: >
-                      'ElasticSearch index name
-                      from [/load-es-addresses/es-address=*/name]
-                      to be written into [/domain-controller/elastic-search-addresses[*]/name]'
-                  address:
+                  es-address:
                     type: object
                     description: >
                       'ElasticSearch index address
-                      from [/load-es-addresses/es-address=*/address]
-                      to be written into [/domain-controller/elastic-search-addresses[*]/address]'
-        output:
-          success:
-            description: 'ES address made available at DomainController'
-            content:
-              schema:
-                schema:
-                  type: string
-                  enum:
-                    - 'ES address made available'
-          error:
-            description: 'ES address could not be made available at DomainController'
-            content:
-              application/json:
-                schema:
-                  type: string
-                  enum:
-                    - 'ES address could not be made available'
+                      from [/load-es-addresses/es-address=*]
+                      to be written into [/domain-controller/es-address=[/load-es-addresses/es-address/es-name]]'
+        # #TODO falls man das doch angegben wollen würde, kann man das analog zum DPMDP Bsp unten machen
+        # hier wird ja nur geschrieben, deshalb könnte man es auch weglassen
+        #output:
+        #  success:
+        #    description: 'ES address written'
+        #  error:
+        #    description: 'Writing of ES address failed'
 
 paths:
   /:
     description: 'no rest path provided by this module'
+
+
+# Bsp von DPMDP
+# p1StreamPmData: interface.yaml
+# -> p1ProcessDevice
+#      input: ...
+#      output:
+#        success:
+#          description: 'PM data processed, sent and stored'
+#        error:
+#          description: 'Processing of PM data failed'
