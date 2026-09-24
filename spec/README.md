@@ -142,3 +142,4 @@ Internal design aspects:
 
 - **CyclicProcesses**
   - [p1Pulser](./Functions/Administrative/p1Pulser/1.0.0/)
+  - [p1TrimHistoricalErrorList](./Functions/Administrative/p1TrimHistoricalErrorList/1.0.0/)

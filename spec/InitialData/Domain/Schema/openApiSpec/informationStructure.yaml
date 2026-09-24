@@ -1,12 +1,70 @@
 domain-controller:
   type: object
   required:
+    - es-address
+    - historical-error-list
     - function
     - validation-sequence
     - pulser
     - error-code
     - network-control-domain
   properties:
+    es-address:
+      type: array
+      x-key: es-name
+      description: 'List of ElasticSearch addresses'
+      items:
+        type: object
+        required:
+          - es-name
+          - url
+          - api-key
+          - index-alias
+          - service-records-policy
+          - operational-state
+          - life-cycle-state
+        properties:
+          es-name:
+            type: string
+            description: 'ElasticSearch name'
+          url:
+            type: string
+            description: 'ElasticSearch URL'
+          api-key:
+            type: string
+            description: 'ElasticSearch API key'
+          index-alias:
+            type: string
+            description: 'ElasticSearch index alias'
+          service-records-policy:
+            type: string
+            description: 'Service records policy'
+          operational-state:
+            type: string
+            description: 'Operational state'
+          life-cycle-state:
+            type: string
+            description: 'Life cycle state'
+    historical-error-list:
+      type: array
+      description: 'Ordered array of error messages that have been indicated in past'
+      items:
+        type: object
+        required:
+          - errored-function
+          - error-message
+          - timestamp
+        properties:
+          errored-function:
+            type: string
+            description: 'Function that indicated the error'
+          error-message:
+            type: string
+            description: 'Error message as indicated by the referenced function'
+          timestamp:
+            type: string
+            description: 'Time when the error has been documented in the log. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
     function:
       type: array
       x-key: name
@@ -31,6 +89,8 @@ domain-controller:
               - 'measurement'
               - 'monitoring'
               - 'implementation'
+              - 'administrative'
+              - 'miscellaneous'
           description:
             type: string
             description: 'Description of the Function'
@@ -229,7 +289,7 @@ domain-controller:
                   description: 'Unique and invariant name of the device type'
                 approval:
                   type: array
-                  description: 'Ordered array of Strings combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) of firmware that have been approved for being operated on a ControlConstructPac::deviceModelName'
+                  description: 'Ordered array of Strings combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) of firmware that have been approved for being operated on a ControlConstructPac::deviceModelName. Attribute required, to be initialized as an empty list'
                   items:
                     type: string
                 default-device-group:
@@ -308,7 +368,7 @@ domain-controller:
                     - name
                     - version
                     - status
-                  description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true.'
+                  description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true'
                   items:
                     type: object
                     required:

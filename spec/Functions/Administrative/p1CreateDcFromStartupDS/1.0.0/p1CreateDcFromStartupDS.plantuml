@@ -58,8 +58,12 @@ activate p1CDCFS
   note over p1CDCFS
     Populates
     DomainController
-    and RunningDS
-    from StartupDS
+    from {DomainController}
+  end note
+  note over p1CDCFS
+    Populates RunningDS
+    from StartupDS in
+    {DomainController}
   end note
   p1CDCFS -> DC
   note over p1CDCFS
