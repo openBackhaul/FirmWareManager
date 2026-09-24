@@ -70,9 +70,7 @@ activate p1LEA
     end note
 
     note over p1LEA
-      Makes ES address
-      available at
-      DomainController
+      writes EsAddress
     end note
     p1LEA -> DC
   end loop

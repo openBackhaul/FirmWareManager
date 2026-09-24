@@ -30,71 +30,55 @@ activate p1ManaFw
   p1ManaFw -> p1LEA
   activate p1LEA
     note over p1LEA
-      Loads ElasticSearch
-      addresses from configFile
+      Makes ElasticSearch
+      addresses available
+      in DomainController
     end note
-    p1LEA -> p1LP
-    activate p1LP
-      note over p1LP
-        Loads parameters
-        from configFile
-      end note
-    p1LEA <-- p1LP
-    deactivate p1LP
-    p1LEA -> p1REA
-    activate p1REA
-      note over p1REA
-        Resolves
-        ES address
-      end note
-    p1LEA <-- p1REA
-    deactivate p1REA
-    note over p1LEA
-      Makes ES addresses
-      available at DC
-    end note
-    p1LEA -> DC
   p1ManaFw <-- p1LEA
   deactivate p1LEA
+  note over p1ManaFw
+    IF error
+  end note
+  note right p1ManaFw
+    THEN {
+  end note
+  note right p1ManaFw
+    Documents error
+  end note
+  p1ManaFw -> DC: {functionName="p1ManageFirmware",\nerrorMessage
+  note right p1ManaFw #Yellow
+    Was soll im Fehlerfall passieren?
+  end note
+  note right p1ManaFw
+    }
+  end note
 
   p1ManaFw -> p1CDCFS
   activate p1CDCFS
     note over p1CDCFS
-      Populates DomainController
-      from ElasticSearch
-    end note
-
-    note over p1CDCFS
-      Reads esName of
-      StartupDS from
-      configFile
-    end note
-    p1CDCFS -> p1LP
-    activate p1LP
-      note over p1LP
-        Loads parameters
-        from configFile
-      end note
-    p1CDCFS <-- p1LP
-    deactivate p1LP
-
-    note over p1CDCFS
-      Loads DomainController
-      from ElasticSearch
-    end note
-    p1CDCFS -> StartDS
-    activate StartDS
-    p1CDCFS <-- StartDS
-    deactivate StartDS
-
-    note over p1CDCFS
       Populates
       DomainController
       and RunningDS
+      from ElasticSearch
     end note
-    p1CDCFS -> DC
   p1ManaFw <-- p1CDCFS
   deactivate p1CDCFS
+  note over p1ManaFw
+    IF error
+  end note
+  note right p1ManaFw
+    THEN {
+  end note
+  note right p1ManaFw
+    Documents error
+  end note
+  p1ManaFw -> DC: {functionName="p1ManageFirmware",\nerrorMessage}
+  note right p1ManaFw #Yellow
+    Was soll im Fehlerfall passieren?
+  end note
+  note right p1ManaFw
+    }
+  end note
   
   p1ManaFw -> p1Puls
   activate p1Puls
@@ -103,10 +87,5 @@ activate p1ManaFw
       invokes
       functions
     end note
-
-  note over p1LP #Orange
-    Wie und wann soll StartupDS aktualisiert werden?
-    Zyklisch? Oder bei Änderungen?
-  end note
 
 @enduml

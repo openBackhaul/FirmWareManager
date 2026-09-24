@@ -7,7 +7,7 @@ end title
 
 participant "requestor\n" as requestor
 participant "p1Pulser\n" as p1Puls
-participant "p1TargetFunction\n" as p1Target
+participant "<i>p1TargetFunction</i>\n" as p1Target
 database "DomainController" as DC
 
 requestor -> p1Puls
@@ -20,7 +20,7 @@ activate p1Puls
 
 loop endless
   note over p1Puls
-    Reads Pulser from
+    Reads [Pulser] from
     DomainController
   end note
   p1Puls -> DC
@@ -28,37 +28,61 @@ loop endless
   loop for each Pulser
 
     note over p1Puls
-      Checks whether Pulser is active
+      Checks whether
+      Pulser is active
     end note
     note over p1Puls
-      IF isActivated:
+      IF NOT isActivated:
     end note
-    note right p1Puls
-      ???
+    note left p1Puls
+      THEN {
+    end note
+    note left p1Puls
+      break
+    end note
+    note left p1Puls
+      }
     end note
 
     note over p1Puls
-      Checks startingTime
+      Checks whether nextTime
+      has been reached
     end note
     note over p1Puls
-      IF ... ?
+      IF currentTime < nextTime:
+    end note
+    note left p1Puls
+      THEN {
+    end note
+    note left p1Puls
+      break
+    end note
+    note left p1Puls
+      }
     end note
 
-
     note over p1Puls
-      Checks periodLength
+      Sets new nextTime
     end note
     note over p1Puls
-      IF ... ?
+      nextTime =
+        currentTime + periodLength
     end note
+  p1Puls -> DC : nextTime
 
     note over p1Puls
       Invokes targetFunction
     end note
     p1Puls -> p1Target
     p1Puls <-- p1Target
+
     note over p1Puls
       IF error
+    end note
+    note over p1Target #Yellow
+      Important:
+      error does not relate to response of TargetFunction,
+      but failures that happened inside p1Pulser itself
     end note
     note right p1Puls
       THEN {
@@ -71,5 +95,7 @@ loop endless
       }
     end note
   end loop
+
+end loop
 
 @enduml

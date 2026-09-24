@@ -1,0 +1,280 @@
+@startuml initial_ideas
+skinparam responseMessageBelowArrow true
+
+title
+  FirmWareManager
+end title
+
+participant "embedYourself\n" as embed
+
+' Administrative
+participant "p1ManageFirmware\n" as p1ManaFw
+participant "p1LoadEsAddresses\n" as p1LEA
+participant "p1LoadParameters\n" as p1LP #White
+participant "p1ResolveEsAddress\n" as p1REA #White
+participant "p1CreateDomainController\nFromStartupDS" as p1CDCFS
+participant "p1Pulser\n" as p1Puls
+
+' Interpretation
+
+' Validation
+
+' Measurement
+participant "p1Measure\n" as measure #LightYellow
+participant "p1Update\nMwdiReplica" as updateMwdiRep
+participant "p2LoadRawCc\n" as createRawCc
+participant "p1FieldsFilter\n" as fieldsFilter
+participant "p1Extract\nDeviceData" as extractData #LightYellow
+participant "p1Update\nOperationalDs" as updateOpDs #LightYellow
+
+' Monitoring
+participant "p1Monitor\n" as monitor #LightYellow
+participant "p1Compare\nDevice" as compareDevice #LightYellow
+
+' Implementation
+participant "p1Implement\n" as implement #LightYellow
+participant "p1DownloadFw\n" as download #LightYellow
+participant "p1AbortDownload\n" as abort #LightYellow
+participant "p1ActivateFw\n" as activate #LightYellow
+
+participant "p1Notify\nAlarm" as notify #Yellow
+participant "p1Store\nControlDomain" as storeCd #Yellow
+
+database "DomainController" as DC
+database "StartupDS" as StartDS
+
+=== Remarks ==
+
+note over notify
+  Below documented
+  changes to the alarm
+  list must lead to
+  changes in the
+  ticket system
+end note
+
+note over storeCd
+  Documentation of
+  approvals and groups
+  require persistent
+  storage
+
+  ValidationSequence
+  and ErrorCodes shall
+  be store in nice 
+  format, but not in
+  ConfigFile
+  -> storage is not
+  limited to StartupDS
+end note
+
+====
+
+note right embed
+  Automatically starts
+  the FW management
+end note
+embed -> p1ManaFw
+
+activate p1ManaFw
+  ' Load parameters
+  p1ManaFw -> p1LP
+  activate p1LP
+    note over p1LP
+      Loads parameters
+      from configFile
+    end note
+  p1ManaFw <-- p1LP
+  deactivate p1LP
+
+  ' Resolve ES address
+  loop FOR all esName
+    p1ManaFw -> p1REA
+    activate p1REA
+      note over p1REA
+        Resolves ES
+        address
+      end note
+    p1ManaFw <-- p1REA
+    deactivate p1REA
+  end loop
+
+  ' Load ControlDomain
+  p1ManaFw -> p1CDCFS
+  activate p1CDCFS
+    note over p1CDCFS
+      Loads CD
+      from ES
+    end note
+  p1ManaFw <-- p1CDCFS
+  deactivate p1CDCFS
+
+  ' Start p1Puls
+  p1ManaFw -> p1Puls
+  activate p1Puls
+    note over p1Puls
+      Triggers all
+      recurring tasks
+    end note
+deactivate p1ManaFw
+
+p1Puls -> measure
+activate measure
+group Measurement
+  note over measure
+    Updates
+    OperationalDS
+    by updated CCs
+    in MWDI Replica
+  end note
+
+  ' Update MWDI replica
+  measure -> updateMwdiRep
+  activate updateMwdiRep
+    note over updateMwdiRep
+      Replicates
+      updated CCs
+    end note
+  measure <-- updateMwdiRep
+  deactivate updateMwdiRep
+
+  group partially parallel execution of all updatedMountNames
+    measure -> createRawCc
+    activate createRawCc
+      note over createRawCc
+        Loads raw data
+        to rawCc
+      end note
+
+      ' Apply fieldsFilter
+      createRawCc -> fieldsFilter
+      activate fieldsFilter
+        note over fieldsFilter
+          Reduces structure
+          of rawCc
+        end note
+      createRawCc <-- fieldsFilter
+      deactivate fieldsFilter
+
+    measure <-- createRawCc : {rawCc}
+    deactivate createRawCc
+
+      ' Extract FW & HW Info
+      measure -> extractData
+      activate extractData
+        note over extractData
+          Extracts relevant FW and HW info
+          from rawCC and structures it in
+          FWM data format
+        end note
+      measure <-- extractData
+      deactivate extractData
+
+      ' Update OperationalDS
+      measure -> updateOpDs
+      activate updateOpDs
+        note over updateOpDs
+          Stores FW and HW info
+          to OperationalDS
+        end note
+      measure <-- updateOpDs
+      deactivate updateOpDs
+
+      measure -> compareDevice
+      activate compareDevice
+  end group updatedMountNames
+end group Measurement
+p1Puls <-- measure
+deactivate measure
+
+p1Puls -> monitor
+activate monitor
+group Monitoring
+  note over monitor
+    Compares entire
+    RunningDS with
+    OperationalDS
+  end note
+
+  group partially parallel execution of all CCs
+    monitor -> compareDevice
+    activate compareDevice
+      note over compareDevice
+        Compares CC in
+        RunningDS with
+        CC in OperationalDS
+      end note
+
+      note over compareDevice
+        Potentially creates,
+        modifies or deletes
+        entries in alarm list
+      end note
+    monitor <-- compareDevice
+    deactivate compareDevice
+    deactivate compareDevice
+  end group all CCs
+end group Monitoring
+p1Puls <-- monitor
+deactivate monitor
+
+p1Puls -> implement
+activate implement
+group Implementation
+  note over implement
+    Walks through
+    alarm list and
+    calls respective
+    implementation
+    function
+  end note
+
+  group partially parallel execution of all Alarms
+    implement -> download
+    activate download
+      note over download
+        Downloads FW
+        to a device
+      end note
+
+      note over download
+        Documents attempt
+        in alarm list
+      end note
+    implement <-- download
+    deactivate download
+
+    implement -> abort
+    activate abort
+      note over abort
+        Aborts a 
+        FW download
+      end note
+
+      note over abort
+        Documents abort
+        in alarm list
+      end note
+    implement <-- abort
+    deactivate abort
+
+    implement -> activate
+    activate activate
+      note over activate
+        Activates FW
+        on a device
+      end note
+
+      note over activate
+        Documents activation
+        in alarm list
+      end note
+    implement <-- activate
+    deactivate activate
+  end group all Alarms
+end group Implementation
+p1Puls <-- implement
+deactivate implement
+
+
+@enduml

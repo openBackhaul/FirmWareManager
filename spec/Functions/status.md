@@ -34,7 +34,7 @@ Th = Thorsten
 Es wurden Verzeichnisse und README-Dateien für drei ValidationFunctions erstellt.  
 Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.  
 
-### Basic
+### Administrative
 
 | Function                |  1  |  2  |  3  |  4  |  5  |  6  |
 |-------------------------|-----|-----|-----|-----|-----|-----|
@@ -43,5 +43,5 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 | p1LoadParameters        | ./. | Th  |     |     |     |     |
 | p1ResolveEsAddress      | ./. | Th  |     |     |     |     |
 | p1CreateDcFromStartupDS | Th  | Th  | o   |     |     |     |
-| p1Pulser                |     |     |     |     |     |     |
+| p1Pulser                | Th  | Th  | o   |     |     |     |
 | p1TrimHistoricalErrorList |     |     |     |     |     |     |
