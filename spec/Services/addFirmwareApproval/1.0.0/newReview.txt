@@ -1,9 +1,0 @@
-# TODO
-Falls der Requestor einen ungültigen deviceModelName und eine ungültige Kombi von fwResourceName+Version angibt,
-bekommt er zunächst 1 Fehlermeldung mit errormsg1. Wenn er dann den deviceModelName ggf. korrigiert hat, bekommt
-er beim erneuten Aufruf errormsg2.
-Aus Anwendersicht wäre es in dem Fall schöner, wenn der user direkt die Info bekommt, dass beides nicht passt.
-(Aus Implementierungssicht macht es aber natürlich Sinn, sich unnötige Abfragen zu sparen...)
-
-Das wird ja generell auch bei anderen Diagrammen so gemacht. Da könnte man ggf. auch schauen, ob man vielleicht
-bestimmte Rückmeldungen zusammenfassen möchte...

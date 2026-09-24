@@ -40,6 +40,10 @@ x-javascript-interface:
               application/json:
                 schema:
                   type: string
+      # @Katharina -> Bitte Logging eines von der generischen Funktion gemeldeten Fehlers als ProcessingStep dokumentieren.
+      # @Katharina -> Bitte Dokumentation einer CreateOperation auf den RAM (hier DomainController) mit output:, success: und description: abschließen
+      # @Katharina -> Es wird unterstellt, dass das neue Object immer erfolgreich erstellt werden kann.
+      # @Katharina -> Bei UpdateOperationen oder LeseOperationen ist als error mindestens der Fall, dass das Object nicht gefunden wurde, zu berücksichtigen.
       p1ResolveEsAddress:
         input:
           required: true
@@ -83,7 +87,11 @@ x-javascript-interface:
               application/json:
                 schema:
                   type: string
-      makeAddressAvailableAtDomainController:
+      # @Katharina -> Bitte Logging eines von der generischen Funktion gemeldeten Fehlers als ProcessingStep dokumentieren.
+      # @Katharina -> Bitte Dokumentation einer CreateOperation auf den RAM (hier DomainController) mit output:, success: und description: abschließen
+      # @Katharina -> Es wird unterstellt, dass das neue Object immer erfolgreich erstellt werden kann.
+      # @Katharina -> Bei UpdateOperationen oder LeseOperationen ist als error mindestens der Fall, dass das Object nicht gefunden wurde, zu berücksichtigen.
+      writeEsAddress:
         input:
           required: true
           content:
@@ -107,7 +115,7 @@ x-javascript-interface:
                       from [/load-es-addresses/es-address=*/address]
                       to be written into [/domain-controller/elastic-search-addresses[*]/address]'
         output:
-          sucess:
+          success:
             description: 'ES address made available at DomainController'
             content:
               schema:
@@ -123,12 +131,6 @@ x-javascript-interface:
                   type: string
                   enum:
                     - 'ES address could not be made available'
-
-
-# TODO
-# - Das DomainController-Schema enthält keine ES-Attribute -> Schema erweitern?
-# - Eine der ES-Adressen ist die Adresse vom DomainController selbst...
-
 
 paths:
   /:

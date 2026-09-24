@@ -13,7 +13,6 @@ participant "p1ResolveEsAddress\n" as p1REA
 participant "p1CreateDomainController\nFromStartupDS" as p1CDCFS
 participant "p1Pulser\n" as p1Puls
 database "DomainController" as DC
-database "StartupDS" as StartDS
 
 note right embed
   Automatically starts

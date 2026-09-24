@@ -16,6 +16,11 @@ load-es-addresses:
       description: >
         'configFile content
         from {$p1LoadParameters.output#/config-file}'
+    load-parameters-error:
+      type: string
+      description: >
+        'Error message if p1LoadParameters failed
+        from {$p1LoadParameters.output#/error}'
 
     es-address:
       type: array
@@ -39,3 +44,8 @@ load-es-addresses:
             description: >
               'ElasticSearch address
               from {$p1ResolveEsAddress.output#/es-address}'
+    resolve-es-address-error:
+      type: string
+      description: >
+        'Error message if p1ResolveEsAddress failed
+        from {$p1ResolveEsAddress.output#/error}'
