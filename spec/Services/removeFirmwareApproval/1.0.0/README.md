@@ -4,6 +4,13 @@ Deletes a firmware approval.
 If the approved firmware is still referenced as target firmware by any DeviceGroup, the deletion will be aborted.  
 A list of DeviceGroups that are still referencing the formerly approved firmware will be returned in that case.  
 
+  > Service must be changed:
+  >
+  > - Withdrawing some approval must result in immediate stopping of the roll-out process
+  > - Instead of blocking targetFirmware from removing the approval, withdrawn firmware must be deleted from DeviceGroup::targetFirmware and Device::firmwareList
+  > - Consider renaming removeFirmwareApproval -> withdrawFirmwareApproval
+  >
+
 ## Diagram
 
 <p align="center">

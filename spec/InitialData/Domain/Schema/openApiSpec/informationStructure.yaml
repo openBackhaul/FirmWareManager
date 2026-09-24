@@ -109,9 +109,9 @@ domain-controller:
           period-length:
             type: integer
             description: 'Time period [in ms] between two trigger of the _targetFunction'
-          starting-time:
+          next-time:
             type: string
-            description: 'If some value configured, triggering the targetFunction is suspended until startingTime has been reached. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
+            description: 'The earliest time at which the targetFunction will be triggered again. An initial value can be used to configure some future starting time. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
             pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
           ending-time:
             type: string

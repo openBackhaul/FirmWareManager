@@ -52,7 +52,7 @@ Th = Thorsten
 | [/list-device-models-without-approvals](./listDeviceModelsWithoutApprovals/1.0.0/) | Th | Th | Ka |    |    |    |
 | [/list-existing-firmware-approvals](./listExistingFirmwareApprovals/1.0.0/)        | Th | Th | Ka |    |    |    |
 | [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                             | Th | Th |    |    |    |    |
-| [/remove-firmware-approval](./removeFirmwareApproval/1.0.0/)                       | Th | Th |    |    |    |    |
+| [/remove-firmware-approval](./removeFirmwareApproval/1.0.0/)                       | o | o |    |    |    |    |
 
 ## Preparing device groups and initiating firmware roll-out (Operations)
 
