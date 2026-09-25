@@ -159,8 +159,7 @@ x-javascript-interface:
                       'ElasticSearch index address
                       from [/load-es-addresses/es-address=*]
                       to be written into [/domain-controller/es-address=[/load-es-addresses/es-address/es-name]]'
-        # #TODO falls man das doch angegben wollen würde, kann man das analog zum DPMDP Bsp unten machen
-        # hier wird ja nur geschrieben, deshalb könnte man es auch weglassen
+        # #TODO: im DPMDP gab es ein Beispiel für verkürzten Output
         #output:
         #  success:
         #    description: 'ES address written'
