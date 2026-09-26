@@ -8,8 +8,9 @@ end title
 participant "requestor\n" as requestor
 participant "p1CreateDc\nFromStartupDS" as p1CDCFS
 participant "p1LoadParameters\n" as p1LP
+database "ElasticSearch" as StartDS
 database "DomainController" as DC
-database "StartupDS" as StartDS
+database "ErrorList" as hEL
 
 requestor -> p1CDCFS
 activate p1CDCFS
@@ -19,9 +20,9 @@ activate p1CDCFS
   end note
 
   note over p1CDCFS
-    Reads esName of
-    StartupDS from
-    configFile
+    Reads esName of own
+    ElasticSearch index
+    from configFile
   end note
   p1CDCFS -> p1LP : {functionName=\n"p1CreateDcFromStartupDS"}
   activate p1LP
@@ -37,10 +38,7 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  note right p1CDCFS
-    Documents error
-  end note
-  p1CDCFS -> DC : {functionName="p1LoadParameters",\nerrorMessage}
+  p1CDCFS -> hEL : {functionName="p1LoadParameters",\nerrorMessage1}
   requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage1 }
   note right p1CDCFS
     }
@@ -50,16 +48,40 @@ activate p1CDCFS
     Loads DomainController
     from ElasticSearch
   end note
-  p1CDCFS -> StartDS: { dataStoreEsClient://data-store/domain-controller }
+  p1CDCFS -> StartDS: { dataStoreEsClient://domain-controller }
   activate StartDS
-  p1CDCFS <-- StartDS: { DomainController }
+  p1CDCFS <-- StartDS: {DomainController}
   deactivate StartDS
+  note over p1CDCFS
+    IF error
+  end note
+  note right p1CDCFS
+    THEN {
+  end note
+  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage2}
+  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage2 }
+  note right p1CDCFS
+    }
+  end note
 
   note over p1CDCFS
     Populates
     DomainController
     from {DomainController}
   end note
+  p1CDCFS -> DC
+  note over p1CDCFS
+    IF error
+  end note
+  note right p1CDCFS
+    THEN {
+  end note
+  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage3}
+  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage3 }
+  note right p1CDCFS
+    }
+  end note
+
   note over p1CDCFS
     Populates RunningDS
     from StartupDS in
@@ -72,14 +94,12 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  note right p1CDCFS
-    Documents error
-  end note
-  p1CDCFS -> DC : {functionName="p1CreateDcFromStartupDS",\nerrorMessage}
-  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage2 }
+  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage3}
+  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage3 }
   note right p1CDCFS
     }
   end note
+
 requestor <-- p1CDCFS
 deactivate p1CDCFS
 

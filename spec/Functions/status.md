@@ -36,12 +36,14 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 ### Administrative
 
-| Function                  |  1  |  2  |  3  |  4  |  5  |  6  |
-|---------------------------|-----|-----|-----|-----|-----|-----|
-| p1ManageFirmware          |     |     |     |     |     |     |
-| p1LoadEsAddresses         | Th  | Th  | o   |     |     |     |
-| p1LoadParameters          | ./. | Th  |     |     |     |     |
-| p1ResolveEsAddress        | ./. | Th  |     |     |     |     |
-| p1CreateDcFromStartupDS   | Th  | Th  | o   |     |     |     |
-| p1Pulser                  | Th  | Th  | o   |     |     |     |
-| p1TrimHistoricalErrorList |     |     |     |     |     |     |
+| Function                     |  1  |  2  |  3  |  4  |  5  |  6  |
+|------------------------------|-----|-----|-----|-----|-----|-----|
+| p1ManageFirmware             | Th  | Th  |     |     |     |     |
+| . p1LoadEsAddresses          | Th  | Th  |     |     |     |     |
+| .. p1LoadParameters          | ./. | Th  |     |     |     |     |
+| .. p1ResolveEsAddress        | ./. | Th  |     |     |     |     |
+| . p1CreateDcFromStartupDS    |     |     |     |     |     |     |
+| . p1Pulser                   |     |     |     |     |     |     |
+| .. p1TrimHistoricalErrorList |     |     |     |     |     |     |
+
+1) Parameter list is missing  

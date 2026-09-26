@@ -1,0 +1,150 @@
+
+
+
+
+
+
+
+  # embedYourself
+  - profile-name: 'FunctionProfile'
+    uuid: 'fwm-1-0-0-function-p-000'
+    capability:
+      function-name: 'embedYourself'
+      function-description: 'Service for organizing the embedding of the application into the MW SDN domain'
+      parameter-list:
+      sub-function-list:
+        - 'fwm-1-0-0-function-p-020'
+    configuration:
+      is-active: true
+
+
+  # p1ManageFirmware
+  - profile-name: 'FunctionProfile'
+    uuid: 'fwm-1-0-0-function-p-020'
+    capability:
+      function-name: 'p1ManageFirmware'
+      function-description: 'Startup of the autonomous firmware management'
+      parameter-list:
+      sub-function-list:
+        - 'fwm-1-0-0-function-p-030'
+        - 'fwm-1-0-0-function-p-060'
+        - 'fwm-1-0-0-function-p-080'
+    configuration:
+      is-active: true
+
+
+  # p1LoadEsAddresses
+  - profile-name: 'FunctionProfile'
+    uuid: 'fwm-1-0-0-function-p-030'
+    capability:
+      function-name: 'p1LoadEsAddresses'
+      function-description: 'Loads ElasticSearch addresses from the configuration file and makes them available at the DomainController'
+      parameter-list:
+        - parameter: 'fwm-1-0-0-string-p-031'
+          owner: 'platform'
+        - parameter: 'fwm-1-0-0-string-p-032'
+          owner: 'platform'
+      sub-function-list:
+        - 'fwm-1-0-0-function-p-040'
+        - 'fwm-1-0-0-function-p-050'
+    configuration:
+      is-active: true
+
+  - profile-name: 'StringProfile'
+    uuid: 'fwm-1-0-0-string-p-031'
+    capability:
+      string-name: 'esName#0'
+      purpose: 'esName'
+    configuration:
+      string-value: 'domainControllerEsClient'
+
+  - profile-name: 'StringProfile'
+    uuid: 'fwm-1-0-0-string-p-032'
+    capability:
+      string-name: 'esName#1'
+      purpose: 'esName'
+    configuration:
+      string-value: 'mwdiEsClient'
+
+
+  # p1LoadParameters
+  - profile-name: 'FunctionProfile'
+    uuid: 'fwm-1-0-0-function-p-040'
+    capability:
+      function-name: 'p1LoadParameters'
+      function-description: 'Loads the parameters from the configFile'
+      parameter-list:
+      sub-function-list:
+    configuration:
+      is-active: true
+
+
+  # p1ResolveEsAddress
+  - profile-name: 'FunctionProfile'
+    uuid: 'fwm-1-0-0-function-p-050'
+    capability:
+      function-name: 'p1ResolveEsAddress'
+      function-description: 'Composes the address information of an ElasticSearchClient'
+      parameter-list:
+        - parameter: 'fwm-1-0-0-string-p-051'
+          owner: 'platform'
+        - parameter: 'fwm-1-0-0-string-p-052'
+          owner: 'platform'
+      sub-function-list:
+    configuration:
+      is-active: true
+
+  - profile-name: 'StringProfile'
+    uuid: 'fwm-1-0-0-string-p-051'
+    capability:
+      string-name: 'domainControllerEsClient'
+      purpose: 'UUID of the DomainController ES ElasticsearchClient LTP'
+      pattern: '^fwm-([0-9]+)-([0-9]+)-([0-9]+)-es-c-es-([0-9]+)-([0-9]+)-([0-9]+)-[0-9]{3}$'
+    configuration:
+      string-value: 'fwm-1-0-0-es-c-es-1-0-0-???'
+
+  - profile-name: 'StringProfile'
+    uuid: 'fwm-1-0-0-string-p-052'
+    capability:
+      string-name: 'mwdiEsClient'
+      purpose: 'UUID of the MWDI ES ElasticsearchClient LTP'
+      pattern: '^fwm-([0-9]+)-([0-9]+)-([0-9]+)-es-c-es-([0-9]+)-([0-9]+)-([0-9]+)-[0-9]{3}$'
+    configuration:
+      string-value: 'fwm-1-0-0-es-c-es-1-0-0-???'
+
+
+  # p1LoadEsAddresses
+  - profile-name: 'FunctionProfile'
+    uuid: 'fwm-1-0-0-function-p-060'
+    capability:
+      function-name: 'p1CreateDcFromStartupDS'
+      function-description: 'Builds up the data structure of the DomainController from ElasticSearch'
+      parameter-list:
+      sub-function-list:
+        - 'fwm-1-0-0-function-p-070'
+    configuration:
+      is-active: true
+
+
+  # p1LoadParameters
+  - profile-name: 'FunctionProfile'
+    uuid: 'fwm-1-0-0-function-p-070'
+    capability:
+      function-name: 'p1LoadParameters'
+      function-description: 'Loads the parameters from the configFile'
+      parameter-list:
+      sub-function-list:
+    configuration:
+      is-active: true
+
+
+  # p1Pulser
+  - profile-name: 'FunctionProfile'
+    uuid: 'fwm-1-0-0-function-p-080'
+    capability:
+      function-name: 'p1Pulser'
+      function-description: 'Cyclically invokes functions of all categories'
+      parameter-list:
+      sub-function-list:
+    configuration:
+      is-active: true

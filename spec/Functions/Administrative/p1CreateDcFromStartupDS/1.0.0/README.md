@@ -22,7 +22,11 @@ Please find a detailed description of the [variables](./variables.yaml).
 |#| Code | Message                                                           |
 |-|------|-------------------------------------------------------------------|
 |1|      | _[provided by p1LoadParameters]_                                  |
-|2|      | _[provided by p1CreateDcFromStartupDS]_                           |
+|2|      | DomainController data not found                                   |
+|2|      | dataStoreUrl invalid                                              |
+|2|      | ElasticSearch read error                                          |
+|3|      | DomainController data invalid                                     |
+|4|      | StartupDS data invalid                                            |
 
 ## Parameters
 

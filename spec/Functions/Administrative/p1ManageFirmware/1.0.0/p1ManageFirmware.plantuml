@@ -8,11 +8,10 @@ end title
 participant "embedYourself\n" as embed
 participant "p1ManageFirmware\n" as p1ManaFw
 participant "p1LoadEsAddresses\n" as p1LEA
-participant "p1LoadParameters\n" as p1LP
-participant "p1ResolveEsAddress\n" as p1REA
 participant "p1CreateDomainController\nFromStartupDS" as p1CDCFS
 participant "p1Pulser\n" as p1Puls
 database "DomainController" as DC
+database "ErrorList" as hEL
 
 note right embed
   Automatically starts
@@ -31,7 +30,7 @@ activate p1ManaFw
     note over p1LEA
       Makes ElasticSearch
       addresses available
-      in DomainController
+      at DomainController
     end note
   p1ManaFw <-- p1LEA
   deactivate p1LEA
@@ -44,10 +43,8 @@ activate p1ManaFw
   note right p1ManaFw
     Documents error
   end note
-  p1ManaFw -> DC: {functionName="p1ManageFirmware",\nerrorMessage
-  note right p1ManaFw #Yellow
-    Was soll im Fehlerfall passieren?
-  end note
+  p1ManaFw -> hEL: {functionName="p1ManageFirmware",\nerrorMessage1}
+  ?<-- p1ManaFw
   note right p1ManaFw
     }
   end note
@@ -71,14 +68,12 @@ activate p1ManaFw
   note right p1ManaFw
     Documents error
   end note
-  p1ManaFw -> DC: {functionName="p1ManageFirmware",\nerrorMessage}
-  note right p1ManaFw #Yellow
-    Was soll im Fehlerfall passieren?
-  end note
+  p1ManaFw -> hEL: {functionName="p1ManageFirmware",\nerrorMessage2}
+  ?<-- p1ManaFw
   note right p1ManaFw
     }
   end note
-  
+
   p1ManaFw -> p1Puls
   activate p1Puls
     note over p1Puls
@@ -86,5 +81,19 @@ activate p1ManaFw
       invokes
       functions
     end note
+  note over p1ManaFw
+    IF error
+  end note
+  note right p1ManaFw
+    THEN {
+  end note
+  note right p1ManaFw
+    Documents error
+  end note
+  p1ManaFw -> hEL: {functionName="p1ManageFirmware",\nerrorMessage3}
+  ?<-- p1ManaFw
+  note right p1ManaFw
+    }
+  end note
 
 @enduml

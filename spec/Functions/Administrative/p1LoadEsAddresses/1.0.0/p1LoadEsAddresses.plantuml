@@ -10,6 +10,7 @@ participant "p1LoadEsAddresses\n" as p1LEA
 participant "p1LoadParameters\n" as p1LP
 participant "p1ResolveEsAddress\n" as p1REA
 database "DomainController" as DC
+database "ErrorList" as hEL
 
 requestor -> p1LEA
 activate p1LEA
@@ -35,7 +36,7 @@ activate p1LEA
   note right p1LEA
     Documents error
   end note
-  p1LEA -> DC: {functionName="p1LoadParameters",\nerrorMessage}
+  p1LEA -> hEL: {functionName="p1LoadParameters",\nerrorMessage1}
   requestor <-- p1LEA: { ErrorCode,\nErrorMessage1 }
   note right p1LEA
     }
@@ -63,7 +64,7 @@ activate p1LEA
     note right p1LEA
       Documents error
     end note
-    p1LEA -> DC: {functionName="p1ResolveEsAddress",\nerrorMessage}
+    p1LEA -> hEL: {functionName="p1ResolveEsAddress",\nerrorMessage2}
     requestor <-- p1LEA: { ErrorCode,\nErrorMessage2 }
     note right p1LEA
       }
@@ -74,7 +75,7 @@ activate p1LEA
     end note
     p1LEA -> DC
   end loop
-requestor <-- p1LEA
+requestor <-- p1LEA: 204
 deactivate p1LEA
 
 @enduml
