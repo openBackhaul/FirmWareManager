@@ -20,9 +20,9 @@ activate p1CDCFS
   end note
 
   note over p1CDCFS
-    Reads esName of own
-    ElasticSearch index
-    from configFile
+    Reads esName of FWM's
+    ElasticSearch index from
+    configFile
   end note
   p1CDCFS -> p1LP : {functionName=\n"p1CreateDcFromStartupDS"}
   activate p1LP
@@ -30,7 +30,7 @@ activate p1CDCFS
       Loads parameters
       from configFile
     end note
-  p1CDCFS <-- p1LP : { {parameters}, ... }
+  p1CDCFS <-- p1LP : { esName==domainControllerEsClient, ... }
   deactivate p1LP
   note over p1CDCFS
     IF error
@@ -45,10 +45,30 @@ activate p1CDCFS
   end note
 
   note over p1CDCFS
+    Reads ElasticSearchClient
+    address from [EsAddress]
+  end note
+  p1CDCFS -> DC: {/domain-controller/es-address=domainControllerEsClient}
+  activate DC
+  p1CDCFS <-- DC: {DomainControllerEsClient}
+  deactivate DC
+  note over p1CDCFS
+    IF error
+  end note
+  note right p1CDCFS
+    THEN {
+  end note
+  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage2}
+  requestor <-- p1CDCFS : { ErrorCode,\nerrorMessage2 }
+  note right p1CDCFS
+    }
+  end note
+
+  note over p1CDCFS
     Loads DomainController
     from ElasticSearch
   end note
-  p1CDCFS -> StartDS: { dataStoreEsClient://domain-controller }
+  p1CDCFS -> StartDS: { DomainControllerEsClient://domain-controller }
   activate StartDS
   p1CDCFS <-- StartDS: {DomainController}
   deactivate StartDS
@@ -58,8 +78,8 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage2}
-  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage2 }
+  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage3}
+  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage3 }
   note right p1CDCFS
     }
   end note
@@ -69,15 +89,19 @@ activate p1CDCFS
     DomainController
     from {DomainController}
   end note
-  p1CDCFS -> DC
+  p1CDCFS -> DC: [Function]
+  p1CDCFS -> DC: [ValidationSequence]
+  p1CDCFS -> DC: [Pulser]
+  p1CDCFS -> DC: [ToDoCode]
+  p1CDCFS -> DC: [ToDoList]
   note over p1CDCFS
     IF error
   end note
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage3}
-  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage3 }
+  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage4}
+  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage4 }
   note right p1CDCFS
     }
   end note
@@ -87,20 +111,20 @@ activate p1CDCFS
     from StartupDS in
     {DomainController}
   end note
-  p1CDCFS -> DC
+  p1CDCFS -> DC: [RunningDS]
   note over p1CDCFS
     IF error
   end note
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage3}
-  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage3 }
+  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage5}
+  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage5 }
   note right p1CDCFS
     }
   end note
 
-requestor <-- p1CDCFS
+requestor <-- p1CDCFS: 204
 deactivate p1CDCFS
 
 @enduml

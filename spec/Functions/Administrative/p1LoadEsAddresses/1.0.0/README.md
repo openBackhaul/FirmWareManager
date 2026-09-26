@@ -33,4 +33,4 @@ In its initial release, the ElasticSearchClients domainControllerEsClient and mw
 
 ## NPM Module
 
-[onf-core-model-ap](https://www.npmjs.com/package/onf-core-model-ap) to be complemented.  
+[mw-sdn-p1-load-es-addresses](https://www.npmjs.com/package/mw-sdn-p1-load-es-addresses)  

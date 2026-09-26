@@ -120,10 +120,20 @@
       function-name: 'p1CreateDcFromStartupDS'
       function-description: 'Builds up the data structure of the DomainController from ElasticSearch'
       parameter-list:
+        - parameter: 'fwm-1-0-0-string-p-061'
+          owner: 'platform'
       sub-function-list:
         - 'fwm-1-0-0-function-p-070'
     configuration:
       is-active: true
+
+  - profile-name: 'StringProfile'
+    uuid: 'fwm-1-0-0-string-p-061'
+    capability:
+      string-name: 'esName'
+      purpose: 'esName'
+    configuration:
+      string-value: 'domainControllerEsClient'
 
 
   # p1LoadParameters

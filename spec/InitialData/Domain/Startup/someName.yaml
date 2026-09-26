@@ -1,2 +1,7 @@
 
 # oder sollte es JSON sein? oder beides?
+
+
+| FunctionName             | ParameterName | Value |
+|--------------------------|---------------|-------|
+|p1TrimHistoricalErrorList | maximumLength | 100   |

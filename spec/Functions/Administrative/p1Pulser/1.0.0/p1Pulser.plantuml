@@ -24,12 +24,14 @@ loop endless
     DomainController
   end note
   p1Puls -> DC
+  activate DC
   p1Puls <-- DC: [Pulser]
+  deactivate DC
   loop for each Pulser
 
     note over p1Puls
       Checks whether
-      Pulser is active
+      Pulser is activated
     end note
     note over p1Puls
       IF NOT isActivated:
@@ -68,7 +70,7 @@ loop endless
       nextTime =
         currentTime + periodLength
     end note
-  p1Puls -> DC : nextTime
+  p1Puls -> DC: nextTime
 
     note over p1Puls
       Invokes targetFunction
@@ -90,7 +92,7 @@ loop endless
     note right p1Puls
       Documents error
     end note
-    p1Puls -> DC : {functionName="p1Pulser",\nerrorMessage}
+    p1Puls -> DC : {functionName="p1Pulser",\nerrorMessage1}
     note right p1Puls
       }
     end note
