@@ -24,7 +24,7 @@ activate p1CDCFS
     ElasticSearch index from
     configFile
   end note
-  p1CDCFS -> p1LP : {functionName=\n"p1CreateDcFromStartupDS"}
+  p1CDCFS -> p1LP: {functionName=\n"p1CreateDcFromStartupDS"}
   activate p1LP
     note over p1LP
       Loads parameters
@@ -38,7 +38,7 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL : {functionName="p1LoadParameters",\nerrorMessage1}
+  p1CDCFS -> hEL: {functionName="p1LoadParameters",\nerrorMessage1}
   requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage1 }
   note right p1CDCFS
     }
@@ -58,7 +58,7 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage2}
+  p1CDCFS -> hEL: {functionName="p1CreateDcFromStartupDS",\nerrorMessage2}
   requestor <-- p1CDCFS : { ErrorCode,\nerrorMessage2 }
   note right p1CDCFS
     }
@@ -78,7 +78,7 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage3}
+  p1CDCFS -> hEL: {functionName="p1CreateDcFromStartupDS",\nerrorMessage3}
   requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage3 }
   note right p1CDCFS
     }
@@ -94,17 +94,6 @@ activate p1CDCFS
   p1CDCFS -> DC: [Pulser]
   p1CDCFS -> DC: [ToDoCode]
   p1CDCFS -> DC: [ToDoList]
-  note over p1CDCFS
-    IF error
-  end note
-  note right p1CDCFS
-    THEN {
-  end note
-  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage4}
-  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage4 }
-  note right p1CDCFS
-    }
-  end note
 
   note over p1CDCFS
     Populates RunningDS
@@ -112,17 +101,6 @@ activate p1CDCFS
     {DomainController}
   end note
   p1CDCFS -> DC: [RunningDS]
-  note over p1CDCFS
-    IF error
-  end note
-  note right p1CDCFS
-    THEN {
-  end note
-  p1CDCFS -> hEL : {functionName="p1CreateDcFromStartupDS",\nerrorMessage5}
-  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage5 }
-  note right p1CDCFS
-    }
-  end note
 
 requestor <-- p1CDCFS: 204
 deactivate p1CDCFS

@@ -12,7 +12,10 @@ participant "p1LoadParameters\n" as p1LP #White
 participant "p1ResolveEsAddress\n" as p1REA #White
 participant "p1CreateDomainController\nFromStartupDS" as p1CDCFS
 participant "p1Pulser\n" as p1Puls
-database "ElasticSearch" as FwmEs
+participant "p1CreateDevices\n" as p1CreDev
+participant "p1DeleteDevices\n" as p1DelDev
+participant "p1PurgeDeviceGroups\n" as p1PurDevGr
+participant "p1TrimHistoricalErrorList\n" as p1TrimErrors
 
 embed -> p1ManaFw
 activate p1ManaFw
@@ -57,10 +60,6 @@ activate p1ManaFw
       end note
     p1CDCFS <-- p1LP
     deactivate p1LP
-    p1CDCFS -> FwmEs
-    activate FwmEs
-    p1CDCFS <-- FwmEs
-    deactivate FwmEs
   p1ManaFw <-- p1CDCFS
   deactivate p1CDCFS
   
@@ -71,5 +70,42 @@ activate p1ManaFw
       invokes
       functions
     end note
+
+      p1Puls -> p1CreDev
+      activate p1CreDev
+        note over p1CreDev
+          Creates Devices
+          in RunningDS
+        end note
+      p1Puls <-- p1CreDev
+      deactivate p1CreDev
+
+      p1Puls -> p1DelDev
+      activate p1DelDev
+        note over p1DelDev
+          Deletes Devices
+          from OperationalDS
+          and RunningDS
+        end note
+      p1Puls <-- p1DelDev
+      deactivate p1DelDev
+
+      p1Puls -> p1PurDevGr
+      activate p1PurDevGr
+        note over p1PurDevGr
+          Purges DeviceGroups
+        end note
+      p1Puls <-- p1PurDevGr
+      deactivate p1PurDevGr
+
+      p1Puls -> p1TrimErrors
+      activate p1TrimErrors
+        note over p1TrimErrors
+          Deletes the oldest
+          entries from list of
+          historical errors
+        end note
+      p1Puls <-- p1TrimErrors
+      deactivate p1TrimErrors
 
 @enduml

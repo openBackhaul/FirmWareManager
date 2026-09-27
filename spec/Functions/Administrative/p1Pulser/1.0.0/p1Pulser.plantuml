@@ -9,6 +9,7 @@ participant "requestor\n" as requestor
 participant "p1Pulser\n" as p1Puls
 participant "<i>p1TargetFunction</i>\n" as p1Target
 database "DomainController" as DC
+database "ErrorList" as hEL
 
 requestor -> p1Puls
 activate p1Puls
@@ -89,10 +90,7 @@ loop endless
     note right p1Puls
       THEN {
     end note
-    note right p1Puls
-      Documents error
-    end note
-    p1Puls -> DC : {functionName="p1Pulser",\nerrorMessage1}
+    p1Puls -> hEL: {functionName="p1Pulser",\nerrorMessage1}
     note right p1Puls
       }
     end note

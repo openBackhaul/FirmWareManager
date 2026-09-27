@@ -5,11 +5,12 @@ title
   p1PurgeDeviceGroups
 end title
 
-participant "pulser\n" as requestor
+participant "requestor\n" as requestor
 participant "p1PurgeDeviceGroups\n" as indServ
 participant "/deleteDeviceGroup\n" as delGroup
 participant "p1ValidationManager\n" as valiMan
 database "RunningDS" as RunDS
+database "ErrorList" as hEL
 
 requestor -> indServ
 activate indServ
@@ -39,7 +40,7 @@ activate indServ
         Adds Devices to default DeviceGroup
         Updates [firmwareList] of Devices
       end note
-    indServ <-- delGroup: { ErrorCode,\nErrorMessage }
+    indServ <-- delGroup
     deactivate delGroup
 
     note right indServ
@@ -48,10 +49,7 @@ activate indServ
     note right indServ
       THEN {
     end note
-    note right indServ
-      Append label to
-      [unpurgedDevice]
-    end note
+    indServ -> hEL: {functionName="p1PurgeDeviceGroups",\nerrorMessage1}
     note right indServ
       }
     end note
@@ -59,17 +57,6 @@ activate indServ
       }
     end note
   end loop
-
-  note over indServ
-    IF [unpurgedDevice].length > 0:
-  end note
-  note left indServ
-    THEN {
-  end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[unpurgedDevice] }
-  note left indServ
-    }
-  end note
 
 requestor <-- indServ: 204
 deactivate indServ

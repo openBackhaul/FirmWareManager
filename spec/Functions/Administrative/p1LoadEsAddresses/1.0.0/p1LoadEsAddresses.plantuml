@@ -33,9 +33,6 @@ activate p1LEA
   note right p1LEA
     THEN {
   end note
-  note right p1LEA
-    Documents error
-  end note
   p1LEA -> hEL: {functionName="p1LoadParameters",\nerrorMessage1}
   requestor <-- p1LEA: { ErrorCode,\nErrorMessage1 }
   note right p1LEA
@@ -60,9 +57,6 @@ activate p1LEA
     end note
     note right p1LEA
       THEN {
-    end note
-    note right p1LEA
-      Documents error
     end note
     p1LEA -> hEL: {functionName="p1ResolveEsAddress",\nerrorMessage2}
     requestor <-- p1LEA: { ErrorCode,\nErrorMessage2 }

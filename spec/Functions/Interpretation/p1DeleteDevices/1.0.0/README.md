@@ -1,11 +1,10 @@
 # p1DeleteDevices
 
-Function gets triggered by the Pulser.  
 p1DeleteDevices checks the OperationalDS for Devices with lastUpdate exceeding the maximumPermissibleAge.  
 Obsolete Devices get  
 \- deleted from OperationalDS  
 \- deleted from RunningDS  
-\- deleted from [device] in all DeviceGroups of the same deviceModel  
+\- deleted from its DeviceGroup  
 
 Consequences: If the device would be measured again some day, it would be equipped with the default target firmware.  
 
@@ -31,9 +30,9 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Parameters
 
-| Parameter             | Description                                                                                  |
-|-----------------------|----------------------------------------------------------------------------------------------|
-| maximumPermissibleAge | Maximum permissible age of the Device in OperationalDS before it gets deleted from RunningDS |
+| Parameter             | Description                                                   |
+|-----------------------|---------------------------------------------------------------|
+| maximumPermissibleAge | Maximum permitted age of the device data in the OperationalDS |
 
 ## NPM Module
 

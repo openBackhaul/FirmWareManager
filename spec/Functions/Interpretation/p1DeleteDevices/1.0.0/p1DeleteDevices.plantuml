@@ -5,13 +5,14 @@ title
   p1DeleteDevices
 end title
 
-participant "pulser\n" as requestor
+participant "requestor\n" as requestor
 participant "p1DeleteDevices\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 database "OperationalDS" as OpDS
 database "DomainController" as DC
+database "ErrorList" as hEL
 
 requestor -> indServ
 activate indServ
@@ -30,7 +31,7 @@ activate indServ
       Checks, whether lastUpdate
       exceeds maximumPermissibleAge
     end note
-    note right indServ
+    note over indServ
       Reads ODS:Device
     end note
     indServ -> OpDS
@@ -106,7 +107,7 @@ activate indServ
       towards deleted Device
     end note
     loop for each DeviceGroup
-      note right indServ
+      note over indServ
         Reads deviceModel
       end note
       indServ -> CanDS
@@ -170,7 +171,8 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
+  indServ -> hEL: {functionName="p1DeleteDevices",\nerrorMessage1}
+  requestor <-- indServ: 204
   note right indServ
     }
   end note

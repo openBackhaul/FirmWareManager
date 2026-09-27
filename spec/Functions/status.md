@@ -20,19 +20,27 @@ Th = Thorsten
 
 | Function        |  1  |  2  |  3  |  4  |  5  |  6  |
 |-----------------|-----|-----|-----|-----|-----|-----|
-| p1CreateDevices | Th  | Th  | Ka  |     |     |     |
-| p1DeleteDevices | Th  | Th  | Ka  |     |     |     |
+| p1CreateDevices | Th  | Th  |     |     |     |     |
+| p1DeleteDevices | Th  | Th  |     |     |     |     |
 
 ### Purging DeviceGroups
 
 | Function            |  1  |  2  |  3  |  4  |  5  |  6  |
 |---------------------|-----|-----|-----|-----|-----|-----|
-| p1PurgeDeviceGroups | Th  | Th  | Ka  |     |     |     |
+| p1PurgeDeviceGroups | Th  | Th  |     |     |     |     |
 
 ## Validation
 
 Es wurden Verzeichnisse und README-Dateien für drei ValidationFunctions erstellt.  
 Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.  
+
+### Measurement
+
+| Function                     |  1  |  2  |  3  |  4  |  5  |  6  |
+|------------------------------|-----|-----|-----|-----|-----|-----|
+| p1MeasureDomain              |     |     |     |     |     |     |
+|                              |     |     |     |     |     |     |
+|                              |     |     |     |     |     |     |
 
 ### Administrative
 

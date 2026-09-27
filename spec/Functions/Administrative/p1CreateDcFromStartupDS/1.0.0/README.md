@@ -26,8 +26,6 @@ Please find a detailed description of the [variables](./variables.yaml).
 |3|      | dataStoreUrl invalid                                              |
 |3|      | ElasticSearch read error                                          |
 |3|      | DomainController data not found in ElasticSearch                  |
-|4|      | DomainController data invalid                                     |
-|5|      | StartupDS data invalid                                            |
 
 ## Parameters
 

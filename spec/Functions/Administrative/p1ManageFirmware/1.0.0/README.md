@@ -22,7 +22,6 @@ Please find a detailed description of the [variables](./variables.yaml).
 |-|------|-----------------------------------------------------------------------------------------------|
 |1|      | Firmware management stopped as ElasticSearch addresses could not be loaded                    |
 |2|      | Firmware management stopped as initial DomainController data or StartupDS could not be loaded |
-|3|      | Firmware management stopped as starting the Pulser failed                                     |
 
 ## Parameters
 

@@ -39,7 +39,7 @@ activate indServ
     given DeviceGroup
     is defaultDeviceGroup
   end note
-  note right indServ
+  note over indServ
     Reads defaultDeviceGroup
     from DeviceModel
   end note
@@ -65,7 +65,7 @@ activate indServ
     are actually referenced
     by given DeviceGroup
   end note
-  note right indServ
+  note over indServ
     Reads [device] from
     given DeviceGroup
   end note
@@ -73,7 +73,7 @@ activate indServ
   activate RunDS
   indServ <-- RunDS: [device]
   deactivate RunDS
-  note right indServ
+  note over indServ
     Add all Devices that are
     both given and in [device]
     to [toBeMovedDevice]
@@ -172,13 +172,13 @@ activate indServ
       referencingDeviceGroup to
       [firmwareList] at Device
     end note
-    note right indServ
+    note over indServ
       Reads [targetFirmwareList]
       at referencingDeviceGroup
     end note
     indServ -> CanDS
     indServ <-- CanDS: [targetFirmwareList]
-    note right indServ
+    note over indServ
       Updates [firmwareList] at Device
     end note
     indServ -> CanDS
