@@ -1,0 +1,79 @@
+@startuml p1UpdateDevice
+skinparam responseMessageBelowArrow true
+
+title
+  p1UpdateDevice
+end title
+
+participant "requestor\n" as requestor
+participant "p1UpdateDevice\n" as indServ
+participant "p1UpdateHw\n" as updateHw
+participant "p1UpdateFw\n" as updateFw
+
+database "OperationalDS" as OpDS
+database "MWDI" as Mwdi
+database "ErrorList" as hEL
+
+requestor -> indServ: updatedMountName
+activate indServ
+  note over indServ
+    Updates Device
+    in OperationalDS
+  end note
+
+  note over indServ
+    Reads updated CC
+  end note
+  indServ -> Mwdi: updatedMountName
+  activate Mwdi
+  indServ <-- Mwdi: CC
+  deactivate Mwdi
+  note over indServ
+    IF failed OR 
+      CC=={} or null:
+  end note
+  note right indServ
+    THEN {
+  end note
+  indServ -> hEL: {functionName="p1UpdateDevice",\nerrorMessage1}
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    Updates hardware info
+  end note
+  indServ -> updateHw: updatedMountName,\nCC
+  activate updateHw
+    note over updateHw
+      Updates device model
+      specific hardware
+      dependencies
+    end note
+  indServ <-- updateHw
+  deactivate updateHw
+
+  note over indServ
+    Updates firmware info
+  end note
+  indServ -> updateFw: updatedMountName,\nCC
+  activate updateFw
+    note over updateFw
+      Updates device model
+      specific firmware
+      composition
+    end note
+  indServ <-- updateFw
+  deactivate updateFw
+
+  note over indServ
+    Updates lastUpdate
+    with current timestamp
+  end note
+  indServ -> OpDS: lastUpdate
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

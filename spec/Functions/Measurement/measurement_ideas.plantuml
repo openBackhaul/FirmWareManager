@@ -5,73 +5,160 @@ title
   Measurement Ideas
 end title
 
-participant "p1Pulser\n" as p1Puls
-participant "p1MeasureDomain\n" as measure #LightYellow
-participant "p2LoadRawCc\n" as createRawCc
-participant "p1FieldsFilter\n" as fieldsFilter
-participant "p1Extract\nDeviceData" as extractData #LightYellow
-participant "p1Update\nOperationalDs" as updateOpDs #LightYellow
+participant "requestor\n" as requestor
+participant "p1MeasureDomain\n" as indServ
+participant "p1ListUpdatedCcs\n" as listCcs
+participant "p1UpdateDevice\n" as updateCc
+participant "p1UpdateHw\n" as updateHw
+participant "p1WriteJust\nDeviceModel" as writeModel
+participant "p1UpdateFw\n" as updateFw
+participant "p1Extract\nActivatable" as extractAct
 
-p1Puls -> measure
-activate measure
-  note over measure
+database "OperationalDS" as OpDS
+database "MWDI" as Mwdi
+
+requestor -> indServ
+activate indServ
+  note over indServ
     Updates
     OperationalDS
-    by updated CCs
-    in MWDI Replica
   end note
 
-  note over measure
-    Lists updated 
-    CCs in MWDI in
-    [updatedMountName]
-  end note
+  indServ -> listCcs
+  activate listCcs
+    note over listCcs
+      Lists CCs that are
+      updated in MWDI
+    end note
+  indServ <-- listCcs: [updatedMountName]
+  deactivate listCcs
 
   group partially parallel execution of each updatedMountName
-    measure -> createRawCc
-    activate createRawCc
-      note over createRawCc
-        Loads raw data
-        to rawCc
+    indServ -> updateCc
+    activate updateCc
+      note over updateCc
+        Updates Device
+        in OperationalDS
       end note
 
-      ' Apply fieldsFilter
-      createRawCc -> fieldsFilter
-      activate fieldsFilter
-        note over fieldsFilter
-          Reduces structure
-          of rawCc
+      note over updateCc
+        Reads CC
+      end note
+      updateCc -> Mwdi: updatedMountName
+      activate Mwdi
+      updateCc <-- Mwdi: CC
+      deactivate Mwdi
+
+      note over updateCc
+        Updates hardware info
+      end note
+      updateCc -> updateHw: updatedMountName,\nCC
+      activate updateHw
+        note over updateHw
+          Updates device model
+          specific hardware
+          dependencies
         end note
-      createRawCc <-- fieldsFilter
-      deactivate fieldsFilter
 
-    measure <-- createRawCc : {rawCc}
-    deactivate createRawCc
-
-      ' Extract FW & HW Info
-      measure -> extractData
-      activate extractData
-        note over extractData
-          Extracts relevant FW and HW info
-          from rawCC and structures it in
-          FWM data format
+        note over updateHw
+          Extracts deviceModel
         end note
-      measure <-- extractData
-      deactivate extractData
 
-      ' Update OperationalDS
-      measure -> updateOpDs
-      activate updateOpDs
-        note over updateOpDs
-          Stores FW and HW info
-          to OperationalDS
+        note over updateHw
+          Reads name of extraction
+          function from Parameters
         end note
-      measure <-- updateOpDs
-      deactivate updateOpDs
+        updateHw -> OpDS: deviceModel
+        activate OpDS
+        updateHw <-- OpDS: functionName
+        deactivate OpDS
+        note over updateFw #White
+          Parameters cannot define set of input parameters.
+          All functions get called with updatedMountName and CC.
+        end note
 
+        note over updateHw
+          Calls functionName to
+          extract hardware info
+          and update OperationalDS
+        end note
+        updateHw -> writeModel: updatedMountName,\nCC
+        activate writeModel
+          note over writeModel
+            Extracts deviceModel
+          end note
+          note over writeModel
+            Writes deviceModel
+            into OperationalDS
+          end note
+          writeModel -> OpDS: deviceModel
+        updateHw <-- writeModel
+        deactivate writeModel
+      updateCc <-- updateHw
+      deactivate updateHw
+
+      note over updateCc
+        Updates firmware info
+      end note
+      updateCc -> updateFw: updatedMountName,\nCC
+      activate updateFw
+        note over updateFw
+          Updates device model
+          specific firmware
+          composition
+        end note
+
+        note over updateFw
+          Extracts deviceModel
+        end note
+
+        note over updateFw
+          Reads name of extraction
+          function from Parameters
+        end note
+        updateFw -> OpDS: deviceModel
+        activate OpDS
+        updateFw <-- OpDS: functionName
+        deactivate OpDS
+        note over updateHw #White
+          Parameters cannot define set of input parameters.
+          All functions get called with updatedMountName and CC.
+        end note
+
+        note over updateFw
+          Calls functionName to
+          extract firmware info
+          and update OperationalDS
+        end note
+        updateFw -> extractAct: updatedMountName,\nCC
+        activate extractAct
+          note over extractAct
+            Extracts activatable
+            firmware
+          end note
+          note over extractAct
+            Converts firmware info
+            into [firmwareList]
+          end note
+          note over extractAct
+            Writes [firmwareList]
+          end note
+          extractAct -> OpDS: [firmwareList]
+        updateFw <-- extractAct
+        deactivate extractAct
+      updateCc <-- updateFw
+      deactivate updateFw
+
+      note over updateCc
+        Updates lastUpdate
+      end note
+      updateCc -> OpDS: lastUpdate
+
+    indServ <-- updateCc
+    deactivate updateCc
   end group updatedMountNames
 
-p1Puls <-- measure
-deactivate measure
+requestor <-- indServ
+deactivate indServ
 
 @enduml

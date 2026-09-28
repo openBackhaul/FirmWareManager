@@ -1,0 +1,44 @@
+@startuml p1MeasureDomain
+skinparam responseMessageBelowArrow true
+
+title
+  p1MeasureDomain
+end title
+
+participant "requestor\n" as requestor
+participant "p1MeasureDomain\n" as indServ
+participant "p1ListUpdatedCcs\n" as listCcs
+participant "p1UpdateDevice\n" as updateCc
+
+requestor -> indServ
+activate indServ
+  note over indServ
+    Updates
+    OperationalDS
+  end note
+
+  indServ -> listCcs
+  activate listCcs
+    note over listCcs
+      Lists CCs that are
+      updated in MWDI
+    end note
+  indServ <-- listCcs: [updatedMountName]
+  deactivate listCcs
+
+  group partially parallel execution of each updatedMountName
+    indServ -> updateCc
+    activate updateCc
+      note over updateCc
+        Updates Device
+        in OperationalDS
+      end note
+
+    indServ <-- updateCc
+    deactivate updateCc
+  end group updatedMountNames
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

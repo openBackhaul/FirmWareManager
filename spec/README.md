@@ -106,40 +106,43 @@ Internal design aspects:
 
 #### Interpretation
 
-- **Preparing devices**
+- Preparing devices
   - [p1CreateDevices](./Functions/Interpretation/p1CreateDevices/1.0.0/)
   - [p1DeleteDevices](./Functions/Interpretation/p1DeleteDevices/1.0.0/)
 
-- **Purging DeviceGroups**
+- Purging DeviceGroups
   - [p1PurgeDeviceGroups](./Functions/Interpretation/p1PurgeDeviceGroups/1.0.0/)
 
 #### Validation
 
-- **Ensuring Device to DeviceGroup consistency**
-  - [p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel](./Functions/Validation/p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel/1.0.0/)
-
-- **Ensuring Device To firmware consistency**
-  - [p1EnsureEveryDeviceReferencingExclusivelyApprovedFirmware](./Functions/Validation/p1EnsureEveryDeviceReferencingExclusivelyApprovedFirmware/1.0.0/)
-  - [p1EnsureEveryDeviceHasFirmwareAsTargetOfItsGroup](./Functions/Validation/p1EnsureEveryDeviceHasFirmwareAsTargetOfItsGroup/1.0.0/)
-
-- **Basic**
-  - [p1ValidationManager](./Functions/Validation/p1ValidationManager/1.0.0/)
+- _[there are four definitions, but in an early stage]_
 
 #### Measurement
 
+- [p1MeasureDomain](./Functions/Measurement/p1MeasureDomain/1.0.0/)
+- [p1ListUpdatedCcs](./Functions/Measurement/p1ListUpdatedCcs/1.0.0/)
+- [p1UpdateDevice](./Functions/Measurement/p1UpdateDevice/1.0.0/)
+- [p1UpdateHw](./Functions/Measurement/p1UpdateHw/1.0.0/)
+- [p1UpdateFw](./Functions/Measurement/p1UpdateFw/1.0.0/)
+- [p1ExtractActivatable](./Functions/Measurement/p1ExtractActivatable/1.0.0/)
+
 #### Monitoring
+
+- _[future work]_
 
 #### Implementation
 
+- _[future work]_
+
 #### Administrative
 
-- **Kicking-off application**
+- Kicking-off application
   - [p1ManageFirmware](./Functions/Administrative/p1ManageFirmware/1.0.0/)  
   - [p1LoadEsAddresses](./Functions/Administrative/p1LoadEsAddresses/1.0.0/)
   - [p1LoadParameters](./Functions/Administrative/p1LoadParameters/)  
   - [p1ResolveEsAddress](./Functions/Administrative/p1ResolveEsAddress/)  
   - [p1CreateDcFromStartupDS](./Functions/Administrative/p1CreateDcFromStartupDS/1.0.0/)
 
-- **CyclicProcesses**
+- CyclicProcesses
   - [p1Pulser](./Functions/Administrative/p1Pulser/1.0.0/)
   - [p1TrimHistoricalErrorList](./Functions/Administrative/p1TrimHistoricalErrorList/1.0.0/)

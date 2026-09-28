@@ -1,0 +1,46 @@
+@startuml p1UpdateHw
+skinparam responseMessageBelowArrow true
+
+title
+  p1UpdateHw
+end title
+
+participant "requestor\n" as requestor
+participant "p1UpdateHw\n" as updateHw
+participant "p1UpdateHw\n" as updateHw
+
+database "DomainController" as DC
+database "OperationalDS" as OpDS
+database "ErrorList" as hEL
+
+requestor -> updateHw: updatedMountName,\nCC
+activate updateHw
+  note over updateHw
+    Updates device model
+    specific hardware
+    dependencies
+  end note
+  note over updateHw
+    Extracts deviceModel
+    from CC
+  end note
+  updateHw -> OpDS: deviceModel
+  note over updateHw
+    Reads name of function for
+    extracting hardware info
+    from Parameters
+  end note
+  updateHw -> OpDS: deviceModel
+
+
+
+
+  note over updateHw
+    Extracts respective
+    hardware info
+    [future work]
+  end note
+requestor <-- updateHw
+deactivate updateHw
+
+@enduml

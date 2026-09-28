@@ -38,8 +38,12 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 | Function                     |  1  |  2  |  3  |  4  |  5  |  6  |
 |------------------------------|-----|-----|-----|-----|-----|-----|
-| p1MeasureDomain              |     |     |     |     |     |     |
-|                              |     |     |     |     |     |     |
+| p1MeasureDomain              | Th  | Th  |     |     |     |     |
+| . p1ListUpdatedCcs           |     | 1)  |     |     |     |     |
+| . p1UpdateDevice             | Th  | Th  |     |     |     |     |
+| .. p1UpdateHw                |     |     |     |     |     |     |
+| .. p1UpdateFw                |     |     |     |     |     |     |
+| ... p1ExtractActivatable     |     |     |     |     |     |     |
 |                              |     |     |     |     |     |     |
 
 ### Administrative
@@ -53,3 +57,5 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 | . p1CreateDcFromStartupDS    | Th  | Th  |     |     |     |     |
 | . p1Pulser                   | Th  | Th  |     |     |     |     |
 | .. p1TrimHistoricalErrorList | Th  | Th  |     |     |     |     |
+
+1) Need for technical clarification  
