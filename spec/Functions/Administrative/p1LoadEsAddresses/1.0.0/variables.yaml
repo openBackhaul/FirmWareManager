@@ -30,17 +30,18 @@ load-es-addresses:
     es-names:
       type: array
       x-key: name
+      description: >
+        'List of esNames'
       items:
         type: object
         required:
-          - name
         properties:
-          name:
-            type: string
-            description: 'ElasticSearch name'
-            enum:
-              - 'mwdiEsClient'
-              - 'domainControllerEsClient'
+          type: string
+          description: >
+            'ElasticSearch name
+            from [load-es-addresses/parameters/parameter=*/parameter-name] for [/parameters/parameter=*/purpose] == esName'
+          example:
+            - 'domainControllerEsClient'
 
     es-address:
       type: array
