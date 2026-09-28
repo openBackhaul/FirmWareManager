@@ -13,7 +13,7 @@ requestor -> indServ
 activate indServ
 
   loop for each DeviceGroup
-    note right indServ
+    note over indServ
       Reads DeviceGroup
     end note
     indServ -> RunDS

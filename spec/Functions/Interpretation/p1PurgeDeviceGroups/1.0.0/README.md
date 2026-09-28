@@ -1,12 +1,9 @@
 # p1PurgeDeviceGroups
 
-Function gets triggered by the Pulser.  
-It checks for all DeviceGroups whether the individual purgeDate has been exceeded.  
-If the purgeDate has been exceeded, the /deleteDeviceGroup service is triggered.  
+Checks all DeviceGroups for exceeded purgeDate.  
+If purgeDate exceeded, the /deleteDeviceGroup service is called.  
 
-Consequences: If the device would be measured again some day, it would be equipped with the default target firmware.  
-
-Dependencies: This function relies on calling the deleteDeviceGroup service.  
+Consequences: See [/deleteDeviceGroup](../../../../Services/deleteDeviceGroup/1.0.0/).  
 
 ## Diagram
 

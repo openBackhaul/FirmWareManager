@@ -25,8 +25,12 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Parameters
 
-./.  
+| Parameter Name | Description                                                                                                                                                                                       |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [esName]       | Special usage of the parameters. For all parameters with attribute purpose==esName, attribute value contains the value of the key attribute name of the list of ElasticSearchClients [es-address] |
+
+In its initial release, the ElasticSearchClients domainControllerEsClient and mwdiEsClient are defined.  
 
 ## NPM Module
 
-[onf-core-model-ap](https://www.npmjs.com/package/onf-core-model-ap) to be complemented.  
+[mw-sdn-p1-load-es-addresses](https://www.npmjs.com/package/mw-sdn-p1-load-es-addresses)  

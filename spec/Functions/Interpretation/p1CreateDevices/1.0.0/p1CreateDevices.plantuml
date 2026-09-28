@@ -5,12 +5,13 @@ title
   p1CreateDevices
 end title
 
-participant "pulser\n" as requestor
+participant "requestor\n" as requestor
 participant "p1CreateDevices\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 database "OperationalDS" as OpDS
+database "ErrorList" as hEL
 
 requestor -> indServ
 activate indServ
@@ -80,7 +81,7 @@ activate indServ
       Creates new RDS:Device from
       mountName and deviceModel
     end note
-    indServ -> CanDS
+    indServ -> CanDS: {mountName, deviceModel}
     indServ <-- CanDS
 
     note over indServ
@@ -95,23 +96,22 @@ activate indServ
     indServ -> CanDS
     indServ <-- CanDS: defaultDeviceGroup
     note right indServ
-      IF DeviceModel does not exist:
+      IF DeviceModel does NOT exist:
     end note
     note right indServ
       THEN {
     end note
     note right indServ
-      No further action
-      at this new Device
+      break
     end note
     note right indServ
       }
     end note
     note right indServ
-      Adds mountName of RDS:Device
+      Adds mountName of new RDS:Device
       to [device] at defaultDeviceGroup
     end note
-    indServ -> CanDS
+    indServ -> CanDS: mountName
     indServ <-- CanDS
  
     note over indServ
@@ -121,17 +121,17 @@ activate indServ
       to [firmwareList] at
       new RDS:Device
     end note
-    note right indServ
+    note over indServ
       Reads [targetFirmwareList]
       at defaultDeviceGroup
     end note
     indServ -> CanDS
-    indServ <-- CanDS
-    note right indServ
+    indServ <-- CanDS: [targetFirmwareList]
+    note over indServ
       Updates [firmwareList]
       at RDS:Device
     end note
-    indServ -> CanDS
+    indServ -> CanDS: [firmwareList]
     indServ <-- CanDS
   end loop
 
@@ -159,7 +159,8 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
+  indServ -> hEL: {functionName="p1PurgeDeviceGroups",\nerrorMessage1}
+  requestor <-- indServ: 204
   note right indServ
     }
   end note

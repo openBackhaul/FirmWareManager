@@ -30,4 +30,4 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## NPM Module
 
-[onf-core-model-ap](https://www.npmjs.com/package/onf-core-model-ap) to be complemented.  
+[mw-sdn-p1-pulser](https://www.npmjs.com/package/mw-sdn-p1-pulser)  

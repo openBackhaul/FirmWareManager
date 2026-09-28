@@ -20,28 +20,36 @@ Th = Thorsten
 
 | Function        |  1  |  2  |  3  |  4  |  5  |  6  |
 |-----------------|-----|-----|-----|-----|-----|-----|
-| p1CreateDevices | Th  | Th  | Ka  |     |     |     |
-| p1DeleteDevices | Th  | Th  | Ka  |     |     |     |
+| p1CreateDevices | Th  | Th  |     |     |     |     |
+| p1DeleteDevices | Th  | Th  |     |     |     |     |
 
 ### Purging DeviceGroups
 
 | Function            |  1  |  2  |  3  |  4  |  5  |  6  |
 |---------------------|-----|-----|-----|-----|-----|-----|
-| p1PurgeDeviceGroups | Th  | Th  | Ka  |     |     |     |
+| p1PurgeDeviceGroups | Th  | Th  |     |     |     |     |
 
 ## Validation
 
 Es wurden Verzeichnisse und README-Dateien für drei ValidationFunctions erstellt.  
 Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.  
 
+### Measurement
+
+| Function                     |  1  |  2  |  3  |  4  |  5  |  6  |
+|------------------------------|-----|-----|-----|-----|-----|-----|
+| p1MeasureDomain              |     |     |     |     |     |     |
+|                              |     |     |     |     |     |     |
+|                              |     |     |     |     |     |     |
+
 ### Administrative
 
-| Function                  |  1  |  2  |  3  |  4  |  5  |  6  |
-|---------------------------|-----|-----|-----|-----|-----|-----|
-| p1ManageFirmware          |     |     |     |     |     |     |
-| p1LoadEsAddresses         | Th  | Th  | o   |     |     |     |
-| p1LoadParameters          | ./. | Th  |     |     |     |     |
-| p1ResolveEsAddress        | ./. | Th  |     |     |     |     |
-| p1CreateDcFromStartupDS   | Th  | Th  | o   |     |     |     |
-| p1Pulser                  | Th  | Th  | o   |     |     |     |
-| p1TrimHistoricalErrorList |     |     |     |     |     |     |
+| Function                     |  1  |  2  |  3  |  4  |  5  |  6  |
+|------------------------------|-----|-----|-----|-----|-----|-----|
+| p1ManageFirmware             | Th  | Th  |     |     |     |     |
+| . p1LoadEsAddresses          | Th  | Th  |     |     |     |     |
+| .. p1LoadParameters          | ./. | Th  |     |     |     |     |
+| .. p1ResolveEsAddress        | ./. | Th  |     |     |     |     |
+| . p1CreateDcFromStartupDS    | Th  | Th  |     |     |     |     |
+| . p1Pulser                   | Th  | Th  |     |     |     |     |
+| .. p1TrimHistoricalErrorList | Th  | Th  |     |     |     |     |

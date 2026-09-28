@@ -38,7 +38,7 @@ activate indServ
     Assures that given DeviceGroup
     is not a default DeviceGroup
   end note
-  note right indServ
+  note over indServ
     Reads defaultDeviceGroup
     of referenced DeviceModel
   end note

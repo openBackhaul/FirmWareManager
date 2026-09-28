@@ -3,9 +3,9 @@
 Parameters loaded from the configFile shall be limited to the minimum.  
 Parameters, ValidationSequences, Pulser and ErrorCodeSequences shall be stored as DomainController together with the StartupDS.  
 
-Necessary parameters include:  
+The minimum parameters include:  
 
-- ElasticSearch Addresses for DomainController and MWDI
+- Addresses of ElasticSearch indices for DomainController and MWDI
 
 ## Detailed Specification
 

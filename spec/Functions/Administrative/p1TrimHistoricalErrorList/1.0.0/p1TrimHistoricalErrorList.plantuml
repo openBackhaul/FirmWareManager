@@ -1,0 +1,63 @@
+@startuml p1TrimHistoricalErrorList
+skinparam responseMessageBelowArrow true
+
+title
+  p1TrimHistoricalErrorList
+end title
+
+participant "requestor\n" as requestor
+participant "p1TrimHistoricalErrorList\n" as p1Trim
+database "DomainController" as DC
+
+requestor -> p1Trim
+activate p1Trim
+  note over p1Trim
+    Manages length of 
+    historicalErrorList
+  end note
+
+  note over p1Trim
+    Reads maximumLength from
+    [Parameter] at Function with
+    name==p1TrimHistoricalErrorList
+  end note
+  p1Trim -> DC
+  activate DC
+  p1Trim <-- DC: maximumLength
+  deactivate DC
+
+  note over p1Trim
+    Reads currentLength from
+    [historicalErrorList].length
+    at DomainController
+  end note
+  p1Trim -> DC
+  activate DC
+  p1Trim <-- DC: [historicalErrorList].length
+  deactivate DC
+
+  note over p1Trim
+    excessLength
+      = currentLength
+        - maximumLength
+  end note
+  note over p1Trim
+    IF excessLength > 0:
+  end note
+  note right p1Trim
+    THEN {
+  end note
+  note right p1Trim
+    Remove the excessLength
+    oldest entries from
+    historicalErrorList
+  end note
+  p1Trim -> DC
+  note right p1Trim
+    }
+  end note
+
+requestor <-- p1Trim: 204
+deactivate p1Trim
+
+@enduml

@@ -22,12 +22,19 @@ Please find a detailed description of the [variables](./variables.yaml).
 |#| Code | Message                                                           |
 |-|------|-------------------------------------------------------------------|
 |1|      | _[provided by p1LoadParameters]_                                  |
-|2|      | _[provided by p1CreateDcFromStartupDS]_                           |
+|2|      | ElasticSearchClient not found in DomainController                 |
+|3|      | dataStoreUrl invalid                                              |
+|3|      | ElasticSearch read error                                          |
+|3|      | DomainController data not found in ElasticSearch                  |
 
 ## Parameters
 
-./.  
+| Parameter Name | Description                                                                                                |
+|----------------|------------------------------------------------------------------------------------------------------------|
+| esName         | Name of the ElasticSearch client that connects the persistent copy of the DomainController incl. StartupDS |
+
+In the initial release, the ElasticSearchClient's name is domainControllerEsClient.  
 
 ## NPM Module
 
-[onf-core-model-ap](https://www.npmjs.com/package/onf-core-model-ap) to be complemented.  
+[mw-sdn-p1-create-dc-from-startup-ds](https://www.npmjs.com/package/mw-sdn-p1-create-dc-from-startup-ds)  

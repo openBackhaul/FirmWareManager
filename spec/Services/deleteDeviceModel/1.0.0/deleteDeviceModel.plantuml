@@ -38,7 +38,7 @@ activate indServ
     of the to be deleted DeviceModel
   end note
   loop for each Device
-    note right indServ
+    note over indServ
       Reads Device
     end note
     indServ -> RunDS

@@ -1,0 +1,77 @@
+@startuml measurement_ideas
+skinparam responseMessageBelowArrow true
+
+title
+  Measurement Ideas
+end title
+
+participant "p1Pulser\n" as p1Puls
+participant "p1MeasureDomain\n" as measure #LightYellow
+participant "p2LoadRawCc\n" as createRawCc
+participant "p1FieldsFilter\n" as fieldsFilter
+participant "p1Extract\nDeviceData" as extractData #LightYellow
+participant "p1Update\nOperationalDs" as updateOpDs #LightYellow
+
+p1Puls -> measure
+activate measure
+  note over measure
+    Updates
+    OperationalDS
+    by updated CCs
+    in MWDI Replica
+  end note
+
+  note over measure
+    Lists updated 
+    CCs in MWDI in
+    [updatedMountName]
+  end note
+
+  group partially parallel execution of each updatedMountName
+    measure -> createRawCc
+    activate createRawCc
+      note over createRawCc
+        Loads raw data
+        to rawCc
+      end note
+
+      ' Apply fieldsFilter
+      createRawCc -> fieldsFilter
+      activate fieldsFilter
+        note over fieldsFilter
+          Reduces structure
+          of rawCc
+        end note
+      createRawCc <-- fieldsFilter
+      deactivate fieldsFilter
+
+    measure <-- createRawCc : {rawCc}
+    deactivate createRawCc
+
+      ' Extract FW & HW Info
+      measure -> extractData
+      activate extractData
+        note over extractData
+          Extracts relevant FW and HW info
+          from rawCC and structures it in
+          FWM data format
+        end note
+      measure <-- extractData
+      deactivate extractData
+
+      ' Update OperationalDS
+      measure -> updateOpDs
+      activate updateOpDs
+        note over updateOpDs
+          Stores FW and HW info
+          to OperationalDS
+        end note
+      measure <-- updateOpDs
+      deactivate updateOpDs
+
+  end group updatedMountNames
+
+p1Puls <-- measure
+deactivate measure
+
+@enduml
