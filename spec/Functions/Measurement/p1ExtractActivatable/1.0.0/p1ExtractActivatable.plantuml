@@ -1,0 +1,47 @@
+@startuml p1ExtractActivatable
+skinparam responseMessageBelowArrow true
+
+title
+  p1ExtractActivatable
+end title
+
+participant "requestor\n" as requestor
+participant "p1ExtractActivatable\n" as indServ
+
+database "OperationalDS" as OpDS
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Instantiates [updatedFirmwareList]
+  end note
+  loop for each FirmwareComponent in CC
+    note over indServ
+      IF individualActivationIsAvail==true
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      creates new entry in [updatedFirmwareList]
+      with name=firmwareComponentName
+      version=firmwareComponentVersion
+      status=firmwareComponentStatus
+    end note
+    note right indServ
+      }
+    end note
+  end loop
+
+  note over indServ
+    Overwrites existing [firmwareList]
+    in OperationalDS with contents of
+    [updatedFirmwareList]
+  end note
+  indServ -> OpDS: [firmwareList]
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

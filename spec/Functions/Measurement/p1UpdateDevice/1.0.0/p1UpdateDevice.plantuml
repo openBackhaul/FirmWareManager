@@ -43,7 +43,8 @@ activate indServ
     note over updateHw
       Updates deviceModel
       specific hardware
-      dependencies
+      dependencies in
+      OperationalDS
     end note
   indServ <-- updateHw
   deactivate updateHw
@@ -53,7 +54,8 @@ activate indServ
     note over updateFw
       Updates deviceModel
       specific firmware
-      composition
+      composition in
+      OperationalDS
     end note
   indServ <-- updateFw
   deactivate updateFw

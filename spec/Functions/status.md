@@ -38,13 +38,13 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 | Function                     |  1  |  2  |  3  |  4  |  5  |  6  |
 |------------------------------|-----|-----|-----|-----|-----|-----|
-| p1MeasureDomain              | Th  | Th  |     |     |     |     |
+| p1MeasureDomain              | Th  | Th  | Ka  |     |     |     |
 | . p1ListUpdatedCcs           |     | 1)  |     |     |     |     |
-| . p1UpdateDevice             | Th  | Th  |     |     |     |     |
-| .. p1UpdateHw                | Th  | Th  |     |     |     |     |
-| ... p1WriteJustDeviceModel   | Th  | Th  |     |     |     |     |
-| .. p1UpdateFw                |     |     |     |     |     |     |
-| ... p1ExtractActivatable     |     |     |     |     |     |     |
+| . p1UpdateDevice             | Th  | Th  | Ka  |     |     |     |
+| .. p1UpdateHw                | Th  | Th  | Ka  |     |     |     |
+| ... p1WriteJustDeviceModel   | Th  | Th  | Ka  |     |     |     |
+| .. p1UpdateFw                | Th  | Th  |     |     |     |     |
+| ... p1ExtractActivatable     | Th  | Th  |     |     |     |     |
 
 ### Administrative
 
