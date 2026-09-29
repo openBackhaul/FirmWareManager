@@ -20,6 +20,9 @@ list-updated-ccs:
   # domain controller stores info about the last update timestamp
   # possibly here everything that is newer in MWDI as that timestamp
   # is to be considered
+  # currently the timestamp is availabe in DC per device
+  # domainController/networkControlDomain/device/lastUpdate
+  # finding the newest one requires reading all devices... not optimal...
   last-extraction-timestamp:
     type: string
     description: >
