@@ -6,41 +6,60 @@ title
 end title
 
 participant "requestor\n" as requestor
-participant "p1UpdateHw\n" as updateHw
-participant "p1UpdateHw\n" as updateHw
+participant "p1UpdateHw\n" as indServ
+participant "<i>functionName</i>\n" as extrFunc
 
 database "DomainController" as DC
-database "OperationalDS" as OpDS
 database "ErrorList" as hEL
 
-requestor -> updateHw: updatedMountName,\nCC
-activate updateHw
-  note over updateHw
-    Updates device model
-    specific hardware
-    dependencies
-  end note
-  note over updateHw
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
     Extracts deviceModel
     from CC
   end note
-  updateHw -> OpDS: deviceModel
-  note over updateHw
+
+  note over indServ
     Reads name of function for
     extracting hardware info
     from Parameters
   end note
-  updateHw -> OpDS: deviceModel
-
-
-
-
-  note over updateHw
-    Extracts respective
-    hardware info
-    [future work]
+  indServ -> DC: deviceModel
+  activate DC
+  indServ <-- DC: functionName
+  deactivate DC
+  note over indServ
+    IF failed OR 
+      functionName=="" or null:
   end note
-requestor <-- updateHw
-deactivate updateHw
+  note right indServ
+    THEN {
+  end note
+  indServ -> hEL: {functionName="p1UpdateHw",\nerrorMessage1}
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
+  note right indServ
+    }
+  end note
+
+  note over extrFunc #White
+    Parameters cannot define a set of input parameters.
+    All functions get called with updatedMountName and CC.
+  end note
+
+  note over indServ
+    Calls functionName
+  end note
+  indServ -> extrFunc: updatedMountName,\nCC
+  activate extrFunc
+    note over extrFunc
+      Extracts hardware info
+      and updates OperationalDS
+    end note
+  indServ <-- extrFunc
+  deactivate extrFunc
+
+requestor <-- indServ: 204
+deactivate indServ
 
 @enduml

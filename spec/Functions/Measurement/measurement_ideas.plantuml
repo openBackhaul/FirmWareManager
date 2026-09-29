@@ -34,8 +34,8 @@ activate indServ
   indServ <-- listCcs: [updatedMountName]
   deactivate listCcs
 
-  group partially parallel execution of each updatedMountName
-    indServ -> updateCc
+  group partially parallel execution for each updatedMountName
+    indServ -> updateCc: updatedMountName
     activate updateCc
       note over updateCc
         Updates Device

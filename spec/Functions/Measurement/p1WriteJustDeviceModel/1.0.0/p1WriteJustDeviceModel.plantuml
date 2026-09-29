@@ -1,0 +1,29 @@
+@startuml p1WriteJustDeviceModel
+skinparam responseMessageBelowArrow true
+
+title
+  p1WriteJustDeviceModel
+end title
+
+participant "requestor\n" as requestor
+participant "p1WriteJustDeviceModel\n" as indServ
+
+database "OperationalDS" as OpDS
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Extracts deviceModel
+    from CC
+  end note
+  note over indServ
+    Writes deviceModel
+    into OperationalDS
+  end note
+  indServ -> OpDS: deviceModel
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

@@ -5,7 +5,7 @@ Updates a Device in the OperationalDS.
 ## Diagram
 
 <p align="center">
-  <img src="./p1UpdateDevice.png" alt="p1UpdateDevice diagram" width="320 />
+  <img src="./p1UpdateDevice.png" alt="p1UpdateDevice diagram" width="320"/>
 </p>
 
 ## Interface

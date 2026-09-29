@@ -12,10 +12,6 @@ participant "p1UpdateDevice\n" as updateCc
 
 requestor -> indServ
 activate indServ
-  note over indServ
-    Updates
-    OperationalDS
-  end note
 
   indServ -> listCcs
   activate listCcs

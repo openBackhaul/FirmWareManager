@@ -16,13 +16,10 @@ database "ErrorList" as hEL
 
 requestor -> indServ: updatedMountName
 activate indServ
-  note over indServ
-    Updates Device
-    in OperationalDS
-  end note
 
   note over indServ
     Reads updated CC
+    from MWDI
   end note
   indServ -> Mwdi: updatedMountName
   activate Mwdi
@@ -41,26 +38,20 @@ activate indServ
     }
   end note
 
-  note over indServ
-    Updates hardware info
-  end note
   indServ -> updateHw: updatedMountName,\nCC
   activate updateHw
     note over updateHw
-      Updates device model
+      Updates deviceModel
       specific hardware
       dependencies
     end note
   indServ <-- updateHw
   deactivate updateHw
 
-  note over indServ
-    Updates firmware info
-  end note
   indServ -> updateFw: updatedMountName,\nCC
   activate updateFw
     note over updateFw
-      Updates device model
+      Updates deviceModel
       specific firmware
       composition
     end note
@@ -68,7 +59,7 @@ activate indServ
   deactivate updateFw
 
   note over indServ
-    Updates lastUpdate
+    Overwrites lastUpdate
     with current timestamp
   end note
   indServ -> OpDS: lastUpdate

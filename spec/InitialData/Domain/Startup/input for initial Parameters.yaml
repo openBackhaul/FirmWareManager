@@ -1,0 +1,12 @@
+
+# oder sollte es JSON sein? oder beides?
+
+
+| FunctionName             | ParameterName | Value                  |
+|--------------------------|---------------|------------------------|
+|p1TrimHistoricalErrorList | maximumLength | 100                    |
+|p1UpdateHw                | OptiXRTN950N  | p1WriteJustDeviceModel |
+|p1UpdateHw                | OptiXRTN9052E | p1WriteJustDeviceModel |
+|p1UpdateHw                | OptiXRTN380AX | p1WriteJustDeviceModel |
+|p1UpdateHw                | OptiXRTN9052F | p1WriteJustDeviceModel |
+|p1UpdateHw                | OptiXRTN6900  | p1WriteJustDeviceModel |

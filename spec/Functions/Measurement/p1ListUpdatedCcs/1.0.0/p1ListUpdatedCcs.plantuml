@@ -10,16 +10,13 @@ participant "p1ListUpdatedCcs\n" as indServ
 
 database "MWDI" as Mwdi
 
-note over requestor
-  Updates
-  OperationalDS
-end note
-
 requestor -> indServ
 activate indServ
   note over indServ
-    Lists CCs that are
-    updated in MWDI
+    Lists CCs that have
+    been updated in MWDI
+    since last update of
+    OperationalDS
   end note
   note over indServ #Orange
     Details to be defined
