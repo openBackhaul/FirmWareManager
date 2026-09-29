@@ -1,0 +1,35 @@
+list-updated-ccs:
+  type: object
+  required:
+    - es-name
+  properties:
+    es-name:
+      type: string
+      enum:
+        - 'mwdiEsClient'
+      description: > 
+        'The esName of the MWDI ElasticSearch client'
+
+  es-address:
+    type: object
+    description: >
+      'The MWDI ElasticSearch address
+      from [/domain-controller/es-address=es-name]'
+
+  # TODO: how limit the info about updated CCs in time context
+  # domain controller stores info about the last update timestamp
+  # possibly here everything that is newer in MWDI as that timestamp
+  # is to be considered
+  last-extraction-timestamp:
+    type: string
+    description: >
+      'TODO: tb defined
+      possibly init with some default'
+
+  updated-mount-name-list:
+    type: array
+    description: >
+      'List of updated mountNames read from MWDI
+      from {retrieveListOfMountNames.output#}'
+    items:
+      type: string
