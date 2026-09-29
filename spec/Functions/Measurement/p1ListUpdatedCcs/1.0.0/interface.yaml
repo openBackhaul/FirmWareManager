@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: p1ListUpdatedCcs
+  version: 1.0.0
+
+x-javascript-interface:
+  p1ListUpdatedCcs:
+    summary: 'Lists the updated mountNames read from MWDI'
+    output:
+      success:
+        description: >
+          'List of updatedMount names returned'
+        content:
+          application/json:
+            schema:
+              type: array
+              description: >
+                'List of updated mountNames
+                from [/list-updated-ccs/updated-mount-name-list]'
+      error:
+        description: 'List of updated mountNames could not be returned'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'Mwdi access error'
+                - 'general processing error'
+    processing:
+      retrieveListOfMountNames:
+        description: >
+          'Reads the list of updated mountNames from MWDI ElasticSearch client'
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+              required:
+                es-address
+                last-extraction-timestamp
+              properties:
+                es-address:
+                  type: object
+                  description: >
+                    'The MWDI ElasticSearch address
+                    from [/list-updated-ccs/es-address]'
+                last-extraction-timestamp:
+                  type: string
+                  description: >
+                    'Only those mountNames are to be considered for the output,
+                    which have been updated at a newer timestamp than lastExtractionTimestamp,
+                    from [/list-updated-ccs/last-extraction-timestamp]'
+          output:
+            success:
+              description: 'Device list read'
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      type: string
+                    description: >
+                      'List of mountNames of all recently updated devices from MWDI'
+            error:
+              description: 'Device list could not be read'
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    enum:
+                      - 'es-address not provided'
+                      - 'es-address invalid'
+                      - 'ElasticSearch read error'
+                      - 'general processing error'
