@@ -14,6 +14,7 @@ participant "p1WriteJust\nDeviceModel" as writeModel
 participant "p1UpdateFw\n" as updateFw
 participant "p1Extract\nActivatable" as extractAct
 
+database "DomainController" as DC
 database "OperationalDS" as OpDS
 database "MWDI" as Mwdi
 
@@ -62,16 +63,17 @@ activate indServ
 
         note over updateHw
           Extracts deviceModel
+          from CC
         end note
 
         note over updateHw
           Reads name of extraction
           function from Parameters
         end note
-        updateHw -> OpDS: deviceModel
-        activate OpDS
-        updateHw <-- OpDS: functionName
-        deactivate OpDS
+        updateHw -> DC: deviceModel
+        activate DC
+        updateHw <-- DC: functionName
+        deactivate DC
         note over updateFw #White
           Parameters cannot define set of input parameters.
           All functions get called with updatedMountName and CC.
@@ -86,6 +88,7 @@ activate indServ
         activate writeModel
           note over writeModel
             Extracts deviceModel
+            from CC
           end note
           note over writeModel
             Writes deviceModel
@@ -110,16 +113,17 @@ activate indServ
 
         note over updateFw
           Extracts deviceModel
+          from CC
         end note
 
         note over updateFw
           Reads name of extraction
           function from Parameters
         end note
-        updateFw -> OpDS: deviceModel
-        activate OpDS
-        updateFw <-- OpDS: functionName
-        deactivate OpDS
+        updateFw -> DC: deviceModel
+        activate DC
+        updateFw <-- DC: functionName
+        deactivate DC
         note over updateHw #White
           Parameters cannot define set of input parameters.
           All functions get called with updatedMountName and CC.
@@ -134,7 +138,7 @@ activate indServ
         activate extractAct
           note over extractAct
             Extracts activatable
-            firmware
+            firmware from CC
           end note
           note over extractAct
             Converts firmware info

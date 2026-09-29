@@ -42,6 +42,7 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 | . p1ListUpdatedCcs           |     | 1)  |     |     |     |     |
 | . p1UpdateDevice             | Th  | Th  |     |     |     |     |
 | .. p1UpdateHw                |     |     |     |     |     |     |
+| ... p1WriteJustDeviceModel   |     |     |     |     |     |     |
 | .. p1UpdateFw                |     |     |     |     |     |     |
 | ... p1ExtractActivatable     |     |     |     |     |     |     |
 |                              |     |     |     |     |     |     |
