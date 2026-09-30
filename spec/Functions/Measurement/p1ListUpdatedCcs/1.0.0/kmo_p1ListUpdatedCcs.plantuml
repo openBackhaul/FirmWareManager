@@ -1,8 +1,8 @@
-@startuml p1ListUpdatedCcs
+@startuml kmo_p1ListUpdatedCcs
 skinparam responseMessageBelowArrow true
 
 title
-  p1ListUpdatedCcs
+  kmo_p1ListUpdatedCcs
 end title
 
 participant "requestor\n" as requestor

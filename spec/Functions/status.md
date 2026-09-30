@@ -43,8 +43,8 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 | . p1UpdateDevice             | Th  | Th  | Ka  |     |     |     |
 | .. p1UpdateHw                | Th  | Th  | Ka  |     |     |     |
 | ... p1WriteJustDeviceModel   | Th  | Th  | Ka  |     |     |     |
-| .. p1UpdateFw                | Th  | Th  |     |     |     |     |
-| ... p1ExtractActivatable     | Th  | Th  |     |     |     |     |
+| .. p1UpdateFw                | Th  | Th  | Ka  |     |     |     |
+| ... p1ExtractActivatable     | Th  | Th  | Ka  |     |     |     |
 
 ### Administrative
 
