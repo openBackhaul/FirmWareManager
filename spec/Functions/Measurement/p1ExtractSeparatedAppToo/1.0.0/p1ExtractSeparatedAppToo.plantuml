@@ -1,0 +1,76 @@
+@startuml p1ExtractSeparatedAppToo
+skinparam responseMessageBelowArrow true
+
+title
+  p1ExtractSeparatedAppToo
+end title
+
+participant "requestor\n" as requestor
+participant "p1ExtractSeparatedAppToo\n" as indServ
+
+database "OperationalDS" as OpDS
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Instantiates [updatedFirmwareList]
+    Instantiates [updatedApplicationFirmwareList]
+  end note
+
+  loop for each FirmwareComponent in CC
+
+    note over indServ
+      IF ( individualActivationIsAvail==true AND
+        firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE )
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      creates new entry in [updatedFirmwareList]
+      with name=firmwareComponentName
+      version=firmwareComponentVersion
+      status=firmwareComponentStatus
+    end note
+    note right indServ
+      }
+    end note
+
+    note over indServ
+      IF ( individualActivationIsAvail==true AND
+        firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_APPLICATION_SOFTWARE )
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      creates new entry in [updatedApplicationFirmwareList]
+      with name=firmwareComponentName
+      version=firmwareComponentVersion
+      status=firmwareComponentStatus
+    end note
+    note right indServ
+      }
+    end note
+
+  end loop
+
+  note over indServ
+    Overwrites existing [firmwareList]
+    in OperationalDS with contents of
+    [updatedFirmwareList]
+  end note
+  indServ -> OpDS: [firmwareList]
+
+  note over indServ
+    Overwrites existing [applicationFirmwareList]
+    in OperationalDS with contents of
+    [updatedApplicationFirmwareList]
+  end note
+  indServ -> OpDS: [applicationFirmwareList]
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

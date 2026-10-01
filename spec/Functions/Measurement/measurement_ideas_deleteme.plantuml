@@ -10,10 +10,9 @@ participant "p1MeasureDomain\n" as indServ
 participant "p1ListUpdatedCcs\n" as listCcs
 participant "p1UpdateDevice\n" as updateCc
 participant "p1UpdateHw\n" as updateHw
-participant "<i>functionName</i>\n" as extractHw
+participant "p1WriteJust\nDeviceModel" as writeModel
 participant "p1UpdateFw\n" as updateFw
 participant "p1Extract\nActivatable" as extractAct
-participant "<i>functionName</i>\n" as extractFw
 
 database "DomainController" as DC
 database "OperationalDS" as OpDS
@@ -66,11 +65,6 @@ activate indServ
           Extracts deviceModel
           from CC
         end note
-        note over updateHw
-          Writes deviceModel
-          into OperationalDS
-        end note
-        updateHw -> OpDS: deviceModel
 
         note over updateHw
           Reads name of extraction
@@ -90,15 +84,19 @@ activate indServ
           extract hardware info
           and update OperationalDS
         end note
-        updateHw -> extractHw: updatedMountName,\nCC
-        activate extractHw
-          note over extractHw
-            Extracts hardware info
-            from CC and writes it
+        updateHw -> writeModel: updatedMountName,\nCC
+        activate writeModel
+          note over writeModel
+            Extracts deviceModel
+            from CC
+          end note
+          note over writeModel
+            Writes deviceModel
             into OperationalDS
           end note
-        updateHw <-- extractHw
-        deactivate extractHw
+          writeModel -> OpDS: deviceModel
+        updateHw <-- writeModel
+        deactivate writeModel
       updateCc <-- updateHw
       deactivate updateHw
 
@@ -136,15 +134,22 @@ activate indServ
           extract firmware info
           and update OperationalDS
         end note
-        updateFw -> extractFw: updatedMountName,\nCC
-        activate extractFw
-          note over extractFw
-            Extracts firmware info
-            from CC and writes it
-            into OperationalDS
+        updateFw -> extractAct: updatedMountName,\nCC
+        activate extractAct
+          note over extractAct
+            Extracts activatable
+            firmware from CC
           end note
-        updateFw <-- extractFw
-        deactivate extractFw
+          note over extractAct
+            Converts firmware info
+            into [firmwareList]
+          end note
+          note over extractAct
+            Writes [firmwareList]
+          end note
+          extractAct -> OpDS: [firmwareList]
+        updateFw <-- extractAct
+        deactivate extractAct
       updateCc <-- updateFw
       deactivate updateFw
 

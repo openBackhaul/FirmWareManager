@@ -124,7 +124,10 @@ Internal design aspects:
 - [p1UpdateDevice](./Functions/Measurement/p1UpdateDevice/1.0.0/)
 - [p1UpdateHw](./Functions/Measurement/p1UpdateHw/1.0.0/)
 - [p1UpdateFw](./Functions/Measurement/p1UpdateFw/1.0.0/)
-- [p1ExtractActivatable](./Functions/Measurement/p1ExtractActivatable/1.0.0/)
+- [p1ExtractSingleFirmware](./Functions/Measurement/p1ExtractSingleFirmware/1.0.0/)
+- [p1ExtractSeparatedNpuRauToo](./Functions/Measurement/p1ExtractSeparatedNpuRauToo/1.0.0/)
+- [p1ExtractSeparatedAppToo](./Functions/Measurement/p1ExtractSeparatedAppToo/1.0.0/)
+- [p1ExtractSeparatedBootWebOduToo](./Functions/Measurement/p1ExtractSeparatedBootWebOduToo/1.0.0/)
 
 #### Monitoring
 

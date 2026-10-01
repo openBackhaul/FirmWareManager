@@ -1,0 +1,101 @@
+@startuml p1ExtractSeparatedNpuRauToo
+skinparam responseMessageBelowArrow true
+
+title
+  p1ExtractSeparatedNpuRauToo
+end title
+
+participant "requestor\n" as requestor
+participant "p1ExtractSeparatedNpuRauToo\n" as indServ
+
+database "OperationalDS" as OpDS
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Instantiates [updatedFirmwareList]
+    Instantiates [updatedControllerFirmwareList]
+    Instantiates [updatedOduFirmwareList]
+  end note
+
+  loop for each FirmwareComponent in CC
+
+    note over indServ
+      IF ( individualActivationIsAvail==true AND
+        firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE )
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      creates new entry in [updatedFirmwareList]
+      with name=firmwareComponentName
+      version=firmwareComponentVersion
+      status=firmwareComponentStatus
+    end note
+    note right indServ
+      }
+    end note
+
+    note over indServ
+      IF ( individualActivationIsAvail==true AND
+        relatedKindsOfEquipmentList==[NPU3 C] )
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      creates new entry in [updatedControllerFirmwareList]
+      with name=firmwareComponentName
+      version=firmwareComponentVersion
+      status=firmwareComponentStatus
+    end note
+    note right indServ
+      }
+    end note
+
+    note over indServ
+      IF ( individualActivationIsAvail==true AND
+        relatedKindsOfEquipmentList==[RAU] )
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      creates new entry in [updatedOduFirmwareList]
+      with name=firmwareComponentName
+      version=firmwareComponentVersion
+      status=firmwareComponentStatus
+    end note
+    note right indServ
+      }
+    end note
+
+  end loop
+
+  note over indServ
+    Overwrites existing [firmwareList]
+    in OperationalDS with contents of
+    [updatedFirmwareList]
+  end note
+  indServ -> OpDS: [firmwareList]
+
+  note over indServ
+    Overwrites existing [controllerFirmwareList]
+    in OperationalDS with contents of
+    [updatedControllerFirmwareList]
+  end note
+  indServ -> OpDS: [controllerFirmwareList]
+
+  note over indServ
+    Overwrites existing [oduFirmwareList]
+    in OperationalDS with contents of
+    [updatedOduFirmwareList]
+  end note
+  indServ -> OpDS: [oduFirmwareList]
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

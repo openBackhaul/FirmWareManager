@@ -1,0 +1,127 @@
+@startuml p1ExtractSeparatedBootWebOduToo
+skinparam responseMessageBelowArrow true
+
+title
+  p1ExtractSeparatedBootWebOduToo
+end title
+
+participant "requestor\n" as requestor
+participant "p1ExtractSeparatedBootWebOduToo\n" as indServ
+
+database "OperationalDS" as OpDS
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Instantiates [updatedFirmwareList]
+    Instantiates [updatedBootFirmwareList]
+    Instantiates [updatedWebServerList]
+    Instantiates [updatedOduFirmwareList]
+  end note
+
+  loop for each FirmwareComponent in CC
+
+    note over indServ
+      IF ( individualActivationIsAvail==true AND
+        firmwareComponentName.substring(0,3)==IDU )
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      creates new entry in [updatedFirmwareList]
+      with name=firmwareComponentName
+      version=firmwareComponentVersion
+      status=firmwareComponentStatus
+    end note
+    note right indServ
+      }
+    end note
+
+    note over indServ
+      IF ( individualActivationIsAvail==true AND
+        firmwareComponentName.substring(0,3)==Boo )
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      creates new entry in [updatedBootFirmwareList]
+      with name=firmwareComponentName
+      version=firmwareComponentVersion
+      status=firmwareComponentStatus
+    end note
+    note right indServ
+      }
+    end note
+
+    note over indServ
+      IF ( individualActivationIsAvail==true AND
+        firmwareComponentName.substring(0,3)==Web )
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      creates new entry in [updatedWebServerList]
+      with name=firmwareComponentName
+      version=firmwareComponentVersion
+      status=firmwareComponentStatus
+    end note
+    note right indServ
+      }
+    end note
+
+    note over indServ
+      IF ( individualActivationIsAvail==true AND
+        (firmwareComponentName.substring(0,3)==Rad OR
+        firmwareComponentName.substring(0,3)==ODU) )
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      creates new entry in [updatedOduFirmwareList]
+      with name=firmwareComponentName
+      version=firmwareComponentVersion
+      status=firmwareComponentStatus
+    end note
+    note right indServ
+      }
+    end note
+
+  end loop
+
+  note over indServ
+    Overwrites existing [firmwareList]
+    in OperationalDS with contents of
+    [updatedFirmwareList]
+  end note
+  indServ -> OpDS: [firmwareList]
+
+  note over indServ
+    Overwrites existing [bootFirmwareList]
+    in OperationalDS with contents of
+    [updatedBootFirmwareList]
+  end note
+  indServ -> OpDS: [bootFirmwareList]
+
+  note over indServ
+    Overwrites existing [webServerList]
+    in OperationalDS with contents of
+    [updatedWebServerList]
+  end note
+  indServ -> OpDS: [webServerList]
+
+  note over indServ
+    Overwrites existing [oduFirmwareList]
+    in OperationalDS with contents of
+    [updatedOduFirmwareList]
+  end note
+  indServ -> OpDS: [oduFirmwareList]
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

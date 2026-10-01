@@ -31,7 +31,7 @@ activate indServ
   deactivate DC
   note over indServ
     IF failed OR 
-      functionName=="" or null:
+      functionName==null:
   end note
   note right indServ
     THEN {
@@ -39,6 +39,16 @@ activate indServ
   indServ -> hEL: {functionName="p1UpdateFw",\nerrorMessage1}
   requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
   note right indServ
+    }
+  end note
+  note over indServ
+    IF functionName=="":
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: 204
+  note left indServ
     }
   end note
 
@@ -54,7 +64,8 @@ activate indServ
   activate extrFunc
     note over extrFunc
       Extracts firmware info
-      and updates OperationalDS
+      from CC and writes it
+      into OperationalDS
     end note
   indServ <-- extrFunc
   deactivate extrFunc

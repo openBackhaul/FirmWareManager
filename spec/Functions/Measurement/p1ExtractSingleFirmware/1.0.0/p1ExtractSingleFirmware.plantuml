@@ -1,12 +1,12 @@
-@startuml p1ExtractActivatable
+@startuml p1ExtractSingleFirmware
 skinparam responseMessageBelowArrow true
 
 title
-  p1ExtractActivatable
+  p1ExtractSingleFirmware
 end title
 
 participant "requestor\n" as requestor
-participant "p1ExtractActivatable\n" as indServ
+participant "p1ExtractSingleFirmware\n" as indServ
 
 database "OperationalDS" as OpDS
 

@@ -36,15 +36,17 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 ### Measurement
 
-| Function                     |  1  |  2  |  3  |  4  |  5  |  6  |
-|------------------------------|-----|-----|-----|-----|-----|-----|
-| p1MeasureDomain              | Th  | Th  | Ka  |     |     |     |
-| . p1ListUpdatedCcs           |     | 1)  |     |     |     |     |
-| . p1UpdateDevice             | Th  | Th  | Ka  |     |     |     |
-| .. p1UpdateHw                | Th  | Th  | Ka  |     |     |     |
-| ... p1WriteJustDeviceModel   | Th  | Th  | Ka  |     |     |     |
-| .. p1UpdateFw                | Th  | Th  | Ka  |     |     |     |
-| ... p1ExtractActivatable     | Th  | Th  | Ka  |     |     |     |
+| Function                            |  1  |  2  |  3  |  4  |  5  |  6  |
+|-------------------------------------|-----|-----|-----|-----|-----|-----|
+| p1MeasureDomain                     | Th  | Th  | Ka  |     |     |     |
+| . p1ListUpdatedCcs                  |     | 1)  |     |     |     |     |
+| . p1UpdateDevice                    | Th  | Th  | Ka  |     |     |     |
+| .. p1UpdateHw                       | Th  | Th  | Ka  |     |     |     |
+| .. p1UpdateFw                       | Th  | Th  | Ka  |     |     |     |
+| ... p1ExtractSingleFirmware         | Th  | Th  | Ka  |     |     |     |
+| ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     |     |     |     |
+| ... p1ExtractSeparatedAppToo        | Th  | Th  |     |     |     |     |
+| ... p1ExtractSeparatedBootWebOduToo | Th  | Th  |     |     |     |     |
 
 ### Administrative
 
