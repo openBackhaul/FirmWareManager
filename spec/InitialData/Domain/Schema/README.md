@@ -48,5 +48,5 @@ The following prompt provided the best results for the transformation:
 ```text
 Update the data tree in informationStructure.yaml from the information documented in FirmWareManager.uml.
 Regard the structure defined by the existing examples in informationStructure.yaml.
-Transfer the exact wording from the FirmWareManager.uml to the description statements in the informationStructure.yaml, except for the " Pattern:" that shall be transferred into separate pattern statements.
+Transfer the exact wording from the FirmWareManager.uml to the description statements in the informationStructure.yaml, except for the ". Pattern:" that shall be transferred into separate pattern statements.
 ```

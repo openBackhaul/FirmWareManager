@@ -7,6 +7,7 @@ domain-controller:
     - validation-sequence
     - pulser
     - to-do-code
+    - to-do
     - network-control-domain
   properties:
     es-address:
@@ -199,8 +200,28 @@ domain-controller:
             description: 'Only applicable for internal ToDoCodes. Ordered array of Strings referencing entries in the list of Functions. Only Functions for task==implementation are allowed to be referenced. Ideally, each internal code would be handled by a function or a sequence of functions. The order of the entries defines the order of execution'
             items:
               type: string
+    to-do:
+      type: array
+      x-key: affected-device
+      description: 'List of current divergences between RunningDS and OperationalDS'
+      items:
+        type: object
+        required:
+          - affected-device
+          - to-do-code
+        properties:
+          affected-device:
+            type: string
+            description: 'Unique and invariant reference towards an entry in the list of Devices (OperationalDS). Identifies the device which needs to be addressed by ImplementationFunctions to correct some divergence between RunningDS and OperationalDS'
+          to-do-code:
+            type: array
+            description: 'Reference towards one or several entries in the list of codes for associating a divergence between OperationalDS and RunningDS with a sequence of ImplementationFunctions to resolve it'
+            items:
+              type: string
     network-control-domain:
       type: array
+      minItems: 4
+      maxItems: 4
       x-key: storage
       description: 'List of NetworkControlDomains managed by the DomainController'
       items:
@@ -353,34 +374,33 @@ domain-controller:
               type: object
               required:
                 - mount-name
+                - device-model
                 - last-update
               properties:
                 mount-name:
                   type: string
                   description: 'Unique and invariant mount name of the device at the controller'
+                device-model:
+                  type: string
+                  description: 'Invariant type of the device'
                 last-update:
                   type: string
                   description: 'Date on which the device was last measured. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
                   pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
-              discriminator:
-                propertyName: device-model
               oneOf:
-                - description: 'singleFirmwareComponentClass'
+                - description: >
+                    'singleFirmwarePackage'
+                     according to initial configuration to be used for:
+                      - OptiXRTN950N
+                      - OptiXRTN9052E
+                      - OptiXRTN380AX
+                      - OptiXRTN9052F
+                      - OptiXRTN6900
+                      - MINI-LINK 6352'
                   type: object
                   required:
-                    - device-model
                     - firmware-list
                   properties:
-                    device-model:
-                      type: string
-                      enum:
-                        - 'OptiXRTN950N'
-                        - 'OptiXRTN9052E'
-                        - 'OptiXRTN380AX'
-                        - 'OptiXRTN9052F'
-                        - 'OptiXRTN6900'
-                        - 'MINI-LINK 6352'
-                      description: 'Invariant type of the device'
                     firmware-list:
                       type: array
                       maxItems: 2
@@ -409,23 +429,48 @@ domain-controller:
                               - 'not-applicable'
                               - 'incomplete'
                               - 'not-yet-defined'
-                - description: 'separateOduFirmwareComponentClass'
+                - description: >
+                    'separatedNpuAndRau
+                     according to initial configuration to be used for:
+                      - MINI-LINK Traffic Node'
                   type: object
                   required:
-                    - device-model
                     - firmware-list
+                    - controller-firmware-list
                     - odu-firmware-list
                   properties:
-                    device-model:
-                      type: string
-                      enum:
-                        - 'MINI-LINK 6600'
-                        - 'MINI-LINK Traffic Node'
-                      description: 'Invariant type of the device'
                     firmware-list:
                       type: array
                       maxItems: 2
-                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true  AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE'
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE'
+                      items:
+                        type: object
+                        required:
+                          - name
+                          - version
+                          - status
+                        properties:
+                          name:
+                            type: string
+                            description: 'Name of the firmware component'
+                          version:
+                            type: string
+                            description: 'Version of the firmware component'
+                          status:
+                            type: string
+                            description: 'Status of the firmware. It is the administrative state in RunningDS and the operational state in OperationalDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'committed'
+                              - 'like-superior-firmware-component'
+                              - 'not-applicable'
+                              - 'incomplete'
+                              - 'not-yet-defined'
+                    controller-firmware-list:
+                      type: array
+                      maxItems: 1
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND relatedKindsOfEquipmentList==[NPU3 C]'
                       items:
                         type: object
                         required:
@@ -453,7 +498,195 @@ domain-controller:
                     odu-firmware-list:
                       type: array
                       maxItems: 1
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND relatedKindsOfEquipmentList==[RAU]'
+                      items:
+                        type: object
+                        required:
+                          - name
+                          - version
+                          - status
+                        properties:
+                          name:
+                            type: string
+                            description: 'Name of the firmware component'
+                          version:
+                            type: string
+                            description: 'Version of the firmware component'
+                          status:
+                            type: string
+                            description: 'Status of the firmware. It is the administrative state in RunningDS and the operational state in OperationalDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'committed'
+                              - 'like-superior-firmware-component'
+                              - 'not-applicable'
+                              - 'incomplete'
+                              - 'not-yet-defined'
+                - description: >
+                    'separatedApplication
+                     according to initial configuration to be used for:
+                      - MINI-LINK 6600'
+                  type: object
+                  required:
+                    - firmware-list
+                    - application-firmware-list
+                  properties:
+                    firmware-list:
+                      type: array
+                      maxItems: 2
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE'
+                      items:
+                        type: object
+                        required:
+                          - name
+                          - version
+                          - status
+                        properties:
+                          name:
+                            type: string
+                            description: 'Name of the firmware component'
+                          version:
+                            type: string
+                            description: 'Version of the firmware component'
+                          status:
+                            type: string
+                            description: 'Status of the firmware. It is the administrative state in RunningDS and the operational state in OperationalDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'committed'
+                              - 'like-superior-firmware-component'
+                              - 'not-applicable'
+                              - 'incomplete'
+                              - 'not-yet-defined'
+                    application-firmware-list:
+                      type: array
+                      maxItems: 1
                       description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_APPLICATION_SOFTWARE'
+                      items:
+                        type: object
+                        required:
+                          - name
+                          - version
+                          - status
+                        properties:
+                          name:
+                            type: string
+                            description: 'Name of the firmware component'
+                          version:
+                            type: string
+                            description: 'Version of the firmware component'
+                          status:
+                            type: string
+                            description: 'Status of the firmware. It is the administrative state in RunningDS and the operational state in OperationalDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'committed'
+                              - 'like-superior-firmware-component'
+                              - 'not-applicable'
+                              - 'incomplete'
+                              - 'not-yet-defined'
+                - description: >
+                    'separatedBootAndWebAndOdu
+                     according to initial configuration to be used for:
+                      - ALCplus2e
+                      - AGS20'
+                  type: object
+                  required:
+                    - firmware-list
+                    - boot-firmware-list
+                    - web-server-list
+                    - odu-firmware-list
+                  properties:
+                    firmware-list:
+                      type: array
+                      maxItems: 2
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentName.substring(0,3)==IDU'
+                      items:
+                        type: object
+                        required:
+                          - name
+                          - version
+                          - status
+                        properties:
+                          name:
+                            type: string
+                            description: 'Name of the firmware component'
+                          version:
+                            type: string
+                            description: 'Version of the firmware component'
+                          status:
+                            type: string
+                            description: 'Status of the firmware. It is the administrative state in RunningDS and the operational state in OperationalDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'committed'
+                              - 'like-superior-firmware-component'
+                              - 'not-applicable'
+                              - 'incomplete'
+                              - 'not-yet-defined'
+                    boot-firmware-list:
+                      type: array
+                      maxItems: 1
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentName.substring(0,3)==Boo'
+                      items:
+                        type: object
+                        required:
+                          - name
+                          - version
+                          - status
+                        properties:
+                          name:
+                            type: string
+                            description: 'Name of the firmware component'
+                          version:
+                            type: string
+                            description: 'Version of the firmware component'
+                          status:
+                            type: string
+                            description: 'Status of the firmware. It is the administrative state in RunningDS and the operational state in OperationalDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'committed'
+                              - 'like-superior-firmware-component'
+                              - 'not-applicable'
+                              - 'incomplete'
+                              - 'not-yet-defined'
+                    web-server-list:
+                      type: array
+                      maxItems: 1
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentName.substring(0,3)==Web'
+                      items:
+                        type: object
+                        required:
+                          - name
+                          - version
+                          - status
+                        properties:
+                          name:
+                            type: string
+                            description: 'Name of the firmware component'
+                          version:
+                            type: string
+                            description: 'Version of the firmware component'
+                          status:
+                            type: string
+                            description: 'Status of the firmware. It is the administrative state in RunningDS and the operational state in OperationalDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'committed'
+                              - 'like-superior-firmware-component'
+                              - 'not-applicable'
+                              - 'incomplete'
+                              - 'not-yet-defined'
+                    odu-firmware-list:
+                      type: array
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND (firmwareComponentName.substring(0,3)==Rad OR firmwareComponentName.substring(0,3)==ODU)'
                       items:
                         type: object
                         required:

@@ -86,6 +86,27 @@
           </eAnnotations>
           <ownedEnd xmi:type="uml:Property" xmi:id="_fsen8ZSjEfGarpAJ9uU5dg" name="errorcode" type="_YusL4JSiEfGarpAJ9uU5dg" association="_fsdZ0JSjEfGarpAJ9uU5dg"/>
         </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_Xl7GILzoEfG8wPZmTF6O_Q" name="toDo" memberEnd="_Xl7GI7zoEfG8wPZmTF6O_Q _Xl7GJrzoEfG8wPZmTF6O_Q">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Xl7GIbzoEfG8wPZmTF6O_Q" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Xl7GIrzoEfG8wPZmTF6O_Q" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_Xl7GJrzoEfG8wPZmTF6O_Q" name="domaincontroller" type="_LfgvAHe9EfGlWY1xE4O3hg" association="_Xl7GILzoEfG8wPZmTF6O_Q"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_4IhgkLzmEfG8wPZmTF6O_Q" name="&lt;&lt;key>> affectedDevice" memberEnd="_4IrRkrzmEfG8wPZmTF6O_Q _4I23wLzmEfG8wPZmTF6O_Q">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4IrRkLzmEfG8wPZmTF6O_Q" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_4IrRkbzmEfG8wPZmTF6O_Q" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_4I23wLzmEfG8wPZmTF6O_Q" name="todolist" type="_jipowLzmEfG8wPZmTF6O_Q" association="_4IhgkLzmEfG8wPZmTF6O_Q"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_AbmpsLzqEfG8wPZmTF6O_Q" name="toDoCode" memberEnd="_AbpF8LzqEfG8wPZmTF6O_Q _Abq7ILzqEfG8wPZmTF6O_Q">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Aboe4LzqEfG8wPZmTF6O_Q" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Aboe4bzqEfG8wPZmTF6O_Q" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_Abq7ILzqEfG8wPZmTF6O_Q" name="todo" type="_jipowLzmEfG8wPZmTF6O_Q" association="_AbmpsLzqEfG8wPZmTF6O_Q">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZBcXALzqEfG8wPZmTF6O_Q"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZBy8ULzqEfG8wPZmTF6O_Q" value="*"/>
+          </ownedEnd>
+        </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_Q7M4EJcsEfGarpAJ9uU5dg" name="networkControlDomain" memberEnd="_Q7NfIpcsEfGarpAJ9uU5dg _Q7OtQJcsEfGarpAJ9uU5dg">
           <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Q7NfIJcsEfGarpAJ9uU5dg" source="org.eclipse.papyrus">
             <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Q7NfIZcsEfGarpAJ9uU5dg" key="nature" value="UML_Nature"/>
@@ -95,12 +116,6 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_h7JWYJSMEfGarpAJ9uU5dg" name="Diagrams">
         <ownedComment xmi:type="uml:Comment" xmi:id="_cSVscLcKEfGugp3kck48_g"/>
-        <ownedComment xmi:type="uml:Comment" xmi:id="_LhltcLdJEfGn58Tn7g6Quw">
-          <body>ToDoList&#xD;
--------------------------------&#xD;
-_affectedDevice: Device [1]&#xD;
-toDoCode: Integer [1]</body>
-        </ownedComment>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_OdJFkJSMEfGarpAJ9uU5dg" name="ObjectClasses">
         <packagedElement xmi:type="uml:Class" xmi:id="_LfgvAHe9EfGlWY1xE4O3hg" name="DomainController">
@@ -145,6 +160,13 @@ toDoCode: Integer [1]</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AdsMgJSqEfGarpAJ9uU5dg"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ad5A0JSqEfGarpAJ9uU5dg" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_Xl7GI7zoEfG8wPZmTF6O_Q" name="_toDo" type="_jipowLzmEfG8wPZmTF6O_Q" isUnique="false" aggregation="composite" association="_Xl7GILzoEfG8wPZmTF6O_Q">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_AsVCwLzpEfG8wPZmTF6O_Q" annotatedElement="_Xl7GI7zoEfG8wPZmTF6O_Q">
+              <body>List of current divergences between RunningDS and OperationalDS</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dL_WwLzoEfG8wPZmTF6O_Q"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dMKV4LzoEfG8wPZmTF6O_Q" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_Q7NfIpcsEfGarpAJ9uU5dg" name="_networkControlDomain" type="_Etx48JcsEfGarpAJ9uU5dg" isUnique="false" aggregation="composite" association="_Q7M4EJcsEfGarpAJ9uU5dg">
             <ownedComment xmi:type="uml:Comment" xmi:id="_0TuE0JcsEfGarpAJ9uU5dg" annotatedElement="_Q7NfIpcsEfGarpAJ9uU5dg">
@@ -331,6 +353,20 @@ toDoCode: Integer [1]</body>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-74tAJx0EfGVBaRc8l0nOQ" value="*"/>
           </ownedAttribute>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_jipowLzmEfG8wPZmTF6O_Q" name="ToDo">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_4IrRkrzmEfG8wPZmTF6O_Q" name="_affectedDevice" type="_KzOCoJcrEfGarpAJ9uU5dg" aggregation="shared" association="_4IhgkLzmEfG8wPZmTF6O_Q">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_QlJyELzoEfG8wPZmTF6O_Q" annotatedElement="_4IrRkrzmEfG8wPZmTF6O_Q">
+              <body>Unique and invariant reference towards an entry in the list of Devices (OperationalDS). Identifies the device which needs to be addressed by ImplementationFunctions to correct some divergence between RunningDS and OperationalDS</body>
+            </ownedComment>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_AbpF8LzqEfG8wPZmTF6O_Q" name="toDoCode" type="_YusL4JSiEfGarpAJ9uU5dg" isUnique="false" aggregation="shared" association="_AbmpsLzqEfG8wPZmTF6O_Q">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_cP5QALzqEfG8wPZmTF6O_Q" annotatedElement="_AbpF8LzqEfG8wPZmTF6O_Q">
+              <body>Reference towards one or several entries in the list of codes for associating a divergence between OperationalDS and RunningDS with a sequence of ImplementationFunctions to resolve it</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CGNKULzqEfG8wPZmTF6O_Q"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CGNKUbzqEfG8wPZmTF6O_Q" value="*"/>
+          </ownedAttribute>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_QQF_AJSOEfGarpAJ9uU5dg" name="TypeDefinitions">
         <packagedElement xmi:type="uml:DataType" xmi:id="_-auLgLWgEfGugp3kck48_g" name="ErrorType">
@@ -450,14 +486,22 @@ toDoCode: Integer [1]</body>
           </eAnnotations>
           <ownedEnd xmi:type="uml:Property" xmi:id="_LLqMMJf5EfGarpAJ9uU5dg" name="devicegroup" type="_wO6R4Jf4EfGarpAJ9uU5dg" association="_LLnv8Jf5EfGarpAJ9uU5dg"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Abstraction" xmi:id="_NyQ48LwSEfG8wPZmTF6O_Q" client="_bU0UcLwREfG8wPZmTF6O_Q" supplier="_KzOCoJcrEfGarpAJ9uU5dg"/>
         <packagedElement xmi:type="uml:Constraint" xmi:id="_UTdVELwSEfG8wPZmTF6O_Q" name="When" constrainedElement="_NyQ48LwSEfG8wPZmTF6O_Q">
           <specification xmi:type="uml:LiteralString" xmi:id="_UTd8ILwSEfG8wPZmTF6O_Q" name="constraintSpec" value="deviceModel='OptiXRTN950N' OR 'OptiXRTN9052E' OR 'OptiXRTN380AX' OR 'OptiXRTN9052F' OR 'OptiXRTN6900' OR 'MINI-LINK 6352'"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Abstraction" xmi:id="_CS660LyhEfG8wPZmTF6O_Q" client="_UYBJ4LyfEfG8wPZmTF6O_Q" supplier="_KzOCoJcrEfGarpAJ9uU5dg"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_NyQ48LwSEfG8wPZmTF6O_Q" client="_bU0UcLwREfG8wPZmTF6O_Q" supplier="_KzOCoJcrEfGarpAJ9uU5dg"/>
         <packagedElement xmi:type="uml:Constraint" xmi:id="_a2fXQLyhEfG8wPZmTF6O_Q" name="When" constrainedElement="_CS660LyhEfG8wPZmTF6O_Q">
-          <specification xmi:type="uml:LiteralString" xmi:id="_a2fXQbyhEfG8wPZmTF6O_Q" name="constraintSpec" value="deviceModel='MINI-LINK 6600' OR 'MINI-LINK Traffic Node'"/>
+          <specification xmi:type="uml:LiteralString" xmi:id="_a2fXQbyhEfG8wPZmTF6O_Q" name="constraintSpec" value="deviceModel='MINI-LINK Traffic Node'"/>
         </packagedElement>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_CS660LyhEfG8wPZmTF6O_Q" client="_UYBJ4LyfEfG8wPZmTF6O_Q" supplier="_KzOCoJcrEfGarpAJ9uU5dg"/>
+        <packagedElement xmi:type="uml:Constraint" xmi:id="_D1R50L1vEfG8wPZmTF6O_Q" name="When" constrainedElement="_291tUL1uEfG8wPZmTF6O_Q">
+          <specification xmi:type="uml:LiteralString" xmi:id="_D1Sg4L1vEfG8wPZmTF6O_Q" name="constraintSpec" value="deviceModel='MINI-LINK 6600'"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_291tUL1uEfG8wPZmTF6O_Q" client="_lvHXgL1uEfG8wPZmTF6O_Q" supplier="_KzOCoJcrEfGarpAJ9uU5dg"/>
+        <packagedElement xmi:type="uml:Constraint" xmi:id="_6zAZUL10EfG8wPZmTF6O_Q" name="When" constrainedElement="_wfPDcL10EfG8wPZmTF6O_Q">
+          <specification xmi:type="uml:LiteralString" xmi:id="_6zBAYL10EfG8wPZmTF6O_Q" name="constraintSpec" value="deviceModel='ALCplus2e' OR 'AGS20'"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_wfPDcL10EfG8wPZmTF6O_Q" client="_xudFEL1zEfG8wPZmTF6O_Q" supplier="_KzOCoJcrEfGarpAJ9uU5dg"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_Vu67MJcrEfGarpAJ9uU5dg" name="Diagrams"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_2fn_4JclEfGarpAJ9uU5dg" name="ObjectClasses">
@@ -637,7 +681,7 @@ toDoCode: Integer [1]</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_bU0UcLwREfG8wPZmTF6O_Q" name="singleFirmwareComponentClass">
+        <packagedElement xmi:type="uml:Class" xmi:id="_bU0UcLwREfG8wPZmTF6O_Q" name="singleFirmwarePackage">
           <ownedAttribute xmi:type="uml:Property" xmi:id="_1GYOALwREfG8wPZmTF6O_Q" name="firmwareList" type="_WJ5YQJcxEfGarpAJ9uU5dg" isOrdered="true" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_1GYOAbwREfG8wPZmTF6O_Q" annotatedElement="_1GYOALwREfG8wPZmTF6O_Q">
               <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true</body>
@@ -646,20 +690,73 @@ toDoCode: Integer [1]</body>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1GYOA7wREfG8wPZmTF6O_Q" value="2"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_UYBJ4LyfEfG8wPZmTF6O_Q" name="separateOduFirmwareComponentClass">
+        <packagedElement xmi:type="uml:Class" xmi:id="_UYBJ4LyfEfG8wPZmTF6O_Q" name="separatedNpuAndRau">
           <ownedAttribute xmi:type="uml:Property" xmi:id="_UYBJ4byfEfG8wPZmTF6O_Q" name="firmwareList" type="_WJ5YQJcxEfGarpAJ9uU5dg" isOrdered="true" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_UYBJ4ryfEfG8wPZmTF6O_Q" annotatedElement="_UYBJ4byfEfG8wPZmTF6O_Q">
-              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true  AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE</body>
+              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UYBJ47yfEfG8wPZmTF6O_Q"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_UYBJ5LyfEfG8wPZmTF6O_Q" value="2"/>
           </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_eIeoML1sEfG8wPZmTF6O_Q" name="controllerFirmwareList" type="_WJ5YQJcxEfGarpAJ9uU5dg" isOrdered="true" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_eIeoMb1sEfG8wPZmTF6O_Q" annotatedElement="_eIeoML1sEfG8wPZmTF6O_Q">
+              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND relatedKindsOfEquipmentList==[NPU3 C]</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_eIeoMr1sEfG8wPZmTF6O_Q"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_eIeoM71sEfG8wPZmTF6O_Q" value="1"/>
+          </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_dmVTkLyfEfG8wPZmTF6O_Q" name="oduFirmwareList" type="_WJ5YQJcxEfGarpAJ9uU5dg" isOrdered="true" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_dmVTkbyfEfG8wPZmTF6O_Q" annotatedElement="_dmVTkLyfEfG8wPZmTF6O_Q">
-              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_APPLICATION_SOFTWARE</body>
+              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND relatedKindsOfEquipmentList==[RAU]</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dmVTkryfEfG8wPZmTF6O_Q"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dmVTk7yfEfG8wPZmTF6O_Q" value="1"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_lvHXgL1uEfG8wPZmTF6O_Q" name="separatedApplication">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_lvHXgb1uEfG8wPZmTF6O_Q" name="firmwareList" type="_WJ5YQJcxEfGarpAJ9uU5dg" isOrdered="true" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_lvHXgr1uEfG8wPZmTF6O_Q" annotatedElement="_lvHXgb1uEfG8wPZmTF6O_Q">
+              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lvHXg71uEfG8wPZmTF6O_Q"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lvHXhL1uEfG8wPZmTF6O_Q" value="2"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_lvHXhb1uEfG8wPZmTF6O_Q" name="applicationFirmwareList" type="_WJ5YQJcxEfGarpAJ9uU5dg" isOrdered="true" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_lvHXhr1uEfG8wPZmTF6O_Q" annotatedElement="_lvHXhb1uEfG8wPZmTF6O_Q">
+              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_APPLICATION_SOFTWARE</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lvHXh71uEfG8wPZmTF6O_Q"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lvHXiL1uEfG8wPZmTF6O_Q" value="1"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_xudFEL1zEfG8wPZmTF6O_Q" name="separatedBootAndWebAndOdu">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_xudFEb1zEfG8wPZmTF6O_Q" name="firmwareList" type="_WJ5YQJcxEfGarpAJ9uU5dg" isOrdered="true" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_xudFEr1zEfG8wPZmTF6O_Q" annotatedElement="_xudFEb1zEfG8wPZmTF6O_Q">
+              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentName.substring(0,3)==IDU</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xudFE71zEfG8wPZmTF6O_Q"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xudFFL1zEfG8wPZmTF6O_Q" value="2"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_xudFFb1zEfG8wPZmTF6O_Q" name="bootFirmwareList" type="_WJ5YQJcxEfGarpAJ9uU5dg" isOrdered="true" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_xudFFr1zEfG8wPZmTF6O_Q" annotatedElement="_xudFFb1zEfG8wPZmTF6O_Q">
+              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentName.substring(0,3)==Boo</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xudFF71zEfG8wPZmTF6O_Q"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xudFGL1zEfG8wPZmTF6O_Q" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_xudFGb1zEfG8wPZmTF6O_Q" name="web-server-list" type="_WJ5YQJcxEfGarpAJ9uU5dg" isOrdered="true" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_xudFGr1zEfG8wPZmTF6O_Q" annotatedElement="_xudFGb1zEfG8wPZmTF6O_Q">
+              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentName.substring(0,3)==Web</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xudFG71zEfG8wPZmTF6O_Q"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xudFHL1zEfG8wPZmTF6O_Q" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_hE41UL10EfG8wPZmTF6O_Q" name="oduFirmwareList" type="_WJ5YQJcxEfGarpAJ9uU5dg" isOrdered="true" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_hE41Ub10EfG8wPZmTF6O_Q" annotatedElement="_hE41UL10EfG8wPZmTF6O_Q">
+              <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND (firmwareComponentName.substring(0,3)==Rad OR firmwareComponentName.substring(0,3)==ODU)</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hE41Ur10EfG8wPZmTF6O_Q"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hE41U710EfG8wPZmTF6O_Q" value="*"/>
           </ownedAttribute>
         </packagedElement>
       </packagedElement>
@@ -673,7 +770,7 @@ toDoCode: Integer [1]</body>
         <packagedElement xmi:type="uml:DataType" xmi:id="_zP1hUJyPEfGVBaRc8l0nOQ" name="TargetFirmwareType">
           <ownedAttribute xmi:type="uml:Property" xmi:id="_JfKkEpytEfGVBaRc8l0nOQ" name="_resource" type="_qyDVsJf6EfGarpAJ9uU5dg" isUnique="false" aggregation="shared" association="_JfIu4JytEfGVBaRc8l0nOQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_9sGzcJyxEfGVBaRc8l0nOQ" annotatedElement="_JfKkEpytEfGVBaRc8l0nOQ">
-              <body>'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group</body>
+              <body>String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group</body>
             </ownedComment>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_zP1hVpyPEfGVBaRc8l0nOQ" name="status" type="_if2sgJcqEfGarpAJ9uU5dg" isUnique="false">
@@ -723,6 +820,13 @@ toDoCode: Integer [1]</body>
         <packagedElement xmi:type="uml:Usage" xmi:id="_JrKgsLwSEfG8wPZmTF6O_Q" client="_bU0UcLwREfG8wPZmTF6O_Q" supplier="_WJ5YQJcxEfGarpAJ9uU5dg"/>
         <packagedElement xmi:type="uml:Usage" xmi:id="_gkat8LyiEfG8wPZmTF6O_Q" client="_UYBJ4LyfEfG8wPZmTF6O_Q" supplier="_WJ5YQJcxEfGarpAJ9uU5dg"/>
         <packagedElement xmi:type="uml:Usage" xmi:id="_h5MvkLyiEfG8wPZmTF6O_Q" client="_UYBJ4LyfEfG8wPZmTF6O_Q" supplier="_WJ5YQJcxEfGarpAJ9uU5dg"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_hCHncL1vEfG8wPZmTF6O_Q" client="_lvHXgL1uEfG8wPZmTF6O_Q" supplier="_WJ5YQJcxEfGarpAJ9uU5dg"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_l-GKgL11EfG8wPZmTF6O_Q" client="_UYBJ4LyfEfG8wPZmTF6O_Q" supplier="_WJ5YQJcxEfGarpAJ9uU5dg"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_nDuV0L11EfG8wPZmTF6O_Q" client="_lvHXgL1uEfG8wPZmTF6O_Q" supplier="_WJ5YQJcxEfGarpAJ9uU5dg"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_nwTH8L11EfG8wPZmTF6O_Q" client="_xudFEL1zEfG8wPZmTF6O_Q" supplier="_WJ5YQJcxEfGarpAJ9uU5dg"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_pxQTEL11EfG8wPZmTF6O_Q" client="_xudFEL1zEfG8wPZmTF6O_Q" supplier="_WJ5YQJcxEfGarpAJ9uU5dg"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_sdP_QL11EfG8wPZmTF6O_Q" client="_xudFEL1zEfG8wPZmTF6O_Q" supplier="_WJ5YQJcxEfGarpAJ9uU5dg"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_tzbIAL11EfG8wPZmTF6O_Q" client="_xudFEL1zEfG8wPZmTF6O_Q" supplier="_WJ5YQJcxEfGarpAJ9uU5dg"/>
       </packagedElement>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i3sTUCVJEemK9ptdIxz6GQ">
@@ -1050,4 +1154,50 @@ toDoCode: Integer [1]</body>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_HTEyg7wTEfG8wPZmTF6O_Q" base_Property="_HTEygLwTEfG8wPZmTF6O_Q" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_HTEygrwTEfG8wPZmTF6O_Q" base_StructuralFeature="_HTEygLwTEfG8wPZmTF6O_Q" isInvariant="true"/>
   <OpenModel_Profile:Reference xmi:id="_HTJrALwTEfG8wPZmTF6O_Q" base_Element="_HTEygLwTEfG8wPZmTF6O_Q" reference="ControlConstructPac::deviceModelName"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_jissELzmEfG8wPZmTF6O_Q" base_Class="_jipowLzmEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_jivIULzmEfG8wPZmTF6O_Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_jipowLzmEfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_4I23wbzmEfG8wPZmTF6O_Q" base_StructuralFeature="_4I23wLzmEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_4I23wrzmEfG8wPZmTF6O_Q" base_Property="_4I23wLzmEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_4IrRlLzmEfG8wPZmTF6O_Q" base_Property="_4IrRkrzmEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_4IrRk7zmEfG8wPZmTF6O_Q" base_StructuralFeature="_4IrRkrzmEfG8wPZmTF6O_Q" partOfObjectKey="1" isInvariant="true"/>
+  <OpenModel_Profile:key xmi:id="_cgxsALznEfG8wPZmTF6O_Q" base_Property="_4IrRkrzmEfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Xl7GJ7zoEfG8wPZmTF6O_Q" base_StructuralFeature="_Xl7GJrzoEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Xl7GKLzoEfG8wPZmTF6O_Q" base_Property="_Xl7GJrzoEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Xl7GJbzoEfG8wPZmTF6O_Q" base_Property="_Xl7GI7zoEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Xl7GJLzoEfG8wPZmTF6O_Q" base_StructuralFeature="_Xl7GI7zoEfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Abq7IbzqEfG8wPZmTF6O_Q" base_StructuralFeature="_Abq7ILzqEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Abq7IrzqEfG8wPZmTF6O_Q" base_Property="_Abq7ILzqEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_AbqUELzqEfG8wPZmTF6O_Q" base_Property="_AbpF8LzqEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_AbptALzqEfG8wPZmTF6O_Q" base_StructuralFeature="_AbpF8LzqEfG8wPZmTF6O_Q" unsigned="true"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_lvHXjb1uEfG8wPZmTF6O_Q" base_Class="_lvHXgL1uEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_lvH-kL1uEfG8wPZmTF6O_Q" base_Class="_lvHXgL1uEfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:Specify xmi:id="_66skcL1uEfG8wPZmTF6O_Q" base_Abstraction="_291tUL1uEfG8wPZmTF6O_Q">
+    <target>/DomainController/NetworkControlDomain/Device</target>
+  </OpenModel_Profile:Specify>
+  <OpenModel_Profile:Obsolete xmi:id="_puUikL1vEfG8wPZmTF6O_Q" base_Element="_hCHncL1vEfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_xudsIL1zEfG8wPZmTF6O_Q" base_Class="_xudFEL1zEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_xufhUL1zEfG8wPZmTF6O_Q" base_Class="_xudFEL1zEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_xugIYL1zEfG8wPZmTF6O_Q" base_Property="_xudFFb1zEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_xufhU71zEfG8wPZmTF6O_Q" base_StructuralFeature="_xudFFb1zEfG8wPZmTF6O_Q" support="CONDITIONAL" condition="In RunningDS just to be represented if deviceModel known."/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_xugIYr1zEfG8wPZmTF6O_Q" base_Property="_xudFGb1zEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_xugIYb1zEfG8wPZmTF6O_Q" base_StructuralFeature="_xudFGb1zEfG8wPZmTF6O_Q" support="CONDITIONAL" condition="In RunningDS just to be represented if deviceModel known."/>
+  <OpenModel_Profile:Specify xmi:id="_x9QgoL10EfG8wPZmTF6O_Q" base_Abstraction="_wfPDcL10EfG8wPZmTF6O_Q">
+    <target>/DomainController/NetworkControlDomain/Device</target>
+  </OpenModel_Profile:Specify>
+  <OpenModel_Profile:Obsolete xmi:id="_xbroIL11EfG8wPZmTF6O_Q" base_Element="_l-GKgL11EfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:Obsolete xmi:id="_yqkdIL11EfG8wPZmTF6O_Q" base_Element="_nDuV0L11EfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:Obsolete xmi:id="_zuWOUL11EfG8wPZmTF6O_Q" base_Element="_nwTH8L11EfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:Obsolete xmi:id="_00DSIL11EfG8wPZmTF6O_Q" base_Element="_pxQTEL11EfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:Obsolete xmi:id="_11TTwL11EfG8wPZmTF6O_Q" base_Element="_sdP_QL11EfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:Obsolete xmi:id="_22uUgL11EfG8wPZmTF6O_Q" base_Element="_tzbIAL11EfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_hE5cYL10EfG8wPZmTF6O_Q" base_Property="_hE41UL10EfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_hE41VL10EfG8wPZmTF6O_Q" base_StructuralFeature="_hE41UL10EfG8wPZmTF6O_Q" support="CONDITIONAL" condition="In RunningDS just to be represented if deviceModel known."/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_xufhUr1zEfG8wPZmTF6O_Q" base_Property="_xudFEb1zEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_xufhUb1zEfG8wPZmTF6O_Q" base_StructuralFeature="_xudFEb1zEfG8wPZmTF6O_Q" support="CONDITIONAL" condition="In RunningDS just to be represented if deviceModel known."/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_lvIlob1uEfG8wPZmTF6O_Q" base_Property="_lvHXhb1uEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_lvIloL1uEfG8wPZmTF6O_Q" base_StructuralFeature="_lvHXhb1uEfG8wPZmTF6O_Q" support="CONDITIONAL" condition="In RunningDS just to be represented if deviceModel known."/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_lvH-kr1uEfG8wPZmTF6O_Q" base_Property="_lvHXgb1uEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_lvH-kb1uEfG8wPZmTF6O_Q" base_StructuralFeature="_lvHXgb1uEfG8wPZmTF6O_Q" support="CONDITIONAL" condition="In RunningDS just to be represented if deviceModel known."/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eIkHwL1sEfG8wPZmTF6O_Q" base_Property="_eIeoML1sEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_eIhrgL1sEfG8wPZmTF6O_Q" base_StructuralFeature="_eIeoML1sEfG8wPZmTF6O_Q" support="CONDITIONAL" condition="In RunningDS just to be represented if deviceModel known."/>
 </xmi:XMI>
