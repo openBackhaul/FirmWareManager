@@ -25,8 +25,6 @@ Th = Thorsten
 | [/update-server](./updateServer/1.0.0/)                    | Th | Th | Ka |       |    |    |
 | [/delete-server](./deleteServer/1.0.0/)                    | Th | Th | Ka | Th 1) | Th |    |
 
-  > Technische Klärung der benötigten Inputparameter und ggf. deren Formatierung erforderlich.  
-
 ### Preparing firmware resources
 
 | Service                                                                     | 1  | 2  | 5  | 3  | 4  | 5  |
@@ -38,12 +36,15 @@ Th = Thorsten
 
 ### Preparing device models
 
-| Service                                                                     | 1  | 2  | 5  | 3  | 4  | 5  |
-| --------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-existing-device-models](./listExistingDeviceModels/1.0.0/)           | Th | Th | Ka |    |    |    |
-| [/list-unknown-device-models](./listUnknownDeviceModels/1.0.0/)             | Th | Th | Ka |    |    |    |
-| [/create-device-model](./createDeviceModel/1.0.0/)                          | Th | Th | Ka |    |    |    |
-| [/delete-device-model](./deleteDeviceModel/1.0.0/)                          | Th | Th | Ka |    |    |    |
+| Service                                                                         | 1  | 2  | 5  | 3  | 4  | 5  |
+| ------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
+| [/list-existing-device-models](./listExistingDeviceModels/1.0.0/)               | Th | Th | Ka |    |    |    |
+| [/list-unknown-device-models](./listUnknownDeviceModels/1.0.0/)                 | Th | Th | Ka |    |    |    |
+| [/list-hardware-extraction-functions](./listHardwareExtractionFunctions/1.0.0/) |(1) |(2) |    |    |    |    |
+| [/list-firmware-extraction-functions](./listFirmwareExtractionFunctions/1.0.0/) |(3) |(4) |    |    |    |    |
+| [/create-device-model](./createDeviceModel/1.0.0/)                              | Th | Th |    |    |    |    |
+| [/delete-device-model](./deleteDeviceModel/1.0.0/)                              | Th | Th | Ka |    |    |    |
+| [/update-device-model](./updateDeviceModel/1.0.0/)                              | Th | Th |    |    |    |    |
 
 ### Documenting firmware approvals
 
@@ -52,7 +53,7 @@ Th = Thorsten
 | [/list-device-models-without-approvals](./listDeviceModelsWithoutApprovals/1.0.0/) | Th | Th | Ka |    |    |    |
 | [/list-existing-firmware-approvals](./listExistingFirmwareApprovals/1.0.0/)        | Th | Th | Ka |    |    |    |
 | [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                             | Th | Th |    |    |    |    |
-| [/remove-firmware-approval](./removeFirmwareApproval/1.0.0/)                       | o | o |    |    |    |    |
+| [/remove-firmware-approval](./removeFirmwareApproval/1.0.0/)                       |(5) |(6) |    |    |    |    |
 
 ## Preparing device groups and initiating firmware roll-out (Operations)
 

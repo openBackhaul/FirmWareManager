@@ -5,6 +5,8 @@ Adds all existing Devices with deviceModel==deviceModelName to the default Devic
 
 The value of defaultDeviceGroup is invariant, means DeviceModel and default DeviceGroup are permanently associated.  
 
+If hardwareExtractionFunction and/or firmwareExtractionFunction are provided, they are added to the Parameters to the corresponding MeasurementFunctions in the DomainController.  
+
 ## Diagram
 
 <p align="center">

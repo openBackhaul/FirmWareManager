@@ -2,6 +2,9 @@
 
 ## Design Aspects
 
+The documents linked in this section are NOT part of the official specification.  
+They might be helpful for understanding the overall design and functionality of the FirmWareManager, but they weren't updated regularly during the specification process.  
+
 External design aspects:  
 
 - [Integration with Tools](https://github.com/openBackhaul/_FirmwareManagement/tree/develop/components/)
@@ -11,6 +14,7 @@ Internal design aspects:
 - [AutomationArchitecture](./Functions/diagrams/AutomationArchitecture/AutomationArchitecture.png)
 - [User Stories](./additionalDocumentation/UserStories/)
 - [Concepts of Target Firmware](./additionalDocumentation/ConceptsOfTargetFirmware/)
+- [Measurement Overview](./additionalDocumentation/Measurement/measurement_overview.png)
 
 ## Detailed Specification
 
@@ -37,8 +41,11 @@ Internal design aspects:
   - Preparing device models
     - [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)
     - [/list-unknown-device-models](./Services/listUnknownDeviceModels/1.0.0/)
+    - [/list-hardware-extraction-functions](./Services/listHardwareExtractionFunctions/1.0.0/)
+    - [/list-firmware-extraction-functions](./Services/listFirmwareExtractionFunctions/1.0.0/)
     - [/create-device-model](./Services/createDeviceModel/1.0.0/)
     - [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)
+    - [/update-device-model](./Services/updateDeviceModel/1.0.0/)
   - Documenting firmware approvals
     - [/list-device-models-without-approvals](./Services/listDeviceModelsWithoutApprovals/1.0.0/)
     - [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)

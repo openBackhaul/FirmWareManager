@@ -1,8 +1,8 @@
-@startuml measurement_ideas
+@startuml measurement_overview
 skinparam responseMessageBelowArrow true
 
 title
-  Measurement Ideas
+  Measurement Overview
 end title
 
 participant "requestor\n" as requestor

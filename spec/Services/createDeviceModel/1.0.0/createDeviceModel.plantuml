@@ -8,10 +8,12 @@ end title
 participant "requestor\n" as requestor
 participant "createDeviceModel\n" as indServ
 participant "p1ValidationManager\n" as valiMan
+
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
+database "DomainController" as DC
 
-requestor -> indServ: { deviceModelName }
+requestor -> indServ: { deviceModelName,\n<color:LightGray>hardwareExtractionFunction,\n<color:LightGray>firmwareExtractionFunction</color> }
 activate indServ
 
   note over indServ
@@ -136,6 +138,40 @@ activate indServ
   end note
   indServ -X RunDS
   deactivate RunDS
+
+  note over indServ
+    IF hardwareExtractionFunction.length > 0:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Adds deviceModelName as parameterName
+    to [Parameter] of the p1UpdateHw
+    Function and hardwareExtractionFunction
+    as corresponding parameterValue.
+  end note
+  indServ -> DC: { deviceModelName,\nhardwareExtractionFunction }
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    IF firmwareExtractionFunction.length > 0:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Adds deviceModelName as parameterName
+    to [Parameter] of the p1UpdateFw
+    Function and firmwareExtractionFunction
+    as corresponding parameterValue.
+  end note
+  indServ -> DC: { deviceModelName,\nfirmwareExtractionFunction }
+  note right indServ
+    }
+  end note
 
 requestor <-- indServ: 204
 deactivate indServ

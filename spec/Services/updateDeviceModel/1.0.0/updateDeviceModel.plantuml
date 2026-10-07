@@ -1,0 +1,121 @@
+@startuml updateDeviceModel
+skinparam responseMessageBelowArrow true
+
+title
+  updateDeviceModel
+end title
+
+participant "requestor\n" as requestor
+participant "updateDeviceModel\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+database "DomainController" as DC
+
+requestor -> indServ: { deviceModelName,\n<color:LightGray>hardwareExtractionFunction,\n<color:LightGray>firmwareExtractionFunction</color> }
+activate indServ
+
+  note over indServ
+    Checks whether given
+    deviceModelName exists
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+  note over indServ
+    IF DeviceModel NOT existing:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    IF hardwareExtractionFunction.length > 0:
+  end note
+  note over indServ
+    THEN {
+  end note
+  note right indServ
+    Checks whether deviceModelName
+    already exists in [Parameter]
+    of the p1UpdateHw Function
+  end note
+  indServ -> DC
+  note right indServ
+    IF deviceModelName already exists:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Overwrites its parameterValue
+    with hardwareExtractionFunction
+  end note
+  indServ -> DC: { hardwareExtractionFunction }
+  note right indServ
+    }
+  end note
+  note right indServ
+    ELSE {
+  end note
+  note right indServ
+    Adds deviceModelName as parameterName
+    to [Parameter] of the p1UpdateHw
+    Function and hardwareExtractionFunction
+    as corresponding parameterValue.
+  end note
+  indServ -> DC: { deviceModelName,\nhardwareExtractionFunction }
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    IF firmwareExtractionFunction.length > 0:
+  end note
+  note over indServ
+    THEN {
+  end note
+  note right indServ
+    Checks whether deviceModelName
+    already exists in [Parameter]
+    of the p1UpdateFw Function
+  end note
+  indServ -> DC
+  note right indServ
+    IF deviceModelName already exists:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Overwrites its parameterValue
+    with firmwareExtractionFunction
+  end note
+  indServ -> DC: { firmwareExtractionFunction }
+  note right indServ
+    }
+  end note
+  note right indServ
+    ELSE {
+  end note
+  note right indServ
+    Adds deviceModelName as parameterName
+    to [Parameter] of the p1UpdateFw
+    Function and firmwareExtractionFunction
+    as corresponding parameterValue.
+  end note
+  indServ -> DC: { deviceModelName,\nfirmwareExtractionFunction }
+  note right indServ
+    }
+  end note
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

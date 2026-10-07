@@ -2,16 +2,31 @@
 # oder sollte es JSON sein? oder beides?
 
 
-| FunctionName             | ParameterName | Value                  |
-|--------------------------|---------------|------------------------|
-|p1TrimHistoricalErrorList | maximumLength | 100                    |
-|p1UpdateHw                | OptiXRTN950N  | ""                     |
-|p1UpdateHw                | OptiXRTN9052E | ""                     |
-|p1UpdateHw                | OptiXRTN380AX | ""                     |
-|p1UpdateHw                | OptiXRTN9052F | ""                     |
-|p1UpdateHw                | OptiXRTN6900  | ""                     |
-|p1UpdateFw                | OptiXRTN950N  | functionName |
-|p1UpdateFw                | OptiXRTN9052E | functionName |
-|p1UpdateFw                | OptiXRTN380AX | functionName |
-|p1UpdateFw                | OptiXRTN9052F | functionName |
-|p1UpdateFw                | OptiXRTN6900  | functionName |
+| FunctionName              | ParameterName           | Value                             |
+|---------------------------|-------------------------|-----------------------------------|
+| p1TrimHistoricalErrorList | maximumLength           | 100                               |
+| p1UpdateHw                | OptiXRTN950N            | ""                                |
+| p1UpdateHw                | OptiXRTN9052E           | ""                                |
+| p1UpdateHw                | OptiXRTN380AX           | ""                                |
+| p1UpdateHw                | OptiXRTN9052F           | ""                                |
+| p1UpdateHw                | OptiXRTN6900            | ""                                |
+| p1UpdateFw                | MINI-LINK 6352          | ""                                |
+| p1UpdateFw                | MINI-LINK Traffic Node  | ""                                |
+| p1UpdateFw                | MINI-LINK 6600          | ""                                |
+| p1UpdateFw                | ALCplus2e               | ""                                |
+| p1UpdateFw                | AGS20                   | ""                                |
+| p1UpdateFw                | OptiXRTN950N            | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN9052E           | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN380AX           | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN9052F           | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN6900            | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | MINI-LINK 6352          | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | MINI-LINK Traffic Node  | "p1ExtractSeparatedNpuRauToo"     |
+| p1UpdateFw                | MINI-LINK 6600          | "p1ExtractSeparatedAppToo"        |
+| p1UpdateFw                | ALCplus2e               | "p1ExtractSeparatedBootWebOduToo" |
+| p1UpdateFw                | AGS20                   | "p1ExtractSeparatedBootWebOduToo" |
+
+
+
+
+
