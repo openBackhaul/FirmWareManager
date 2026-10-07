@@ -50,7 +50,7 @@ Internal design aspects:
     - [/list-device-models-without-approvals](./Services/listDeviceModelsWithoutApprovals/1.0.0/)
     - [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)
     - [/add-firmware-approval](./Services/addFirmwareApproval/1.0.0/)
-    - [/remove-firmware-approval](./Services/removeFirmwareApproval/1.0.0/)
+    - [/withdraw-firmware-approval](./Services/withdrawFirmwareApproval/1.0.0/)
 
 - **Preparing device groups and initiating firmware roll-out (Operations)**
   - Preparing device groups

@@ -84,7 +84,7 @@ _p1ValidierungFunktionAufrufe_ dienen der Überprüfung der interpretierten Eing
     - /list-existing-firmware-approvals
     - (/list-existing-firmware-resources (to choose from during add))
     - /add-firmware-approval
-    - /remove-firmware-approval  
+    - /withdraw-firmware-approval  
       (must not be deleted if FirmwareResource still referred by any DeviceGroup)
       - t1CheckForAssuranceOfApprovalNotBeingDeletedWhileReferredByDeviceGroup
       - p1EnsureEveryDeviceReferencingExclusivelyApprovedFirmware

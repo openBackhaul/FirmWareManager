@@ -2,29 +2,29 @@
 # oder sollte es JSON sein? oder beides?
 
 
-| FunctionName              | ParameterName           | Value                             |
-|---------------------------|-------------------------|-----------------------------------|
-| p1TrimHistoricalErrorList | maximumLength           | 100                               |
-| p1UpdateHw                | OptiXRTN950N            | ""                                |
-| p1UpdateHw                | OptiXRTN9052E           | ""                                |
-| p1UpdateHw                | OptiXRTN380AX           | ""                                |
-| p1UpdateHw                | OptiXRTN9052F           | ""                                |
-| p1UpdateHw                | OptiXRTN6900            | ""                                |
-| p1UpdateFw                | MINI-LINK 6352          | ""                                |
-| p1UpdateFw                | MINI-LINK Traffic Node  | ""                                |
-| p1UpdateFw                | MINI-LINK 6600          | ""                                |
-| p1UpdateFw                | ALCplus2e               | ""                                |
-| p1UpdateFw                | AGS20                   | ""                                |
-| p1UpdateFw                | OptiXRTN950N            | "p1ExtractSingleFirmware"         |
-| p1UpdateFw                | OptiXRTN9052E           | "p1ExtractSingleFirmware"         |
-| p1UpdateFw                | OptiXRTN380AX           | "p1ExtractSingleFirmware"         |
-| p1UpdateFw                | OptiXRTN9052F           | "p1ExtractSingleFirmware"         |
-| p1UpdateFw                | OptiXRTN6900            | "p1ExtractSingleFirmware"         |
-| p1UpdateFw                | MINI-LINK 6352          | "p1ExtractSingleFirmware"         |
-| p1UpdateFw                | MINI-LINK Traffic Node  | "p1ExtractSeparatedNpuRauToo"     |
-| p1UpdateFw                | MINI-LINK 6600          | "p1ExtractSeparatedAppToo"        |
-| p1UpdateFw                | ALCplus2e               | "p1ExtractSeparatedBootWebOduToo" |
-| p1UpdateFw                | AGS20                   | "p1ExtractSeparatedBootWebOduToo" |
+| FunctionName              | ParameterName           | Purpose                      | Value                             |
+|---------------------------|-------------------------|------------------------------|-----------------------------------|
+| p1TrimHistoricalErrorList | maximumLength           |                              | 100                               |
+| p1UpdateHw                | OptiXRTN950N            | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | OptiXRTN9052E           | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | OptiXRTN380AX           | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | OptiXRTN9052F           | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | OptiXRTN6900            | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | MINI-LINK 6352          | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | MINI-LINK Traffic Node  | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | MINI-LINK 6600          | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | ALCplus2e               | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | AGS20                   | "hardwareExtractionFunction" | ""                                |
+| p1UpdateFw                | OptiXRTN950N            | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN9052E           | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN380AX           | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN9052F           | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN6900            | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | MINI-LINK 6352          | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | MINI-LINK Traffic Node  | "firmwareExtractionFunction" | "p1ExtractSeparatedNpuRauToo"     |
+| p1UpdateFw                | MINI-LINK 6600          | "firmwareExtractionFunction" | "p1ExtractSeparatedAppToo"        |
+| p1UpdateFw                | ALCplus2e               | "firmwareExtractionFunction" | "p1ExtractSeparatedBootWebOduToo" |
+| p1UpdateFw                | AGS20                   | "firmwareExtractionFunction" | "p1ExtractSeparatedBootWebOduToo" |
 
 
 

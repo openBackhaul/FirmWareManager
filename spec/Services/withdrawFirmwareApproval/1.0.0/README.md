@@ -1,15 +1,13 @@
-﻿# deleteDeviceModel
+﻿# withdrawFirmwareApproval
 
-Deletes a DeviceModel and all referencing DeviceGroups.  
-The deletion will be aborted, if there are any Devices that are of the to be deleted DeviceModel.  
-A list of Devices will be returned in that case.  
-
-hardwareExtractionFunction and firmwareExtractionFunction entries are deleted from the Parameters of the respective MeasurementFunctions in the DomainController.  
+Deletes a firmware approval from a given DeviceModel.  
+Removes the withdrawn firmware from the target firmware lists of all DeviceGroups referencing the given DeviceModel.  
+Removes the withdrawn firmware from the firmware lists of all Devices referenced by the same DeviceGroups.  
 
 ## Diagram
 
 <p align="center">
-  <img src="./deleteDeviceModel.png" alt="deleteDeviceModel diagram" width="400" />
+  <img src="./withdrawFirmwareApproval.png" alt="withdrawFirmwareApproval diagram" width="400" />
 </p>
 
 ## Interface
@@ -25,8 +23,7 @@ Please find a detailed description of the [variables](./variables.yaml).
 |#| Code | Message                                                           |
 |-|------|-------------------------------------------------------------------|
 |1|      | Referenced object does not exist                                  |
-|2|      | To be deleted object still referenced                             |
-|3|      | _[provided by ValidationFunctions]_                               |
+|2|      | _[provided by ValidationFunctions]_                               |
 
 ## Parameters
 

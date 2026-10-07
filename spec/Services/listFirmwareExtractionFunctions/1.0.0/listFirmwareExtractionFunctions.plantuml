@@ -1,0 +1,47 @@
+@startuml listFirmwareExtractionFunctions
+skinparam responseMessageBelowArrow true
+
+title
+  listFirmwareExtractionFunctions
+end title
+
+participant "requestor\n" as requestor
+participant "listFirmwareExtractionFunctions\n" as indServ
+database "DomainController" as DC
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Initializes
+    [firmwareExtractionFunctionList]
+  end note
+
+  loop for each Function
+    note over indServ
+      Reads description
+    end note
+    indServ -> DC
+    activate DC
+    indServ <-- DC: description
+    deactivate DC
+    note over indServ
+      IF description==
+          firmwareExtractionFunction:
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      Appends name of Function
+      to [firmwareExtractionFunctionList]
+    end note
+    note right indServ
+      }
+    end note
+  end loop
+
+requestor <-- indServ: [ firmwareExtractionFunctionList ]
+deactivate indServ
+
+@enduml

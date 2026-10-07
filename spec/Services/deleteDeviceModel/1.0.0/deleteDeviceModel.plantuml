@@ -8,8 +8,10 @@ end title
 participant "requestor\n" as requestor
 participant "deleteDeviceModel\n" as indServ
 participant "p1ValidationManager\n" as valiMan
+
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
+database "DomainController" as DC
 
 requestor -> indServ: { deviceModelName }
 activate indServ
@@ -165,6 +167,50 @@ activate indServ
   end note
   indServ -X RunDS
   deactivate RunDS
+
+  note over indServ
+    Checks whether deviceModelName is
+    a parameterName in [Parameter] of
+    the p1UpdateHw Function.
+  end note
+  indServ -> DC
+  note over indServ
+    IF deviceModelName found:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Delete deviceModelName entry
+    from [Parameter] of the
+    p1UpdateHw Function
+  end note
+  indServ -> DC
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    Checks whether deviceModelName is
+    a parameterName in [Parameter] of
+    the p1UpdateFw Function.
+  end note
+  indServ -> DC
+  note over indServ
+    IF deviceModelName found:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Delete deviceModelName entry
+    from [Parameter] of the
+    p1UpdateFw Function
+  end note
+  indServ -> DC
+  note right indServ
+    }
+  end note
 
 requestor <-- indServ: 204
 deactivate indServ

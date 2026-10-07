@@ -40,10 +40,10 @@ Th = Thorsten
 | ------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
 | [/list-existing-device-models](./listExistingDeviceModels/1.0.0/)               | Th | Th | Ka |    |    |    |
 | [/list-unknown-device-models](./listUnknownDeviceModels/1.0.0/)                 | Th | Th | Ka |    |    |    |
-| [/list-hardware-extraction-functions](./listHardwareExtractionFunctions/1.0.0/) |(1) |(2) |    |    |    |    |
-| [/list-firmware-extraction-functions](./listFirmwareExtractionFunctions/1.0.0/) |(3) |(4) |    |    |    |    |
+| [/list-hardware-extraction-functions](./listHardwareExtractionFunctions/1.0.0/) | Th | Th |    |    |    |    |
+| [/list-firmware-extraction-functions](./listFirmwareExtractionFunctions/1.0.0/) | Th | Th |    |    |    |    |
 | [/create-device-model](./createDeviceModel/1.0.0/)                              | Th | Th |    |    |    |    |
-| [/delete-device-model](./deleteDeviceModel/1.0.0/)                              | Th | Th | Ka |    |    |    |
+| [/delete-device-model](./deleteDeviceModel/1.0.0/)                              | Th | Th |    |    |    |    |
 | [/update-device-model](./updateDeviceModel/1.0.0/)                              | Th | Th |    |    |    |    |
 
 ### Documenting firmware approvals
@@ -53,7 +53,7 @@ Th = Thorsten
 | [/list-device-models-without-approvals](./listDeviceModelsWithoutApprovals/1.0.0/) | Th | Th | Ka |    |    |    |
 | [/list-existing-firmware-approvals](./listExistingFirmwareApprovals/1.0.0/)        | Th | Th | Ka |    |    |    |
 | [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                             | Th | Th |    |    |    |    |
-| [/remove-firmware-approval](./removeFirmwareApproval/1.0.0/)                       |(5) |(6) |    |    |    |    |
+| [/withdraw-firmware-approval](./withdrawFirmwareApproval/1.0.0/)                   | Th | Th |    |    |    |    |
 
 ## Preparing device groups and initiating firmware roll-out (Operations)
 

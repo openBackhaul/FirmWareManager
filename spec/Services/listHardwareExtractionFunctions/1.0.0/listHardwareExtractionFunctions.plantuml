@@ -1,0 +1,47 @@
+@startuml listHardwareExtractionFunctions
+skinparam responseMessageBelowArrow true
+
+title
+  listHardwareExtractionFunctions
+end title
+
+participant "requestor\n" as requestor
+participant "listHardwareExtractionFunctions\n" as indServ
+database "DomainController" as DC
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Initializes
+    [hardwareExtractionFunctionList]
+  end note
+
+  loop for each Function
+    note over indServ
+      Reads description
+    end note
+    indServ -> DC
+    activate DC
+    indServ <-- DC: description
+    deactivate DC
+    note over indServ
+      IF description==
+          hardwareExtractionFunction:
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      Appends name of Function
+      to [hardwareExtractionFunctionList]
+    end note
+    note right indServ
+      }
+    end note
+  end loop
+
+requestor <-- indServ: [ hardwareExtractionFunctionList ]
+deactivate indServ
+
+@enduml

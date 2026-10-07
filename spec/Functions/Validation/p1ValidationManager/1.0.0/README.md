@@ -30,7 +30,7 @@ Please find a detailed description of the [variables](./variables.yaml).
 | createDeviceModel           | p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel |
 | deleteDeviceModel           | p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel |
 | deleteDeviceGroup           | p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel |
-| removeFirmwareApproval      | p1EnsureEveryDeviceReferencingExclusivelyApprovedFirmware        |
+| withdrawFirmwareApproval      | p1EnsureEveryDeviceReferencingExclusivelyApprovedFirmware        |
 | addOrUpdateTargetFirmware   | p1EnsureEveryDeviceHasFirmwareAsTargetOfItsGroup                 |
 | p1InstantiateDevice         | p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel <br> p1EnsureEveryDeviceHasFirmwareAsTargetOfItsGroup |
 | addDevicesToDeviceGroup     | p1EnsureEveryDeviceBeingReferredByOneDeviceGroupOfItsDeviceModel <br> p1EnsureEveryDeviceHasFirmwareAsTargetOfItsGroup <br> p1EnsureEveryDeviceReferencingExclusivelyApprovedFirmware |

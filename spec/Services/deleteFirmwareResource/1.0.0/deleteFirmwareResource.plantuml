@@ -40,7 +40,7 @@ activate indServ
     the given FirmwareResource
   end note
   loop for each existing DeviceGroup
-    note right indServ
+    note over indServ
       Reads DeviceGroup
     end note
     indServ -> RunDS
@@ -98,7 +98,7 @@ activate indServ
     obsolete approvals in [DeviceModel]
   end note
   loop for each existing DeviceModel
-    note right indServ
+    note over indServ
       Reads DeviceModel
     end note
     indServ -> CanDS

@@ -25,7 +25,11 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Parameters
 
-./.  
+| Parameter Name    | Description                                                                                                                                                                             |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [deviceModelName] | Special usage of the Parameters. For all Parameters with attribute purpose==firmwareExtractionFunction, attribute value contains the name of the subfunction to be called by p1UpdateFw |
+
+In its initial release, the ElasticSearchClients domainControllerEsClient and mwdiEsClient are defined.  
 
 ## NPM Module
 

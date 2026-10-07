@@ -1,12 +1,12 @@
-@startuml removeFirmwareApproval
+@startuml withdrawFirmwareApproval
 skinparam responseMessageBelowArrow true
 
 title
-  removeFirmwareApproval
+  withdrawFirmwareApproval
 end title
 
 participant "requestor\n" as requestor
-participant "removeFirmwareApproval\n" as indServ
+participant "withdrawFirmwareApproval\n" as indServ
 participant "p1ValidationManager\n" as valiMan
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
@@ -55,65 +55,6 @@ activate indServ
   end note
 
   note over indServ
-    Checks, whether to be withdrawn
-    firmware approval is still base of
-    references as target firmware in
-    DeviceGroups
-  end note
-  loop for each DeviceGroup
-    note right indServ
-      Read DeviceGroup
-    end note
-    indServ -> RunDS
-    activate RunDS
-    indServ <-- RunDS: DeviceGroup
-    deactivate RunDS
-    note over indServ
-      IF deviceModel==given deviceModelName
-    end note
-    note over indServ
-      THEN {
-    end note
-    note right indServ
-      Checks, whether combination of
-      given firmwareResourceName and
-      firmwareResourceVersion is in
-      targetFirmwareList
-    end note
-    indServ -> RunDS
-    activate RunDS
-    indServ <-- RunDS
-    deactivate RunDS
-    note right indServ
-      IF given FirmwareResource
-      found in targetFirmwareList
-    end note
-    note right indServ
-      THEN {
-    end note
-    note right indServ
-      Appends deviceGroupLabel to
-      [referencingObject]
-    end note
-    note right indServ
-      }
-    end note
-    note over indServ
-      }
-    end note
-  end loop
-  note over indServ
-    IF [referencingObject].length > 0:
-  end note
-  note left indServ
-    THEN {
-  end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[referencingObject] }
-  note left indServ
-    }
-  end note
-
-  note over indServ
     Locks RunningDS
   end note
   indServ -X RunDS
@@ -131,16 +72,69 @@ activate indServ
   indServ -> RunDS
   RunDS -/ CanDS
 
-  note right indServ
-    Deletes given firmware approval
+  note over indServ
+    Deletes given FirmwareResource
+    from [approval] at given DeviceModel
   end note
   indServ -> CanDS
   indServ <-- CanDS
 
   note over indServ
+    Checks, whether given FirmwareResource
+    is still referenced in [targetFirmwareList]
+    at DeviceGroups and [firmwareList] at Devices
+  end note
+  loop for each DeviceGroup
+    note over indServ
+      Reads DeviceGroup
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS: DeviceGroup
+    note over indServ
+      IF deviceModel==given deviceModelName
+    end note
+    note over indServ
+      THEN {
+    end note
+    note right indServ
+      Checks, whether given
+      FirmwareResource is in
+      [targetFirmwareList]
+    end note
+    note right indServ
+      IF given FirmwareResource
+      found in [targetFirmwareList]
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      Deletes given FirmwareResource
+      from [targetFirmwareList]
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+    loop for each [device] at DeviceGroup
+      note right indServ
+        Deletes given
+        FirmwareResource
+        from [firmwareList]
+      end note
+      indServ -> CanDS
+      indServ <-- CanDS
+    end loop
+    note right indServ
+      }
+    end note
+    note over indServ
+      }
+    end note
+  end loop
+
+  note over indServ
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==removeFirmwareApproval}
+  indServ -> valiMan: {triggerFunction==withdrawFirmwareApproval}
   activate valiMan
     note over valiMan
       Validates
@@ -161,7 +155,7 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage3 }
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2 }
   note right indServ
     }
   end note
