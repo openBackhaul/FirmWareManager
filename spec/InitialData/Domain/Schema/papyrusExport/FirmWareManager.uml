@@ -487,7 +487,7 @@
           <ownedEnd xmi:type="uml:Property" xmi:id="_LLqMMJf5EfGarpAJ9uU5dg" name="devicegroup" type="_wO6R4Jf4EfGarpAJ9uU5dg" association="_LLnv8Jf5EfGarpAJ9uU5dg"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Constraint" xmi:id="_UTdVELwSEfG8wPZmTF6O_Q" name="When" constrainedElement="_NyQ48LwSEfG8wPZmTF6O_Q">
-          <specification xmi:type="uml:LiteralString" xmi:id="_UTd8ILwSEfG8wPZmTF6O_Q" name="constraintSpec" value="deviceModel='OptiXRTN950N' OR 'OptiXRTN9052E' OR 'OptiXRTN380AX' OR 'OptiXRTN9052F' OR 'OptiXRTN6900' OR 'MINI-LINK 6352'"/>
+          <specification xmi:type="uml:LiteralString" xmi:id="_UTd8ILwSEfG8wPZmTF6O_Q" name="constraintSpec" value="deviceModel='OptiXRTN950' OR 'OptiXRTN950F' OR 'OptiXRTN950N' OR 'OptiXRTN9051A' OR 'OptiXRTN9052A' OR 'OptiXRTN9052E' OR 'OptiXRTN380' OR 'OptiXRTN380AX' OR 'OptiXRTN380H' OR 'OptiXRTN9052F' OR 'OptiXRTN6900' OR 'MINI-LINK 6352'"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Abstraction" xmi:id="_NyQ48LwSEfG8wPZmTF6O_Q" client="_bU0UcLwREfG8wPZmTF6O_Q" supplier="_KzOCoJcrEfGarpAJ9uU5dg"/>
         <packagedElement xmi:type="uml:Constraint" xmi:id="_a2fXQLyhEfG8wPZmTF6O_Q" name="When" constrainedElement="_CS660LyhEfG8wPZmTF6O_Q">
@@ -499,7 +499,7 @@
         </packagedElement>
         <packagedElement xmi:type="uml:Abstraction" xmi:id="_291tUL1uEfG8wPZmTF6O_Q" client="_lvHXgL1uEfG8wPZmTF6O_Q" supplier="_KzOCoJcrEfGarpAJ9uU5dg"/>
         <packagedElement xmi:type="uml:Constraint" xmi:id="_6zAZUL10EfG8wPZmTF6O_Q" name="When" constrainedElement="_wfPDcL10EfG8wPZmTF6O_Q">
-          <specification xmi:type="uml:LiteralString" xmi:id="_6zBAYL10EfG8wPZmTF6O_Q" name="constraintSpec" value="deviceModel='ALCplus2e' OR 'AGS20'"/>
+          <specification xmi:type="uml:LiteralString" xmi:id="_6zBAYL10EfG8wPZmTF6O_Q" name="constraintSpec" value="deviceModel='ALCplus2e' OR 'AGS20' OR 'AGS20L' OR 'ALFO80'"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Abstraction" xmi:id="_wfPDcL10EfG8wPZmTF6O_Q" client="_xudFEL1zEfG8wPZmTF6O_Q" supplier="_KzOCoJcrEfGarpAJ9uU5dg"/>
       </packagedElement>
@@ -726,7 +726,7 @@
               <body>Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_APPLICATION_SOFTWARE</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lvHXh71uEfG8wPZmTF6O_Q"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lvHXiL1uEfG8wPZmTF6O_Q" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lvHXiL1uEfG8wPZmTF6O_Q" value="*"/>
           </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_xudFEL1zEfG8wPZmTF6O_Q" name="separatedBootAndWebAndOdu">
@@ -1169,8 +1169,6 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Abq7IrzqEfG8wPZmTF6O_Q" base_Property="_Abq7ILzqEfG8wPZmTF6O_Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_AbqUELzqEfG8wPZmTF6O_Q" base_Property="_AbpF8LzqEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_AbptALzqEfG8wPZmTF6O_Q" base_StructuralFeature="_AbpF8LzqEfG8wPZmTF6O_Q" unsigned="true"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_lvHXjb1uEfG8wPZmTF6O_Q" base_Class="_lvHXgL1uEfG8wPZmTF6O_Q"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_lvH-kL1uEfG8wPZmTF6O_Q" base_Class="_lvHXgL1uEfG8wPZmTF6O_Q"/>
   <OpenModel_Profile:Specify xmi:id="_66skcL1uEfG8wPZmTF6O_Q" base_Abstraction="_291tUL1uEfG8wPZmTF6O_Q">
     <target>/DomainController/NetworkControlDomain/Device</target>
   </OpenModel_Profile:Specify>
@@ -1200,4 +1198,6 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_lvH-kb1uEfG8wPZmTF6O_Q" base_StructuralFeature="_lvHXgb1uEfG8wPZmTF6O_Q" support="CONDITIONAL" condition="In RunningDS just to be represented if deviceModel known."/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eIkHwL1sEfG8wPZmTF6O_Q" base_Property="_eIeoML1sEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_eIhrgL1sEfG8wPZmTF6O_Q" base_StructuralFeature="_eIeoML1sEfG8wPZmTF6O_Q" support="CONDITIONAL" condition="In RunningDS just to be represented if deviceModel known."/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_lvH-kL1uEfG8wPZmTF6O_Q" base_Class="_lvHXgL1uEfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_lvHXjb1uEfG8wPZmTF6O_Q" base_Class="_lvHXgL1uEfG8wPZmTF6O_Q"/>
 </xmi:XMI>

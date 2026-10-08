@@ -79,13 +79,13 @@ Internal design aspects:
   - Kicking-off application
     - [/embedYourself](./Services/embedYourself/1.0.0/)
   - Administrate ElasticSearch indexes
-    - [/list-existing-es-addresses](./Services/listExistingEsAddresses/1.0.0/)
-    - [/update-es-address](./Services/updateEsAddress/1.0.0/)
+    - /list-existing-es-addresses
+    - /update-es-address
   - Analyzing historical errors
-    - [/list-historical-errors](./Services/listHistoricalErrors/1.0.0/)
+    - /list-historical-errors
   - Administrate Pulsers
-    - [/list-existing-pulsers](./Services/listExistingPulsers/1.0.0/)
-    - [/update-pulser](./Services/updatePulser/1.0.0/)
+    - /list-existing-pulsers
+    - /update-pulser
 
 ### Initial Data
 

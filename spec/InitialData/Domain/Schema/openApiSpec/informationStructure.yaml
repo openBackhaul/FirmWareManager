@@ -391,9 +391,15 @@ domain-controller:
                 - description: >
                     'singleFirmwarePackage'
                      according to initial configuration to be used for:
+                      - OptiXRTN950
+                      - OptiXRTN950F
                       - OptiXRTN950N
+                      - OptiXRTN9051A
+                      - OptiXRTN9052A
                       - OptiXRTN9052E
+                      - OptiXRTN380
                       - OptiXRTN380AX
+                      - OptiXRTN380H
                       - OptiXRTN9052F
                       - OptiXRTN6900
                       - MINI-LINK 6352'
@@ -562,7 +568,6 @@ domain-controller:
                               - 'not-yet-defined'
                     application-firmware-list:
                       type: array
-                      maxItems: 1
                       description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_APPLICATION_SOFTWARE'
                       items:
                         type: object
@@ -592,7 +597,9 @@ domain-controller:
                     'separatedBootAndWebAndOdu
                      according to initial configuration to be used for:
                       - ALCplus2e
-                      - AGS20'
+                      - AGS20
+                      - AGS20L
+                      - ALFO80'
                   type: object
                   required:
                     - firmware-list

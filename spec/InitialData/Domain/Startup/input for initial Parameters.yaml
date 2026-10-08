@@ -5,9 +5,15 @@
 | FunctionName              | ParameterName           | Purpose                      | Value                             |
 |---------------------------|-------------------------|------------------------------|-----------------------------------|
 | p1TrimHistoricalErrorList | maximumLength           |                              | 100                               |
+| p1UpdateHw                | OptiXRTN950             | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | OptiXRTN950F            | "hardwareExtractionFunction" | ""                                |
 | p1UpdateHw                | OptiXRTN950N            | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | OptiXRTN9051A           | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | OptiXRTN9052A           | "hardwareExtractionFunction" | ""                                |
 | p1UpdateHw                | OptiXRTN9052E           | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | OptiXRTN380             | "hardwareExtractionFunction" | ""                                |
 | p1UpdateHw                | OptiXRTN380AX           | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | OptiXRTN380H            | "hardwareExtractionFunction" | ""                                |
 | p1UpdateHw                | OptiXRTN9052F           | "hardwareExtractionFunction" | ""                                |
 | p1UpdateHw                | OptiXRTN6900            | "hardwareExtractionFunction" | ""                                |
 | p1UpdateHw                | MINI-LINK 6352          | "hardwareExtractionFunction" | ""                                |
@@ -15,9 +21,17 @@
 | p1UpdateHw                | MINI-LINK 6600          | "hardwareExtractionFunction" | ""                                |
 | p1UpdateHw                | ALCplus2e               | "hardwareExtractionFunction" | ""                                |
 | p1UpdateHw                | AGS20                   | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | AGS20L                  | "hardwareExtractionFunction" | ""                                |
+| p1UpdateHw                | ALFO80                  | "hardwareExtractionFunction" | ""                                |
+| p1UpdateFw                | OptiXRTN950             | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN950F            | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
 | p1UpdateFw                | OptiXRTN950N            | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN9051A           | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN9052A           | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
 | p1UpdateFw                | OptiXRTN9052E           | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN380             | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
 | p1UpdateFw                | OptiXRTN380AX           | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
+| p1UpdateFw                | OptiXRTN380H            | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
 | p1UpdateFw                | OptiXRTN9052F           | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
 | p1UpdateFw                | OptiXRTN6900            | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
 | p1UpdateFw                | MINI-LINK 6352          | "firmwareExtractionFunction" | "p1ExtractSingleFirmware"         |
@@ -25,8 +39,5 @@
 | p1UpdateFw                | MINI-LINK 6600          | "firmwareExtractionFunction" | "p1ExtractSeparatedAppToo"        |
 | p1UpdateFw                | ALCplus2e               | "firmwareExtractionFunction" | "p1ExtractSeparatedBootWebOduToo" |
 | p1UpdateFw                | AGS20                   | "firmwareExtractionFunction" | "p1ExtractSeparatedBootWebOduToo" |
-
-
-
-
-
+| p1UpdateFw                | AGS20L                  | "firmwareExtractionFunction" | "p1ExtractSeparatedBootWebOduToo" |
+| p1UpdateFw                | ALFO80                  | "firmwareExtractionFunction" | "p1ExtractSeparatedBootWebOduToo" |

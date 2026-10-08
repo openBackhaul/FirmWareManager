@@ -39,7 +39,7 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 | Function                            |  1  |  2  |  3  |  4  |  5  |  6  |
 |-------------------------------------|-----|-----|-----|-----|-----|-----|
 | p1MeasureDomain                     | Th  | Th  | Ka  |     |     |     |
-| . p1ListUpdatedCcs                  |     | 1)  |     |     |     |     |
+| . p1ListUpdatedCcs                  | (2)  | 1)  |     |     |     |     |
 | . p1UpdateDevice                    | Th  | Th  | Ka  |     |     |     |
 | .. p1UpdateHw                       | Th  | Th  | Ka  |     |     |     |
 | .. p1UpdateFw                       | Th  | Th  | Ka  |     |     |     |
@@ -52,13 +52,13 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 | Function                     |  1  |  2  |  3  |  4  |  5  |  6  |
 |------------------------------|-----|-----|-----|-----|-----|-----|
-| p1ManageFirmware             | Th  | Th  |     |     |     |     |
-| . p1LoadEsAddresses          | Th  | Th  |     |     |     |     |
-| .. p1LoadParameters          | ./. | Th  |     |     |     |     |
-| .. p1ResolveEsAddress        | ./. | Th  |     |     |     |     |
-| . p1CreateDcFromStartupDS    | Th  | Th  |     |     |     |     |
-| . p1Pulser                   | Th  | Th  |     |     |     |     |
-| .. p1TrimHistoricalErrorList | Th  | Th  |     |     |     |     |
+| p1ManageFirmware             | Th  | Th  |     | (3) |     |     |
+| . p1LoadEsAddresses          | Th  | Th  |     | (3) |     |     |
+| .. p1LoadParameters          | ./. | Th  |     | (3) |     |     |
+| .. p1ResolveEsAddress        | ./. | Th  |     | (3) |     |     |
+| . p1CreateDcFromStartupDS    | Th  | Th  |     | (3) |     |     |
+| . p1Pulser                   | Th  | Th  |     | (3) |     |     |
+| .. p1TrimHistoricalErrorList | Th  | Th  |     | (3) |     |     |
 
 ===========
 

@@ -82,8 +82,6 @@ Th = Thorsten
 
 Solved by functions.
 
- > Wie werden wir die Devices wieder los?
-
 ### Categorizing individual devices into device groups
 
 | Service                                                                        | 1  | 2  | 5  | 3  | 4  | 5  |
@@ -104,26 +102,20 @@ Solved by functions.
 
 ### Administrate ElasticSearch indexes
 
-| Service                                                         | 1  | 2  | 5  | 3  | 4  | 5  |
-| --------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-existing-es-addresses](./listExistingEsAddresses/1.0.0/) |    |    |    |    |    |    |
-| [/update-es-address](./updateEsAddress/1.0.0/)                  |    |    |    |    |    |    |
+| Service                      | 1  | 2  | 5  | 3  | 4  | 5  |
+| ---------------------------- | -- | -- | -- | -- | -- | -- |
+| /list-existing-es-addresses  |    |    |    |    |    |    |
+| /update-es-address           |    |    |    |    |    |    |
 
 ### Analyzing historical errors
 
-| Service                                                   | 1  | 2  | 5  | 3  | 4  | 5  |
-| --------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-historical-errors](./listHistoricalErrors/1.0.0/)  |    |    |    |    |    |    |
+| Service                  | 1  | 2  | 5  | 3  | 4  | 5  |
+| ------------------------ | -- | -- | -- | -- | -- | -- |
+| /list-historical-errors  |    |    |    |    |    |    |
 
 ### Administrate Pulsers
 
-| Service                                                | 1  | 2  | 5  | 3  | 4  | 5  |
-| ------------------------------------------------------ | -- | -- | -- | -- | -- | -- |
-| [/list-existing-pulsers](./listExistingPulsers/1.0.0/) |    |    |    |    |    |    |
-| [/update-pulser](./updatePulser/1.0.0/)                |    |    |    |    |    |    |
-
----
-
----
-
-  > 1\) Error Codes not yet defined.  
+| Service                | 1  | 2  | 5  | 3  | 4  | 5  |
+| ---------------------- | -- | -- | -- | -- | -- | -- |
+| /list-existing-pulsers |    |    |    |    |    |    |
+| /update-pulser         |    |    |    |    |    |    |
