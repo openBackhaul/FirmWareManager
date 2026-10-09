@@ -548,6 +548,12 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cGyU0JcuEfGarpAJ9uU5dg"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cG0KAJcuEfGarpAJ9uU5dg" value="*"/>
           </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_xH1mUMPcEfG8wPZmTF6O_Q" name="lastMeasurementTime" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_xH1mUcPcEfG8wPZmTF6O_Q" annotatedElement="_xH1mUMPcEfG8wPZmTF6O_Q">
+              <body>Timestamp of the most recent update of the OperationalDS. Format: yyyy-mm-ddThh:mm:ss+hh:mm. Pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_qyCHkJf6EfGarpAJ9uU5dg" name="Server">
           <ownedAttribute xmi:type="uml:Property" xmi:id="_qyCHkZf6EfGarpAJ9uU5dg" name="label">
@@ -1200,4 +1206,7 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_eIhrgL1sEfG8wPZmTF6O_Q" base_StructuralFeature="_eIeoML1sEfG8wPZmTF6O_Q" support="CONDITIONAL" condition="In RunningDS just to be represented if deviceModel known."/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_lvH-kL1uEfG8wPZmTF6O_Q" base_Class="_lvHXgL1uEfG8wPZmTF6O_Q"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_lvHXjb1uEfG8wPZmTF6O_Q" base_Class="_lvHXgL1uEfG8wPZmTF6O_Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_xH4CkMPcEfG8wPZmTF6O_Q" base_Property="_xH1mUMPcEfG8wPZmTF6O_Q" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_xH2NYMPcEfG8wPZmTF6O_Q" base_StructuralFeature="_xH1mUMPcEfG8wPZmTF6O_Q"/>
+  <OpenModel_Profile:O xmi:id="_zDXpcMPdEfG8wPZmTF6O_Q" base_Element="_xH1mUMPcEfG8wPZmTF6O_Q"/>
 </xmi:XMI>

@@ -38,8 +38,8 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 | Function                            |  1  |  2  |  3  |  4  |  5  |  6  |
 |-------------------------------------|-----|-----|-----|-----|-----|-----|
-| p1MeasureDomain                     | Th  | Th  | Ka  |     |     |     |
-| . p1ListUpdatedCcs                  | (2)  | 1)  |     |     |     |     |
+| p1MeasureDomain                     | Th  | Th  |     |     |     |     |
+| . p1ListUpdatedCcs                  | Th  | Th  |     |     |     |     |
 | . p1UpdateDevice                    | Th  | Th  | Ka  |     |     |     |
 | .. p1UpdateHw                       | Th  | Th  | Ka  |     |     |     |
 | .. p1UpdateFw                       | Th  | Th  | Ka  |     |     |     |
@@ -59,7 +59,3 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 | . p1CreateDcFromStartupDS    | Th  | Th  |     | (3) |     |     |
 | . p1Pulser                   | Th  | Th  |     | (3) |     |     |
 | .. p1TrimHistoricalErrorList | Th  | Th  |     | (3) |     |     |
-
-===========
-
-1) Need for technical clarification  

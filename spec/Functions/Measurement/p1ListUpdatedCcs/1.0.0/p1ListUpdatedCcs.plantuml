@@ -10,18 +10,92 @@ participant "p1ListUpdatedCcs\n" as indServ
 
 database "MWDI" as Mwdi
 
-requestor -> indServ
+requestor -> indServ: { {parameters},\n{mwdiEsClient},\n--{mwdiReplicaEsClient}--,\n--{loggingEsClient}--,\n--lastReplicaTime--,\nlastExaminationTime }
 activate indServ
+
   note over indServ
-    Lists CCs that have
-    been updated in MWDI
-    since last update of
-    OperationalDS
+    Lists CCs that have been updated
+    in MWDI since lastExaminationTime
   end note
-  note over indServ #Orange
-    Details to be defined
+
+  note over indServ
+    Checks, whether
+    lastExaminationTime
+    is in past
   end note
-requestor <-- indServ: [updatedMountName]
+  note over indServ
+    IF lastExaminationTime >
+        currentTime
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Initializes
+    examinationTime
+    as currentTime
+  end note
+  note over indServ
+    Reads metadata
+    table from MWDI
+  end note
+  indServ -> Mwdi
+  activate Mwdi
+  indServ <-- Mwdi: [metaData]
+  deactivate Mwdi
+  note over indServ
+    IF [metaData].length NOT > 0:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { ErrorCode,\nErrorMessage2 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Checks for every mountName in [metaData] whether
+    lastSuccessfulCompleteControlConstructUpdateTime
+    is younger than lastExaminationTime
+  end note
+  note over indServ
+    Extracts maxAge
+    from {parameters}
+  end note
+  note over indServ
+    lastExaminationTime=
+      max(lastExaminationTime, (currentTime-maxAge))
+  end note
+  note over indServ
+    Initializes
+    [updatedMountNames]
+    as an empty list
+  end note
+  loop for each mountName
+    note over indServ
+      IF lastSuccessfulCompleteControlConstructUpdateTime
+            > lastExaminationTime:
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      Appends mountName
+      to [updatedMountNames]
+    end note
+    note right indServ
+      }
+    end note
+  end loop
+
+
+requestor <-- indServ: { [updatedMountNames],\n--timestamp--,\nexaminationTime }
 deactivate indServ
 
 @enduml

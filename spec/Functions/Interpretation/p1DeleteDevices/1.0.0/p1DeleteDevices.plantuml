@@ -8,6 +8,7 @@ end title
 participant "requestor\n" as requestor
 participant "p1DeleteDevices\n" as indServ
 participant "p1ValidationManager\n" as valiMan
+
 database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 database "OperationalDS" as OpDS

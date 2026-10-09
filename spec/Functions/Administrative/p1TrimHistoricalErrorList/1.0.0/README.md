@@ -1,6 +1,6 @@
 # p1TrimHistoricalErrorList
 
-Deletes the oldest entries until maximumLength is no longer exceeded.  
+Deletes the oldest entries from the historicalErrorList until maximumLength is no longer exceeded.  
 
 ## Diagram
 

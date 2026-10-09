@@ -10,17 +10,91 @@ participant "p1MeasureDomain\n" as indServ
 participant "p1ListUpdatedCcs\n" as listCcs
 participant "p1UpdateDevice\n" as updateCc
 
+database "OperationalDS" as OpDS
+database "DomainController" as DC
+database "ErrorList" as hEL
+
 requestor -> indServ
 activate indServ
 
-  indServ -> listCcs
+  note over indServ
+    Updates OperationalDS
+  end note
+
+  note over indServ
+    Composes inputs of
+    p1ListUpdatedCcs
+  end note
+  note over indServ
+    Reads maxAge from Parameter
+    of p1ListUpdatedCcs Function
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC: maxAge
+  deactivate DC
+  note over indServ
+    Creates {parameters}
+    from maxAge
+  end note
+  note over indServ
+    Reads MWDI ES index
+    info from EsAddress
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC: MwdiEsAddress
+  deactivate DC
+  note over indServ
+    Creates {mwdiEsClient}
+    from MwdiEsAddress
+  end note
+  note over indServ
+    Reads lastMeasurementTime
+    from OperationalDS
+  end note
+  indServ -> OpDS
+  activate OpDS
+  indServ <-- OpDS: lastMeasurementTime
+  deactivate OpDS
+  note over indServ
+    lastExaminationTime=
+      lastMeasurementTime
+  end note
+
+  note over indServ
+    Get list of mountNames to
+    be updated in OperationalDS
+  end note
+  indServ -> listCcs: { {parameters},\n{mwdiEsClient},\nlastExaminationTime }
   activate listCcs
     note over listCcs
       Lists CCs that are
       updated in MWDI
     end note
-  indServ <-- listCcs: [updatedMountName]
+  indServ <-- listCcs: { [updatedMountNames],\nexaminationTime }
   deactivate listCcs
+  note over indServ
+    IF error
+  end note
+  note right indServ
+    THEN {
+  end note
+  indServ -> hEL: {functionName="p1ListUpdatedCcs",\nerrorMessage1}
+  requestor <-- indServ: 204
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    Stores examinationTime
+    to OperationalDS
+  end note
+  note over indServ
+    lastMeasurementTime=
+      examinationTime
+  end note
+  indServ -> OpDS: lastMeasurementTime
 
   group partially parallel execution of each updatedMountName
     indServ -> updateCc

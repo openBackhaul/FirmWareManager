@@ -8,6 +8,7 @@ end title
 participant "requestor\n" as requestor
 participant "p1CreateDc\nFromStartupDS" as p1CDCFS
 participant "p1LoadParameters\n" as p1LP
+
 database "ElasticSearch" as StartDS
 database "DomainController" as DC
 database "ErrorList" as hEL

@@ -17,7 +17,7 @@ participant "<i>functionName</i>\n" as extractFw
 
 database "DomainController" as DC
 database "OperationalDS" as OpDS
-database "MWDI" as Mwdi
+database "MWDI ES" as Mwdi
 
 requestor -> indServ
 activate indServ
@@ -32,7 +32,7 @@ activate indServ
       Lists CCs that are
       updated in MWDI
     end note
-  indServ <-- listCcs: [updatedMountName]
+  indServ <-- listCcs: [updatedMountNames]
   deactivate listCcs
 
   group partially parallel execution for each updatedMountName
