@@ -10,7 +10,7 @@ participant "p1EnsureEveryDeviceBeingReferred\nByOneDeviceGroupOfItsDeviceModel"
 database "CandidateDS" as CanDS
 
 activate CanDS
-valiMan -> valiFun: { triggerFunction }
+valiMan -> valiFun: triggerFunction
 activate valiFun
 
   note over valiFun
@@ -71,7 +71,7 @@ activate valiFun
     note left valiFun
       Abort validation
     end note
-    valiMan <-- valiFun: { ErrorCode,\nErrorMessage,\n[duplicates] }
+    valiMan <-- valiFun: ErrorCode,\nErrorMessage,\n[duplicates]
     note over valiFun
       ELSE
     end note
@@ -116,7 +116,7 @@ activate valiFun
   note left valiFun
     Abort validation
   end note
-  valiMan <-- valiFun: { ErrorCode,\nErrorMessage,\n[ungroupedDevices] }
+  valiMan <-- valiFun: ErrorCode,\nErrorMessage,\n[ungroupedDevices]
   note over valiFun
     ELSE
   end note

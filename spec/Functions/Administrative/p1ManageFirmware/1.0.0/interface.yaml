@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: p1ManageFirmware
+  version: 1.0.0
+
+x-javascript-interface:
+  p1ManageFirmware:
+    summary: 'Startup of the autonomous firmware management'
+    processing:
+      p1LoadEsAddresses:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - 
+                properties:
+
+        output:
+          success:
+            description: 'Parameters successfully loaded'
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+
+          error:
+            description: 'Parameters could not be loaded'
+            content:
+              application/json:
+                schema:
+
+      p1CreateDomainControllerFromStartupDS:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - 
+                properties:
+
+        output:
+          success:
+            description: 'ES address successfully resolved'
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+
+          error:
+            description: 'ES address could not be resolved'
+            content:
+              application/json:
+                schema:
+
+      p1Pulser:
+        summary: 'Resolves Kafka address and initializes the Kafka producer session'
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - 
+                properties:
+
+        output:
+          success:
+            description: 'Kafka session successfully established'
+
+          error:
+            description: 'Kafka session could not be established'
+            content:
+              application/json:
+                schema:
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: p1UpdateFw
+  version: 1.0.0
+
+x-javascript-interface:
+  p1UpdateFw:
+    summary: 'Updates deviceModel specific firmware composition in OperationalDS'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - updated-mount-name
+              - control-construct
+            properties:
+              updated-mount-name:
+                type: string
+              control-construct:
+                type: object
+    output:
+      success:
+        description: 'Firmware updated in OperationalDS'
+      error:
+        description: 'Firmware could not be updated in OperationalDS'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - error-code
+                - error-message
+              properties:
+                error-code:
+                  type: integer
+                error-message:
+                  type: string
+                  enum:
+                    - 'no firmware extraction function defined for deviceModel'
+                    - 'general processing error'
+    processing:
+      p1ExtractSingleFirmware:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                  control-construct:
+                    type: object
+        output:
+          success:
+            description: 'Firmware extracted'
+      p1ExtractSeparatedNpuRauToo:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                  control-construct:
+                    type: object
+        output:
+          success:
+            description: 'Firmware extracted'
+      p1ExtractSeparatedAppToo:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                  control-construct:
+                    type: object
+        output:
+          success:
+            description: 'Firmware extracted'
+      p1ExtractSeparatedBootWebOduToo:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                  control-construct:
+                    type: object
+        output:
+          success:
+            description: 'Firmware extracted'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

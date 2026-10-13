@@ -36,8 +36,8 @@ activate indServ
   note right indServ
     THEN {
   end note
-  indServ -> hEL: {functionName="p1UpdateFw",\nerrorMessage1}
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
+  indServ -> hEL: functionName="p1UpdateFw",\nerrorMessage1
+  requestor <-- indServ: ErrorCode,\nErrorMessage1
   note right indServ
     }
   end note

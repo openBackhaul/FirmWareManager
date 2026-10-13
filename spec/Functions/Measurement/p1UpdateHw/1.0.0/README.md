@@ -21,7 +21,7 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 |#| Code | Message                                                           |
 |-|------|-------------------------------------------------------------------|
-|1|      | No hardware extraction function defined for deviceModel           |
+|1|      | no hardware extraction function defined for deviceModel           |
 
 ## Parameters
 

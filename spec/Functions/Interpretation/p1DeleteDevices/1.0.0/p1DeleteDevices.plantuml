@@ -13,7 +13,6 @@ database "CandidateDS" as CanDS
 database "RunningDS" as RunDS
 database "OperationalDS" as OpDS
 database "DomainController" as DC
-database "ErrorList" as hEL
 
 requestor -> indServ
 activate indServ
@@ -24,7 +23,7 @@ activate indServ
   end note
     indServ -> DC
     activate DC
-    indServ <-- DC: { maximumPermissibleAge }
+    indServ <-- DC: maximumPermissibleAge
     deactivate DC
 
   loop for each ODS:Device
@@ -151,15 +150,16 @@ activate indServ
   note over indServ
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==addDevicesToDeviceGroup}
+  indServ -> valiMan: triggerFunction==p1DeleteDevices
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  indServ <-- valiMan: result,\nreason
   deactivate valiMan
   note over indServ
-    IF validation failed:
+    IF (NOT 204) OR 
+          (result==failed):
   end note
   note right indServ
     THEN {
@@ -172,7 +172,6 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  indServ -> hEL: {functionName="p1DeleteDevices",\nerrorMessage1}
   requestor <-- indServ: 204
   note right indServ
     }

@@ -19,13 +19,13 @@ activate p1LEA
     address information
     from configFile
   end note
-  p1LEA -> p1LP: {functionName=\n"p1LoadEsAddresses"}
+  p1LEA -> p1LP: functionName=\n"p1LoadEsAddresses"
   activate p1LP
     note over p1LP
       Loads parameters
       from configFile
     end note
-  p1LEA <-- p1LP: { {parameters},\n{configFile} }
+  p1LEA <-- p1LP: {parameters},\n{configFile}
   deactivate p1LP
   note over p1LEA
     IF error
@@ -33,8 +33,8 @@ activate p1LEA
   note right p1LEA
     THEN {
   end note
-  p1LEA -> hEL: {functionName="p1LoadParameters",\nerrorMessage1}
-  requestor <-- p1LEA: { ErrorCode,\nErrorMessage1 }
+  p1LEA -> hEL: functionName="p1LoadParameters",\nerrorMessage1
+  requestor <-- p1LEA: ErrorCode,\nErrorMessage1
   note right p1LEA
     }
   end note
@@ -58,8 +58,8 @@ activate p1LEA
     note right p1LEA
       THEN {
     end note
-    p1LEA -> hEL: {functionName="p1ResolveEsAddress",\nerrorMessage2}
-    requestor <-- p1LEA: { ErrorCode,\nErrorMessage2 }
+    p1LEA -> hEL: functionName="p1ResolveEsAddress",\nerrorMessage2
+    requestor <-- p1LEA: ErrorCode,\nErrorMessage2
     note right p1LEA
       }
     end note

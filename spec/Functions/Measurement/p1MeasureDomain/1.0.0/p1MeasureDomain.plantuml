@@ -66,13 +66,13 @@ activate indServ
     Get list of mountNames to
     be updated in OperationalDS
   end note
-  indServ -> listCcs: { {parameters},\n{mwdiEsClient},\nlastExaminationTime }
+  indServ -> listCcs: {parameters},\n{mwdiEsClient},\nlastExaminationTime
   activate listCcs
     note over listCcs
       Lists CCs that are
       updated in MWDI
     end note
-  indServ <-- listCcs: { [updatedMountNames],\nexaminationTime }
+  indServ <-- listCcs: [updatedMountNames],\nexaminationTime
   deactivate listCcs
   note over indServ
     IF error
@@ -80,7 +80,7 @@ activate indServ
   note right indServ
     THEN {
   end note
-  indServ -> hEL: {functionName="p1ListUpdatedCcs",\nerrorMessage1}
+  indServ -> hEL: functionName="p1ListUpdatedCcs",\nerrorMessage1
   requestor <-- indServ: 204
   note right indServ
     }

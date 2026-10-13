@@ -21,7 +21,7 @@ Please find a detailed description of the [variables](./variables.yaml).
 |#| Code | Message                                                           |
 |-|------|-------------------------------------------------------------------|
 |1|      | ElasticSearch read error                                          |
-|1|      | CC empty or null                                                  |
+|1|      | ControlConstruct empty or null                                    |
 
 ## Parameters
 

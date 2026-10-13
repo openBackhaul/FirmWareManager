@@ -40,7 +40,7 @@ activate p1ManaFw
   note right p1ManaFw
     THEN {
   end note
-  p1ManaFw -> hEL: {functionName="p1ManageFirmware",\nerrorMessage1}
+  p1ManaFw -> hEL: functionName="p1ManageFirmware",\nerrorMessage1
   ?<-- p1ManaFw
   note right p1ManaFw
     }
@@ -62,7 +62,7 @@ activate p1ManaFw
   note right p1ManaFw
     THEN {
   end note
-  p1ManaFw -> hEL: {functionName="p1ManageFirmware",\nerrorMessage2}
+  p1ManaFw -> hEL: functionName="p1ManageFirmware",\nerrorMessage2
   ?<-- p1ManaFw
   note right p1ManaFw
     }

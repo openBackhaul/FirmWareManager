@@ -8,9 +8,11 @@ end title
 participant "requestor\n" as requestor
 participant "p1ValidationManager\n" as valiMan
 participant "<i>ValidationFunction</i>\n" as valiFun
-database "DomainController" as DC
 
-requestor -> valiMan: { triggerFunction }
+database "DomainController" as DC
+database "ErrorList" as hEL
+
+requestor -> valiMan: triggerFunction
 activate valiMan
 
   note over valiMan
@@ -18,41 +20,66 @@ activate valiMan
     [ValidationSequence] 
     at DomainController
   end note
-    valiMan -> DC:  .../validation-sequence={triggerFunction}/sequence
-    activate DC
-    valiMan <-- DC: [sequence]
-    deactivate DC
+  valiMan -> DC:  .../validation-sequence={triggerFunction}/sequence
+  activate DC
+  valiMan <-- DC: [sequence]
+  deactivate DC
+  note over valiMan
+    IF [sequence]==null:
+  end note
+  note left valiMan
+    THEN {
+  end note
+  valiMan -> hEL: functionName="p1ValidationManager",\nerrorMessage1
+  requestor <-- valiMan : ErrorCode,\nErrorMessage1
+  note left valiMan
+    }
+  end note
 
   loop for [sequence]
+
     note over valiMan
       Calls ValidationFunction
       according to sequence
     end note
-    valiMan -> valiFun: { triggerFunction }
+    valiMan -> valiFun: triggerFunction
     activate valiFun
       note over valiFun
         Validates
         CandidateDS
         contents
       end note
-    valiMan <-- valiFun
+    valiMan <-- valiFun: result,\nreason
     deactivate valiFun
+
     note over valiMan
-      IF response NOT 204
+      IF calling ValidationFunction failed:
     end note
     note left valiMan
-      THEN
+      THEN {
+    end note
+    valiMan -> hEL: functionName="p1ValidationManager",\nerrorMessage2
+    requestor <-- valiMan: ErrorCode,\nErrorMessage2
+    note left valiMan
+      }
+    end note
+
+    note over valiMan
+      IF result==failed:
     end note
     note left valiMan
-      Abort validation
+      THEN {
     end note
-    requestor <-- valiMan: { ErrorCode,\nErrorMessage }
-    note over valiMan
-      ELSE
+    note left valiMan
+      Aborts validation
+    end note
+    requestor <-- valiMan: result,\nreason
+    note left valiMan
+      }
     end note
   end loop
 
-requestor <-- valiMan: 204
+requestor <-- valiMan: result
 deactivate valiMan
 
 @enduml

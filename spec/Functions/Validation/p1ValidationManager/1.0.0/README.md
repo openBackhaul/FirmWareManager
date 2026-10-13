@@ -19,7 +19,10 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-./.  
+|#| Code | Message                                                           |
+|-|------|-------------------------------------------------------------------|
+|1|      | validation sequence could not be found                            |
+|2|      | validation sequence could not be executed                         |
 
 ## Parameters
 

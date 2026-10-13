@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  title: p1DeleteDevices
+  version: 1.0.0
+
+x-javascript-interface:
+  p1DeleteDevices:
+    summary: 'Deletes devices from RunningDS'
+    output:
+      success:
+        description: 'Devices deleted'
+    processing:
+      p1ValidationManager:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - trigger-function
+                properties:
+                  trigger-function:
+                    type: string
+        output:
+          success:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    result:
+                      type: string
+                    reason:
+                      type: string
+          error:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error-code:
+                      type: integer
+                    error-message:
+                      type: string
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

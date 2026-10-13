@@ -1,0 +1,17 @@
+openapi: 3.0.0
+info:
+  title: p1Pulser
+  version: 1.0.0
+
+x-javascript-interface:
+  p1Pulser:
+    summary: 'Cyclically invokes functions'
+    processing:
+      _p1TargetFunction_:
+        output:
+          success:
+            description: 'Something executed'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

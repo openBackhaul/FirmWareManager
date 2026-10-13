@@ -19,17 +19,17 @@ Th = Thorsten
 
 | Service                                                    | 1  | 2  | 5  | 3     | 4  | 5  |
 | ---------------------------------------------------------- | -- | -- | -- | ----- | -- | -- |
-| [/list-existing-servers](./listExistingServers/1.0.0/)     | Th | Th | Ka | Th    | Th |    |
+| [/list-existing-servers](./listExistingServers/1.0.0/)     | Th | Th | Ka |       |    |    |
 | [/list-incomplete-servers](./listIncompleteServers/1.0.0/) | Th | Th | Ka |       |    |    |
 | [/create-server](./createServer/1.0.0/)                    | Th | Th | Ka |       |    |    |
 | [/update-server](./updateServer/1.0.0/)                    | Th | Th | Ka |       |    |    |
-| [/delete-server](./deleteServer/1.0.0/)                    | Th | Th | Ka | Th 1) | Th |    |
+| [/delete-server](./deleteServer/1.0.0/)                    | Th | Th | Ka |       |    |    |
 
 ### Preparing firmware resources
 
 | Service                                                                     | 1  | 2  | 5  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-existing-firmware-resources](./listExistingFirmwareResources/1.0.0/) | Th | Th | Ka | Th | Th |    |
+| [/list-existing-firmware-resources](./listExistingFirmwareResources/1.0.0/) | Th | Th | Ka |    |    |    |
 | [/create-firmware-resource](./createFirmwareResource/1.0.0/)                | Th | Th | Ka |    |    |    |
 | [/update-firmware-resource](./updateFirmwareResource/1.0.0/)                | Th | Th | Ka |    |    |    |
 | [/delete-firmware-resource](./deleteFirmwareResource/1.0.0/)                | Th | Th | Ka |    |    |    |

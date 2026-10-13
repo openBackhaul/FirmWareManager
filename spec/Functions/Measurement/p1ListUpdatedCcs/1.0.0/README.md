@@ -20,7 +20,7 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 |#| Code | Message                                                           |
 |-|------|-------------------------------------------------------------------|
-|1|      | Attribute's value is not valid                                    |
+|1|      | attribute value is not valid                                      |
 |2|      | ElasticSearch read error                                          |
 |2|      | metadataTable not found in MWDI                                   |
 

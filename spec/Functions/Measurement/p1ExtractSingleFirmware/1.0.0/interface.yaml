@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: p1ExtractSingleFirmware
+  version: 1.0.0
+
+x-javascript-interface:
+  p1ExtractSingleFirmware:
+    summary: 'Extracts a single activatable firmware component'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - updated-mount-name
+              - control-construct
+            properties:
+              updated-mount-name:
+                type: string
+              control-construct:
+                type: object
+    output:
+      success:
+        description: 'Firmware extracted'
+    processing:
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

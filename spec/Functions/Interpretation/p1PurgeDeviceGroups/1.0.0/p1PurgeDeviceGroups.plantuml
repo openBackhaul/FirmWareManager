@@ -8,9 +8,8 @@ end title
 participant "requestor\n" as requestor
 participant "p1PurgeDeviceGroups\n" as indServ
 participant "/deleteDeviceGroup\n" as delGroup
-participant "p1ValidationManager\n" as valiMan
+
 database "RunningDS" as RunDS
-database "ErrorList" as hEL
 
 requestor -> indServ
 activate indServ
@@ -26,14 +25,14 @@ activate indServ
     note over indServ
       IF purgeDate exceeded:
     end note
-    note over indServ
+    note right indServ
       THEN {
     end note
   note right indServ
     Deletes outdated DeviceGroup
     by calling /deleteDeviceGroup
   end note
-    indServ -> delGroup: { label }
+    indServ -> delGroup: label
     activate delGroup
       note over delGroup
         Deletes DeviceGroup
@@ -42,18 +41,7 @@ activate indServ
       end note
     indServ <-- delGroup
     deactivate delGroup
-
     note right indServ
-      IF ResponseCode != 204:
-    end note
-    note right indServ
-      THEN {
-    end note
-    indServ -> hEL: {functionName="p1PurgeDeviceGroups",\nerrorMessage1}
-    note right indServ
-      }
-    end note
-    note over indServ
       }
     end note
   end loop

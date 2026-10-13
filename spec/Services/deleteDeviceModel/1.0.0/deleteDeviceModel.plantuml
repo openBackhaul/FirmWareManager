@@ -125,15 +125,15 @@ activate indServ
   note over indServ
     Triggers Validation
   end note
-  indServ -> valiMan: {triggerFunction==deleteDeviceModel}
+  indServ -> valiMan: triggerFunction==deleteDeviceModel
   activate valiMan
     note over valiMan
       Validates
     end note
-  indServ <-- valiMan
+  indServ <-- valiMan: result,\nreason
   deactivate valiMan
   note over indServ
-    IF validation failed:
+    IF result==failed:
   end note
   note right indServ
     THEN {

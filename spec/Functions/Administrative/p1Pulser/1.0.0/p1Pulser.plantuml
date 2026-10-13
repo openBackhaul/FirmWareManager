@@ -74,23 +74,20 @@ loop endless
   p1Puls -> DC: nextTime
 
     note over p1Puls
-      Invokes targetFunction
+      Calls targetFunction
     end note
     p1Puls -> p1Target
+    activate p1Target
     p1Puls <-- p1Target
+    deactivate p1Target
 
     note over p1Puls
-      IF error
-    end note
-    note over p1Target #Yellow
-      Important:
-      error does not relate to response of TargetFunction,
-      but failures that happened inside p1Pulser itself
+      IF calling targetFunction failed:
     end note
     note right p1Puls
       THEN {
     end note
-    p1Puls -> hEL: {functionName="p1Pulser",\nerrorMessage1}
+    p1Puls -> hEL: functionName="p1Pulser",\nerrorMessage1
     note right p1Puls
       }
     end note

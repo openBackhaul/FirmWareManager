@@ -25,7 +25,7 @@ activate p1CDCFS
     ElasticSearch index from
     configFile
   end note
-  p1CDCFS -> p1LP: {functionName=\n"p1CreateDcFromStartupDS"}
+  p1CDCFS -> p1LP: functionName=\n"p1CreateDcFromStartupDS"
   activate p1LP
     note over p1LP
       Loads parameters
@@ -39,8 +39,8 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL: {functionName="p1LoadParameters",\nerrorMessage1}
-  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage1 }
+  p1CDCFS -> hEL: functionName="p1LoadParameters",\nerrorMessage1
+  requestor <-- p1CDCFS: ErrorCode,\nErrorMessage1
   note right p1CDCFS
     }
   end note
@@ -49,7 +49,7 @@ activate p1CDCFS
     Reads ElasticSearchClient
     address from [EsAddress]
   end note
-  p1CDCFS -> DC: {/domain-controller/es-address=domainControllerEsClient}
+  p1CDCFS -> DC: /domain-controller/es-address=domainControllerEsClient
   activate DC
   p1CDCFS <-- DC: {DomainControllerEsClient}
   deactivate DC
@@ -59,8 +59,8 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL: {functionName="p1CreateDcFromStartupDS",\nerrorMessage2}
-  requestor <-- p1CDCFS : { ErrorCode,\nerrorMessage2 }
+  p1CDCFS -> hEL: functionName="p1CreateDcFromStartupDS",\nerrorMessage2
+  requestor <-- p1CDCFS: ErrorCode,\nerrorMessage2
   note right p1CDCFS
     }
   end note
@@ -79,8 +79,8 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL: {functionName="p1CreateDcFromStartupDS",\nerrorMessage3}
-  requestor <-- p1CDCFS : { ErrorCode,\nErrorMessage3 }
+  p1CDCFS -> hEL: functionName="p1CreateDcFromStartupDS",\nerrorMessage3
+  requestor <-- p1CDCFS: ErrorCode,\nErrorMessage3
   note right p1CDCFS
     }
   end note

@@ -21,7 +21,7 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 |#| Code | Message                                                           |
 |-|------|-------------------------------------------------------------------|
-|1|      | No firmware extraction function defined for deviceModel           |
+|1|      | no firmware extraction function defined for deviceModel           |
 
 ## Parameters
 

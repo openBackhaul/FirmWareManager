@@ -1,0 +1,103 @@
+openapi: 3.0.0
+info:
+  title: p1UpdateDevice
+  version: 1.0.0
+
+x-javascript-interface:
+  p1UpdateDevice:
+    summary: 'Interprets an updated ControlConstruct from MWDI'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - updated-mount-name
+            properties:
+              updated-mount-name:
+                type: string
+    output:
+      success:
+        description: 'ControlConstruct interpreted'
+      error:
+        description: 'ControlConstruct could not be interpreted'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - error-code
+                - error-message
+              properties:
+                error-code:
+                  type: integer
+                error-message:
+                  type: string
+                  enum:
+                    - 'ElasticSearch read error'
+                    - 'ControlConstruct empty or null'
+                    - 'general processing error'
+    processing:
+      p1UpdateHw:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                  control-construct:
+                    type: object
+        output:
+          success:
+            description: 'Hardware updated in OperationalDS'
+          error:
+            description: 'Hardware could not be updated in OperationalDS'
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error-code:
+                      type: integer
+                    error-message:
+                      type: string
+      p1UpdateFw:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                  control-construct:
+                    type: object
+        output:
+          success:
+            description: 'Firmware updated in OperationalDS'
+          error:
+            description: 'Firmware could not be updated in OperationalDS'
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error-code:
+                      type: integer
+                    error-message:
+                      type: string
+
+paths:
+  /:
+    description: 'no rest path provided by this module'
