@@ -28,7 +28,7 @@ activate p1LEA
   p1LEA <-- p1LP: {parameters},\n{configFile}
   deactivate p1LP
   note over p1LEA
-    IF error
+    IF NOT 204
   end note
   note right p1LEA
     THEN {
@@ -45,12 +45,12 @@ activate p1LEA
       object from address
       information
     end note
-    p1LEA -> p1REA: { {/parameters/sub-function=p1ResolveEsAddress},\n{configFile},\nesName }
+    p1LEA -> p1REA: {/parameters/sub-function=p1ResolveEsAddress},\n{configFile},\nesName
     activate p1REA
       note over p1REA
         Resolves ES address
       end note
-    p1LEA <-- p1REA: { {esAddress} }
+    p1LEA <-- p1REA: {esAddress}
     deactivate p1REA
     note over p1LEA
       IF error

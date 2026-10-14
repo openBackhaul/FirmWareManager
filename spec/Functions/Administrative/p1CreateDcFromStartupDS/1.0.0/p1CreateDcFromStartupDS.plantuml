@@ -34,7 +34,7 @@ activate p1CDCFS
   p1CDCFS <-- p1LP : { esName==domainControllerEsClient, ... }
   deactivate p1LP
   note over p1CDCFS
-    IF error
+    IF NOT 204
   end note
   note right p1CDCFS
     THEN {
@@ -54,7 +54,7 @@ activate p1CDCFS
   p1CDCFS <-- DC: {DomainControllerEsClient}
   deactivate DC
   note over p1CDCFS
-    IF error
+    IF {DomainControllerEsClient}==null
   end note
   note right p1CDCFS
     THEN {

@@ -1,0 +1,162 @@
+
+
+{
+  "core-model-1-4:control-construct": {
+    "uuid": "dpmdp-1-1-0",
+    "profile-collection": {
+      "profile": [
+
+        {
+          "uuid": "dpmdp-1-1-0-function-p-060",
+          "profile-name": "function-profile-1-0:PROFILE_NAME_TYPE_FUNCTION_PROFILE",
+          "function-profile-1-0:function-profile-pac": {
+            "function-profile-capability": {
+              "function-name": "???",
+              "function-description": "???",
+              "parameter-list": [
+                {
+                  "parameter": "dpmdp-1-1-0-string-p-061",
+                  "owner": "platform"
+                }
+              ],
+              "sub-function-list": []
+            },
+            "function-profile-configuration": {
+              "is-active": true
+            }
+          }
+        },
+        {
+          "uuid": "dpmdp-1-1-0-string-p-061",
+          "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
+          "string-profile-1-0:string-profile-pac": {
+            "string-profile-capability": {
+              "string-name": "domainControllerEsClient",
+              "string-purpose": "UUID of the DomainController ES ElasticsearchClient LTP",
+              "pattern": "^dpmdp-([0-9]+)-([0-9]+)-([0-9]+)-es-c-es-([0-9]+)-([0-9]+)-([0-9]+)-[0-9]{3}$"
+            },
+            "string-profile-configuration": {
+              "string-value": "dpmdp-1-1-0-es-c-es-1-0-0-007"
+            }
+          }
+        },
+
+        {
+          "uuid": "dpmdp-1-1-0-function-p-070",
+          "profile-name": "function-profile-1-0:PROFILE_NAME_TYPE_FUNCTION_PROFILE",
+          "function-profile-1-0:function-profile-pac": {
+            "function-profile-capability": {
+              "function-name": "p1CreateDcFromStartupDS",
+              "function-description": "Populates DomainController from ElasticSearch",
+              "parameter-list": [
+                {
+                  "parameter": "dpmdp-1-1-0-string-p-071",
+                  "owner": "platform"
+                }
+              ],
+              "sub-function-list": []
+            },
+            "function-profile-configuration": {
+              "is-active": true
+            }
+          }
+        },
+        {
+          "uuid": "dpmdp-1-1-0-string-p-071",
+          "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
+          "string-profile-1-0:string-profile-pac": {
+            "string-profile-capability": {
+              "string-name": "esName",
+              "string-purpose": "Name of the Elasticsearch index to be used for loading the DomainController data"
+            },
+            "string-profile-configuration": {
+              "string-value": "domainControllerEsClient"
+            }
+          }
+        }
+
+
+
+      ]
+    },
+    "logical-termination-point": [
+
+
+      {
+        "uuid": "dpmdp-1-1-0-es-c-es-1-0-0-007",
+        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
+        "client-ltp": [],
+        "server-ltp": [
+          "dpmdp-1-1-0-http-c-es-1-0-0-000"
+        ],
+        "layer-protocol": [
+          {
+            "local-id": "0",
+            "layer-protocol-name": "elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER",
+            "elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac": {
+              "elasticsearch-client-interface-configuration": {
+                "auth": {
+                  "api-key": "API key not yet defined."
+                },
+                "index-alias": "23"
+              },
+              "elasticsearch-client-interface-status": {
+                "operational-state": "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
+                "life-cycle-state": "elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "dpmdp-1-1-0-http-c-es-1-0-0-000",
+        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
+        "client-ltp": [
+          "dpmdp-1-1-0-es-c-es-1-0-0-007"
+        ],
+        "server-ltp": [
+          "dpmdp-1-1-0-tcp-c-es-1-0-0-000"
+        ],
+        "layer-protocol": [
+          {
+            "local-id": "0",
+            "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
+            "http-client-interface-1-0:http-client-interface-pac": {
+              "http-client-interface-configuration": {
+                "application-name": "ElasticSearch",
+                "release-number": "1.0.0"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "dpmdp-1-1-0-tcp-c-es-1-0-0-000",
+        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
+        "client-ltp": [
+          "dpmdp-1-1-0-http-c-es-1-0-0-000"
+        ],
+        "server-ltp": [],
+        "layer-protocol": [
+          {
+            "local-id": "0",
+            "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
+            "tcp-client-interface-1-0:tcp-client-interface-pac": {
+              "tcp-client-interface-configuration": {
+                "remote-protocol": "tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP",
+                "remote-address": {
+                  "ip-address": {
+                    "ipv-4-address": "127.0.0.1"
+                  }
+                },
+                "remote-port": 3015
+              }
+            }
+          }
+        ]
+      }
+
+
+    ]
+  }
+}

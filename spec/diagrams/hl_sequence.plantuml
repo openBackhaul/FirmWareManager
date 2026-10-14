@@ -41,7 +41,7 @@ participant "p1TrimHistoricalErrorList\n" as p1TrimErrors
 embed -> p1ManaFw
 activate p1ManaFw
 
-  p1ManaFw -> p1LEA
+  p1ManaFw -[#green]> p1LEA
   activate p1LEA
     note over p1LEA
       Makes ElasticSearch
@@ -67,10 +67,10 @@ activate p1ManaFw
     p1LEA <-[#green]- p1REA
     deactivate p1REA
 
-  p1ManaFw <-- p1LEA
+  p1ManaFw <-[#green]- p1LEA
   deactivate p1LEA
 
-  p1ManaFw -> p1CDCFS
+  p1ManaFw -[#green]> p1CDCFS
   activate p1CDCFS
     note over p1CDCFS
       Populates DomainController
@@ -86,7 +86,7 @@ activate p1ManaFw
     p1CDCFS <-[#green]- p1LP
     deactivate p1LP
 
-  p1ManaFw <-- p1CDCFS
+  p1ManaFw <-[#green]- p1CDCFS
   deactivate p1CDCFS
   
   p1ManaFw -[#green]> p1Puls
