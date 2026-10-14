@@ -49,7 +49,7 @@ activate indServ
     end note
   end loop
 
-requestor <-- indServ: { [incompleteServerList] }
+requestor <-- indServ: [incompleteServerList]
 deactivate indServ
 
 @enduml

@@ -41,7 +41,7 @@ activate indServ
     end note
   end loop
 
-requestor <-- indServ: [ hardwareExtractionFunctionList ]
+requestor <-- indServ: [hardwareExtractionFunctionList]
 deactivate indServ
 
 @enduml

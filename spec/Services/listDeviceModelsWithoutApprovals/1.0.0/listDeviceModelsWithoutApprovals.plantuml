@@ -35,7 +35,7 @@ activate indServ
     end note
   end loop
 
-requestor <-- indServ: { [deviceModelList] }
+requestor <-- indServ: [deviceModelList]
 deactivate indServ
 
 @enduml

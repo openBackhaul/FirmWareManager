@@ -35,7 +35,7 @@ activate indServ
     end note
   end loop
 
-requestor <-- indServ: { [deviceGroupList] }
+requestor <-- indServ: [deviceGroupList]
 deactivate indServ
 
 @enduml
