@@ -16,13 +16,6 @@ Please find a detailed description of the [interface](./interface.yaml).
 
 Please find a detailed description of the [variables](./variables.yaml).  
 
-## Error Codes
-
-|#| Code | Message                                                           |
-|-|------|-------------------------------------------------------------------|
-|1|      | ElasticSearch read error                                          |
-|1|      | ControlConstruct empty or null                                    |
-
 ## Parameters
 
 ./.  

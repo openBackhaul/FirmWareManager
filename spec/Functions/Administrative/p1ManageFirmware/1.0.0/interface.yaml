@@ -32,7 +32,10 @@ x-javascript-interface:
             content:
               application/json:
                 schema:
-
+                  type: string
+                  enum:
+                    - 'Firmware management stopped as ElasticSearch addresses could not be loaded'
+                    - 'Firmware management stopped as initial DomainController data or StartupDS could not be loaded'
       p1CreateDomainControllerFromStartupDS:
         input:
           required: true

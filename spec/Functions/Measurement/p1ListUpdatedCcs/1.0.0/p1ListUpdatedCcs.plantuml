@@ -30,7 +30,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: ErrorCode,\nErrorMessage1,\n[attributeList]
+  requestor <-- indServ: ErrorMessage1
   note left indServ
     }
   end note
@@ -54,7 +54,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: ErrorCode,\nErrorMessage2
+  requestor <-- indServ: ErrorMessage2
   note left indServ
     }
   end note

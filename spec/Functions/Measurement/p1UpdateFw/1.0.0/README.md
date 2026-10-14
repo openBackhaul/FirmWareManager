@@ -17,12 +17,6 @@ Please find a detailed description of the [interface](./interface.yaml).
 
 Please find a detailed description of the [variables](./variables.yaml).  
 
-## Error Codes
-
-|#| Code | Message                                                           |
-|-|------|-------------------------------------------------------------------|
-|1|      | no firmware extraction function defined for deviceModel           |
-
 ## Parameters
 
 | Parameter Name    | Description                                                                                                                                                                             |

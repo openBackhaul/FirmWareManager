@@ -43,7 +43,7 @@ activate indServ
     THEN {
   end note
   indServ -> hEL: functionName="p1UpdateHw",\nerrorMessage1
-  requestor <-- indServ: ErrorCode,\nErrorMessage1
+  requestor <-- indServ: ErrorMessage1
   note right indServ
     }
   end note

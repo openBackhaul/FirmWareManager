@@ -14,26 +14,18 @@ x-javascript-interface:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - error-code
-                - error-message
-              properties:
-                error-code:
-                  type: integer
-                error-message:
-                  type: string
-                  enum:
-                    - 'configFile not found or not accessible'
-                    - 'configFile is not valid JSON'
-                    - 'configFile does not conform to the expected schema'
-                    - 'functionName not found in configFile'
-                    - 'unknown error occurred'
-                    - 'ElasticSearchClient not found in DomainController'
-                    - 'dataStoreUrl invalid'
-                    - 'ElasticSearch read error'
-                    - 'DomainController data not found in ElasticSearch'
-                    - 'general processing error'
+              type: string
+              enum:
+                - 'configFile not found or not accessible'
+                - 'configFile is not valid JSON'
+                - 'configFile does not conform to the expected schema'
+                - 'functionName not found in configFile'
+                - 'unknown error occurred'
+                - 'ElasticSearchClient not found in DomainController'
+                - 'dataStoreUrl invalid'
+                - 'ElasticSearch read error'
+                - 'DomainController data not found in ElasticSearch'
+                - 'general processing error'
     processing:
       p1LoadParameters:
         input:

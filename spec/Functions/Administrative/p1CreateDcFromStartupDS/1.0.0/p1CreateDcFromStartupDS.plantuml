@@ -31,7 +31,7 @@ activate p1CDCFS
       Loads parameters
       from configFile
     end note
-  p1CDCFS <-- p1LP : { esName==domainControllerEsClient, ... }
+  p1CDCFS <-- p1LP: { esName==domainControllerEsClient, ... }
   deactivate p1LP
   note over p1CDCFS
     IF NOT 204
@@ -40,7 +40,7 @@ activate p1CDCFS
     THEN {
   end note
   p1CDCFS -> hEL: functionName="p1LoadParameters",\nerrorMessage1
-  requestor <-- p1CDCFS: ErrorCode,\nErrorMessage1
+  requestor <-- p1CDCFS: ErrorMessage1
   note right p1CDCFS
     }
   end note
@@ -60,7 +60,7 @@ activate p1CDCFS
     THEN {
   end note
   p1CDCFS -> hEL: functionName="p1CreateDcFromStartupDS",\nerrorMessage2
-  requestor <-- p1CDCFS: ErrorCode,\nerrorMessage2
+  requestor <-- p1CDCFS: ErrorMessage2
   note right p1CDCFS
     }
   end note
@@ -80,7 +80,7 @@ activate p1CDCFS
     THEN {
   end note
   p1CDCFS -> hEL: functionName="p1CreateDcFromStartupDS",\nerrorMessage3
-  requestor <-- p1CDCFS: ErrorCode,\nErrorMessage3
+  requestor <-- p1CDCFS: ErrorMessage3
   note right p1CDCFS
     }
   end note

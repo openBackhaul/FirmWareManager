@@ -16,13 +16,6 @@ Please find a detailed description of the [interface](./interface.yaml).
 
 Please find a detailed description of the [variables](./variables.yaml).  
 
-## Error Codes
-
-|#| Code | Message                                                                                       |
-|-|------|-----------------------------------------------------------------------------------------------|
-|1|      | Firmware management stopped as ElasticSearch addresses could not be loaded                    |
-|2|      | Firmware management stopped as initial DomainController data or StartupDS could not be loaded |
-
 ## Parameters
 
 ./.  

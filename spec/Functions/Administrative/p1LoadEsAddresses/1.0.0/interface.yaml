@@ -14,35 +14,27 @@ x-javascript-interface:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - error-code
-                - error-message
-              properties:
-                error-code:
-                  type: integer
-                error-message:
-                  type: string
-                  enum:
-                    - 'configFile not found or not accessible'
-                    - 'configFile is not valid JSON'
-                    - 'configFile does not conform to the expected schema'
-                    - 'functionName not found in configFile'
-                    - 'unknown error occurred'
-                    - 'es-name not found in parameters'
-                    - 'es-client-uuid could not be resolved'
-                    - 'es-client LTP could not be found in config-file'
-                    - 'http-client-uuid could not be resolved'
-                    - 'http-client LTP could not be found in config-file'
-                    - 'tcp-client-uuid could not be resolved'
-                    - 'tcp-client LTP could not be found in config-file'
-                    - 'url could not be resolved'
-                    - 'api-key could not be resolved'
-                    - 'index-alias could not be resolved'
-                    - 'service-records-policy could not be resolved'
-                    - 'operational-state could not be resolved'
-                    - 'life-cycle-state could not be resolved'
-                    - 'general processing error'
+              type: string
+              enum:
+                - 'configFile not found or not accessible'
+                - 'configFile is not valid JSON'
+                - 'configFile does not conform to the expected schema'
+                - 'functionName not found in configFile'
+                - 'unknown error occurred'
+                - 'es-name not found in parameters'
+                - 'es-client-uuid could not be resolved'
+                - 'es-client LTP could not be found in config-file'
+                - 'http-client-uuid could not be resolved'
+                - 'http-client LTP could not be found in config-file'
+                - 'tcp-client-uuid could not be resolved'
+                - 'tcp-client LTP could not be found in config-file'
+                - 'url could not be resolved'
+                - 'api-key could not be resolved'
+                - 'index-alias could not be resolved'
+                - 'service-records-policy could not be resolved'
+                - 'operational-state could not be resolved'
+                - 'life-cycle-state could not be resolved'
+                - 'general processing error'
     processing:
       p1LoadParameters:
         input:

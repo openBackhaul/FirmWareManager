@@ -17,16 +17,6 @@ Please find a detailed description of the [interface](./interface.yaml).
 
 Please find a detailed description of the [variables](./variables.yaml).  
 
-## Error Codes
-
-|#| Code | Message                                                           |
-|-|------|-------------------------------------------------------------------|
-|1|      | _[provided by p1LoadParameters]_                                  |
-|2|      | ElasticSearchClient not found in DomainController                 |
-|3|      | dataStoreUrl invalid                                              |
-|3|      | ElasticSearch read error                                          |
-|3|      | DomainController data not found in ElasticSearch                  |
-
 ## Parameters
 
 | Parameter Name | Description                                                                                                |

@@ -47,12 +47,7 @@ x-javascript-interface:
             content:
               application/json:
                 schema:
-                  type: object
-                  properties:
-                    error-code:
-                      type: integer
-                    error-message:
-                      type: string
+                  type: string
       p1UpdateDevice:
         input:
           required: true
@@ -73,12 +68,7 @@ x-javascript-interface:
             content:
               application/json:
                 schema:
-                  type: object
-                  properties:
-                    error-code:
-                      type: integer
-                    error-message:
-                      type: string
+                  type: string
 
 paths:
   /:

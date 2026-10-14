@@ -31,7 +31,7 @@ activate valiMan
     THEN {
   end note
   valiMan -> hEL: functionName="p1ValidationManager",\nerrorMessage1
-  requestor <-- valiMan : ErrorCode,\nErrorMessage1
+  requestor <-- valiMan : ErrorMessage1
   note left valiMan
     }
   end note
@@ -59,7 +59,7 @@ activate valiMan
       THEN {
     end note
     valiMan -> hEL: functionName="p1ValidationManager",\nerrorMessage2
-    requestor <-- valiMan: ErrorCode,\nErrorMessage2
+    requestor <-- valiMan: ErrorMessage2
     note left valiMan
       }
     end note

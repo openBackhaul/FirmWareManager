@@ -39,15 +39,10 @@ x-javascript-interface:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - error-code
-                - error-message
-              properties:
-                error-code:
-                  type: integer
-                error-message:
-                  type: string
+              type: string
+              enum:
+                - 'validation sequence could not be found'
+                - 'validation sequence could not be executed'
     processing:
       _ValidationFunction_:
         input:
@@ -78,12 +73,7 @@ x-javascript-interface:
             content:
               application/json:
                 schema:
-                  type: object
-                  properties:
-                    error-code:
-                      type: integer
-                    error-message:
-                      type: string
+                  type: string
 
 paths:
   /:
