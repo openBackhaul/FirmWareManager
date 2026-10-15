@@ -25,11 +25,11 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-|#| Code | Message                                                           |
-|-|------|-------------------------------------------------------------------|
-|1|      | Referenced object does not exist                                  |
-|2|      | Deletion denied as it is a default DeviceGroup                    |
-|3|      | _[provided by ValidationFunctions]_                               |
+|#| Code | Message                             |
+|-|------|-------------------------------------|
+|1| 404  | Not Found                           |
+|2| 409  | Conflict                            |
+|3| 462  | _[provided by ValidationFunctions]_ |
 
 ## Parameters
 

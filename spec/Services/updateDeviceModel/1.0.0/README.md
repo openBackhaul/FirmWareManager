@@ -19,9 +19,9 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-|#| Code | Message                                                           |
-|-|------|-------------------------------------------------------------------|
-|1|      | deviceModelName does not exist                                    |
+|#| Code | Message   |
+|-|------|-----------|
+|1| 404  | Not Found |
 
 ## Parameters
 

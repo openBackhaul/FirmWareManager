@@ -29,7 +29,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  requestor <-- indServ: { 404,\nErrorMessage1 }
   note left indServ
     }
   end note
@@ -76,7 +76,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[unknownDevice] }
+  requestor <-- indServ: { 480,\nErrorMessage2,\n[unknownDevice] }
   note left indServ
     }
   end note
@@ -86,7 +86,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage3,\n[wrongTypeDevice] }
+  requestor <-- indServ: { 481,\nErrorMessage3,\n[wrongTypeDevice] }
   note left indServ
     }
   end note
@@ -193,7 +193,7 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage4 }
+  requestor <-- indServ: { 462,\nErrorMessage4 }
   note right indServ
     }
   end note

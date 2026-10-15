@@ -23,10 +23,10 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-|#| Code | Message                                                           |
-|-|------|-------------------------------------------------------------------|
-|1|      | deviceModelName already exists                                    |
-|2|      | _[provided by ValidationFunctions]_                               |
+|#| Code | Message                             |
+|-|------|-------------------------------------|
+|1| 409  | Conflict                            |
+|2| 462  | _[provided by ValidationFunctions]_ |
 
 ## Parameters
 

@@ -29,7 +29,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  requestor <-- indServ: { 404,\nErrorMessage1 }
   note left indServ
     }
   end note
@@ -70,7 +70,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[referencingObject] }
+  requestor <-- indServ: { 463,\nErrorMessage2 }
   note left indServ
     }
   end note
@@ -155,7 +155,7 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage3 }
+  requestor <-- indServ: { 462,\nErrorMessage3 }
   note right indServ
     }
   end note

@@ -23,12 +23,12 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-|#| Code | Message                                                           |
-|-|------|-------------------------------------------------------------------|
-|1|      | Referenced object does not exist                                  |
-|2|      | Firmware already referenced in targetFirmwareList                 |
-|3|      | Firmware not approved for this device model                       |
-|4|      | _[provided by ValidationFunctions]_                               |
+|#| Code | Message                             |
+|-|------|-------------------------------------|
+|1| 404  | Not Found                           |
+|2| 409  | Conflict                            |
+|3| 422  | Unprocessable Content               |
+|4| 462  | _[provided by ValidationFunctions]_ |
 
 ## Parameters
 

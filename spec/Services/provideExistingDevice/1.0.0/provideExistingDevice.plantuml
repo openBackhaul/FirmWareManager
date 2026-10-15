@@ -27,12 +27,12 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  requestor <-- indServ: { 404,\nErrorMessage1 }
   note left indServ
     }
   end note
 
-requestor <-- indServ: { mountName,\ndeviceModel,\n[firmwareList],\nlastUpdate }
+requestor <-- indServ: { mountName,\ndeviceModel,\n[firmwareList],\n ... ,\nlastUpdate }
 deactivate indServ
 
 @enduml

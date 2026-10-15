@@ -20,8 +20,8 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 |#| Code | Message                             |
 |-|------|-------------------------------------|
-|1|      | Referenced object does not exist    |
-|2|      | _[provided by ValidationFunctions]_ |
+|1| 404  | Not Found                           |
+|2| 462  | _[provided by ValidationFunctions]_ |
 
 ## Parameters
 

@@ -30,7 +30,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1 }
+  requestor <-- indServ: { 404,\nErrorMessage1 }
   note left indServ
     }
   end note

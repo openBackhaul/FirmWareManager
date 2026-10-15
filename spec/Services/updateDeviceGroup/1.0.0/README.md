@@ -19,12 +19,12 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Error Codes
 
-|#| Code | Message                                                           |
-|-|------|-------------------------------------------------------------------|
-|1|      | Referenced object does not exist                                  |
-|2|      | Attribute's value is not valid                                    |
-|3|      | Default DeviceGroup cannot have purgeDate                         |
-|4|      | _[provided by ValidationFunctions]_                               |
+|#| Code | Message                             |
+|-|------|-------------------------------------|
+|1| 404  | Not Found                           |
+|2| 422  | Unprocessable Content               |
+|3| 409  | Conflict                            |
+|4| 462  | _[provided by ValidationFunctions]_ |
 
 ## Parameters
 

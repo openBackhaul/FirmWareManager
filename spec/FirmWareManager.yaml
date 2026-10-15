@@ -10646,6 +10646,55 @@ components:
                 type: string
                 enum:
                   - 'Not available. The topology (parent) object is currently not found in the cache.'
+    '462':
+      description: 'Validation failed.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 462
+                maximum: 462
+                format: int32
+              message:
+                type: string
+                description: 'Individual message provided in reason attribute of response of ValidationFunction.'
+    '463':
+      description: 'To be deleted object still referenced.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 463
+                maximum: 463
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'To be deleted object still referenced.'
+              referencing-object-type:
+                type: string
+                description: 'Type of the object that is referencing the to be deleted object.'
+              referencing-object:
+                type: array
+                description: 'List of objects that are referencing the to be deleted object.'
+                items:
+                  type: string
+              expectation-to-the-client:
+                type: string
+                enum:
+                  - 'Handle the referencing objects before retrying the deletion.'
     '470':
       description: 'Response in case the resource specified in the request does not exist within the connected device'
       content:

@@ -31,7 +31,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage1,\n[attributeList] }
+  requestor <-- indServ: { 404,\nErrorMessage1 }
   note left indServ
     }
   end note
@@ -51,7 +51,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: { ErrorCode,\nErrorMessage2,\n[attributeList] }
+  requestor <-- indServ: { 404,\nErrorMessage2 }
   note left indServ
     }
   end note
@@ -77,7 +77,7 @@ activate indServ
     note left indServ
       THEN {
     end note
-    requestor <-- indServ: { ErrorCode,\nErrorMessage3,\nfirmwareResourceName }
+    requestor <-- indServ: { 422,\nErrorMessage3 }
     note left indServ
       }
     end note
@@ -132,7 +132,7 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { ErrorCode,\nErrorMessage4 }
+  requestor <-- indServ: { 462,\nErrorMessage4 }
   note right indServ
     }
   end note
