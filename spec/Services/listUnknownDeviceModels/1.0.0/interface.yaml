@@ -33,6 +33,8 @@ paths:
                 type: array
                 items:
                   type: string
+                  description: >
+                    'from deviceModel=[/domain-controller/network-control-domain=running/device=*/device-model] IF [/domain-controller/network-control-domain=running/device-model={deviceModel}]==null'
           headers:
             x-correlator:
               schema:

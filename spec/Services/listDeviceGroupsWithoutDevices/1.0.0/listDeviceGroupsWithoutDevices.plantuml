@@ -21,7 +21,7 @@ activate indServ
     indServ <-- RunDS: DeviceGroup
     deactivate RunDS
     note over indServ
-      If [device].length NOT > 0
+      IF [device].length NOT > 0
     end note
     note right indServ
       THEN {

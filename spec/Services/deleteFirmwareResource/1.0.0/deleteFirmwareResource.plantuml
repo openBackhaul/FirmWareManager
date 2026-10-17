@@ -15,9 +15,8 @@ requestor -> indServ: { firmwareResourceName,\nfirmwareResourceVersion }
 activate indServ
 
   note over indServ
-    Checks whether given combination
-    of firmwareResourceName and
-    firmwareResourceVersion exists
+    Checks, whether given
+    FirmwareResource exists
   end note
   indServ -> RunDS
   activate RunDS

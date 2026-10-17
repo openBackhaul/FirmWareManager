@@ -79,8 +79,6 @@ activate indServ
   note over indServ
     Reads [device] at
     given DeviceGroup
-    (list of mountName
-    (=key attribute value))
   end note
   indServ -> CanDS
   indServ <-- CanDS: [device]

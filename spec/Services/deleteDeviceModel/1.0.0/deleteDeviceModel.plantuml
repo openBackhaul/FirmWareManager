@@ -169,11 +169,17 @@ activate indServ
   deactivate RunDS
 
   note over indServ
+    Load name of the hardware 
+    update function from [Parameter]
+  end note
+  indServ -> DC: /function=deleteDeviceModel/parameter=updateHwFunction/value
+  indServ <-- DC: updateHwFunction=p1UpdateHw
+  note over indServ
     Checks whether deviceModelName is
     a parameterName in [Parameter] of
     the p1UpdateHw Function.
   end note
-  indServ -> DC
+  indServ -> DC: /function=p1UpdateHw/parameter={deviceModelName}
   note over indServ
     IF deviceModelName found:
   end note
@@ -185,17 +191,23 @@ activate indServ
     from [Parameter] of the
     p1UpdateHw Function
   end note
-  indServ -> DC
+  indServ -> DC: /function=p1UpdateHw/parameter={deviceModelName}
   note right indServ
     }
   end note
 
   note over indServ
+    Load name of the firmware 
+    update function from [Parameter]
+  end note
+  indServ -> DC: /function=deleteDeviceModel/parameter=updateFwFunction/value
+  indServ <-- DC: updateFwFunction=p1UpdateFw
+  note over indServ
     Checks whether deviceModelName is
     a parameterName in [Parameter] of
     the p1UpdateFw Function.
   end note
-  indServ -> DC
+  indServ -> DC: /function=p1UpdateFw/parameter={deviceModelName}
   note over indServ
     IF deviceModelName found:
   end note
@@ -207,7 +219,7 @@ activate indServ
     from [Parameter] of the
     p1UpdateFw Function
   end note
-  indServ -> DC
+  indServ -> DC: /function=p1UpdateFw/parameter={deviceModelName}
   note right indServ
     }
   end note

@@ -36,14 +36,24 @@ paths:
                   properties:
                     firmware-resource-name:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/firmware-resource=*/name]'
                     firmware-resource-version:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/firmware-resource=*/version]'
                     server-label:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/firmware-resource=*/server]'
                     source-uri:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/firmware-resource=*/source-uri]'
                     file-name:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/firmware-resource=*/file-name]'
           headers:
             x-correlator:
               schema:

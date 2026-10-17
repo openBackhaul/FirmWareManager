@@ -36,12 +36,20 @@ paths:
                   properties:
                     server-label:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/server=*/label]'
                     user-name:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/server=*/user-name]'
                     password:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/server=*/password]'
                     ssh-key:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/server=*/ssh-key]'
           headers:
             x-correlator:
               schema:

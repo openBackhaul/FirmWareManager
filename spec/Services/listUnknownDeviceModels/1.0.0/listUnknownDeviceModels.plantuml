@@ -33,7 +33,7 @@ activate indServ
     indServ <-- RunDS: Device
     deactivate RunDS
     note over indServ
-      If deviceModel NOT equal to
+      IF deviceModel NOT equal to
       name at any [DeviceModel]
     end note
     note right indServ

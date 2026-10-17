@@ -50,12 +50,20 @@ paths:
                 properties:
                   device-group-label:
                     type: string
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device-group={requestBody.deviceGroupLabel}/label]'
                   device-model-name:
                     type: string
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device-group={requestBody.deviceGroupLabel}/device-model]'
                   purge-date:
                     type: string
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device-group={requestBody.deviceGroupLabel}/purge-date]'
                   target-firmware-list:
                     type: array
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device-group={requestBody.deviceGroupLabel}/target-firmware-list]'
                     items:
                       type: object
                       required:
@@ -68,6 +76,8 @@ paths:
                           type: string
                   device-list:
                     type: array
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device-group={requestBody.deviceGroupLabel}/device]'
                     items:
                       type: string
           headers:

@@ -1,0 +1,23 @@
+list-existing-firmware-approvals:
+  type: object
+  required:
+    - deviceModelName
+  properties:
+    deviceModelName:
+      type: string
+      description: >
+        'from [/requestBody/device-model-name]'
+
+    approval:
+      type: array
+      items:
+        type: object
+        properties:
+          firmware-resource-name:
+            type: string
+            description: >
+              'from [ /domain-controller/network-control-domain=running/device-model={deviceModelName}/approval[i] ].split(',')[0]'
+          firmware-resource-version:
+            type: string
+            description: >
+              'from str.slice(str.indexOf(',') + 1) with str=[ /domain-controller/network-control-domain=running/device-model={deviceModelName}/approval[i] ]'

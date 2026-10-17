@@ -37,10 +37,16 @@ paths:
                   type: string
                 user-name:
                   type: string
+                  description: >
+                    'to [/domain-controller/network-control-domain=running/server={serverLabel}/user-name]'
                 password:
                   type: string
+                  description: >
+                    'to [/domain-controller/network-control-domain=running/server={serverLabel}/password]'
                 ssh-key:
                   type: string
+                  description: >
+                    'to [/domain-controller/network-control-domain=running/server={serverLabel}/ssh-key]'
       responses:
         '204':
           description: 'Server updated'
@@ -90,6 +96,38 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
         default:
           $ref: '#/components/responses/responseForErroredServiceRequests'
+      callbacks:
+        p1ValidationManager:
+          x-javascript-interface:
+            input:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    required:
+                      - trigger-function
+                    properties:
+                      trigger-function:
+                        type: string
+                        enum:
+                          - 'updateServer'
+            output:
+              success:
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        result:
+                          type: string
+                        reason:
+                          type: string
+              error:
+                content:
+                  application/json:
+                    schema:
+                      type: string
 
 components:
   parameters:

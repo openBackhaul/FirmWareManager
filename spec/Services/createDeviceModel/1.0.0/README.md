@@ -30,7 +30,10 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Parameters
 
-./.  
+| Parameter Name   | Description |
+|------------------|-------------|
+| updateHwFunction | p1UpdateHw  |
+| updateFwFunction | p1UpdateFw  |
 
 ## NPM Module
 

@@ -1,0 +1,37 @@
+create-server:
+  type: object
+  required:
+    - serverLabel
+    - userName
+    - password
+    - sshKey
+  properties:
+    serverLabel:
+      type: string
+      description: >
+        'from [/requestBody/server-label]'
+    userName:
+      type: string
+      description: >
+        'from [/requestBody/user-name]'
+    password:
+      type: string
+      description: >
+        'from [/requestBody/password]'
+    sshKey:
+      type: string
+      description: >
+        'from [/requestBody/ssh-key]'
+
+    server:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/firmware-resource=*/server]'
+    combination:
+      type: string
+      description: >
+        'from [ [/domain-controller/network-control-domain=running/firmware-resource=*/name] + {,} + [/domain-controller/network-control-domain=running/firmware-resource=*/version] ]'
+    referencingObject:
+      type: array
+      description: >
+        'from [referencingObject.push(combination) IF server==serverLabel]'

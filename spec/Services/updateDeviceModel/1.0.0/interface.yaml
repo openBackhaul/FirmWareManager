@@ -10,7 +10,7 @@ info:
   x-api-id: u-1792-sdn-microwave-fwm
 
 paths:
-  /create-device-model:
+  /update-device-model:
     parameters:
       - $ref: '#/components/parameters/user'
       - $ref: '#/components/parameters/originator'

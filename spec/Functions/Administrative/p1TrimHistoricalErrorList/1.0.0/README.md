@@ -18,7 +18,9 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Parameters
 
-./.
+| Parameter Name | Description                                 |
+|----------------|---------------------------------------------|
+| maximumLength  | Maximum length of the historical error list |
 
 ## NPM Module
 

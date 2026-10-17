@@ -38,6 +38,7 @@ activate indServ
     Checks whether given combination
     of firmwareResourceName and
     firmwareResourceVersion exists
+    in [FirmwareResource]
   end note
   indServ -> RunDS
   activate RunDS

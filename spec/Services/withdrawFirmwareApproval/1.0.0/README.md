@@ -23,7 +23,8 @@ Please find a detailed description of the [variables](./variables.yaml).
 |#| Code | Message                             |
 |-|------|-------------------------------------|
 |1| 404  | Not Found                           |
-|2| 462  | _[provided by ValidationFunctions]_ |
+|2| 404  | Not Found                           |
+|3| 462  | _[provided by ValidationFunctions]_ |
 
 ## Parameters
 

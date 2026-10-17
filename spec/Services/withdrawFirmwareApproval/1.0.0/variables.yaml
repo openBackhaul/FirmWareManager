@@ -1,0 +1,71 @@
+withdraw-firmware-approval:
+  type: object
+  required:
+    - deviceModelName
+    - firmwareResourceName
+    - firmwareResourceVersion
+  properties:
+    deviceModelName:
+      type: string
+      description: >
+        'from [/requestBody/device-model-name]'
+    firmwareResourceName:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-name]'
+    firmwareResourceVersion:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-version]'
+
+    combination:
+      type: string
+      description: >
+        'from [firmwareResourceName + {,} + firmwareResourceVersion]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-model:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  enum:
+                    - {deviceModelName}
+                approval:
+                  type: array
+                  description: >
+                    'from [ approval.filter(value => value !== {combination}) ]'
+          device-group:
+            type: array
+            items:
+              type: object
+              properties:
+                target-firmware-list:
+                  type: array
+                  description: >
+                    'delete instance IF [/domain-controller/network-control-domain=candidate/device-group=*/target-firmware-list[i]/resource]==combination'
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete instance IF 
+                        ( [/domain-controller/network-control-domain=candidate/device=*/firmware-list[i]/name]==firmwareResourceName
+                          AND [/domain-controller/network-control-domain=candidate/device=*/firmware-list[i]/version]==firmwareResourceVersion )'                        

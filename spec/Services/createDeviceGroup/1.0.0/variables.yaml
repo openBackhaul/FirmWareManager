@@ -1,0 +1,45 @@
+create-device-group:
+  type: object
+  required:
+    - deviceGroupLabel
+    - deviceModelName
+    - purgeDate
+  properties:
+    deviceGroupLabel:
+      type: string
+    deviceModelName:
+      type: string
+    purgeDate:
+      type: string
+
+domain-controller:
+  type: object
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-group:
+            type: array
+            description: >
+              'Create new instance'
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  description: >
+                    'from [deviceGroupLabel]'
+                device-model:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+                purge-date:
+                  type: string
+                  description: >
+                    'from [purgeDate] if given'

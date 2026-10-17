@@ -30,12 +30,10 @@ activate indServ
 
   loop for each Server
     note over indServ
-      If NOT
+      IF NOT
         ( userName.length > 0
-        AND
-          (password.length > 0
-          OR
-          sshKey.length > 0 ) )
+        AND password.length > 0
+        AND sshKey.length > 0 )
     end note
     note right indServ
       THEN {

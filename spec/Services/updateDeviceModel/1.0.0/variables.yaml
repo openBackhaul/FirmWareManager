@@ -1,0 +1,63 @@
+update-device-model:
+  type: object
+  required:
+    - deviceModelName
+    - hardwareExtractionFunction
+    - firmwareExtractionFunction
+    - updateHwFunction
+    - updateFwFunction
+  properties:
+    deviceModelName:
+      type: string
+      description: >
+        'from [/requestBody/device-model-name]'
+    hardwareExtractionFunction:
+      type: string
+      description: >
+        'from [/requestBody/hardware-extraction-function]'
+    firmwareExtractionFunction:
+      type: string
+      description: >
+        'from [/requestBody/firmware-extraction-function]'
+    updateHwFunction:
+      type: string
+      description: >
+        'from [/domain-controller/function=updateDeviceModel/parameter=updateHwFunction/value]'
+    updateFwFunction:
+      type: string
+      description: >
+        'from [/domain-controller/function=updateDeviceModel/parameter=updateFwFunction/value]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    function:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'find [updateHwFunction]
+              respectively find [updateFwFunction]'
+          parameter:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >
+                    'find [deviceModelName], or create it if not found'
+                description:
+                  type: string
+                  description: >
+                    'find hardwareExtractionFunction
+                    respectively find firmwareExtractionFunction'
+                value:
+                  type: string
+                  description: >
+                    'from [hardwareExtractionFunction], if given
+                    respectively from [firmwareExtractionFunction], if given'

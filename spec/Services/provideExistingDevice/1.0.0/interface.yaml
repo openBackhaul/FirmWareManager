@@ -50,10 +50,16 @@ paths:
                 properties:
                   mount-name:
                     type: string
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device={requestBody.mountName}/mount-name]'
                   device-model:
                     type: string
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device={requestBody.mountName}/device-model]'
                   firmware-list:
                     type: array
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device={requestBody.mountName}/firmware-list]'
                     items:
                       type: object
                       required:
@@ -69,6 +75,8 @@ paths:
                           type: string
                   controller-firmware-list:
                     type: array
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device={requestBody.mountName}/controller-firmware-list]'
                     items:
                       type: object
                       required:
@@ -84,6 +92,8 @@ paths:
                           type: string
                   odu-firmware-list:
                     type: array
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device={requestBody.mountName}/odu-firmware-list]'
                     items:
                       type: object
                       required:
@@ -99,6 +109,8 @@ paths:
                           type: string
                   application-firmware-list:
                     type: array
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device={requestBody.mountName}/application-firmware-list]'
                     items:
                       type: object
                       required:
@@ -114,6 +126,8 @@ paths:
                           type: string
                   boot-firmware-list:
                     type: array
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device={requestBody.mountName}/boot-firmware-list]'
                     items:
                       type: object
                       required:
@@ -129,6 +143,8 @@ paths:
                           type: string
                   web-server-list:
                     type: array
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device={requestBody.mountName}/web-server-list]'
                     items:
                       type: object
                       required:
@@ -144,6 +160,8 @@ paths:
                           type: string
                   last-update:
                     type: string
+                    description: >
+                      'from [/domain-controller/network-control-domain=running/device={requestBody.mountName}/last-update]'
           headers:
             x-correlator:
               schema:

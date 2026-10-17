@@ -33,6 +33,8 @@ paths:
                 type: array
                 items:
                   type: string
+                  description: >
+                    'from label=[/domain-controller/network-control-domain=running/device-group=*/label] IF NOT [/domain-controller/network-control-domain=running/device-group={label}/device].length>0'
           headers:
             x-correlator:
               schema:

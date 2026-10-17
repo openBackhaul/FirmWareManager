@@ -33,6 +33,11 @@ paths:
                 type: array
                 items:
                   type: string
+                  description: >
+                    'from label=[/domain-controller/network-control-domain=running/server=*/label] IF NOT
+                        ( [/domain-controller/network-control-domain=running/server={label}/user-name].length > 0
+                          AND [/domain-controller/network-control-domain=running/server={label}/password].length > 0
+                          AND [/domain-controller/network-control-domain=running/server={label}/ssh-key].length > 0 )'
           headers:
             x-correlator:
               schema:

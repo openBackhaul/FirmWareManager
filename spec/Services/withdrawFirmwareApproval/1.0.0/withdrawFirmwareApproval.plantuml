@@ -49,7 +49,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: 204
+  requestor <-- indServ: { 404,\nErrorMessage2 }
   note left indServ
     }
   end note
@@ -73,8 +73,10 @@ activate indServ
   RunDS -/ CanDS
 
   note over indServ
-    Deletes given FirmwareResource
-    from [approval] at given DeviceModel
+    Deletes given combination of
+    firmwareResourceName and
+    firmwareResourceVersion from
+    [approval] at given DeviceModel
   end note
   indServ -> CanDS
   indServ <-- CanDS

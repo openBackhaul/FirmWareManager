@@ -1,0 +1,110 @@
+create-device-model:
+  type: object
+  required:
+    - deviceModelName
+    - hardwareExtractionFunction
+    - firmwareExtractionFunction
+    - updateHwFunction
+    - updateFwFunction
+  properties:
+    deviceModelName:
+      type: string
+      description: >
+        'from [/requestBody/device-model-name]'
+    hardwareExtractionFunction:
+      type: string
+      description: >
+        'from [/requestBody/hardware-extraction-function]'
+    firmwareExtractionFunction:
+      type: string
+      description: >
+        'from [/requestBody/firmware-extraction-function]'
+    updateHwFunction:
+      type: string
+      description: >
+        'from [/domain-controller/function=createDeviceModel/parameter=updateHwFunction/value]'
+    updateFwFunction:
+      type: string
+      description: >
+        'from [/domain-controller/function=createDeviceModel/parameter=updateFwFunction/value]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-model:
+            type: array
+            description: >
+              'Create new instance'
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+                default-device-group:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+          device-group:
+            type: array
+            description: >
+              'Create new instance'
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+                device-model:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+                device:
+                  type: array
+                  items:
+                    type: string
+                    description: >
+                      'from [/domain-controller/network-control-domain=candidate/device=*/mount-name] IF [/domain-controller/network-control-domain=candidate/device=*/device-model]==deviceModelName'
+
+    function:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'find [updateHwFunction]
+              respectively find [updateFwFunction]'
+          parameter:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >
+                    'find [deviceModelName], or create it if not found'
+                description:
+                  type: string
+                  description: >
+                    'find hardwareExtractionFunction
+                    respectively find firmwareExtractionFunction'
+                value:
+                  type: string
+                  description: >
+                    'from [hardwareExtractionFunction], if given
+                    respectively from [firmwareExtractionFunction], if given'

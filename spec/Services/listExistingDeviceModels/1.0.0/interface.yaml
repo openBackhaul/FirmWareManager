@@ -36,8 +36,12 @@ paths:
                   properties:
                     device-model-name:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/device-model=*/name]'
                     default-device-group:
                       type: string
+                      description: >
+                        'from [/domain-controller/network-control-domain=running/device-model=*/default-device-group]'
           headers:
             x-correlator:
               schema:

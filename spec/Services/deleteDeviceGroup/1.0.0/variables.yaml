@@ -1,0 +1,91 @@
+delete-device-group:
+  type: object
+  required:
+    - deviceGroupLabel
+  properties:
+    deviceGroupLabel:
+      type: string
+
+    deviceModel:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group={deviceGroupLabel}/device-model]'
+    defaultDeviceGroup:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-model={deviceModel}/default-device-group]'
+
+    affectedDevices:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={deviceGroupLabel}/device]'
+      items:
+        type: string
+    targetFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={defaultDeviceGroup}/target-firmware-list]'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+
+domain-controller:
+  type: object
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-group:
+            type: array
+            description: >
+              'delete instance [/domain-controller/network-control-domain=candidate/device-group={deviceGroupLabel}]'
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  enum:
+                    - {defaultDeviceGroup}
+                device:
+                  type: array
+                  description: >
+                    'from device.push(...affectedDevices)'
+                  items:
+                    type: string
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                mount-name:
+                  type: string
+                  enum: [affectedDevices]
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete all instances'
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: >
+                          'from [/targetFirmwareList[i]/resource].split(',')[0]'
+                      version:
+                        type: string
+                        description: >
+                          'from str.slice(str.indexOf(',') + 1) with str=[/targetFirmwareList[i]/resource]'
+                      status:
+                        type: string
+                        description: >
+                          'from [/targetFirmwareList[i]/status]'

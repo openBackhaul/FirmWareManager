@@ -1,0 +1,66 @@
+delete-device-model:
+  type: object
+  required:
+    - deviceModelName
+    - updateHwFunction
+    - updateFwFunction
+  properties:
+    deviceModelName:
+      type: string
+      description: >
+        'from [/requestBody/device-model-name]'
+    updateHwFunction:
+      type: string
+      description: >
+        'from [/domain-controller/function=deleteDeviceModel/parameter=updateHwFunction/value]'
+    updateFwFunction:
+      type: string
+      description: >
+        'from [/domain-controller/function=deleteDeviceModel/parameter=updateFwFunction/value]'
+
+    mountName:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device=*/mount-name]'
+    deviceModel:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device=*/device-model]'
+    referencingObject:
+      type: array
+      description: >
+        'from [referencingObject.push(mountName) IF deviceModel==deviceModelName]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-group:
+            type: array
+            description: >
+              'delete IF [/domain-controller/network-control-domain=candidate/device-group=*/device-model]==deviceModelName'
+          device-model:
+            type: array
+            description: >
+              'delete [/domain-controller/network-control-domain=candidate/device-model={deviceModelName}]'
+
+    function:
+      type: array
+      items:
+        type: object
+        properties:
+          parameter:
+            type: array
+            description: >
+              'delete [/domain-controller/function={updateHwFunction}/parameter={deviceModelName}]
+              respectively delete [/domain-controller/function={updateFwFunction}/parameter={deviceModelName}]'

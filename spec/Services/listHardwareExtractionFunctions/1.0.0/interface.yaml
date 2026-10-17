@@ -33,6 +33,8 @@ paths:
                 type: array
                 items:
                   type: string
+                  description: >
+                    'from name=[/domain-controller/function=*/name] IF [/domain-controller/function={name}/description]==hardwareExtractionFunction'
           headers:
             x-correlator:
               schema:

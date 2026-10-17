@@ -21,7 +21,7 @@ activate indServ
     indServ <-- RunDS: DeviceModel
     deactivate RunDS
     note over indServ
-      If [approval].length NOT > 0
+      IF [approval].length NOT > 0
     end note
     note right indServ
       THEN {

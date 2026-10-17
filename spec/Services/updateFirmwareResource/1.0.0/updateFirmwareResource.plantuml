@@ -16,9 +16,7 @@ activate indServ
 
   note over indServ
     Checks, whether given
-    combination of
-    firmwareResourceName and
-    firmwareResourceVersion
+    FirmwareResource
     already exists
   end note
   indServ -> RunDS
