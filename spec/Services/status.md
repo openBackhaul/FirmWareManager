@@ -38,13 +38,13 @@ Th = Thorsten
 
 | Service                                                                         | 1  | 2  | 5  | 3  | 4  | 5  |
 | ------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-existing-device-models](./listExistingDeviceModels/1.0.0/)               | Th | Th | Ka | Th | /  |    |
-| [/list-unknown-device-models](./listUnknownDeviceModels/1.0.0/)                 | Th | Th | Ka | Th | /  |    |
-| [/list-hardware-extraction-functions](./listHardwareExtractionFunctions/1.0.0/) | Th | Th |    | Th | /  |    |
-| [/list-firmware-extraction-functions](./listFirmwareExtractionFunctions/1.0.0/) | Th | Th |    | Th | /  |    |
-| [/create-device-model](./createDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th |    |
+| [/list-existing-device-models](./listExistingDeviceModels/1.0.0/)               | Th | Th | Ka | Th | /  |  K  |
+| [/list-unknown-device-models](./listUnknownDeviceModels/1.0.0/)                 | Th | Th | Ka | Th | /  |  K  |
+| [/list-hardware-extraction-functions](./listHardwareExtractionFunctions/1.0.0/) | Th | Th |    | Th | /  |  K  |
+| [/list-firmware-extraction-functions](./listFirmwareExtractionFunctions/1.0.0/) | Th | Th |    | Th | /  |  K  |
+| [/create-device-model](./createDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th |  K  |
 | [/update-device-model](./updateDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th |  K  |
-| [/delete-device-model](./deleteDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th |    |
+| [/delete-device-model](./deleteDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th |  K  |
 
 ### Documenting firmware approvals
 

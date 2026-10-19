@@ -32,7 +32,6 @@ domain-controller:
   type: object
   description: '! simplified representation !'
   properties:
-
     network-control-domain:
       type: array
       items:

@@ -36,4 +36,6 @@ create-server:
       description: >
         'from [referencingObject.push(combination) IF server==serverLabel]'
 
-# TODO: why are parameter names in these variable files suddenly in upperCamelCase instead of using hypens like we did before?
+# TODO: shall all variables file in future use the upperCamelCase notation instead of hyphens?
+# e.g. also in new DPMDP functions, or applies this only her for improved readability?
+# (and also a change of the notation from e.g. [/create-server/some-parameter] to [someParameter]?)
