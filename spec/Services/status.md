@@ -19,11 +19,11 @@ Th = Thorsten
 
 | Service                                                    | 1  | 2  | 5  | 3  | 4  | 5  |
 | ---------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-existing-servers](./listExistingServers/1.0.0/)     | Th | Th | Ka | Th | /  |    |
-| [/list-incomplete-servers](./listIncompleteServers/1.0.0/) | Th | Th | Ka | Th | /  |    |
-| [/create-server](./createServer/1.0.0/)                    | Th | Th | Ka | Th | /  |    |
-| [/update-server](./updateServer/1.0.0/)                    | Th | Th | Ka | Th | /  |    |
-| [/delete-server](./deleteServer/1.0.0/)                    | Th | Th | Ka | Th | Th |    |
+| [/list-existing-servers](./listExistingServers/1.0.0/)     | Th | Th | Ka | Th | /  |  K  |
+| [/list-incomplete-servers](./listIncompleteServers/1.0.0/) | Th | Th | Ka | Th | /  |  K  |
+| [/create-server](./createServer/1.0.0/)                    | Th | Th | Ka | Th | /  |  K  |
+| [/update-server](./updateServer/1.0.0/)                    | Th | Th | Ka | Th | /  |  K  |
+| [/delete-server](./deleteServer/1.0.0/)                    | Th | Th | Ka | Th | Th |  K  |
 
 ### Preparing firmware resources
 

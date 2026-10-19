@@ -35,3 +35,5 @@ create-server:
       type: array
       description: >
         'from [referencingObject.push(combination) IF server==serverLabel]'
+
+# TODO: why are parameter names in these variable files suddenly in upperCamelCase instead of using hypens like we did before?
