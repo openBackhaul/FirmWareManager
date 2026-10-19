@@ -61,10 +61,10 @@ Th = Thorsten
 
 | Service                                                           | 1  | 2  | 5  | 3  | 4  | 5  |
 | ------------------------------------------------------------------| -- | -- | -- | -- | -- | -- |
-| [/list-existing-device-groups](./listExistingDeviceGroups/1.0.0/) | Th | Th | Ka | Th | /  |    |
-| [/create-device-group](./createDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th |    |
-| [/update-device-group](./updateDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th |    |
-| [/delete-device-group](./deleteDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th |    |
+| [/list-existing-device-groups](./listExistingDeviceGroups/1.0.0/) | Th | Th | Ka | Th | /  |  K  |
+| [/create-device-group](./createDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th |  K  |
+| [/update-device-group](./updateDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th |  K  |
+| [/delete-device-group](./deleteDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th |  K  |
 
 ### Initiate firmware roll-out
 
