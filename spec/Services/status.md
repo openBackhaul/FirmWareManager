@@ -50,10 +50,10 @@ Th = Thorsten
 
 | Service                                                                            | 1  | 2  | 5  | 3  | 4  | 5  |
 | ---------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-device-models-without-approvals](./listDeviceModelsWithoutApprovals/1.0.0/) | Th | Th | Ka | Th | /  |    |
-| [/list-existing-firmware-approvals](./listExistingFirmwareApprovals/1.0.0/)        | Th | Th | Ka | Th | Th |    |
-| [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                             | Th | Th |    | Th | Th |    |
-| [/withdraw-firmware-approval](./withdrawFirmwareApproval/1.0.0/)                   | Th | Th |    | Th | Th |    |
+| [/list-device-models-without-approvals](./listDeviceModelsWithoutApprovals/1.0.0/) | Th | Th | Ka | Th | /  |  K  |
+| [/list-existing-firmware-approvals](./listExistingFirmwareApprovals/1.0.0/)        | Th | Th | Ka | Th | Th |  K  |
+| [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                             | Th | Th |    | Th | Th |  K  |
+| [/withdraw-firmware-approval](./withdrawFirmwareApproval/1.0.0/)                   | Th | Th |    | Th | Th |  K  |
 
 ## Preparing device groups and initiating firmware roll-out (Operations)
 

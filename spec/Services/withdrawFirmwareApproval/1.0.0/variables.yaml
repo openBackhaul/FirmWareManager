@@ -68,4 +68,5 @@ domain-controller:
                   description: >
                     'delete instance IF 
                         ( [/domain-controller/network-control-domain=candidate/device=*/firmware-list[i]/name]==firmwareResourceName
-                          AND [/domain-controller/network-control-domain=candidate/device=*/firmware-list[i]/version]==firmwareResourceVersion )'                        
+                          AND [/domain-controller/network-control-domain=candidate/device=*/firmware-list[i]/version]==firmwareResourceVersion )$'
+
