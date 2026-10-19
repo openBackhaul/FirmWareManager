@@ -29,10 +29,10 @@ Th = Thorsten
 
 | Service                                                                     | 1  | 2  | 5  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-existing-firmware-resources](./listExistingFirmwareResources/1.0.0/) | Th | Th | Ka | Th | /  |    |
-| [/create-firmware-resource](./createFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th |    |
-| [/update-firmware-resource](./updateFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th |    |
-| [/delete-firmware-resource](./deleteFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th |    |
+| [/list-existing-firmware-resources](./listExistingFirmwareResources/1.0.0/) | Th | Th | Ka | Th | /  |  K  |
+| [/create-firmware-resource](./createFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th |  K  |
+| [/update-firmware-resource](./updateFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th |  K  |
+| [/delete-firmware-resource](./deleteFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th |  K  |
 
 ### Preparing device models
 
@@ -43,7 +43,7 @@ Th = Thorsten
 | [/list-hardware-extraction-functions](./listHardwareExtractionFunctions/1.0.0/) | Th | Th |    | Th | /  |    |
 | [/list-firmware-extraction-functions](./listFirmwareExtractionFunctions/1.0.0/) | Th | Th |    | Th | /  |    |
 | [/create-device-model](./createDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th |    |
-| [/update-device-model](./updateDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th |    |
+| [/update-device-model](./updateDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th |  K  |
 | [/delete-device-model](./deleteDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th |    |
 
 ### Documenting firmware approvals
