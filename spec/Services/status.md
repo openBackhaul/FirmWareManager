@@ -72,9 +72,9 @@ Th = Thorsten
 | --------------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
 | [/list-device-groups-without-target-firmware](./listDeviceGroupsWithoutTargetFirmware/1.0.0/) | Th | Th | Ka | Th | /  |    |
 | [/provide-existing-device-group](./provideExistingDeviceGroup/1.0.0/)                         | Th | Th | Ka | Th | /  |    |
-| [/add-target-firmware](./addTargetFirmware/1.0.0/)                                            | Th | Th |    | Te |    |    |
-| [/update-target-firmware](./updateTargetFirmware/1.0.0/)                                      | Th | Th |    | Te |    |    |
-| [/delete-target-firmware](./deleteTargetFirmware/1.0.0/)                                      | Th | Th | Ka | Te |    |    |
+| [/add-target-firmware](./addTargetFirmware/1.0.0/)                                            | Th | Th |    | Th | Th |    |
+| [/update-target-firmware](./updateTargetFirmware/1.0.0/)                                      | Th | Th |    | Th | Th |    |
+| [/delete-target-firmware](./deleteTargetFirmware/1.0.0/)                                      | Th | Th | Ka | Th | Th |    |
 
 ## Categorizing individual devices into device groups (Planning)
 

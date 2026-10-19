@@ -1,0 +1,138 @@
+add-target-firmware:
+  type: object
+  required:
+    - deviceGroupLabel
+    - firmwareResourceName
+    - firmwareResourceVersion
+    - firmwareStatus
+  properties:
+    deviceGroupLabel:
+      type: string
+      description: >
+        'from [/requestBody/device-group-label]'
+    firmwareResourceName:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-name]'
+    firmwareResourceVersion:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-version]'
+    firmwareStatus:
+      type: string
+      description: >
+        'from [/requestBody/firmware-status]'
+
+    deviceModel:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group={deviceGroupLabel}/device-model]'
+
+    combination:
+      type: string
+      description: >
+        'from [firmwareResourceName + {,} + firmwareResourceVersion]'
+    targetFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group={deviceGroupLabel}/target-firmware-list]'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+            description: >
+              'from [{stand-by} IF firmwareStatus=={active}]'
+
+    approval:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-model={deviceModel}/approval]'
+      items:
+        type: string
+
+    complementedTargetFirmwareList:
+      type: array
+      description: >
+        'from [targetFirmwareList]
+        create new instance'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+            description: >
+              'from [combination]'
+          status:
+            type: string
+            description: >
+              'from [firmwareStatus]'
+
+    affectedDevices:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={deviceGroupLabel}/device]'
+      items:
+        type: string
+    updatedFirmwareList:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'from [complementedTargetFirmwareList[i].resource].split(',')[0]'
+          version:
+            type: string
+            description: >
+              'from str.slice(str.indexOf(',') + 1) with str=[complementedTargetFirmwareList[i].resource]'
+          status:
+            type: string
+            description: >
+              'from [complementedTargetFirmwareList[i].status]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+
+          device-group:
+            type: array
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  enum:
+                    - {deviceGroupLabel}
+                target-firmware-list:
+                  type: array
+                  description: >
+                    'delete existing and replace
+                    from [complementedTargetFirmwareList]'
+
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                mount-name:
+                  type: string
+                  enum: [{affectedDevices}]
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete existing and replace
+                    from [updatedFirmwareList]'

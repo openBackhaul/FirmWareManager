@@ -6,8 +6,12 @@ update-device-group:
   properties:
     deviceGroupLabel:
       type: string
+      description: >
+        'from [/requestBody/device-group-label]'
     purgeDate:
       type: string
+      description: >
+        'from [/requestBody/purge-date]'
 
     deviceModel:
       type: string
@@ -20,6 +24,7 @@ update-device-group:
 
 domain-controller:
   type: object
+  description: '! simplified representation !'
   properties:
     network-control-domain:
       type: array

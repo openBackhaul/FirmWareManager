@@ -3,8 +3,6 @@
 Updates an entry in the targetFirmwareList of a given DeviceGroup in the provided attributes (currently limited to the administrative state of the firmware).  
 Replicates the same changes into the firmwareList of all Devices referenced by the given DeviceGroup.  
 
-Attention: There is no protection against activating too many TargetFirmware or a wrong combination of TargetFirmware!
-
 Consequences: The firmware will be attempted to be loaded onto the devices.  
 
 ## Diagram

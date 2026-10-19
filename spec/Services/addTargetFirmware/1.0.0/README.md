@@ -3,8 +3,6 @@
 Adds a FirmwareResource to the targetFirmwareList of a given DeviceGroup.  
 Adds the same firmware to the firmwareList of all Devices referenced by the given DeviceGroup.  
 
-Attention: There is no protection against too many TargetFirmware or wrong compositions of TargetFirmware!
-
 Consequences: The firmware will be attempted to be loaded onto the devices.  
 
 ## Diagram
@@ -28,7 +26,8 @@ Please find a detailed description of the [variables](./variables.yaml).
 |1| 404  | Not Found                           |
 |2| 409  | Conflict                            |
 |3| 422  | Unprocessable Content               |
-|4| 462  | _[provided by ValidationFunctions]_ |
+|4| 422  | Unprocessable Content               |
+|5| 462  | _[provided by ValidationFunctions]_ |
 
 ## Parameters
 
