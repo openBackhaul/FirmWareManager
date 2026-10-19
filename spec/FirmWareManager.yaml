@@ -743,9 +743,8 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForEmbeddingCausesStartOfPmDataStreaming:
-          x-javascript-interface:
-            p1ProcessDevice:
-              summary: 'Streams PM data'
+          p1ManageFirmware:
+            x-javascript-interface:
 
 
 ########################################################################################################################

@@ -1,7 +1,5 @@
 # embedYourself
 
-## Overview
-
 The embedYourself Service is called by the RegistryOffice application.  
 It initiates the necessary steps to embed the new application into the MW SDN application layer.  
 It also starts Functions that run permanently during runtime of the new application.  
@@ -15,6 +13,20 @@ It also starts Functions that run permanently during runtime of the new applicat
 ## Interface
 
 Please find a detailed description of the interface in the [openAPI specification](../../../FirmWareManager.yaml).  
+
+## Variables
+
+./.  
+
+## Error Codes
+
+|#| Code | Message   |
+|-|------|-----------|
+|1| 404  | Not Found |
+
+## Parameters
+
+./.  
 
 ## NPM Module
 

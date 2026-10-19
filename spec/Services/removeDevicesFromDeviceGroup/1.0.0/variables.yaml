@@ -1,0 +1,120 @@
+remove-devices-from-device-group:
+  type: object
+  required:
+    - deviceGroupLabel
+    - mountNameList
+  properties:
+    deviceGroupLabel:
+      type: string
+      description: >
+        'from [/requestBody/device-group-label]'
+    mountNameList:
+      type: array
+      description: >
+        'from [/requestBody/mount-name-list]'
+      items:
+        type: string
+
+    deviceModel:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group={deviceGroupLabel}/device-model]'
+
+    defaultDeviceGroup:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-model={deviceModel}/default-device-group]'
+
+    device:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group={deviceGroupLabel}/device]'
+      items:
+        type: string
+    wrongGroupDevice:
+      type: array
+      items:
+        type: string
+        description: >
+          'from [mountNameList[i] IF NOT in device]'
+
+    defaultTargetFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group={defaultDeviceGroup}/target-firmware-list]'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+    defaultFirmwareList:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'from [defaultTargetFirmwareList[i].resource].split(',')[0]'
+          version:
+            type: string
+            description: >
+              'from str.slice(str.indexOf(',') + 1) with str=[defaultTargetFirmwareList[i].resource]'
+          status:
+            type: string
+            description: >
+              'from [defaultTargetFirmwareList[i].status]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+
+          device-group(step1):
+            type: array
+            items:
+              type: object
+              properties:
+                device:
+                  type: array
+                  description: >
+                    'delete entry IF contained in [mountNameList]'
+
+          device-group(step2):
+            type: array
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  enum:
+                    - {defaultDeviceGroup}
+                device:
+                  type: array
+                  description: >
+                    'from device.push(...mountNameList)'
+
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                mount-name:
+                  type: string
+                  enum: [{mountNameList}]
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete existing and replace
+                    from [defaultFirmwareList]'

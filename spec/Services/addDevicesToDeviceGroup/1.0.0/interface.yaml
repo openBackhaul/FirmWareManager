@@ -96,6 +96,8 @@ paths:
                       - 'Referenced device is unknown'
                   unknown-device:
                     type: array
+                    description: >
+                      'from [/add-devices-to-device-group/unknownDevice]'
                     items:
                       type: string
                   expectation-to-the-client:
@@ -125,6 +127,8 @@ paths:
                       - 'Referenced device of the wrong device type'
                   wrong-type-device:
                     type: array
+                    description: >
+                      'from [/add-devices-to-device-group/wrongTypeDevice]'
                     items:
                       type: string
                   expectation-to-the-client:

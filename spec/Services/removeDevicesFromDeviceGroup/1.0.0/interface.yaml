@@ -73,6 +73,37 @@ paths:
               description: >
                 'Life cycle state of the consumed service
                 from [/core-model-1-4:control-construct/logical-termination-point=fwm-1-0-0-op-s-is-???/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+        '482':
+          description: 'Referenced device in the wrong DeviceGroup'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                  - wrong-group-device
+                  - expectation-to-the-client
+                properties:
+                  code:
+                    type: integer
+                    minimum: 482
+                    maximum: 482
+                    format: int32
+                  message:
+                    type: string
+                    enum:
+                      - 'Referenced device in the wrong DeviceGroup'
+                  wrong-group-device:
+                    type: array
+                    description: >
+                      'from [/remove-devices-from-device-group/wrongGroupDevice]'
+                    items:
+                      type: string
+                  expectation-to-the-client:
+                    type: string
+                    enum:
+                      - 'Retry the operation with devices in the correct DeviceGroup only'
         '422':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '462':
