@@ -5,6 +5,8 @@ delete-device-group:
   properties:
     deviceGroupLabel:
       type: string
+      description: >
+        'from [/requestBody/device-group-label]'
 
     deviceModel:
       type: string
@@ -69,7 +71,7 @@ domain-controller:
               properties:
                 mount-name:
                   type: string
-                  enum: [affectedDevices]
+                  enum: [{affectedDevices}]
                 firmware-list:
                   type: array
                   description: >

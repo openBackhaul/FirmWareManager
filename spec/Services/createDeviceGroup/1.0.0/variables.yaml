@@ -7,13 +7,20 @@ create-device-group:
   properties:
     deviceGroupLabel:
       type: string
+      description: >
+        'from [/requestBody/device-group-label]'
     deviceModelName:
       type: string
+      description: >
+        'from [/requestBody/device-model-name]'
     purgeDate:
       type: string
+      description: >
+        'from [/requestBody/purge-date]'
 
 domain-controller:
   type: object
+  description: '! simplified representation !'
   properties:
     network-control-domain:
       type: array

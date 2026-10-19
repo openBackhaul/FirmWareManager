@@ -38,7 +38,7 @@ activate indServ
     Checks whether given combination
     of firmwareResourceName and
     firmwareResourceVersion already
-    referenced in targetFirmwareList
+    referenced in [targetFirmwareList]
     of given DeviceGroup
   end note
   indServ -> RunDS
@@ -106,6 +106,45 @@ activate indServ
   end note
 
   note over indServ
+    Assures maximum one firmware
+    is active at a time
+  end note
+  note over indServ
+    IF firmwareStatus==active:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    targetFirmwareList[*].status=stand-by
+  end note
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    Appends new target firmware
+    to the [targetFirmwareList]
+    of the given DeviceGroup
+  end note
+  note over indServ
+    IF [complementedTargetFirmwareList].length > max:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 422,\nErrorMessage4 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Replicates the contents of the 
+    [complementedTargetFirmwareList]
+    into an [updatedFirmwareList]
+  end note
+
+  note over indServ
     Locks RunningDS
   end note
   indServ -X RunDS
@@ -124,24 +163,18 @@ activate indServ
   RunDS -/ CanDS
 
   note over indServ
-    Appends another target firmware
-    to the [targetFirmwareList] of the
-    given DeviceGroup
+    Replaces contents of the [targetFirmwareList]
+    at the given DeviceGroup by the contents of
+    the [complementedTargetFirmwareList]
   end note
   indServ -> CanDS
   indServ <-- CanDS
 
   note over indServ
-    Replicates the updated [targetFirmwareList]
-    of given DeviceGroup into the [firmwareList]
-    at the Devices referenced in [devices] of
-    same DeviceGroup
-  end note
-  note left valiMan #Yellow
-    Attention:
-    There is no protection against
-    too many TargetFirmware or wrong
-    compositions of TargetFirmware!
+    Replaces contents of the [firmwareList]
+    at the Devices referenced in [devices] 
+    of the given DeviceGroup by the contents
+    of [updatedFirmwareList]
   end note
   note right indServ
     Reads [device] at
@@ -151,14 +184,14 @@ activate indServ
   indServ <-- CanDS: [device]
   loop for each referenced Device
     note right indServ
-      Delete existing [firmwareList]
+      Delete existing contents
+      of [firmwareList]
     end note
     indServ -> CanDS
     indServ <-- CanDS
     note right indServ
-      Transfer [targetFirmwareList]
-      of given DeviceGroup into
-      [firmwareList] at the Device
+      Write contents of [updatedFirmwareList]
+      into [firmwareList] at the Device
     end note
     indServ -> CanDS
     indServ <-- CanDS
@@ -188,7 +221,7 @@ activate indServ
     Unlocks RunningDS
   end note
   indServ -X RunDS
-  requestor <-- indServ: { 462,\nErrorMessage4 }
+  requestor <-- indServ: { 462,\nErrorMessage5 }
   note right indServ
     }
   end note

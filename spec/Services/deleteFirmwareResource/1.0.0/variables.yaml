@@ -18,7 +18,7 @@ delete-firmware-resource:
       description: >
         'from [firmwareResourceName + {,} + firmwareResourceVersion]'
     targetFirmwareList:
-      type: object
+      type: array
       description: >
         'from [/domain-controller/network-control-domain=running/device-group=*/target-firmware-list]'
     label:

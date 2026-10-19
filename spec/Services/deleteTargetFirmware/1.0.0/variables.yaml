@@ -1,0 +1,96 @@
+delete-target-firmware:
+  type: object
+  required:
+    - deviceGroupLabel
+    - firmwareResourceName
+    - firmwareResourceVersion
+  properties:
+    deviceGroupLabel:
+      type: string
+      description: >
+        'from [/requestBody/device-group-label]'
+    firmwareResourceName:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-name]'
+    firmwareResourceVersion:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-version]'
+
+    targetFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group={deviceGroupLabel}/target-firmware-list]'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+
+    combination:
+      type: string
+      description: >
+        'from [firmwareResourceName + {,} + firmwareResourceVersion]'
+
+    affectedDevices:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={deviceGroupLabel}/device]'
+      items:
+        type: string
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+
+          device-group:
+            type: array
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  enum:
+                    - {deviceGroupLabel}
+                target-firmware-list:
+                  type: array
+                  description: >
+                    'delete instance IF resource==[combination]'
+                  items:
+                    type: object
+                    properties:
+                      resource:
+                        type: string
+
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                mount-name:
+                  type: string
+                  enum: [{affectedDevices}]
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete instance IF (name==[firmwareResourceName] AND version==[firmwareResourceVersion])'
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      version:
+                        type: string
