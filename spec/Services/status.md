@@ -89,8 +89,8 @@ Solved by functions.
 | [/list-existing-devices](./listExistingDevices/1.0.0/)                         | Th | Th | Ka | Th | /  |  K  |
 | [/provide-existing-device](./provideExistingDevice/1.0.0/)                     | Th | Th |    | Th | /  |  K  |
 | [/list-device-groups-without-devices](./listDeviceGroupsWithoutDevices/1.0.0/) | Th | Th | Ka | Th | /  |  K  |
-| [/add-devices-to-device-group](./addDevicesToDeviceGroup/1.0.0/)               | Th | Th | Ka | Th | Th |    |
-| [/remove-devices-from-device-group](./removeDevicesFromDeviceGroup/1.0.0/)     | Th | Th | Ka | Th | Th |    |
+| [/add-devices-to-device-group](./addDevicesToDeviceGroup/1.0.0/)               | Th | Th | Ka | Th | Th |  K  |
+| [/remove-devices-from-device-group](./removeDevicesFromDeviceGroup/1.0.0/)     | Th | Th | Ka | Th | Th |  K  |
 
 ## Administrative
 
