@@ -145,25 +145,21 @@ activate indServ
     indServ <-- CanDS
 
     note over indServ
-      Deletes existing contents
-      of [firmwareList] at Device
-    end note
-    indServ -> CanDS
-    indServ <-- CanDS
-
-    note over indServ
       Transfers content of
       [targetFirmwareList]
       of DeviceGroup into
       [firmwareList] at Device
     end note
     note right indServ
-      Reads [targetFirmwareList] at DeviceGroup
+      Delete existing contents
+      of [firmwareList]
     end note
     indServ -> CanDS
     indServ <-- CanDS
     note right indServ
-      Updates [firmwareList] at Device
+      Write contents of
+      [newFirmwareList]
+      into [firmwareList]
     end note
     indServ -> CanDS
     indServ <-- CanDS
