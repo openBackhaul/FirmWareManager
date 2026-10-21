@@ -67,8 +67,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                 'Life cycle state of the consumed service
-                from [/core-model-1-4:control-construct/logical-termination-point=fwm-1-0-0-op-s-is-???/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
-              # TODO: sequence number missing in ltp uuid
+                from [/core-model-1-4:control-construct/logical-termination-point=fwm-1-0-0-op-s-is-???/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]' in ltp uuid
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
