@@ -17,6 +17,8 @@ x-javascript-interface:
               type: string
               description: >
                 'from [/loadEsAddresses/errorMessage]'
+              # TODO: einheitliches Format (zB entweder überall configFile oder überall config-file)
+              #       bei allen errorMsgs
               enum:
                 - 'configFile not found or not accessible'
                 - 'configFile is not valid JSON'
@@ -125,6 +127,7 @@ x-javascript-interface:
               application/json:
                 schema:
                   type: string
+                  # TODO: könnte der functionName hier nicht auch fehlen?
                   enum:
                     - 'es-name not found in parameters'
                     - 'es-client-uuid could not be resolved'

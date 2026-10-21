@@ -2,6 +2,15 @@ pulser:
   type: object
   properties:
 
+
+    # TODO: der Pulser soll die Ausführung verschiedenster Funktionen triggern.
+    # Macht es da nicht Sinn wenn man die Periodendauer konfigurierbar macht, statt die
+    # hardcoded in den domainController reinzuschreiben?
+    # dann hätte man später eine dynamische Stellschraube, falls man die für das Performance-Tuning braucht.
+    # was genau soll noch im configFile stehen: nur noch die ES-Adressen - zb für das Trimmen der ErrorListe stehen
+    # die Functions-Parameter ja im DomainController (s. excerptOfParameters.yaml) - also auch eigentlich hardcoded...
+    # Wird es einen Service geben, um die zur Laufzeit anpassen zu können?
+
     functionName:
       type: string
       enum:
