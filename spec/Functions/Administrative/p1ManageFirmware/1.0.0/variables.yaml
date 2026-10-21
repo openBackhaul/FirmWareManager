@@ -1,0 +1,36 @@
+manageFirmware:
+  type: object
+  properties:
+
+    functionName:
+      type: string
+      enum:
+        - 'p1ManageFirmware'
+
+domain-controller:
+  type: object
+  description: >
+    'instantiate DomainController object'
+
+  properties:
+    historical-error-list:
+      type: array
+      items:
+        type: object
+        properties:
+          errored-function:
+            type: string
+            description: >
+              'from [functionName]'
+          error-message:
+            type: string
+            description: >
+              'from 
+                  firmware management stopped as ElasticSearch addresses could not be loaded
+                OR
+                  firmware management stopped as initial DomainController data or StartupDS could not be loaded'
+          timestamp:
+            type: string
+            description: >
+              'from current system time'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'

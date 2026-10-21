@@ -17,7 +17,7 @@ note right embed
   Automatically starts
   p1ManageFirmware
 end note
-embed -> p1ManaFw : {}
+embed -> p1ManaFw
 activate p1ManaFw
 
   note over p1ManaFw
@@ -35,12 +35,12 @@ activate p1ManaFw
   p1ManaFw <-- p1LEA
   deactivate p1LEA
   note over p1ManaFw
-    IF error
+    IF errorMessage
   end note
   note right p1ManaFw
     THEN {
   end note
-  p1ManaFw -> hEL: functionName="p1ManageFirmware",\nerrorMessage1
+  p1ManaFw -> hEL: functionName="p1ManageFirmware",\nerrorMessage
   ?<-- p1ManaFw
   note right p1ManaFw
     }
@@ -57,12 +57,12 @@ activate p1ManaFw
   p1ManaFw <-- p1CDCFS
   deactivate p1CDCFS
   note over p1ManaFw
-    IF error
+    IF errorMessage
   end note
   note right p1ManaFw
     THEN {
   end note
-  p1ManaFw -> hEL: functionName="p1ManageFirmware",\nerrorMessage2
+  p1ManaFw -> hEL: functionName="p1ManageFirmware",\nerrorMessage
   ?<-- p1ManaFw
   note right p1ManaFw
     }
@@ -75,8 +75,5 @@ activate p1ManaFw
       invokes
       functions
     end note
-
-?<-- p1ManaFw
-deactivate p1ManaFw
 
 @enduml

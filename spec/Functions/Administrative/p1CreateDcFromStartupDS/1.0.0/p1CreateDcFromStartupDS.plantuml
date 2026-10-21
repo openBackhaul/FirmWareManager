@@ -34,74 +34,64 @@ activate p1CDCFS
   p1CDCFS <-- p1LP: { esName==domainControllerEsClient, ... }
   deactivate p1LP
   note over p1CDCFS
-    IF NOT 204
+    IF errorMessage
   end note
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL: functionName="p1LoadParameters",\nerrorMessage1
-  requestor <-- p1CDCFS: ErrorMessage1
+  p1CDCFS -> hEL: functionName="p1LoadParameters",\nerrorMessage
+  requestor <-- p1CDCFS: errorMessage
   note right p1CDCFS
     }
   end note
 
   note over p1CDCFS
-    Reads ElasticSearchClient
-    address from [EsAddress]
+    Reads all ElasticSearchClients
+    from [EsAddress] into RAM
   end note
-  p1CDCFS -> DC: /domain-controller/es-address=domainControllerEsClient
+  p1CDCFS -> DC
   activate DC
-  p1CDCFS <-- DC: {DomainControllerEsClient}
+  p1CDCFS <-- DC
   deactivate DC
   note over p1CDCFS
-    IF {DomainControllerEsClient}==null
+    IF [esAddress]==null:
   end note
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL: functionName="p1CreateDcFromStartupDS",\nerrorMessage2
-  requestor <-- p1CDCFS: ErrorMessage2
+  p1CDCFS -> hEL: functionName="p1CreateDcFromStartupDS",\nerrorMessage
+  requestor <-- p1CDCFS: errorMessage
   note right p1CDCFS
     }
   end note
 
   note over p1CDCFS
-    Loads DomainController
-    from ElasticSearch
+    Loads {DomainController} from
+    ElasticSearch and overwrites
+    its own entire DomainController
   end note
-  p1CDCFS -> StartDS: { DomainControllerEsClient://domain-controller }
+  p1CDCFS -> StartDS: { domainControllerEsClient://domain-controller }
   activate StartDS
   p1CDCFS <-- StartDS: {DomainController}
   deactivate StartDS
   note over p1CDCFS
-    IF error
+    IF {DomainController}==null:
   end note
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL: functionName="p1CreateDcFromStartupDS",\nerrorMessage3
-  requestor <-- p1CDCFS: ErrorMessage3
+  p1CDCFS -> hEL: functionName="p1CreateDcFromStartupDS",\nerrorMessage
+  requestor <-- p1CDCFS: errorMessage
   note right p1CDCFS
     }
   end note
+  p1CDCFS -> DC: {DomainController}
 
   note over p1CDCFS
-    Populates
-    DomainController
-    from {DomainController}
+    Overwrites [EsAddress]
+    with [esAddress] from RAM
   end note
-  p1CDCFS -> DC: [Function]
-  p1CDCFS -> DC: [ValidationSequence]
-  p1CDCFS -> DC: [Pulser]
-  p1CDCFS -> DC: [ToDoCode]
-  p1CDCFS -> DC: [ToDoList]
-
-  note over p1CDCFS
-    Populates RunningDS
-    from StartupDS in
-    {DomainController}
-  end note
-  p1CDCFS -> DC: [RunningDS]
+  p1CDCFS -> DC: [esAddress]
 
 requestor <-- p1CDCFS: 204
 deactivate p1CDCFS

@@ -1,0 +1,32 @@
+trimHistoricalErrorList:
+  type: object
+  properties:
+
+    functionName:
+      type: string
+      enum:
+        - 'p1TrimHistoricalErrorList'
+
+    maximumLength:
+      type: integer
+      description: >
+        'from [/domain-controller/function=p1TrimHistoricalErrorList/parameter=maximumLength/value]'
+    currentLength:
+      type: integer
+      description: >
+        'from [/domain-controller/historical-error-list].length'
+    excessLength:
+      type: integer
+      description: >
+        'from currentLength - maximumLength'
+
+domain-controller:
+  type: object
+  description: >
+    'instantiate DomainController object'
+
+  properties:
+    historical-error-list:
+      type: array
+      description: >
+        'delete excessLength eldest entries, if excessLength > 0'

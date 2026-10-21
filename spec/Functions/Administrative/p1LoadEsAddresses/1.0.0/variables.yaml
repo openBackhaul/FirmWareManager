@@ -1,0 +1,105 @@
+loadEsAddresses:
+  type: object
+  properties:
+
+    functionName:
+      type: string
+      enum:
+        - 'p1LoadEsAddresses'
+
+    parameters:
+      type: object
+      description: >
+        '! simplified representation !
+        from [/p1LoadParameters/output/success/parameters]'
+      properties:
+        parameter:
+          type: array
+          x-key: parameter-name
+          items:
+            type: object
+            properties:
+              parameter-name:
+                type: string
+              purpose:
+                type: string
+              value:
+                type: string
+        sub-function:
+          type: array
+          x-key: function-name
+          items:
+            $ref: '#/components/schemas/parameters-schema'
+    configFile:
+      type: object
+      description: >
+        'from [/p1LoadParameters/output/success/config-file]'
+    errorMessage:
+      type: string
+      description: >
+        'from [/p1LoadParameters/output/error] OR [/p1ResolveEsAddress/output/error]'
+
+    esName:
+      type: array
+      items:
+        type: string
+        description: >
+          'from [/parameters/parameter=*/value] IF [/parameters/parameter=*/purpose]==esName'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+
+    historical-error-list:
+      type: array
+      items:
+        type: object
+        properties:
+          errored-function:
+            type: string
+            description: >
+              'from p1LoadParameters OR p1ResolveEsAddress'
+          error-message:
+            type: string
+            description: >
+              'from [errorMessage]'
+          timestamp:
+            type: string
+            description: >
+              'from current system time'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+
+    es-address:
+      type: array
+      items:
+        type: object
+        properties:
+          es-name:
+            type: string
+            description: >
+              'create instance from [/p1ResolveEsAddress/input/es-name]'
+          url:
+            type: string
+            description: >
+              'from [/p1ResolveEsAddress/output/success/url]'
+          api-key:
+            type: string
+            description: >
+              'from [/p1ResolveEsAddress/output/success/api-key]'
+          index-alias:
+            type: string
+            description: >
+              'from [/p1ResolveEsAddress/output/success/index-alias]'
+          service-records-policy:
+            type: string
+            description: >
+              'from [/p1ResolveEsAddress/output/success/service-records-policy]'
+          operational-state:
+            type: string
+            description: >
+              'from [/p1ResolveEsAddress/output/success/operational-state]'
+          life-cycle-state:
+            type: string
+            description: >
+              'from [/p1ResolveEsAddress/output/success/life-cycle-state]'
