@@ -52,10 +52,10 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 | Function                     |  1  |  2  |  3  |  4  |  5  |  6  |
 |------------------------------|-----|-----|-----|-----|-----|-----|
-| p1ManageFirmware             | Th  | Th  |     | (3) |     |     |
-| . p1LoadEsAddresses          | Th  | Th  |     | (3) |     |     |
-| .. p1LoadParameters          | ./. | Th  |     | (3) |     |     |
-| .. p1ResolveEsAddress        | ./. | Th  |     | (3) |     |     |
-| . p1CreateDcFromStartupDS    | Th  | Th  |     | (3) |     |     |
-| . p1Pulser                   | Th  | Th  |     | (3) |     |     |
-| .. p1TrimHistoricalErrorList | Th  | Th  |     | (3) |     |     |
+| p1ManageFirmware             | Th  | Th  |     | Th  | Th  |     |
+| . p1LoadEsAddresses          | Th  | Th  |     | Th  | Th  |     |
+| .. p1LoadParameters          | /   | Th  |     | /   | /   | /   |
+| .. p1ResolveEsAddress        | /   | Th  |     | /   | /   | /   |
+| . p1CreateDcFromStartupDS    | Th  | Th  |     | Th  | Th  |     |
+| . p1Pulser                   | Th  | Th  |     | Th  | Th  |     |
+| .. p1TrimHistoricalErrorList | Th  | Th  |     | Th  | Th  |     |

@@ -11,7 +11,7 @@
           "profile-name": "function-profile-1-0:PROFILE_NAME_TYPE_FUNCTION_PROFILE",
           "function-profile-1-0:function-profile-pac": {
             "function-profile-capability": {
-              "function-name": "???",
+              "function-name": "p1LoadEsAddresses",
               "function-description": "???",
               "parameter-list": [
                 {

@@ -1,0 +1,91 @@
+createDcFromStartupDS:
+  type: object
+  properties:
+
+    functionName:
+      type: string
+      enum:
+        - 'p1CreateDcFromStartupDS'
+
+    parameters:
+      type: object
+      description: >
+        '! simplified representation !
+        from [/p1LoadParameters/output/success/parameters]'
+      properties:
+        parameter:
+          type: array
+          x-key: parameter-name
+          items:
+            type: object
+            properties:
+              parameter-name:
+                type: string
+                enum:
+                  - 'esName'
+              value:
+                type: string
+        sub-function:
+          type: array
+          x-key: function-name
+          items:
+            $ref: '#/components/schemas/parameters-schema'
+    configFile:
+      type: object
+      description: >
+        'from [/p1LoadParameters/output/success/config-file]'
+    errorMessage:
+      type: string
+      description: >
+        'from [/p1LoadParameters/output/error] OR 
+                - ElasticSearchClient not found in DomainController
+                - dataStoreUrl invalid
+                - ElasticSearch read error
+                - DomainController data not found in ElasticSearch
+                - general processing error'
+
+    esName:
+      type: string
+      description: >
+        'from [/parameters/parameter=esName/value]'
+    esAddress:
+      type: array
+      description: >
+        'from [/domain-controller/es-address]'
+    domainControllerEsClient:
+      type: object
+      description: >
+        'from [/esAddress={esName}]'
+
+domain-controller:
+  type: object
+  description: >
+    '! simplified representation !
+    delete existing and replace
+    from [domainControllerEsClient://domain-controller]'
+
+  properties:
+    historical-error-list:
+      type: array
+      items:
+        type: object
+        properties:
+          errored-function:
+            type: string
+            description: >
+              'from p1LoadParameters OR [functionName]'
+          error-message:
+            type: string
+            description: >
+              'from [errorMessage]'
+          timestamp:
+            type: string
+            description: >
+              'from current system time'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+
+    es-address:
+      type: array
+      description: >
+        'after replacing DomainController by stored data
+        from [esAddress]'

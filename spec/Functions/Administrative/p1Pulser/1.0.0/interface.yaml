@@ -6,6 +6,9 @@ info:
 x-javascript-interface:
   p1Pulser:
     summary: 'Cyclically invokes functions'
+    output:
+      error:
+        description: 'Pulser stopped due to an error'
     processing:
       _p1TargetFunction_:
         output:
