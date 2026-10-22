@@ -42,10 +42,6 @@ paths:
                       type: string
                       description: >
                         'from [/domain-controller/network-control-domain=running/device-model=*/default-device-group]'
-                    # TODO: wieso wird hier die ApprovalListe nicht mitausgeben?
-                    # es gibt ja auch einen extra Service für die Approvals und mit deviceModelName als Input
-                    # aber wäre das nicht trotzdem praktisch, wenn man das nicht getrennt aufrufen müsste?
-                    # man könnte das optional mit ausgeben (mit einem toggle als input parameter)
           headers:
             x-correlator:
               schema:

@@ -75,6 +75,3 @@ domain-controller:
                   type: string
                   description: >
                     'from [fileName], if given'
-          # TODO: irgendwie fehlt mir hier ein expliziter Hinweis, dass hier in den Candidate geschrieben werden soll,
-          # damit das etwas klarer wird.
-          # bei delete steht auch in den descriptions explizit 'delete' drin

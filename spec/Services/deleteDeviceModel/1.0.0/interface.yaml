@@ -68,16 +68,6 @@ paths:
               description: >
                 'Life cycle state of the consumed service
                 from [/core-model-1-4:control-construct/logical-termination-point=fwm-1-0-0-op-s-is-???/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
-        '400':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '409':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
         '462':
           $ref: '#/components/responses/462'
         '463':
@@ -112,8 +102,7 @@ paths:
                       type: string
                       description: >
                         'mountName of referencing device
-                        from '
-                      # TODO: description incomplete
+                        from [/delete-device-model/referencingObject]'
                   expectation-to-the-client:
                     type: string
                     enum:
@@ -130,7 +119,16 @@ paths:
                 type: integer
                 example: 1100
               description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
-
+        '400':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '409':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
         '500':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         default:

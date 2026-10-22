@@ -75,17 +75,14 @@ domain-controller:
                 firmware-list:
                   type: array
                   description: >
-                    'delete all instances'
-                  # TODO: das ist verwirrend.
-                  # erst soll die existierende firmwareListe geleert werden - das ist ja hier beschrieben
-                  # aber dass danach unten der Transfer stattfindet sollte besser explizit erwähnt werden, nicht nur im Diagramm
+                    'delete and replace all instances'
                   items:
                     type: object
                     properties:
                       name:
                         type: string
                         description: >
-                          'from [/targetFirmwareList[i]/resource].split(',')[0]'
+                          'after deletion, new instances from [/targetFirmwareList[i]/resource].split(',')[0]'
                       version:
                         type: string
                         description: >

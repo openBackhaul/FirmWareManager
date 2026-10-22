@@ -71,6 +71,10 @@ paths:
               description: >
                 'Life cycle state of the consumed service
                 from [/core-model-1-4:control-construct/logical-termination-point=fwm-1-0-0-op-s-is-???/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+        '422':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '462':
+          $ref: '#/components/responses/462'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -81,10 +85,6 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '409':
           $ref: '#/components/responses/responseForErroredServiceRequests'
-        '422':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '462':
-          $ref: '#/components/responses/462'
         '500':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         default:

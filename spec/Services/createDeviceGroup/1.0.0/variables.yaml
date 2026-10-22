@@ -50,8 +50,11 @@ domain-controller:
                   type: string
                   description: >
                     'from [purgeDate] if given'
-                # TODO:
-                # targetFirmwareList and device are also listed as required fields for deviceGroup,
-                # they need to be initialized as empty lists
-                # but they are missing here, and also initialization is not mentioned in the informationStructure
-                # proposal: add initilization info (empty list) to informationStructure, similar to deviceModel.approval
+                target-firmware-list:
+                  type: array
+                  description: >
+                    'from [] empty list'
+                device:
+                  type: array
+                  description: >
+                    'from [] empty list'

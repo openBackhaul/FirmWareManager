@@ -45,7 +45,6 @@ add-target-firmware:
             type: string
             description: >
               'from [{stand-by} IF firmwareStatus=={active}]'
-      # TODO: man könnte hier oder im Diagram ggf. nochmal deutlicher formulieren, dass die bisherigen Einträge alle auf stand-by gesetzt werden
 
     approval:
       type: array

@@ -21,30 +21,30 @@ Th = Thorsten
 | ---------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
 | [/list-existing-servers](./listExistingServers/1.0.0/)     | Th | Th | Ka | Th | /  | Ka |
 | [/list-incomplete-servers](./listIncompleteServers/1.0.0/) | Th | Th | Ka | Th | /  | Ka |
-| [/create-server](./createServer/1.0.0/)                    | Th | Th | Ka | Th | /  | K  |
-| [/update-server](./updateServer/1.0.0/)                    | Th | Th | Ka | Th | /  | K  |
-| [/delete-server](./deleteServer/1.0.0/)                    | Th | Th | Ka | Th | Th | K  |
+| [/create-server](./createServer/1.0.0/)                    | Th | Th | Ka | Th | /  | Ka |
+| [/update-server](./updateServer/1.0.0/)                    | Th | Th | Ka | Th | /  | Ka |
+| [/delete-server](./deleteServer/1.0.0/)                    | Th | Th | Ka | Th | Th | Ka |
 
 ### Preparing firmware resources
 
 | Service                                                                     | 1  | 2  | 5  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
 | [/list-existing-firmware-resources](./listExistingFirmwareResources/1.0.0/) | Th | Th | Ka | Th | /  | Ka |
-| [/create-firmware-resource](./createFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th | K  |
-| [/update-firmware-resource](./updateFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th | K  |
-| [/delete-firmware-resource](./deleteFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th | K  |
+| [/create-firmware-resource](./createFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th | Ka |
+| [/update-firmware-resource](./updateFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th | Ka |
+| [/delete-firmware-resource](./deleteFirmwareResource/1.0.0/)                | Th | Th | Ka | Th | Th | Ka |
 
 ### Preparing device models
 
 | Service                                                                         | 1  | 2  | 5  | 3  | 4  | 5  |
 | ------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
-| [/list-existing-device-models](./listExistingDeviceModels/1.0.0/)               | Th | Th | Ka | Th | /  | K  |
+| [/list-existing-device-models](./listExistingDeviceModels/1.0.0/)               | Th | Th | Ka | Th | /  | Ka |
 | [/list-unknown-device-models](./listUnknownDeviceModels/1.0.0/)                 | Th | Th | Ka | Th | /  | Ka |
 | [/list-hardware-extraction-functions](./listHardwareExtractionFunctions/1.0.0/) | Th | Th |    | Th | /  | Ka |
 | [/list-firmware-extraction-functions](./listFirmwareExtractionFunctions/1.0.0/) | Th | Th |    | Th | /  | Ka |
-| [/create-device-model](./createDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th | K  |
-| [/update-device-model](./updateDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th | K  |
-| [/delete-device-model](./deleteDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th | K  |
+| [/create-device-model](./createDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th | Ka |
+| [/update-device-model](./updateDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th | Ka |
+| [/delete-device-model](./deleteDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th | Ka |
 
 ### Documenting firmware approvals
 
@@ -52,8 +52,8 @@ Th = Thorsten
 | ---------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
 | [/list-device-models-without-approvals](./listDeviceModelsWithoutApprovals/1.0.0/) | Th | Th | Ka | Th | /  | Ka |
 | [/list-existing-firmware-approvals](./listExistingFirmwareApprovals/1.0.0/)        | Th | Th | Ka | Th | Th | Ka |
-| [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                             | Th | Th |    | Th | Th | K  |
-| [/withdraw-firmware-approval](./withdrawFirmwareApproval/1.0.0/)                   | Th | Th |    | Th | Th | K  |
+| [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                             | Th | Th |    | Th | Th | Ka |
+| [/withdraw-firmware-approval](./withdrawFirmwareApproval/1.0.0/)                   | Th | Th |    | Th | Th | Ka |
 
 ## Preparing device groups and initiating firmware roll-out (Operations)
 
@@ -62,19 +62,19 @@ Th = Thorsten
 | Service                                                           | 1  | 2  | 5  | 3  | 4  | 5  |
 | ------------------------------------------------------------------| -- | -- | -- | -- | -- | -- |
 | [/list-existing-device-groups](./listExistingDeviceGroups/1.0.0/) | Th | Th | Ka | Th | /  | Ka |
-| [/create-device-group](./createDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th | K  |
-| [/update-device-group](./updateDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th | K  |
-| [/delete-device-group](./deleteDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th | K  |
+| [/create-device-group](./createDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th | Ka |
+| [/update-device-group](./updateDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th | Ka |
+| [/delete-device-group](./deleteDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th | Ka |
 
 ### Initiate firmware roll-out
 
 | Service                                                                                       | 1  | 2  | 5  | 3  | 4  | 5  |
 | --------------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- |
 | [/list-device-groups-without-target-firmware](./listDeviceGroupsWithoutTargetFirmware/1.0.0/) | Th | Th | Ka | Th | /  | Ka |
-| [/provide-existing-device-group](./provideExistingDeviceGroup/1.0.0/)                         | Th | Th | Ka | Th | /  | K  |
-| [/add-target-firmware](./addTargetFirmware/1.0.0/)                                            | Th | Th |    | Th | Th | K  |
-| [/update-target-firmware](./updateTargetFirmware/1.0.0/)                                      | Th | Th |    | Th | Th | K  |
-| [/delete-target-firmware](./deleteTargetFirmware/1.0.0/)                                      | Th | Th | Ka | Th | Th | K  |
+| [/provide-existing-device-group](./provideExistingDeviceGroup/1.0.0/)                         | Th | Th | Ka | Th | /  | Ka |
+| [/add-target-firmware](./addTargetFirmware/1.0.0/)                                            | Th | Th |    | Th | Th | Ka |
+| [/update-target-firmware](./updateTargetFirmware/1.0.0/)                                      | Th | Th |    | Th | Th | Ka |
+| [/delete-target-firmware](./deleteTargetFirmware/1.0.0/)                                      | Th | Th | Ka | Th | Th | Ka |
 
 ## Categorizing individual devices into device groups (Planning)
 
@@ -87,10 +87,10 @@ Solved by functions.
 | Service                                                                        | 1  | 2  | 5  | 3  | 4  | 5  |
 | ------------------------------------------------------------------------------ | -- | -- | -- | -- | -- | -- |
 | [/list-existing-devices](./listExistingDevices/1.0.0/)                         | Th | Th | Ka | Th | /  | Ka |
-| [/provide-existing-device](./provideExistingDevice/1.0.0/)                     | Th | Th |    | Th | /  | K  |
+| [/provide-existing-device](./provideExistingDevice/1.0.0/)                     | Th | Th |    | Th | /  | Ka |
 | [/list-device-groups-without-devices](./listDeviceGroupsWithoutDevices/1.0.0/) | Th | Th | Ka | Th | /  | Ka |
-| [/add-devices-to-device-group](./addDevicesToDeviceGroup/1.0.0/)               | Th | Th | Ka | Th | Th | K  |
-| [/remove-devices-from-device-group](./removeDevicesFromDeviceGroup/1.0.0/)     | Th | Th | Ka | Th | Th | K  |
+| [/add-devices-to-device-group](./addDevicesToDeviceGroup/1.0.0/)               | Th | Th | Ka | Th | Th | Ka |
+| [/remove-devices-from-device-group](./removeDevicesFromDeviceGroup/1.0.0/)     | Th | Th | Ka | Th | Th | Ka |
 
 ## Administrative
 

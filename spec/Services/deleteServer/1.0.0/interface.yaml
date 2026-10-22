@@ -68,16 +68,6 @@ paths:
               description: >
                 'Life cycle state of the consumed service
                 from [/core-model-1-4:control-construct/logical-termination-point=fwm-1-0-0-op-s-is-???/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
-        '400':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '409':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
         '462':
           $ref: '#/components/responses/462'
         '463':
@@ -112,8 +102,7 @@ paths:
                       type: string
                       description: >
                         'Combination of firmwareResourceName and firmwareResourceVersion
-                        from '
-                      # TODO: description incomplete
+                        from [/delete-server/referencingObject]'
                   expectation-to-the-client:
                     type: string
                     enum:
@@ -130,6 +119,16 @@ paths:
                 type: integer
                 example: 1100
               description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+        '400':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '409':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
         '500':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         default:
@@ -314,37 +313,6 @@ components:
               message:
                 type: string
                 description: 'Individual message provided in reason attribute of response of ValidationFunction.'
-    '463':
-      description: 'To be deleted object still referenced.'
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - code
-              - message
-            properties:
-              code:
-                type: integer
-                minimum: 463
-                maximum: 463
-                format: int32
-              message:
-                type: string
-                enum:
-                  - 'To be deleted object still referenced.'
-              referencing-object-type:
-                type: string
-                description: 'Type of the object that is referencing the to be deleted object.'
-              referencing-object:
-                type: array
-                description: 'List of objects that are referencing the to be deleted object.'
-                items:
-                  type: string
-              expectation-to-the-client:
-                type: string
-                enum:
-                  - 'Handle the referencing objects before retrying the deletion.'
     '470':
       description: 'Response in case the resource specified in the request does not exist within the connected device'
       content:

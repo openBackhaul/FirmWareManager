@@ -7,7 +7,6 @@ createDcFromStartupDS:
       enum:
         - 'p1CreateDcFromStartupDS'
 
-    # TODO: siehe Kommentar zu Zugriffsnotation in p1LoadEsAddresses
     parameters:
       type: object
       description: >
@@ -31,7 +30,6 @@ createDcFromStartupDS:
           x-key: function-name
           items:
             $ref: '#/components/schemas/parameters-schema'
-            # TODO: siehe Kommentar in p1LoadEsAddresses zu Pfad
     configFile:
       type: object
       description: >

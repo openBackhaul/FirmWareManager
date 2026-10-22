@@ -7,10 +7,6 @@ loadEsAddresses:
       enum:
         - 'p1LoadEsAddresses'
 
-
-    # TODO: mir ist aufgefallen, dass die Notation für Zugriffe auf Variablen jetzt anders ist.
-    # bei input/output hatten wir sonst immer $x.output#/pfad-zur-variablen, und mit $Funktionsname
-    # s. zB bei p1LoadParameters: {$file-access.output#/config-file}, oder bei p2ProcessDevice {$p2LoadRawCc.output#/raw-cc}'
     parameters:
       type: object
       description: >
@@ -34,9 +30,6 @@ loadEsAddresses:
           x-key: function-name
           items:
             $ref: '#/components/schemas/parameters-schema'
-          # TODO: es wäre klarer, wenn man hier ggf. auch das p1LoadParameters im Pfad hätte
-          # (Auch weil ja p1LoadParameters auch eine generische Funktion ist, und deshalb hier im p1LoadParameters
-          # Ordner nur das Readme liegt.)
     configFile:
       type: object
       description: >
