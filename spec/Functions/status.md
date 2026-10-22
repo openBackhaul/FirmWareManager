@@ -10,6 +10,7 @@ It shall be deleted once the service specifications are complete.
 4 = "interface.yaml"  
 5 = "variables.yaml"  
 6 = "Review"  
+7 = "TestCaseCollection"  
 
 Ka = Katharina  
 Th = Thorsten
@@ -18,16 +19,16 @@ Th = Thorsten
 
 ### Preparing devices
 
-| Function        |  1  |  2  |  3  |  4  |  5  |  6  |
-|-----------------|-----|-----|-----|-----|-----|-----|
-| p1CreateDevices | Th  | Th  |     |     |     |     |
-| p1DeleteDevices | Th  | Th  |     |     |     |     |
+| Function        |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
+|-----------------|-----|-----|-----|-----|-----|-----|-----|-----|
+| p1CreateDevices | Th  | Th  |     |     |     |     |     |     |
+| p1DeleteDevices | Th  | Th  |     |     |     |     |     |     |
 
 ### Purging DeviceGroups
 
-| Function            |  1  |  2  |  3  |  4  |  5  |  6  |
-|---------------------|-----|-----|-----|-----|-----|-----|
-| p1PurgeDeviceGroups | Th  | Th  |     |     |     |     |
+| Function            |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
+|---------------------|-----|-----|-----|-----|-----|-----|-----|-----|
+| p1PurgeDeviceGroups | Th  | Th  |     |     |     |     |     |     |
 
 ## Validation
 
@@ -36,26 +37,26 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 ### Measurement
 
-| Function                            |  1  |  2  |  3  |  4  |  5  |  6  |
-|-------------------------------------|-----|-----|-----|-----|-----|-----|
-| p1MeasureDomain                     | Th  | Th  |     |     |     |     |
-| . p1ListUpdatedCcs                  | Th  | Th  |     |     |     |     |
-| . p1UpdateDevice                    | Th  | Th  | Ka  |     |     |     |
-| .. p1UpdateHw                       | Th  | Th  | Ka  |     |     |     |
-| .. p1UpdateFw                       | Th  | Th  | Ka  |     |     |     |
-| ... p1ExtractSingleFirmware         | Th  | Th  | Ka  |     |     |     |
-| ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     |     |     |     |
-| ... p1ExtractSeparatedAppToo        | Th  | Th  |     |     |     |     |
-| ... p1ExtractSeparatedBootWebOduToo | Th  | Th  |     |     |     |     |
+| Function                            |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
+|-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
+| p1MeasureDomain                     | Th  | Th  |     |     |     |     |     |     |
+| . p1ListUpdatedCcs                  | Th  | Th  |     |     |     |     |     |     |
+| . p1UpdateDevice                    | Th  | Th  | Ka  |     |     |     |     |     |
+| .. p1UpdateHw                       | Th  | Th  | Ka  |     |     |     |     |     |
+| .. p1UpdateFw                       | Th  | Th  | Ka  |     |     |     |     |     |
+| ... p1ExtractSingleFirmware         | Th  | Th  | Ka  |     |     |     |     |     |
+| ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     |     |     |     |     |     |
+| ... p1ExtractSeparatedAppToo        | Th  | Th  |     |     |     |     |     |     |
+| ... p1ExtractSeparatedBootWebOduToo | Th  | Th  |     |     |     |     |     |     |
 
 ### Administrative
 
-| Function                     |  1  |  2  |  3  |  4  |  5  |  6  |
-|------------------------------|-----|-----|-----|-----|-----|-----|
-| p1ManageFirmware             | Th  | Th  |     | Th  | Th  | Ka  |
-| . p1LoadEsAddresses          | Th  | Th  |     | Th  | Th  | Ka  |
-| .. p1LoadParameters          | /   | Th  |     | /   | /   | /   |
-| .. p1ResolveEsAddress        | /   | Th  |     | /   | /   | /   |
-| . p1CreateDcFromStartupDS    | Th  | Th  |     | Th  | Th  | Ka  |
-| . p1Pulser                   | Th  | Th  |     | Th  | Th  | Ka  |
-| .. p1TrimHistoricalErrorList | Th  | Th  |     | Th  | Th  | Ka  |
+| Function                     |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
+|------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
+| p1ManageFirmware             | Th  | Th  |     | Th  | Th  | Ka  |     |  1  |
+| . p1LoadEsAddresses          | Th  | Th  |     | Th  | Th  | Ka  |     |  1  |
+| .. p1LoadParameters          | /   | Th  |     | /   | /   | /   |     |  1  |
+| .. p1ResolveEsAddress        | /   | Th  |     | /   | /   | /   |     |  1  |
+| . p1CreateDcFromStartupDS    | Th  | Th  |     | Th  | Th  | Ka  |     |  1  |
+| . p1Pulser                   | Th  | Th  |     | Th  | Th  | Ka  |     |  1  |
+| .. p1TrimHistoricalErrorList | Th  | Th  |     | Th  | Th  | Ka  |     |  1  |

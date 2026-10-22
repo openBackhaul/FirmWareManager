@@ -1,26 +1,24 @@
 @startuml hl_sequence
 skinparam responseMessageBelowArrow true
 
-skinparam ParticipantBorderColor<<service>> Red
-
 title
   FirmWareManager
 end title
 
 ' Administration
-participant "embedYourself\n" as embed
-participant "p1ManageFirmware\n" as p1ManaFw
-participant "p1LoadEsAddresses\n" as p1LEA
+participant "/embedYourself\n" as embed
+participant "p1ManageFirmware\n" as p1ManaFw #LightBlue
+participant "p1LoadEsAddresses\n" as p1LEA #LightBlue
 participant "p1LoadParameters\n" as p1LP #White
 participant "p1ResolveEsAddress\n" as p1REA #White
-participant "p1CreateDomainController\nFromStartupDS" as p1CDCFS
-participant "p1Pulser\n" as p1Puls
+participant "p1CreateDomainController\nFromStartupDS" as p1CDCFS #LightBlue
+participant "p1Pulser\n" as p1Puls #LightBlue
 
 ' Interpretation
 participant "p1CreateDevices\n" as p1CreDev
 participant "p1DeleteDevices\n" as p1DelDev
 participant "p1PurgeDeviceGroups\n" as p1PurDevGr
-participant "/deleteDeviceGroup" as delGroup <<service>>
+participant "/deleteDeviceGroup\n" as delGroup
 
 ' Validation
 participant "p1ValidationManager\n" as p1ValMan
@@ -36,12 +34,12 @@ participant "p1ExtractSeparatedNpuRauToo\n" as extractNpu
 participant "p1ExtractSeparatedAppToo\n" as extractApp
 participant "p1ExtractSeparatedBootWebOduToo\n" as extractBoot
 
-participant "p1TrimHistoricalErrorList\n" as p1TrimErrors
+participant "p1TrimHistoricalErrorList\n" as p1TrimErrors #LightBlue
 
 embed -> p1ManaFw
 activate p1ManaFw
 
-  p1ManaFw -[#green]> p1LEA
+  p1ManaFw -> p1LEA
   activate p1LEA
     note over p1LEA
       Makes ElasticSearch
@@ -49,47 +47,47 @@ activate p1ManaFw
       in DomainController
     end note
 
-    p1LEA -[#green]> p1LP
+    p1LEA -> p1LP
     activate p1LP
       note over p1LP
         Loads parameters
         from configFile
       end note
-    p1LEA <-[#green]- p1LP
+    p1LEA <-- p1LP
     deactivate p1LP
 
-    p1LEA -[#green]> p1REA
+    p1LEA -> p1REA
     activate p1REA
       note over p1REA
         Resolves
         ES address
       end note
-    p1LEA <-[#green]- p1REA
+    p1LEA <-- p1REA
     deactivate p1REA
 
-  p1ManaFw <-[#green]- p1LEA
+  p1ManaFw <-- p1LEA
   deactivate p1LEA
 
-  p1ManaFw -[#green]> p1CDCFS
+  p1ManaFw -> p1CDCFS
   activate p1CDCFS
     note over p1CDCFS
       Populates DomainController
       from ElasticSearch
     end note
 
-    p1CDCFS -[#green]> p1LP
+    p1CDCFS -> p1LP
     activate p1LP
       note over p1LP
         Loads parameters
         from configFile
       end note
-    p1CDCFS <-[#green]- p1LP
+    p1CDCFS <-- p1LP
     deactivate p1LP
 
-  p1ManaFw <-[#green]- p1CDCFS
+  p1ManaFw <-- p1CDCFS
   deactivate p1CDCFS
   
-  p1ManaFw -[#green]> p1Puls
+  p1ManaFw -> p1Puls
   activate p1Puls
     note over p1Puls
       Cyclically
@@ -97,93 +95,93 @@ activate p1ManaFw
       functions
     end note
 
-      p1Puls -[#green]> p1CreDev
+      p1Puls -> p1CreDev
       activate p1CreDev
         note over p1CreDev
           Creates Devices
           in RunningDS
         end note
-        p1CreDev -[#green]> p1ValMan
+        p1CreDev -> p1ValMan
         activate p1ValMan
           note over p1ValMan
             Orchestrates 
             Validation of
             OperationalDS
           end note
-        p1CreDev <-[#green]- p1ValMan
+        p1CreDev <-- p1ValMan
         deactivate p1ValMan
-      p1Puls <-[#green]- p1CreDev
+      p1Puls <-- p1CreDev
       deactivate p1CreDev
 
-      p1Puls -[#green]> p1DelDev
+      p1Puls -> p1DelDev
       activate p1DelDev
         note over p1DelDev
           Deletes Devices
           from OperationalDS
           and RunningDS
         end note
-        p1DelDev -[#green]> p1ValMan
+        p1DelDev -> p1ValMan
         activate p1ValMan
           note over p1ValMan
             Orchestrates 
             Validation of
             OperationalDS
           end note
-        p1DelDev <-[#green]- p1ValMan
+        p1DelDev <-- p1ValMan
         deactivate p1ValMan
-      p1Puls <-[#green]- p1DelDev
+      p1Puls <-- p1DelDev
       deactivate p1DelDev
 
-      p1Puls -[#red]> p1PurDevGr
+      p1Puls -> p1PurDevGr
       activate p1PurDevGr
         note over p1PurDevGr
           Purges DeviceGroups
         end note
-        p1PurDevGr -[#red]> delGroup
+        p1PurDevGr -> delGroup
         activate delGroup
           note over delGroup
             Deletes DeviceGroup
             Adds Devices to default DeviceGroup
             Updates [firmwareList] of Devices
           end note
-          delGroup -[#red]> p1ValMan
+          delGroup -> p1ValMan
           activate p1ValMan
             note over p1ValMan
               Orchestrates 
               Validation of
               OperationalDS
             end note
-          delGroup <-[#red]- p1ValMan
+          delGroup <-- p1ValMan
           deactivate p1ValMan
-        p1PurDevGr <-[#red]- delGroup
+        p1PurDevGr <-- delGroup
         deactivate delGroup
-      p1Puls <-[#red]- p1PurDevGr
+      p1Puls <-- p1PurDevGr
       deactivate p1PurDevGr
 
-      p1Puls -[#green]> p1MeaDom
+      p1Puls -> p1MeaDom
       activate p1MeaDom
         note over p1MeaDom
           Updates
           OperationalDS
         end note
 
-        p1MeaDom -[#green]> listCcs
+        p1MeaDom -> listCcs
         activate listCcs
           note over listCcs
             Lists CCs that are
             updated in MWDI
           end note
-        p1MeaDom <-[#green]- listCcs
+        p1MeaDom <-- listCcs
         deactivate listCcs
 
-        p1MeaDom -[#green]> updateCc
+        p1MeaDom -> updateCc
         activate updateCc
           note over updateCc
             Updates Device
             in OperationalDS
           end note
 
-          updateCc -[#green]> updateHw
+          updateCc -> updateHw
           activate updateHw
             note over updateHw
               Updates deviceModel
@@ -191,10 +189,10 @@ activate p1ManaFw
               dependencies in
               OperationalDS
             end note
-          updateCc <-[#green]- updateHw
+          updateCc <-- updateHw
           deactivate updateHw
 
-          updateCc -[#green]> updateFw
+          updateCc -> updateFw
           activate updateFw
             note over updateFw
               Updates deviceModel
@@ -203,59 +201,59 @@ activate p1ManaFw
               OperationalDS
             end note
 
-            updateFw -[#green]> extractFw
+            updateFw -> extractFw
             activate extractFw
               note over extractFw
                 Extracts a single
                 firmware component
               end note
-            updateFw <-[#green]- extractFw
+            updateFw <-- extractFw
             deactivate extractFw
 
-            updateFw -[#green]> extractNpu
+            updateFw -> extractNpu
             activate extractNpu
               note over extractNpu
                 Extracts NPU
                 firmware, too
               end note
-            updateFw <-[#green]- extractNpu
+            updateFw <-- extractNpu
             deactivate extractNpu
 
-            updateFw -[#green]> extractApp
+            updateFw -> extractApp
             activate extractApp
               note over extractApp
                 Extracts ODU
                 firmware, too
               end note
-            updateFw <-[#green]- extractApp
+            updateFw <-- extractApp
             deactivate extractApp
 
-            updateFw -[#green]> extractBoot
+            updateFw -> extractBoot
             activate extractBoot
               note over extractBoot
                 Extracts Boot, WebLCT,
                 and ODU firmware, too
               end note
-            updateFw <-[#green]- extractBoot
+            updateFw <-- extractBoot
             deactivate extractBoot
 
-          updateCc <-[#green]- updateFw
+          updateCc <-- updateFw
           deactivate updateFw
 
-        p1MeaDom <-[#green]- updateCc
+        p1MeaDom <-- updateCc
         deactivate updateCc
 
-      p1Puls <-[#green]- p1MeaDom
+      p1Puls <-- p1MeaDom
       deactivate p1MeaDom
 
-      p1Puls -[#green]> p1TrimErrors
+      p1Puls -> p1TrimErrors
       activate p1TrimErrors
         note over p1TrimErrors
           Deletes the oldest
           entries from list of
           historical errors
         end note
-      p1Puls <-[#green]- p1TrimErrors
+      p1Puls <-- p1TrimErrors
       deactivate p1TrimErrors
 
 @enduml
