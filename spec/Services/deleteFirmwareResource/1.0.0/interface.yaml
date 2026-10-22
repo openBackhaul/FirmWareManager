@@ -105,7 +105,7 @@ paths:
                       type: string
                       description: >
                         'deviceGroupLabel of referencing device group
-                        from '
+                        from [/delete-firmware-resource/referencingObject]'
                   expectation-to-the-client:
                     type: string
                     enum:

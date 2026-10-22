@@ -50,3 +50,11 @@ domain-controller:
                   type: string
                   description: >
                     'from [purgeDate] if given'
+                target-firmware-list:
+                  type: array
+                  description: >
+                    'from [] empty list'
+                device:
+                  type: array
+                  description: >
+                    'from [] empty list'

@@ -102,7 +102,7 @@ paths:
                       type: string
                       description: >
                         'mountName of referencing device
-                        from '
+                        from [/delete-device-model/referencingObject]'
                   expectation-to-the-client:
                     type: string
                     enum:
