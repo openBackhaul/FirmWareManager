@@ -16,6 +16,8 @@ domain-controller:
       description: 'List of ElasticSearch addresses'
       items:
         type: object
+        # KM: siehe https://github.com/openBackhaul/DevicePerformanceManagementDataProcessor/issues/362
+        # zu serviceRecordsPolicy -> ggf. nicht mehr als required angeben?
         required:
           - es-name
           - url

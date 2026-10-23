@@ -9,6 +9,8 @@ info:
     email: Thorsten.Heinze@telefonica.com
   x-api-id: u-1792-sdn-microwave-fwm
 
+# KM: es ist nirgends beschrieben, wie genau der Service sich authenticated...
+
 paths:
   /list-existing-es-addresses:
     parameters:
@@ -50,6 +52,9 @@ paths:
                       type: string
                       description: >
                         'from [/domain-controller/es-address=*/index-alias]'
+                    # KM: siehe KOmmentar zu serviceRecordsPolicy in informationStructure.yaml
+                    # falls Änderung ggf. Diagramm anpassen
+                    # betrifft alle Stellen in der Spec, wo die serviceRecordsPolicy vorkommt
                     service-records-policy:
                       type: string
                       description: >
