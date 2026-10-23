@@ -106,18 +106,18 @@ Solved by functions.
 
 | Service                      | 1  | 2  | 3  | 4  | 5  | 6  | 7  | lot |
 | ---------------------------- | -- | -- | -- | -- | -- | -- | -- | --- |
-| /list-existing-es-addresses  |    |    |    |    |    |    |    |     |
-| /update-es-address           |    |    |    |    |    |    |    |     |
+| /list-existing-es-addresses  | Th | Th |    | Th | /  |    |    |     |
+| /update-es-address           | Th | Th |    | Th | /  |    |    |     |
 
 ### Analyzing historical errors
 
 | Service                  | 1  | 2  | 3  | 4  | 5  | 6  | 7  | lot |
 | ------------------------ | -- | -- | -- | -- | -- | -- | -- | --- |
-| /list-historical-errors  |    |    |    |    |    |    |    |     |
+| /list-historical-errors  | Th | Th |    | Th | /  |    |    |     |
 
 ### Administrate Pulsers
 
 | Service                | 1  | 2  | 3  | 4  | 5  | 6  | 7  | lot |
 | ---------------------- | -- | -- | -- | -- | -- | -- | -- | --- |
-| /list-existing-pulsers |    |    |    |    |    |    |    |     |
-| /update-pulser         |    |    |    |    |    |    |    |     |
+| /list-existing-pulsers | Th | Th |    | Th | /  |    |    |     |
+| /update-pulser         | Th | Th |    | Th | /  |    |    |     |

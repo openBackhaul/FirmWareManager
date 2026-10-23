@@ -1,0 +1,46 @@
+@startuml listHistoricalErrors
+skinparam responseMessageBelowArrow true
+
+title
+  listHistoricalErrors
+end title
+
+participant "requestor\n" as requestor
+participant "listHistoricalErrors\n" as indServ
+participant "AA\n" as AA
+database "DomainController" as DC
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Authenticates
+    administrator
+  end note
+  indServ -> AA
+  activate AA
+  indServ <-- AA
+  deactivate AA
+  note over indServ
+    IF authentication failed:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 401,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Reads [HistoricalErrorList]
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC: [HistoricalErrorList]
+  deactivate DC
+
+requestor <-- indServ: [ { erroredFunction,\nerrorMessage,\ntimeStamp } ]
+deactivate indServ
+
+@enduml
