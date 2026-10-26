@@ -132,6 +132,7 @@ extractSeparatedBootWebOduToo:
           - version
           - status
         properties:
+          # Müsste das nicht ODU oder Rad sein, statt nur ODU?
           name:
             type: string
             description: >

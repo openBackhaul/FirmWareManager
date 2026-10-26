@@ -44,10 +44,10 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 | . p1MeasureDevice                   | Th  | Th  | Ka  | Th  | Th  |     |     |     |
 | .. p1MeasureHw                      | Th  | Th  | Ka  | Th  | Th  |     |     |     |
 | .. p1MeasureFw                      | Th  | Th  | Ka  | Th  | Th  |     |     |     |
-| ... p1ExtractSingleFirmware         | Th  | Th  | Ka  | Th  | Th  |     |     |     |
-| ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     | Th  | Th  |     |     |     |
-| ... p1ExtractSeparatedAppToo        | Th  | Th  |     | Th  | Th  |     |     |     |
-| ... p1ExtractSeparatedBootWebOduToo | Th  | Th  |     | Th  | Th  |     |     |     |
+| ... p1ExtractSingleFirmware         | Th  | Th  | Ka  | Th  | Th  | Ka  |     |     |
+| ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     | Th  | Th  | K   |     |     |
+| ... p1ExtractSeparatedAppToo        | Th  | Th  |     | Th  | Th  | K   |     |     |
+| ... p1ExtractSeparatedBootWebOduToo | Th  | Th  |     | Th  | Th  | Ka  |     |     |
 
 ### Administrative
 
