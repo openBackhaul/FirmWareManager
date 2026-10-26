@@ -1,0 +1,399 @@
+servers:
+
+  operation-servers:
+    own-oam:
+      basic:
+        - operation-name: /v1/register-yourself
+          uuid: fwm-1-0-0-op-s-bm-000
+        - operation-name: /v1/embed-yourself
+          uuid: fwm-1-0-0-op-s-bm-001
+        - operation-name: /v1/redirect-service-request-information
+          uuid: fwm-1-0-0-op-s-bm-002
+        - operation-name: /v1/redirect-oam-request-information
+          uuid: fwm-1-0-0-op-s-bm-003
+        - operation-name: /v1/end-subscription
+          uuid: fwm-1-0-0-op-s-bm-004
+        - operation-name: /v1/inquire-oam-request-approvals
+          uuid: fwm-1-0-0-op-s-bm-005
+          life-cycle-state: deprecated
+        - operation-name: /v1/update-client
+          uuid: fwm-1-0-0-op-s-bm-007
+        - operation-name: /v1/list-ltps-and-fcs
+          uuid: fwm-1-0-0-op-s-bm-008
+        - operation-name: /v1/redirect-topology-change-information
+          uuid: fwm-1-0-0-op-s-bm-009
+        - operation-name: /v1/update-operation-key
+          uuid: fwm-1-0-0-op-s-bm-010
+        - operation-name: /v1/update-operation-client
+          uuid: fwm-1-0-0-op-s-bm-011
+        - operation-name: /v1/inquire-basic-auth-approvals
+          uuid: fwm-1-0-0-op-s-bm-012
+        - operation-name: /v1/dispose-remainders-of-deregistered-application
+          uuid: fwm-1-0-0-op-s-bm-013
+        - operation-name: /v1/inform-about-preceding-release
+          uuid: fwm-1-0-0-op-s-bm-014
+          operation-key: n.a.
+        - operation-name: /v1/update-client-of-subsequent-release
+          uuid: fwm-1-0-0-op-s-bm-015
+      individual:
+        - operation-name: /v1/bequeath-your-data-and-die
+          uuid: fwm-1-0-0-op-s-im-000
+        - operation-name: /v1/list-existing-es-addresses
+          uuid: fwm-1-0-0-op-s-im-010
+        - operation-name: /v1/update-es-address
+          uuid: fwm-1-0-0-op-s-im-020
+        - operation-name: /v1/list-historical-errors
+          uuid: fwm-1-0-0-op-s-im-030
+        - operation-name: /v1/list-existing-pulsers
+          uuid: fwm-1-0-0-op-s-im-040
+        - operation-name: /v1/update-pulser
+          uuid: fwm-1-0-0-op-s-im-050
+
+    service:
+      basic:
+        - operation-name: /v1/start-application-in-generic-representation
+          uuid: fwm-1-0-0-op-s-bs-000
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-application
+          uuid: fwm-1-0-0-op-s-bs-001
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-application-in-generic-representation
+          uuid: fwm-1-0-0-op-s-bs-002
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-release-history
+          uuid: fwm-1-0-0-op-s-bs-003
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-release-history-in-generic-representation
+          uuid: fwm-1-0-0-op-s-bs-004
+          operation-key: n.a.
+        - operation-name: /docs
+          uuid: fwm-1-0-0-op-s-bs-005
+          operation-key: n.a.
+      individual:
+        - operation-name: /v1/add-devices-to-device-group
+          uuid: fwm-1-0-0-op-s-is-000
+          operation-key: n.a.
+        - operation-name: /v1/add-firmware-approval
+          uuid: fwm-1-0-0-op-s-is-010
+          operation-key: n.a.
+        - operation-name: /v1/add-target-firmware
+          uuid: fwm-1-0-0-op-s-is-020
+          operation-key: n.a.
+        - operation-name: /v1/create-device-group
+          uuid: fwm-1-0-0-op-s-is-030
+          operation-key: n.a.
+        - operation-name: /v1/create-device-model
+          uuid: fwm-1-0-0-op-s-is-040
+          operation-key: n.a.
+        - operation-name: /v1/create-firmware-resource
+          uuid: fwm-1-0-0-op-s-is-050
+          operation-key: n.a.
+        - operation-name: /v1/create-server
+          uuid: fwm-1-0-0-op-s-is-060
+          operation-key: n.a.
+        - operation-name: /v1/delete-device-group
+          uuid: fwm-1-0-0-op-s-is-070
+          operation-key: n.a.
+        - operation-name: /v1/delete-device-model
+          uuid: fwm-1-0-0-op-s-is-080
+          operation-key: n.a.
+        - operation-name: /v1/delete-firmware-resource
+          uuid: fwm-1-0-0-op-s-is-090
+          operation-key: n.a.
+        - operation-name: /v1/delete-server
+          uuid: fwm-1-0-0-op-s-is-100
+          operation-key: n.a.
+        - operation-name: /v1/delete-target-firmware
+          uuid: fwm-1-0-0-op-s-is-110
+          operation-key: n.a.
+        - operation-name: /v1/embed-yourself
+          uuid: fwm-1-0-0-op-s-is-120
+          operation-key: n.a.
+        - operation-name: /v1/list-device-groups-without-devices
+          uuid: fwm-1-0-0-op-s-is-130
+          operation-key: n.a.
+        - operation-name: /v1/list-device-groups-without-target-firmware
+          uuid: fwm-1-0-0-op-s-is-140
+          operation-key: n.a.
+        - operation-name: /v1/list-device-models-without-approvals
+          uuid: fwm-1-0-0-op-s-is-150
+          operation-key: n.a.
+        - operation-name: /v1/list-existing-device-groups
+          uuid: fwm-1-0-0-op-s-is-160
+          operation-key: n.a.
+        - operation-name: /v1/list-existing-device-models
+          uuid: fwm-1-0-0-op-s-is-170
+          operation-key: n.a.
+        - operation-name: /v1/list-existing-devices
+          uuid: fwm-1-0-0-op-s-is-180
+          operation-key: n.a.
+        - operation-name: /v1/list-existing-firmware-approvals
+          uuid: fwm-1-0-0-op-s-is-190
+          operation-key: n.a.
+        - operation-name: /v1/list-existing-firmware-resources
+          uuid: fwm-1-0-0-op-s-is-200
+          operation-key: n.a.
+        - operation-name: /v1/list-existing-servers
+          uuid: fwm-1-0-0-op-s-is-210
+          operation-key: n.a.
+        - operation-name: /v1/list-firmware-extraction-functions
+          uuid: fwm-1-0-0-op-s-is-220
+          operation-key: n.a.
+        - operation-name: /v1/list-hardware-extraction-functions
+          uuid: fwm-1-0-0-op-s-is-230
+          operation-key: n.a.
+        - operation-name: /v1/list-incomplete-servers
+          uuid: fwm-1-0-0-op-s-is-240
+          operation-key: n.a.
+        - operation-name: /v1/list-unknown-device-models
+          uuid: fwm-1-0-0-op-s-is-250
+          operation-key: n.a.
+        - operation-name: /v1/provide-existing-device
+          uuid: fwm-1-0-0-op-s-is-260
+          operation-key: n.a.
+        - operation-name: /v1/provide-existing-device-group
+          uuid: fwm-1-0-0-op-s-is-270
+          operation-key: n.a.
+        - operation-name: /v1/remove-devices-from-device-group
+          uuid: fwm-1-0-0-op-s-is-280
+          operation-key: n.a.
+        - operation-name: /v1/update-device-group
+          uuid: fwm-1-0-0-op-s-is-290
+          operation-key: n.a.
+        - operation-name: /v1/update-device-model
+          uuid: fwm-1-0-0-op-s-is-300
+          operation-key: n.a.
+        - operation-name: /v1/update-firmware-resource
+          uuid: fwm-1-0-0-op-s-is-310
+          operation-key: n.a.
+        - operation-name: /v1/update-server
+          uuid: fwm-1-0-0-op-s-is-320
+          operation-key: n.a.
+        - operation-name: /v1/update-target-firmware
+          uuid: fwm-1-0-0-op-s-is-330
+          operation-key: n.a.
+        - operation-name: /v1/withdraw-firmware-approval
+          uuid: fwm-1-0-0-op-s-is-340
+          operation-key: n.a.
+
+
+  http-server:
+    own-application-name:
+    own-release-number:
+    uuid: fwm-1-0-0-http-s-000
+    application-purpose:
+    owner-name:
+    owner-email-address:
+    release-list:
+      - release-number: 1.0.0
+        release-date: 31.10.2026
+        changes: Initial version
+  tcp-server:
+    - description: Without TLS layer
+      local-protocol: http
+      own-ip-address: 127.0.0.1
+      own-tcp-port:
+      uuid: fwm-1-0-0-tcp-s-000
+
+
+clients:
+
+  - http-client:
+      application-name: ElasticSearch
+      release-number: 1.0.0
+      uuid: fwm-1-0-0-http-c-es-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3015
+      uuid: fwm-1-0-0-tcp-c-es-1-0-0-000
+    elasticsearch-client:
+      - uuid: fwm-1-0-0-es-c-es-1-0-0-007
+        index-alias: 23
+        # domainControllerEsClient
+      - uuid: fmw-1-0-0-es-c-es-1-0-0-???
+        index-alias: 7
+        # MWDI
+
+  - http-client:
+      application-name: OldRelease
+      release-number:
+      uuid: fwm-1-0-0-http-c-or-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port:
+      uuid: fwm-1-0-0-tcp-c-or-1-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+          - operation-name: /v1/bequeath-your-data-and-die
+            uuid: fwm-1-0-0-op-c-bm-or-1-0-0-000
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: NewRelease
+      release-number:
+      uuid: fwm-1-0-0-http-c-nr-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port:
+      uuid: fwm-1-0-0-tcp-c-nr-1-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: RegistryOffice
+      release-number: 2.1.2
+      uuid: fwm-1-0-0-http-c-ro-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3031
+      uuid: fwm-1-0-0-tcp-c-ro-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+          - operation-name: /v2/register-application
+            uuid: fwm-1-0-0-op-c-bm-ro-2-1-2-000
+            operation-key: n.a
+          - operation-name: /v1/relay-server-replacement
+            uuid: fwm-1-0-0-op-c-bm-ro-2-1-2-001
+          - operation-name: /v1/deregister-application
+            uuid: fwm-1-0-0-op-c-bm-ro-2-1-2-002
+          - operation-name: /v1/relay-operation-update
+            uuid: fwm-1-0-0-op-c-bm-ro-2-1-2-003
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: TypeApprovalRegister
+      release-number: 2.1.2
+      uuid: fwm-1-0-0-http-c-tar-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3032
+      uuid: fwm-1-0-0-tcp-c-tar-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: ExecutionAndTraceLog
+      release-number: 2.1.2
+      uuid: fwm-1-0-0-http-c-eatl-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3033
+      uuid: fwm-1-0-0-tcp-c-eatl-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          - operation-name: /v1/record-service-request
+            uuid: fwm-1-0-0-op-c-bs-eatl-2-1-2-000
+            detailed-logging-is-on: false
+        individual:
+
+  - http-client:
+      application-name: OamLog
+      release-number: 2.1.2
+      uuid: fwm-1-0-0-http-c-ol-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3034
+      uuid: fwm-1-0-0-tcp-c-ol-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          - operation-name: /v1/record-oam-request
+            uuid: fwm-1-0-0-op-c-bs-ol-2-1-2-000
+        individual:
+
+  - http-client:
+      application-name: AccessAdministration
+      release-number: 2.1.2
+      uuid: fwm-1-0-0-http-c-aa-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3035
+      uuid: fwm-1-0-0-tcp-c-aa-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          - operation-name: /v1/approve-basic-auth-request
+            uuid: fwm-1-0-0-op-c-bs-aa-2-1-2-000
+        individual:
+
+  - http-client:
+      application-name: ApplicationLayerTopology
+      release-number: 2.1.2
+      uuid: fwm-1-0-0-http-c-alt-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3036
+      uuid: fwm-1-0-0-tcp-c-alt-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+          - operation-name: /v1/update-all-ltps-and-fcs
+            uuid: fwm-1-0-0-op-c-bm-alt-2-1-2-000
+          - operation-name: /v1/update-ltp
+            uuid: fwm-1-0-0-op-c-bm-alt-2-1-2-001
+          - operation-name: /v1/delete-ltp-and-dependents
+            uuid: fwm-1-0-0-op-c-bm-alt-2-1-2-002
+          - operation-name: /v1/update-fc
+            uuid: fwm-1-0-0-op-c-bm-alt-2-1-2-003
+          - operation-name: /v1/update-fc-port
+            uuid: fwm-1-0-0-op-c-bm-alt-2-1-2-004
+          - operation-name: /v1/delete-fc-port
+            uuid: fwm-1-0-0-op-c-bm-alt-2-1-2-005
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: OperationKeyManagement
+      release-number: 2.1.2
+      uuid: fwm-1-0-0-http-c-okm-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3037
+      uuid: fwm-1-0-0-tcp-c-okm-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
