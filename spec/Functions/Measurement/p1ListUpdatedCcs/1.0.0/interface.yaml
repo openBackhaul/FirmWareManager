@@ -59,6 +59,7 @@ x-javascript-interface:
                 - 'metadataTable not found in MWDI'
                 - 'general processing error'
     processing:
+    # braucht man processing überhaupt anzugeben, wenn es keine subfunctions gibt?
 
 paths:
   /:

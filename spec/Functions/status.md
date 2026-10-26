@@ -39,11 +39,11 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 | Function                            |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
 |-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
-| p1MeasureDomain                     | Th  | Th  |     | Th  | Th  |     |     |     |
-| . p1ListUpdatedCcs                  | Th  | Th  |     | Th  | Th  |     |     |     |
-| . p1MeasureDevice                   | Th  | Th  | Ka  | Th  | Th  |     |     |     |
-| .. p1MeasureHw                      | Th  | Th  | Ka  | Th  | Th  |     |     |     |
-| .. p1MeasureFw                      | Th  | Th  | Ka  | Th  | Th  |     |     |     |
+| p1MeasureDomain                     | Th  | Th  |     | Th  | Th  | K   |     |     |
+| . p1ListUpdatedCcs                  | Th  | Th  |     | Th  | Th  | Ka  |     |     |
+| . p1MeasureDevice                   | Th  | Th  | Ka  | Th  | Th  | K   |     |     |
+| .. p1MeasureHw                      | Th  | Th  | Ka  | Th  | Th  | K   |     |     |
+| .. p1MeasureFw                      | Th  | Th  | Ka  | Th  | Th  | K   |     |     |
 | ... p1ExtractSingleFirmware         | Th  | Th  | Ka  | Th  | Th  | Ka  |     |     |
 | ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     | Th  | Th  | K   |     |     |
 | ... p1ExtractSeparatedAppToo        | Th  | Th  |     | Th  | Th  | K   |     |     |

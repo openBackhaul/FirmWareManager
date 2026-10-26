@@ -68,12 +68,12 @@ listUpdatedCcs:
         from {ElasticSearch read error} IF [mwdiEsClient] exists, but does not return any data
         from {metadataTable not found in MWDI} IF [mwdiEsClient] returns data, but [metaData] could not be found or is invalid'
 
-    # TODO: Hallo Katharina, könntest Du bitte den Pfad zur metaDataTable in MWDI im excerptOfParameters.yaml korrigieren?
+    # TODO: Hallo Katharina, könntest Du bitte den Pfad zur metaDataTable in MWDI im excerptOfParameters.yaml korrigieren
+    # KMO: bislang wurde im MWDI gar kein Pfad definiert, um direkt auf den Table zuzugreifen. Es gibt nur den Service /v1/provide-device-status-metadata
     metaDataTablePath:
       type: string
       description: >
         'from [/parameters/parameter=metaDataTablePath/value]'
-    # TODO: Hallo Katharina, könntest Du hier bitte die Struktur der metaDataTable in MWDI auf die beiden benötigten Attribute reduziert und beschreiben?
     metaData:
       type: array
       x-key: mount-name
@@ -85,8 +85,14 @@ listUpdatedCcs:
         properties:
           mount-name:
             type: string
+            description: >
+              'Identifier of the device at the Controller
+              from [ [/mwdiEsClient/url][metaDataTablePath]/device-status-metadata[*]/mount-name ]'
           last-successful-complete-control-construct-update-time:
             type: string
+            description: >
+              'Timestamp of the last time, when the controlConstruct was successfully updated completely
+              from [ [/mwdiEsClient/url][metaDataTablePath]/device-status-metadata[*]/last-successful-complete-control-construct-update-time ]'
 
     maxAge:
       type: string
@@ -94,6 +100,7 @@ listUpdatedCcs:
         'from [/parameters/parameter=maxAge/value]'
 
     # TODO: Hallo Katharina, könntest Du hier bitte die AttributeNamen incl. Pfad in der MetaDataTable  wie oben korrigiert angeben?
+    # KMO: muss das denn überhautp noch verändert werden? mir scheint das auch so schon zu passen
     updatedMountNames:
       type: array
       items:
