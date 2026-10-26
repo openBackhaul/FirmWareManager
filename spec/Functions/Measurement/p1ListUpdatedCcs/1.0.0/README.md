@@ -18,9 +18,10 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Parameters
 
-| Parameter Name | Description                                                                 |
-|----------------|-----------------------------------------------------------------------------|
-| maxAge         | Maximum acceptable age of the update of a CC for its mountName being listed |
+| Parameter Name    | Description                                                                 |
+|-------------------|-----------------------------------------------------------------------------|
+| maxAge            | Maximum acceptable age of the update of a CC for its mountName being listed |
+| metaDataTablePath | Path to the meta-data table in MWDI                                         |
 
 The maxAge parameter is basically for limiting the number of entries in the returned [updatedMountNames] during the first round, when lastExaminationTime starts with its default value.  
 

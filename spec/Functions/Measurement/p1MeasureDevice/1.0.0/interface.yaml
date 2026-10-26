@@ -1,10 +1,10 @@
 openapi: 3.0.0
 info:
-  title: p1UpdateDevice
+  title: p1MeasureDevice
   version: 1.0.0
 
 x-javascript-interface:
-  p1UpdateDevice:
+  p1MeasureDevice:
     summary: 'Interprets an updated ControlConstruct from MWDI'
     input:
       required: true
@@ -14,24 +14,17 @@ x-javascript-interface:
             type: object
             required:
               - updated-mount-name
+              - control-construct
             properties:
               updated-mount-name:
                 type: string
+              control-construct:
+                type: object
     output:
       success:
         description: 'ControlConstruct interpreted'
-      error:
-        description: 'ControlConstruct could not be interpreted'
-        content:
-          application/json:
-            schema:
-              type: string
-              enum:
-                - 'ElasticSearch read error'
-                - 'ControlConstruct empty or null'
-                - 'general processing error'
     processing:
-      p1UpdateHw:
+      p1MeasureHw:
         input:
           required: true
           content:
@@ -44,18 +37,16 @@ x-javascript-interface:
                 properties:
                   updated-mount-name:
                     type: string
+                    description: >
+                      'from [/updateDevice/updatedMountName]'
                   control-construct:
                     type: object
+                    description: >
+                      'from [/updateDevice/controlConstruct]'
         output:
           success:
             description: 'Hardware updated in OperationalDS'
-          error:
-            description: 'Hardware could not be updated in OperationalDS'
-            content:
-              application/json:
-                schema:
-                  type: string
-      p1UpdateFw:
+      p1MeasureFw:
         input:
           required: true
           content:
@@ -68,17 +59,15 @@ x-javascript-interface:
                 properties:
                   updated-mount-name:
                     type: string
+                    description: >
+                      'from [/updateDevice/updatedMountName]'
                   control-construct:
                     type: object
+                    description: >
+                      'from [/updateDevice/controlConstruct]'
         output:
           success:
             description: 'Firmware updated in OperationalDS'
-          error:
-            description: 'Firmware could not be updated in OperationalDS'
-            content:
-              application/json:
-                schema:
-                  type: string
 
 paths:
   /:

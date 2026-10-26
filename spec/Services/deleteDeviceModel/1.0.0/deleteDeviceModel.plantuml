@@ -173,13 +173,13 @@ activate indServ
     update function from [Parameter]
   end note
   indServ -> DC: /function=deleteDeviceModel/parameter=updateHwFunction/value
-  indServ <-- DC: updateHwFunction=p1UpdateHw
+  indServ <-- DC: updateHwFunction=p1MeasureHw
   note over indServ
     Checks whether deviceModelName is
     a parameterName in [Parameter] of
-    the p1UpdateHw Function.
+    the p1MeasureHw Function.
   end note
-  indServ -> DC: /function=p1UpdateHw/parameter={deviceModelName}
+  indServ -> DC: /function=p1MeasureHw/parameter={deviceModelName}
   note over indServ
     IF deviceModelName found:
   end note
@@ -189,9 +189,9 @@ activate indServ
   note right indServ
     Delete deviceModelName entry
     from [Parameter] of the
-    p1UpdateHw Function
+    p1MeasureHw Function
   end note
-  indServ -> DC: /function=p1UpdateHw/parameter={deviceModelName}
+  indServ -> DC: /function=p1MeasureHw/parameter={deviceModelName}
   note right indServ
     }
   end note
@@ -201,13 +201,13 @@ activate indServ
     update function from [Parameter]
   end note
   indServ -> DC: /function=deleteDeviceModel/parameter=updateFwFunction/value
-  indServ <-- DC: updateFwFunction=p1UpdateFw
+  indServ <-- DC: updateFwFunction=p1MeasureFw
   note over indServ
     Checks whether deviceModelName is
     a parameterName in [Parameter] of
-    the p1UpdateFw Function.
+    the p1MeasureFw Function.
   end note
-  indServ -> DC: /function=p1UpdateFw/parameter={deviceModelName}
+  indServ -> DC: /function=p1MeasureFw/parameter={deviceModelName}
   note over indServ
     IF deviceModelName found:
   end note
@@ -217,9 +217,9 @@ activate indServ
   note right indServ
     Delete deviceModelName entry
     from [Parameter] of the
-    p1UpdateFw Function
+    p1MeasureFw Function
   end note
-  indServ -> DC: /function=p1UpdateFw/parameter={deviceModelName}
+  indServ -> DC: /function=p1MeasureFw/parameter={deviceModelName}
   note right indServ
     }
   end note

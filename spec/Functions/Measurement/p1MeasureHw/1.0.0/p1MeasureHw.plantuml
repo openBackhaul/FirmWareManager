@@ -1,48 +1,54 @@
-@startuml p1UpdateFw
+@startuml p1MeasureHw
 skinparam responseMessageBelowArrow true
 
 title
-  p1UpdateFw
+  p1MeasureHw
 end title
 
 participant "requestor\n" as requestor
-participant "p1UpdateFw\n" as indServ
-participant "<i>functionName</i>\n" as extrFunc
+participant "p1MeasureHw\n" as indServ
+participant "<i>extractionFunctionName</i>\n" as extrFunc
 
 database "DomainController" as DC
+database "OperationalDS" as OpDS
 database "ErrorList" as hEL
 
 requestor -> indServ: updatedMountName,\nCC
 activate indServ
 
   note over indServ
-    Extracts deviceModel
+    Extracts deviceModelName
     from CC
   end note
+  note over indServ
+    Writes deviceModelName
+    into OperationalDS
+  end note
+  indServ -> OpDS: deviceModelName
 
   note over indServ
     Reads name of function for
-    extracting firmware info
+    extracting hardware info
     from Parameters
   end note
-  indServ -> DC: deviceModel
+  indServ -> DC: deviceModelName
   activate DC
-  indServ <-- DC: functionName
+  indServ <-- DC: extractionFunctionName
   deactivate DC
   note over indServ
     IF failed OR 
-      functionName==null:
+      extractionFunctionName==null:
   end note
   note right indServ
     THEN {
   end note
-  indServ -> hEL: functionName="p1UpdateFw",\nerrorMessage1
-  requestor <-- indServ: ErrorMessage1
+  indServ -> hEL: functionName="p1MeasureHw",\nerrorMessage
+  requestor <-- indServ: 204
   note right indServ
     }
   end note
   note over indServ
-    IF functionName=="":
+    IF extractionFunctionName=="":
   end note
   note left indServ
     THEN {
@@ -53,17 +59,17 @@ activate indServ
   end note
 
   note over extrFunc #White
-    Parameters cannot define a set of input parameters.
+    As it is not possible to define specific input parameters.
     All functions get called with updatedMountName and CC.
   end note
 
   note over indServ
-    Calls functionName
+    Calls extractionFunctionName
   end note
   indServ -> extrFunc: updatedMountName,\nCC
   activate extrFunc
     note over extrFunc
-      Extracts firmware info
+      Extracts hardware info
       from CC and writes it
       into OperationalDS
     end note

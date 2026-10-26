@@ -39,15 +39,15 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 | Function                            |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
 |-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
-| p1MeasureDomain                     | Th  | Th  |     |     |     |     |     |     |
-| . p1ListUpdatedCcs                  | Th  | Th  |     |     |     |     |     |     |
-| . p1UpdateDevice                    | Th  | Th  | Ka  |     |     |     |     |     |
-| .. p1UpdateHw                       | Th  | Th  | Ka  |     |     |     |     |     |
-| .. p1UpdateFw                       | Th  | Th  | Ka  |     |     |     |     |     |
-| ... p1ExtractSingleFirmware         | Th  | Th  | Ka  |     |     |     |     |     |
-| ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     |     |     |     |     |     |
-| ... p1ExtractSeparatedAppToo        | Th  | Th  |     |     |     |     |     |     |
-| ... p1ExtractSeparatedBootWebOduToo | Th  | Th  |     |     |     |     |     |     |
+| p1MeasureDomain                     | Th  | Th  |     | Th  | Th  |     |     |     |
+| . p1ListUpdatedCcs                  | Th  | Th  |     | Th  | Th  |     |     |     |
+| . p1MeasureDevice                   | Th  | Th  | Ka  | Th  | Th  |     |     |     |
+| .. p1MeasureHw                      | Th  | Th  | Ka  | Th  | Th  |     |     |     |
+| .. p1MeasureFw                      | Th  | Th  | Ka  | Th  | Th  |     |     |     |
+| ... p1ExtractSingleFirmware         | Th  | Th  | Ka  | Th  | Th  |     |     |     |
+| ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     | Th  | Th  |     |     |     |
+| ... p1ExtractSeparatedAppToo        | Th  | Th  |     | Th  | Th  |     |     |     |
+| ... p1ExtractSeparatedBootWebOduToo | Th  | Th  |     | Th  | Th  |     |     |     |
 
 ### Administrative
 

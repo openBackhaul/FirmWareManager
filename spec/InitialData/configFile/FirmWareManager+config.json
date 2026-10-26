@@ -2,12 +2,12 @@
 
 {
   "core-model-1-4:control-construct": {
-    "uuid": "dpmdp-1-1-0",
+    "uuid": "fwm-1-0-0",
     "profile-collection": {
       "profile": [
 
         {
-          "uuid": "dpmdp-1-1-0-function-p-060",
+          "uuid": "fwm-1-0-0-function-p-050",
           "profile-name": "function-profile-1-0:PROFILE_NAME_TYPE_FUNCTION_PROFILE",
           "function-profile-1-0:function-profile-pac": {
             "function-profile-capability": {
@@ -15,7 +15,54 @@
               "function-description": "???",
               "parameter-list": [
                 {
-                  "parameter": "dpmdp-1-1-0-string-p-061",
+                  "parameter": "fwm-1-0-0-string-p-051",
+                  "owner": "platform"
+                }
+              ],
+              "sub-function-list": [
+                "fwm-1-0-0-function-p-060"
+              ]
+            },
+            "function-profile-configuration": {
+              "is-active": true
+            }
+          }
+        },
+        {
+          "uuid": "fwm-1-0-0-string-p-051",
+          "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
+          "string-profile-1-0:string-profile-pac": {
+            "string-profile-capability": {
+              "string-name": "resolveEsAddressFunctionName",
+              "string-purpose": "Name of the function that resolves the ElasticSearch addresses"
+            },
+            "string-profile-configuration": {
+              "string-value": "p1ResolveEsAddress"
+            }
+          }
+        },
+        {
+          "uuid": "fwm-1-0-0-function-p-060",
+          "profile-name": "function-profile-1-0:PROFILE_NAME_TYPE_FUNCTION_PROFILE",
+          "function-profile-1-0:function-profile-pac": {
+            "function-profile-capability": {
+              "function-name": "p1ResolveEsAddress",
+              "function-description": "Composes the address information of an ElasticSearchClient",
+              "parameter-list": [
+                {
+                  "parameter": "fwm-1-0-0-string-p-061",
+                  "owner": "platform"
+                },
+                {
+                  "parameter": "fwm-1-0-0-string-p-062",
+                  "owner": "platform"
+                },
+                {
+                  "parameter": "fwm-1-0-0-string-p-063",
+                  "owner": "platform"
+                },
+                {
+                  "parameter": "fwm-1-0-0-string-p-064",
                   "owner": "platform"
                 }
               ],
@@ -27,22 +74,36 @@
           }
         },
         {
-          "uuid": "dpmdp-1-1-0-string-p-061",
+          "uuid": "fwm-1-0-0-string-p-061",
           "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
           "string-profile-1-0:string-profile-pac": {
             "string-profile-capability": {
               "string-name": "domainControllerEsClient",
-              "string-purpose": "UUID of the DomainController ES ElasticsearchClient LTP",
+              "string-purpose": "esName",
               "pattern": "^dpmdp-([0-9]+)-([0-9]+)-([0-9]+)-es-c-es-([0-9]+)-([0-9]+)-([0-9]+)-[0-9]{3}$"
             },
             "string-profile-configuration": {
-              "string-value": "dpmdp-1-1-0-es-c-es-1-0-0-007"
+              "string-value": "fwm-1-0-0-es-c-es-1-0-0-000"
+            }
+          }
+        },
+        {
+          "uuid": "fwm-1-0-0-string-p-062",
+          "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
+          "string-profile-1-0:string-profile-pac": {
+            "string-profile-capability": {
+              "string-name": "mwdiEsClient",
+              "string-purpose": "esName",
+              "pattern": "^dpmdp-([0-9]+)-([0-9]+)-([0-9]+)-es-c-es-([0-9]+)-([0-9]+)-([0-9]+)-[0-9]{3}$"
+            },
+            "string-profile-configuration": {
+              "string-value": "fwm-1-0-0-es-c-es-1-0-0-001"
             }
           }
         },
 
         {
-          "uuid": "dpmdp-1-1-0-function-p-070",
+          "uuid": "fwm-1-0-0-function-p-070",
           "profile-name": "function-profile-1-0:PROFILE_NAME_TYPE_FUNCTION_PROFILE",
           "function-profile-1-0:function-profile-pac": {
             "function-profile-capability": {
@@ -50,7 +111,7 @@
               "function-description": "Populates DomainController from ElasticSearch",
               "parameter-list": [
                 {
-                  "parameter": "dpmdp-1-1-0-string-p-071",
+                  "parameter": "fwm-1-0-0-string-p-071",
                   "owner": "platform"
                 }
               ],
@@ -62,7 +123,7 @@
           }
         },
         {
-          "uuid": "dpmdp-1-1-0-string-p-071",
+          "uuid": "fwm-1-0-0-string-p-071",
           "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
           "string-profile-1-0:string-profile-pac": {
             "string-profile-capability": {
@@ -83,11 +144,11 @@
 
 
       {
-        "uuid": "dpmdp-1-1-0-es-c-es-1-0-0-007",
+        "uuid": "fwm-1-0-0-es-c-es-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "dpmdp-1-1-0-http-c-es-1-0-0-000"
+          "fwm-1-0-0-http-c-es-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -98,7 +159,7 @@
                 "auth": {
                   "api-key": "API key not yet defined."
                 },
-                "index-alias": "23"
+                "index-alias": "???"
               },
               "elasticsearch-client-interface-status": {
                 "operational-state": "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
@@ -109,13 +170,40 @@
         ]
       },
       {
-        "uuid": "dpmdp-1-1-0-http-c-es-1-0-0-000",
+        "uuid": "fwm-1-0-0-es-c-es-1-0-0-001",
+        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
+        "client-ltp": [],
+        "server-ltp": [
+          "fwm-1-0-0-http-c-es-1-0-0-000"
+        ],
+        "layer-protocol": [
+          {
+            "local-id": "0",
+            "layer-protocol-name": "elasticsearch-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_ELASTICSEARCH_LAYER",
+            "elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac": {
+              "elasticsearch-client-interface-configuration": {
+                "auth": {
+                  "api-key": "API key not yet defined."
+                },
+                "index-alias": "???"
+              },
+              "elasticsearch-client-interface-status": {
+                "operational-state": "elasticsearch-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
+                "life-cycle-state": "elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "fwm-1-0-0-http-c-es-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "dpmdp-1-1-0-es-c-es-1-0-0-007"
+          "fwm-1-0-0-es-c-es-1-0-0-000",
+          "fwm-1-0-0-es-c-es-1-0-0-001"
         ],
         "server-ltp": [
-          "dpmdp-1-1-0-tcp-c-es-1-0-0-000"
+          "fwm-1-0-0-tcp-c-es-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -131,10 +219,10 @@
         ]
       },
       {
-        "uuid": "dpmdp-1-1-0-tcp-c-es-1-0-0-000",
+        "uuid": "fwm-1-0-0-tcp-c-es-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "dpmdp-1-1-0-http-c-es-1-0-0-000"
+          "fwm-1-0-0-http-c-es-1-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [

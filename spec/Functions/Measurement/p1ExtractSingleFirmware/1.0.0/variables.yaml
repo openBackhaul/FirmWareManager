@@ -1,0 +1,76 @@
+extractSingleFirmware:
+  type: object
+  required:
+    - updatedMountName
+    - controlConstruct
+  properties:
+    updatedMountName:
+      type: string
+      description: >
+        'from [/requestBody/updated-mount-name]'
+    controlConstruct:
+      type: object
+      description: >
+        'from [/requestBody/control-construct]'
+
+    firmwareComponentList:
+      type: array
+      description: >
+        'from [/controlConstruct/firmware-1-0:firmware-collection/firmware-component-list]'
+    updatedFirmwareList:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - version
+          - status
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name] IF [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true'
+          version:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-version] IF [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true'
+          status:
+            type: string
+            description: >
+              'derived from [/firmwareComponentList/firmware-component-pac/firmware-component-status/firmware-component-status] IF [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true'
+            enum:
+              - 'active'
+              - 'stand-by'
+              - 'committed'
+              - 'like-superior-firmware-component'
+              - 'not-applicable'
+              - 'incomplete'
+              - 'not-yet-defined'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'operational'
+
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                mount-name:
+                  type: string
+                  description: >
+                    'find [updatedMountName]'
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete and replace from [updatedFirmwareList]'

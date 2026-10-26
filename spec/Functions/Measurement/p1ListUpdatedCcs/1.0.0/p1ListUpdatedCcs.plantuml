@@ -8,7 +8,7 @@ end title
 participant "requestor\n" as requestor
 participant "p1ListUpdatedCcs\n" as indServ
 
-database "MWDI" as Mwdi
+database "MWDI ES" as Mwdi
 
 requestor -> indServ: {parameters},\n{mwdiEsClient},\n--{mwdiReplicaEsClient}--,\n--{loggingEsClient}--,\n--lastReplicaTime--,\nlastExaminationTime
 activate indServ
@@ -30,7 +30,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: ErrorMessage1
+  requestor <-- indServ: errorMessage
   note left indServ
     }
   end note
@@ -44,7 +44,7 @@ activate indServ
     Reads metadata
     table from MWDI
   end note
-  indServ -> Mwdi
+  indServ -> Mwdi: mwdiEsClient://meta-data-table
   activate Mwdi
   indServ <-- Mwdi: [metaData]
   deactivate Mwdi
@@ -54,7 +54,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: ErrorMessage2
+  requestor <-- indServ: errorMessage
   note left indServ
     }
   end note

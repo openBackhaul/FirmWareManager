@@ -8,10 +8,10 @@ end title
 participant "requestor\n" as requestor
 participant "p1MeasureDomain\n" as indServ
 participant "p1ListUpdatedCcs\n" as listCcs
-participant "p1UpdateDevice\n" as updateCc
-participant "p1UpdateHw\n" as updateHw
+participant "p1MeasureDevice\n" as updateCc
+participant "p1MeasureHw\n" as updateHw
 participant "<i>functionName</i>\n" as extractHw
-participant "p1UpdateFw\n" as updateFw
+participant "p1MeasureFw\n" as updateFw
 participant "p1Extract\nActivatable" as extractAct
 participant "<i>functionName</i>\n" as extractFw
 
@@ -26,30 +26,30 @@ activate indServ
     OperationalDS
   end note
 
-  indServ -> listCcs
+  indServ -> listCcs: {parameters},\n{mwdiEsClient},\nlastExaminationTime
   activate listCcs
     note over listCcs
       Lists CCs that are
       updated in MWDI
     end note
-  indServ <-- listCcs: [updatedMountNames]
+  indServ <-- listCcs: [updatedMountNames],\nexaminationTime
   deactivate listCcs
 
   group partially parallel execution for each updatedMountName
-    indServ -> updateCc: updatedMountName
+    note over indServ
+      Reads CC
+    end note
+    indServ -> Mwdi: updatedMountName
+    activate Mwdi
+    indServ <-- Mwdi: CC
+    deactivate Mwdi
+
+    indServ -> updateCc: updatedMountName,\nCC
     activate updateCc
       note over updateCc
         Updates Device
         in OperationalDS
       end note
-
-      note over updateCc
-        Reads CC
-      end note
-      updateCc -> Mwdi: updatedMountName
-      activate Mwdi
-      updateCc <-- Mwdi: CC
-      deactivate Mwdi
 
       note over updateCc
         Updates hardware info

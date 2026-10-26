@@ -1,0 +1,116 @@
+measureDomain:
+  type: object
+  properties:
+
+    functionName:
+      type: string
+      enum:
+        - 'p1MeasureDomain'
+
+    listUpdatedCcsFunctionName:
+      type: string
+      description: >
+        'from [/domain-controller/function={functionName}/parameter=listUpdatedCcsFunctionName/value]'
+    measureDeviceFunctionName:
+      type: string
+      description: >
+        'from [/domain-controller/function={functionName}/parameter=measureDeviceFunctionName/value]'
+    mwdiEsName:
+      type: string
+      description: >
+        'from [/domain-controller/function={functionName}/parameter=mwdiEsName/value]'
+
+    parametersForListUpdatedCcsFunction:
+      type: object
+      properties:
+        parameter:
+          type: array
+          x-key: parameter-name
+          items:
+            type: object
+            properties:
+              parameter-name:
+                type: string
+                description: >
+                  'from [/domain-controller/function={listUpdatedCcsFunctionName}/parameter=*/name]'
+              value:
+                type: string
+                description: >
+                  'from [/domain-controller/function={listUpdatedCcsFunctionName}/parameter=*/value]'
+
+    mwdiEsClient:
+      type: object
+      description: >
+        'from [/domain-controller/es-address={mwdiEsName}]'
+
+    lastExaminationTime:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=operational/last-measurement-time]'
+
+    updatedMountNames:
+      type: array
+      items:
+        type: string
+        description: >
+          'from [/{listUpdatedCcsFunctionName}/updated-mount-names]'
+    examinationTime:
+      type: string
+      description: >
+        'from [/{listUpdatedCcsFunctionName}/examination-time]'
+    errorMessage:
+      type: string
+      description: >
+        'from [{listUpdatedCcsFunctionName}] OR
+          from 
+            - connection to MWDI ES failed
+            - ElasticSearch read error
+            - controlConstruct not found in MWDI
+            - general processing error'
+
+    updatedMountName:
+      type: string
+      description: >
+        'from [ updatedMountNames[i] ]'
+    controlConstruct:
+      type: object
+      description: >
+        'from [ [/mwdiEsClient/url] /control-construct={updatedMountName} ]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+
+    historical-error-list:
+      type: array
+      items:
+        type: object
+        properties:
+          errored-function:
+            type: string
+            description: >
+              'from [listUpdatedCcsFunctionName] OR [functionName]'
+          error-message:
+            type: string
+            description: >
+              'from [errorMessage]'
+          timestamp:
+            type: string
+            description: >
+              'from current system time'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'operational'
+          last-measurement-time:
+            type: string
+            description: >
+              'from [examinationTime]'

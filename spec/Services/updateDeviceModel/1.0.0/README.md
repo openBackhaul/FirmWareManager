@@ -27,8 +27,8 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 | Parameter Name   | Description |
 |------------------|-------------|
-| updateHwFunction | p1UpdateHw  |
-| updateFwFunction | p1UpdateFw  |
+| updateHwFunction | p1MeasureHw  |
+| updateFwFunction | p1MeasureFw  |
 
 ## NPM Module
 

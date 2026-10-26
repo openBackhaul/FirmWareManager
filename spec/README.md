@@ -128,9 +128,9 @@ Internal design aspects:
 
 - [p1MeasureDomain](./Functions/Measurement/p1MeasureDomain/1.0.0/)
 - [p1ListUpdatedCcs](./Functions/Measurement/p1ListUpdatedCcs/1.0.0/)
-- [p1UpdateDevice](./Functions/Measurement/p1UpdateDevice/1.0.0/)
-- [p1UpdateHw](./Functions/Measurement/p1UpdateHw/1.0.0/)
-- [p1UpdateFw](./Functions/Measurement/p1UpdateFw/1.0.0/)
+- [p1MeasureDevice](./Functions/Measurement/p1MeasureDevice/1.0.0/)
+- [p1MeasureHw](./Functions/Measurement/p1MeasureHw/1.0.0/)
+- [p1MeasureFw](./Functions/Measurement/p1MeasureFw/1.0.0/)
 - [p1ExtractSingleFirmware](./Functions/Measurement/p1ExtractSingleFirmware/1.0.0/)
 - [p1ExtractSeparatedNpuRauToo](./Functions/Measurement/p1ExtractSeparatedNpuRauToo/1.0.0/)
 - [p1ExtractSeparatedAppToo](./Functions/Measurement/p1ExtractSeparatedAppToo/1.0.0/)

@@ -1,0 +1,161 @@
+extractSeparatedNpuRauToo:
+  type: object
+  required:
+    - updatedMountName
+    - controlConstruct
+  properties:
+    updatedMountName:
+      type: string
+      description: >
+        'from [/requestBody/updated-mount-name]'
+    controlConstruct:
+      type: object
+      description: >
+        'from [/requestBody/control-construct]'
+
+    firmwareComponentList:
+      type: array
+      description: >
+        'from [/controlConstruct/firmware-1-0:firmware-collection/firmware-component-list]'
+
+    updatedFirmwareList:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - version
+          - status
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-class]==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE )'
+          version:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-version]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-class]==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE )'
+          status:
+            type: string
+            description: >
+              'derived from [/firmwareComponentList/firmware-component-pac/firmware-component-status/firmware-component-status]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-class]==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE )'
+            enum:
+              - 'active'
+              - 'stand-by'
+              - 'committed'
+              - 'like-superior-firmware-component'
+              - 'not-applicable'
+              - 'incomplete'
+              - 'not-yet-defined'
+    updatedControllerFirmwareList:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - version
+          - status
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/related-kinds-of-equipment-list]==["NPU3 C"] )'
+          version:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-version]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/related-kinds-of-equipment-list]==["NPU3 C"] )'
+          status:
+            type: string
+            description: >
+              'derived from [/firmwareComponentList/firmware-component-pac/firmware-component-status/firmware-component-status]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/related-kinds-of-equipment-list]==["NPU3 C"] )'
+            enum:
+              - 'active'
+              - 'stand-by'
+              - 'committed'
+              - 'like-superior-firmware-component'
+              - 'not-applicable'
+              - 'incomplete'
+              - 'not-yet-defined'
+    updatedOduFirmwareList:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - version
+          - status
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/related-kinds-of-equipment-list]==["RAU"] )'
+          version:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-version]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/related-kinds-of-equipment-list]==["RAU"] )'
+          status:
+            type: string
+            description: >
+              'derived from [/firmwareComponentList/firmware-component-pac/firmware-component-status/firmware-component-status]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/related-kinds-of-equipment-list]==["RAU"] )'
+            enum:
+              - 'active'
+              - 'stand-by'
+              - 'committed'
+              - 'like-superior-firmware-component'
+              - 'not-applicable'
+              - 'incomplete'
+              - 'not-yet-defined'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'operational'
+
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                mount-name:
+                  type: string
+                  description: >
+                    'find [updatedMountName]'
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete and replace from [updatedFirmwareList]'
+                controller-firmware-list:
+                  type: array
+                  description: >
+                    'delete and replace from [updatedControllerFirmwareList]'
+                odu-firmware-list:
+                  type: array
+                  description: >
+                    'delete and replace from [updatedOduFirmwareList]'

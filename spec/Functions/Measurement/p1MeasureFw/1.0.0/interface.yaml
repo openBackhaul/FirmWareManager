@@ -1,0 +1,50 @@
+openapi: 3.0.0
+info:
+  title: p1MeasureFw
+  version: 1.0.0
+
+x-javascript-interface:
+  p1MeasureFw:
+    summary: 'Updates deviceModel specific firmware composition in OperationalDS'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - updated-mount-name
+              - control-construct
+            properties:
+              updated-mount-name:
+                type: string
+              control-construct:
+                type: object
+    output:
+      success:
+        description: 'Firmware updated in OperationalDS'
+    processing:
+      [/measureFw/extractionFunctionName]:
+        description: 'deviceModel specific function for extracting firmware info from device'
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                    description: >
+                      'from [/measureFw/updatedMountName]'
+                  control-construct:
+                    type: object
+                    description: >
+                      'from [/measureFw/controlConstruct]'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

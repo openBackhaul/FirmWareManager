@@ -37,10 +37,12 @@ x-javascript-interface:
               properties:
                 updated-mount-names:
                   type: array
-                  items:
-                    type: string
+                  description: >
+                    'from [/listUpdatedCcs/updatedMountNames]'
                 examination-time:
                   type: string
+                  description: >
+                    'from [/listUpdatedCcs/examinationTime]'
                   pattern: '^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})((\.[0-9]{1,}){0,1})(Z|[\+\-][0-9]{2}:[0-9]{2})$'
       error:
         description: 'UpdatedControlConstructs could not be listed'
@@ -48,8 +50,11 @@ x-javascript-interface:
           application/json:
             schema:
               type: string
+              description: >
+                'from [/listUpdatedCcs/errorMessage]'
               enum:
                 - 'attribute value is not valid'
+                - 'connection to MWDI ES failed'
                 - 'ElasticSearch read error'
                 - 'metadataTable not found in MWDI'
                 - 'general processing error'

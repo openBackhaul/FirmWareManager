@@ -1,0 +1,102 @@
+listUpdatedCcs:
+  type: object
+  required:
+    - parameters
+    - mwdiEsClient
+    - lastExaminationTime
+  properties:
+    parameters:
+      type: object
+      description: >
+        '! simplified representation !
+        from [/requestBody/parameters]'
+      properties:
+        parameter:
+          type: array
+          x-key: parameter-name
+          items:
+            type: object
+            properties:
+              parameter-name:
+                type: string
+              value:
+                type: string
+    mwdiEsClient:
+      type: object
+      description: >
+        'from [/requestBody/mwdi-es-client]'
+      required:
+        - url
+        - api-key
+        - index-alias
+        - service-records-policy
+        - operational-state
+        - life-cycle-state
+      properties:
+        url:
+          type: string
+        api-key:
+          type: string
+        index-alias:
+          type: string
+        service-records-policy:
+          type: string
+        operational-state:
+          type: string
+        life-cycle-state:
+          type: string
+    lastExaminationTime:
+      type: string
+      description: >
+        'from [/requestBody/last-examination-time]
+        later overwritten by max( [lastExaminationTime], ( [currentTime]-[maxAge] ) )'
+
+    currentTime:
+      type: string
+      description: 'Current system time in the format yyyy-mm-ddThh:mm:ss+hh:mm'
+      pattern: '^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})((\.[0-9]{1,}){0,1})(Z|[\+\-][0-9]{2}:[0-9]{2})$'
+    examinationTime:
+      type: string
+      description: >
+        'from [currentTime]'
+
+    errorMessage:
+      type: string
+      description: >
+        'from {attribute value is not valid} IF [lastExaminationTime] > [currentTime]
+        from {connection to MWDI ES failed} IF [mwdiEsClient] invalid
+        from {ElasticSearch read error} IF [mwdiEsClient] exists, but does not return any data
+        from {metadataTable not found in MWDI} IF [mwdiEsClient] returns data, but [metaData] could not be found or is invalid'
+
+    # TODO: Hallo Katharina, könntest Du bitte den Pfad zur metaDataTable in MWDI im excerptOfParameters.yaml korrigieren?
+    metaDataTablePath:
+      type: string
+      description: >
+        'from [/parameters/parameter=metaDataTablePath/value]'
+    # TODO: Hallo Katharina, könntest Du hier bitte die Struktur der metaDataTable in MWDI auf die beiden benötigten Attribute reduziert und beschreiben?
+    metaData:
+      type: array
+      x-key: mount-name
+      description: >
+        'from [ [/mwdiEsClient/url][metaDataTablePath] ]'
+      items:
+        type: object
+        description: '! simplified representation !'
+        properties:
+          mount-name:
+            type: string
+          last-successful-complete-control-construct-update-time:
+            type: string
+
+    maxAge:
+      type: string
+      description: >
+        'from [/parameters/parameter=maxAge/value]'
+
+    # TODO: Hallo Katharina, könntest Du hier bitte die AttributeNamen incl. Pfad in der MetaDataTable  wie oben korrigiert angeben?
+    updatedMountNames:
+      type: array
+      items:
+        type: string
+        description: >
+          'from [/metaData=*/mount-name] IF [/metaData=*/last-successful-complete-control-construct-update-time] > [lastExaminationTime]'
