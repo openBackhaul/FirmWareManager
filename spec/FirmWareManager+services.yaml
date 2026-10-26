@@ -208,12 +208,12 @@ clients:
       tcp-port: 3015
       uuid: fwm-1-0-0-tcp-c-es-1-0-0-000
     elasticsearch-client:
-      - uuid: fwm-1-0-0-es-c-es-1-0-0-007
+      - uuid: fwm-1-0-0-es-c-es-1-0-0-000
         index-alias: 23
         # domainControllerEsClient
-      - uuid: fmw-1-0-0-es-c-es-1-0-0-???
+      - uuid: fmw-1-0-0-es-c-es-1-0-0-001
         index-alias: 7
-        # MWDI
+        # mwdiEsClient
 
   - http-client:
       application-name: OldRelease
