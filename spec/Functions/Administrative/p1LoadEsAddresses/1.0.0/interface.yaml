@@ -74,7 +74,7 @@ x-javascript-interface:
                     - 'configFile does not conform to the expected schema'
                     - 'functionName not found in configFile'
                     - 'unknown error occurred'
-      p1ResolveEsAddress:
+      _resolveEsAddressFunctionName_:
         input:
           required: true
           content:
@@ -89,7 +89,7 @@ x-javascript-interface:
                   parameters:
                     type: object
                     description: >
-                      'from [/loadEsAddresses/parameters/sub-function=p1ResolveEsAddress]'
+                      'from [/loadEsAddresses/parameters/sub-function={resolveEsAddressFunctionName}]'
                   config-file:
                     type: object
                     description: >

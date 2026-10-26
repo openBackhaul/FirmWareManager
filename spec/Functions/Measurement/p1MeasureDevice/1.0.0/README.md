@@ -1,11 +1,11 @@
-# p1UpdateDevice
+# p1MeasureDevice
 
 Updates a Device in the OperationalDS.  
 
 ## Diagram
 
 <p align="center">
-  <img src="./p1UpdateDevice.png" alt="p1UpdateDevice diagram" width="320"/>
+  <img src="./p1MeasureDevice.png" alt="p1MeasureDevice diagram" width="320"/>
 </p>
 
 ## Interface
@@ -22,4 +22,4 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## NPM Module
 
-[mw-sdn-p1-update-device](https://www.npmjs.com/package/mw-sdn-p1-update-device)
+[mw-sdn-p1-measure-device](https://www.npmjs.com/package/mw-sdn-p1-measure-device)

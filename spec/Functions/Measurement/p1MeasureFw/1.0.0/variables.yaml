@@ -1,0 +1,68 @@
+measureFw:
+  type: object
+  required:
+    - updatedMountName
+    - controlConstruct
+  properties:
+    updatedMountName:
+      type: string
+      description: >
+        'from [/requestBody/updated-mount-name]'
+    controlConstruct:
+      type: object
+      description: >
+        'from [/requestBody/control-construct]'
+
+    functionName:
+      type: string
+      enum:
+        - 'p1MeasureFw'
+
+    deviceModelName:
+      type: string
+      description: >
+        'from [/controlConstruct/equipment-augment-1-0:control-construct-pac/device-model-name]'
+    extractionFunctionName:
+      type: string
+      description: >
+        'from [/domain-controller/function={functionName}/parameter={deviceModelName}/value] IF [/domain-controller/function={functionName}/parameter={deviceModelName}/description]==firmwareExtractionFunction'
+
+    errorMessage:
+      type: string
+      description: >
+        'from
+          - no firmware extraction function defined for deviceModel
+          - general processing error'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'operational'
+
+    historical-error-list:
+      type: array
+      items:
+        type: object
+        properties:
+          errored-function:
+            type: string
+            enum:
+              - {functionName}
+          error-message:
+            type: string
+            description: >
+              'from [errorMessage]'
+          timestamp:
+            type: string
+            description: >
+              'from current system time'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'

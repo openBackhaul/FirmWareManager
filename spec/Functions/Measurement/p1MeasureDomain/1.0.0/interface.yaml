@@ -10,7 +10,7 @@ x-javascript-interface:
       success:
         description: 'OperationalDS updated'
     processing:
-      p1ListUpdatedCcs:
+      _listUpdatedCcsFunctionName_:
         input:
           required: true
           content:
@@ -24,10 +24,16 @@ x-javascript-interface:
                 properties:
                   parameters:
                     type: object
+                    description: >
+                      'from [/measureDomain/parametersForListUpdatedCcsFunction]'
                   mwdi-es-client:
                     type: object
+                    description: >
+                      'from [/measureDomain/mwdiEsClient]'
                   last-examination-time:
                     type: string
+                    description: >
+                      'from [/measureDomain/lastExaminationTime]'
         output:
           success:
             description: 'Updated ControlConstructs listed'
@@ -48,7 +54,7 @@ x-javascript-interface:
               application/json:
                 schema:
                   type: string
-      p1UpdateDevice:
+      _measureDeviceFunctionName_:
         input:
           required: true
           content:
@@ -57,18 +63,19 @@ x-javascript-interface:
                 type: object
                 required:
                   - updated-mount-name
+                  - control-construct
                 properties:
                   updated-mount-name:
                     type: string
+                    description: >
+                      'from [/measureDomain/updatedMountName]'
+                  control-construct:
+                    type: object
+                    description: >
+                      'from [/measureDomain/controlConstruct]'
         output:
           success:
             description: 'ControlConstruct interpreted and device updated'
-          error:
-            description: 'ControlConstruct could not be interpreted'
-            content:
-              application/json:
-                schema:
-                  type: string
 
 paths:
   /:

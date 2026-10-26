@@ -1,43 +1,19 @@
-@startuml p1UpdateDevice
+@startuml p1MeasureDevice
 skinparam responseMessageBelowArrow true
 
 title
-  p1UpdateDevice
+  p1MeasureDevice
 end title
 
 participant "requestor\n" as requestor
-participant "p1UpdateDevice\n" as indServ
-participant "p1UpdateHw\n" as updateHw
-participant "p1UpdateFw\n" as updateFw
+participant "p1MeasureDevice\n" as indServ
+participant "p1MeasureHw\n" as updateHw
+participant "p1MeasureFw\n" as updateFw
 
 database "OperationalDS" as OpDS
-database "MWDI" as Mwdi
-database "ErrorList" as hEL
 
-requestor -> indServ: updatedMountName
+requestor -> indServ: updatedMountName,\nCC
 activate indServ
-
-  note over indServ
-    Reads updated CC
-    from MWDI
-  end note
-  indServ -> Mwdi: updatedMountName
-  activate Mwdi
-  indServ <-- Mwdi: CC
-  deactivate Mwdi
-  note over indServ
-    IF failed OR 
-      CC=={} or null:
-  end note
-  note right indServ
-    THEN {
-  end note
-  indServ -> hEL: functionName="p1UpdateDevice",\nerrorMessage1
-  requestor <-- indServ: ErrorMessage1
-  note right indServ
-    }
-  end note
-
   indServ -> updateHw: updatedMountName,\nCC
   activate updateHw
     note over updateHw
@@ -61,10 +37,11 @@ activate indServ
   deactivate updateFw
 
   note over indServ
-    Overwrites lastUpdate
+    Overwrites
+    lastMeasurementTime
     with current timestamp
   end note
-  indServ -> OpDS: lastUpdate
+  indServ -> OpDS: lastMeasurementTime
 
 requestor <-- indServ: 204
 deactivate indServ

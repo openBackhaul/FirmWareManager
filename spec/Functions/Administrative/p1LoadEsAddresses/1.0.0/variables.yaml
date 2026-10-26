@@ -37,14 +37,18 @@ loadEsAddresses:
     errorMessage:
       type: string
       description: >
-        'from [/p1LoadParameters/output/error] OR [/p1ResolveEsAddress/output/error]'
+        'from [/p1LoadParameters/output/error] OR [/{resolveEsAddressFunctionName}/output/error]'
 
+    resolveEsAddressFunctionName:
+      type: string
+      description: >
+        'from [/parameters/parameter=resolveEsAddressFunctionName/value]'
     esName:
       type: array
       items:
         type: string
         description: >
-          'from [/parameters/parameter=*/value] IF [/parameters/parameter=*/purpose]==esName'
+          'from [/parameters/function={resolveEsAddressFunctionName}/parameter=*/value] IF [/parameters/function={resolveEsAddressFunctionName}/parameter=*/purpose]==esName'
 
 domain-controller:
   type: object
@@ -59,7 +63,7 @@ domain-controller:
           errored-function:
             type: string
             description: >
-              'from p1LoadParameters OR p1ResolveEsAddress'
+              'from p1LoadParameters OR {resolveEsAddressFunctionName}'
           error-message:
             type: string
             description: >
@@ -78,31 +82,31 @@ domain-controller:
           es-name:
             type: string
             description: >
-              'create instance from [/p1ResolveEsAddress/input/es-name]'
+              'create instance from [/{resolveEsAddressFunctionName}/input/es-name]'
           url:
             type: string
             description: >
-              'from [/p1ResolveEsAddress/output/success/url]'
+              'from [/{resolveEsAddressFunctionName}/output/success/url]'
           api-key:
             type: string
             description: >
-              'from [/p1ResolveEsAddress/output/success/api-key]'
+              'from [/{resolveEsAddressFunctionName}/output/success/api-key]'
           index-alias:
             type: string
             description: >
-              'from [/p1ResolveEsAddress/output/success/index-alias]'
+              'from [/{resolveEsAddressFunctionName}/output/success/index-alias]'
           service-records-policy:
             type: string
             description: >
-              'from [/p1ResolveEsAddress/output/success/service-records-policy]'
+              'from [/{resolveEsAddressFunctionName}/output/success/service-records-policy]'
           operational-state:
             type: string
             description: >
-              'from [/p1ResolveEsAddress/output/success/operational-state]'
+              'from [/{resolveEsAddressFunctionName}/output/success/operational-state]'
           life-cycle-state:
             type: string
             description: >
-              'from [/p1ResolveEsAddress/output/success/life-cycle-state]'
+              'from [/{resolveEsAddressFunctionName}/output/success/life-cycle-state]'
 
 components:
   schemas:

@@ -1,0 +1,200 @@
+extractSeparatedBootWebOduToo:
+  type: object
+  required:
+    - updatedMountName
+    - controlConstruct
+  properties:
+    updatedMountName:
+      type: string
+      description: >
+        'from [/requestBody/updated-mount-name]'
+    controlConstruct:
+      type: object
+      description: >
+        'from [/requestBody/control-construct]'
+
+    firmwareComponentList:
+      type: array
+      description: >
+        'from [/controlConstruct/firmware-1-0:firmware-collection/firmware-component-list]'
+
+    updatedFirmwareList:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - version
+          - status
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==IDU )'
+          version:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-version]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==IDU )'
+          status:
+            type: string
+            description: >
+              'derived from [/firmwareComponentList/firmware-component-pac/firmware-component-status/firmware-component-status]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==IDU )'
+            enum:
+              - 'active'
+              - 'stand-by'
+              - 'committed'
+              - 'like-superior-firmware-component'
+              - 'not-applicable'
+              - 'incomplete'
+              - 'not-yet-defined'
+    updatedBootFirmwareList:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - version
+          - status
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==Boo )'
+          version:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-version]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==Boo )'
+          status:
+            type: string
+            description: >
+              'derived from [/firmwareComponentList/firmware-component-pac/firmware-component-status/firmware-component-status]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==Boo )'
+            enum:
+              - 'active'
+              - 'stand-by'
+              - 'committed'
+              - 'like-superior-firmware-component'
+              - 'not-applicable'
+              - 'incomplete'
+              - 'not-yet-defined'
+    updatedWebServerList:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - version
+          - status
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==Web )'
+          version:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-version]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==Web )'
+          status:
+            type: string
+            description: >
+              'derived from [/firmwareComponentList/firmware-component-pac/firmware-component-status/firmware-component-status]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==Web )'
+            enum:
+              - 'active'
+              - 'stand-by'
+              - 'committed'
+              - 'like-superior-firmware-component'
+              - 'not-applicable'
+              - 'incomplete'
+              - 'not-yet-defined'
+    updatedOduFirmwareList:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - version
+          - status
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==ODU )'
+          version:
+            type: string
+            description: >
+              'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-version]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==ODU )'
+          status:
+            type: string
+            description: >
+              'derived from [/firmwareComponentList/firmware-component-pac/firmware-component-status/firmware-component-status]
+                IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
+                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==ODU )'
+            enum:
+              - 'active'
+              - 'stand-by'
+              - 'committed'
+              - 'like-superior-firmware-component'
+              - 'not-applicable'
+              - 'incomplete'
+              - 'not-yet-defined'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'operational'
+
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                mount-name:
+                  type: string
+                  description: >
+                    'find [updatedMountName]'
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete and replace from [updatedFirmwareList]'
+                boot-firmware-list:
+                  type: array
+                  description: >
+                    'delete and replace from [updatedBootFirmwareList]'
+                web-server-list:
+                  type: array
+                  description: >
+                    'delete and replace from [updatedWebServerList]'
+                odu-firmware-list:
+                  type: array
+                  description: >
+                    'delete and replace from [updatedOduFirmwareList]'

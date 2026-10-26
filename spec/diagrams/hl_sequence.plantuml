@@ -26,9 +26,9 @@ participant "p1ValidationManager\n" as p1ValMan
 ' Measurement
 participant "p1MeasureDomain\n" as p1MeaDom
 participant "p1ListUpdatedCcs\n" as listCcs
-participant "p1UpdateDevice\n" as updateCc
-participant "p1UpdateHw\n" as updateHw
-participant "p1UpdateFw\n" as updateFw
+participant "p1MeasureDevice\n" as updateCc
+participant "p1MeasureHw\n" as updateHw
+participant "p1MeasureFw\n" as updateFw
 participant "p1ExtractSingleFirmware\n" as extractFw
 participant "p1ExtractSeparatedNpuRauToo\n" as extractNpu
 participant "p1ExtractSeparatedAppToo\n" as extractApp

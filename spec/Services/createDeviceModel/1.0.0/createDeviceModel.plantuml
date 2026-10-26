@@ -150,13 +150,13 @@ activate indServ
     update function from [Parameter]
   end note
   indServ -> DC: /function=createDeviceModel/parameter=updateHwFunction/value
-  indServ <-- DC: updateHwFunction=p1UpdateHw
+  indServ <-- DC: updateHwFunction=p1MeasureHw
   note right indServ
     Checks whether deviceModelName
     already exists in [Parameter]
-    of the p1UpdateHw Function
+    of the p1MeasureHw Function
   end note
-  indServ -> DC: /function=p1UpdateHw/parameter={deviceModelName}
+  indServ -> DC: /function=p1MeasureHw/parameter={deviceModelName}
   note right indServ
     IF deviceModelName already exists:
   end note
@@ -167,7 +167,7 @@ activate indServ
     Overwrites its parameterValue
     with hardwareExtractionFunction
   end note
-  indServ -> DC: /function=p1UpdateHw/parameter={deviceModelName}/value\nhardwareExtractionFunction
+  indServ -> DC: /function=p1MeasureHw/parameter={deviceModelName}/value\nhardwareExtractionFunction
   note right indServ
     }
   end note
@@ -176,11 +176,11 @@ activate indServ
   end note
   note right indServ
     Adds deviceModelName as parameterName
-    to [Parameter] of the p1UpdateHw
+    to [Parameter] of the p1MeasureHw
     Function and hardwareExtractionFunction
     as corresponding parameterValue.
   end note
-  indServ -> DC: /function=p1UpdateHw/parameter={deviceModelName}\n{deviceModelName,hardwareExtractionFunction}
+  indServ -> DC: /function=p1MeasureHw/parameter={deviceModelName}\n{deviceModelName,hardwareExtractionFunction}
   note right indServ
     }
   end note
@@ -196,13 +196,13 @@ activate indServ
     update function from [Parameter]
   end note
   indServ -> DC: /function=createDeviceModel/parameter=updateFwFunction/value
-  indServ <-- DC: updateFwFunction=p1UpdateFw
+  indServ <-- DC: updateFwFunction=p1MeasureFw
   note right indServ
     Checks whether deviceModelName
     already exists in [Parameter]
-    of the p1UpdateFw Function
+    of the p1MeasureFw Function
   end note
-  indServ -> DC: /function=p1UpdateFw/parameter={deviceModelName}
+  indServ -> DC: /function=p1MeasureFw/parameter={deviceModelName}
   note right indServ
     IF deviceModelName already exists:
   end note
@@ -213,7 +213,7 @@ activate indServ
     Overwrites its parameterValue
     with firmwareExtractionFunction
   end note
-  indServ -> DC: /function=p1UpdateFw/parameter={deviceModelName}/value\nfirmwareExtractionFunction
+  indServ -> DC: /function=p1MeasureFw/parameter={deviceModelName}/value\nfirmwareExtractionFunction
   note right indServ
     }
   end note
@@ -222,11 +222,11 @@ activate indServ
   end note
   note right indServ
     Adds deviceModelName as parameterName
-    to [Parameter] of the p1UpdateFw
+    to [Parameter] of the p1MeasureFw
     Function and firmwareExtractionFunction
     as corresponding parameterValue.
   end note
-  indServ -> DC: /function=p1UpdateFw/parameter={deviceModelName}\n{deviceModelName,firmwareExtractionFunction}
+  indServ -> DC: /function=p1MeasureFw/parameter={deviceModelName}\n{deviceModelName,firmwareExtractionFunction}
   note right indServ
     }
   end note
