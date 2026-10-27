@@ -106,18 +106,18 @@ Solved by functions.
 
 | Service                      | 1  | 2  | 3  | 4  | 5  | 6  | 7  | lot |
 | ---------------------------- | -- | -- | -- | -- | -- | -- | -- | --- |
-| /list-existing-es-addresses  | Th | Th |    | Th | /  |    |    |     |
-| /update-es-address           | Th | Th |    | Th | /  |    |    |     |
+| /list-existing-es-addresses  | Th | Th |    | Th | /  |    |    | 6   |
+| /update-es-address           | Th | Th |    | Th | /  |    |    | 6   |
 
 ### Analyzing historical errors
 
 | Service                  | 1  | 2  | 3  | 4  | 5  | 6  | 7  | lot |
 | ------------------------ | -- | -- | -- | -- | -- | -- | -- | --- |
-| /list-historical-errors  | Th | Th |    | Th | /  |    |    |     |
+| /list-historical-errors  | Th | Th |    | Th | /  |    |    | 6   |
 
 ### Administrate Pulsers
 
 | Service                | 1  | 2  | 3  | 4  | 5  | 6  | 7  | lot |
 | ---------------------- | -- | -- | -- | -- | -- | -- | -- | --- |
-| /list-existing-pulsers | Th | Th |    | Th | /  |    |    |     |
-| /update-pulser         | Th | Th |    | Th | /  |    |    |     |
+| /list-existing-pulsers | Th | Th |    | Th | /  |    |    | 6   |
+| /update-pulser         | Th | Th |    | Th | /  |    |    | 6   |
