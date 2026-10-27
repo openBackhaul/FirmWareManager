@@ -1,0 +1,113 @@
+deleteDevices:
+  type: object
+  properties:
+
+    functionName:
+      type: string
+      enum:
+        - 'p1DeleteDevices'
+
+    maximumPermissibleAge:
+      type: integer
+      description: >
+        'from Number( [/domain-controller/function={functionName}/parameter=maximumPermissibleAge/value] )'
+    currentTime:
+      type: string
+      description: 'Current system time in the format yyyy-mm-ddThh:mm:ss+hh:mm'
+      pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+    expirationTime:
+      type: string
+      description: >
+        'from [currentTime] - [maximumPermissibleAge]'
+      pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+
+    operationalDevice:
+      type: object
+      required:
+        - mountName
+        - lastUpdate
+      properties:
+        mountName:
+          type: string
+          description: >
+            'from [/domain-controller/network-control-domain=operational/device=*/mount-name]'
+        deviceModel:
+          type: string
+          description: >
+            'from [/domain-controller/network-control-domain=operational/device=*/device-model]'
+        lastUpdate:
+          type: string
+          description: >
+            'from [/domain-controller/network-control-domain=operational/device=*/last-update]'
+    obsoleteDevice:
+      type: array
+      description: >
+        'create new instance'
+      items:
+        type: object
+        required:
+          - mountName
+          - deviceModel
+        properties:
+          mountName:
+            type: string
+            description: >
+              'from [/operationalDevice/mountName] IF [/operationalDevice/lastUpdate]<[expirationTime]'
+          deviceModel:
+            type: string
+            description: >
+              'from [/operationalDevice/deviceModel] IF [/operationalDevice/lastUpdate]<[expirationTime]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+
+    network-control-domain(OperationalDS):
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'operational'
+          device:
+            type: array
+            x-key: mount-name
+            description: >
+              'delete instance [/domain-controller/network-control-domain=operational/device={/obsoleteDevice[i]/mountName}]'
+
+    network-control-domain(RunningDS):
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'running'
+          device:
+            type: array
+            x-key: mount-name
+            description: >
+              'delete instance [/domain-controller/network-control-domain=running/device={/obsoleteDevice[i]/mountName}]'
+          device-group:
+            type: array
+            x-key: label
+            items:
+              type: object
+              required:
+                - label
+                - device
+              properties:
+                label:
+                  type: string
+                  description: >
+                    'search through all'
+                device:
+                  type: array
+                  items:
+                    type: string
+                    description: >
+                      'delete all entries [/domain-controller/network-control-domain=running/device-group=*/device}]==[/obsoleteDevice[i]/mountName]'

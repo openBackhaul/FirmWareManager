@@ -24,9 +24,9 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Parameters
 
-| Parameter             | Description                                                   |
-|-----------------------|---------------------------------------------------------------|
-| maximumPermissibleAge | Maximum permitted age of the device data in the OperationalDS |
+| Parameter             | Description                                                             |
+|-----------------------|-------------------------------------------------------------------------|
+| maximumPermissibleAge | Maximum permitted age of the device data in the OperationalDS in hours. |
 
 ## NPM Module
 

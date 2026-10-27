@@ -42,7 +42,7 @@ activate indServ
   note right indServ
     THEN {
   end note
-  indServ -> hEL: functionName="p1MeasureHw",\nerrorMessage
+  indServ -> hEL: erroredFunction="p1MeasureHw",\nerrorMessage
   requestor <-- indServ: 204
   note right indServ
     }

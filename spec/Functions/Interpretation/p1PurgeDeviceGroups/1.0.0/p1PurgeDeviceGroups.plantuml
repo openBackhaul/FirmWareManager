@@ -10,9 +10,19 @@ participant "p1PurgeDeviceGroups\n" as indServ
 participant "/deleteDeviceGroup\n" as delGroup
 
 database "RunningDS" as RunDS
+database "DomainController" as DC
+database "ErrorList" as hEL
 
 requestor -> indServ
 activate indServ
+
+  note over indServ
+    Reads own parameters
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC: deleteDeviceGroupServiceName
+  deactivate DC
 
   loop for each DeviceGroup
     note over indServ
@@ -22,15 +32,17 @@ activate indServ
     activate RunDS
     indServ <-- RunDS: {label, purgeDate ... }
     deactivate RunDS
+
     note over indServ
       IF purgeDate exceeded:
     end note
-    note right indServ
+    note over indServ
       THEN {
     end note
+
   note right indServ
-    Deletes outdated DeviceGroup
-    by calling /deleteDeviceGroup
+    Deletes outdated DeviceGroup by
+    calling deleteDeviceGroupService
   end note
     indServ -> delGroup: label
     activate delGroup
@@ -41,7 +53,19 @@ activate indServ
       end note
     indServ <-- delGroup
     deactivate delGroup
+
     note right indServ
+      IF failed to call
+    end note
+    note right indServ
+      THEN {
+    end note
+    indServ -> hEL: erroredFunction=p1PurgeDeviceGroups,\nerrorMessage
+    note right indServ
+      }
+    end note
+
+    note over indServ
       }
     end note
   end loop

@@ -39,7 +39,7 @@ activate indServ
       THEN {
     end note
     note right indServ
-      Creates a new entry in [{newDevice}]
+      Creates a new entry in [newDevices]
       from mountName and deviceModel of
       ODS:Device
     end note
@@ -48,7 +48,7 @@ activate indServ
     end note
   end loop
   note over indServ
-    IF [{newDevice}].length==0:
+    IF [newDevices].length==0:
   end note
   note left indServ
     THEN {
@@ -146,8 +146,7 @@ activate indServ
   indServ <-- valiMan: result,\nreason
   deactivate valiMan
   note over indServ
-    IF (NOT 204) OR 
-          (result==failed):
+    IF result==failed:
   end note
   note right indServ
     THEN {

@@ -87,7 +87,7 @@ loop endless
     note right p1Puls
       THEN {
     end note
-    p1Puls -> hEL: functionName="p1Pulser",\nerrorMessage
+    p1Puls -> hEL: erroredFunction="p1Pulser",\nerrorMessage
     note right p1Puls
       }
     end note

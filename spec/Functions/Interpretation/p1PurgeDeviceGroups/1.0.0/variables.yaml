@@ -1,0 +1,64 @@
+purgeDeviceGroups:
+  type: object
+  properties:
+
+    functionName:
+      type: string
+      enum:
+        - 'p1PurgeDeviceGroups'
+
+    deleteDeviceGroupServiceName:
+      type: string
+      description: >
+        'from [/domain-controller/function={functionName}/parameter=deleteDeviceGroupServiceName/value]'
+
+    currentTime:
+      type: string
+      description: 'Current system time in the format yyyy-mm-ddThh:mm:ss+hh:mm'
+      pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+
+    documentedDeviceGroup:
+      type: object
+      required:
+        - label
+        - purge-date
+      properties:
+        label:
+          type: string
+          description: >
+            'from [/domain-controller/network-control-domain=running/device-group=*/label]'
+        purge-date:
+          type: string
+          description: >
+            'from [/domain-controller/network-control-domain=running/device-group=*/purge-date]'
+          pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+
+    errorMessage:
+      type: string
+      enum:
+        - 'calling deleteDeviceGroupService failed'
+        - 'general processing error'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+
+    historical-error-list:
+      type: array
+      items:
+        type: object
+        properties:
+          errored-function:
+            type: string
+            description: >
+              'from [functionName]'
+          error-message:
+            type: string
+            description: >
+              'from [errorMessage]'
+          timestamp:
+            type: string
+            description: >
+              'from current system time'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'

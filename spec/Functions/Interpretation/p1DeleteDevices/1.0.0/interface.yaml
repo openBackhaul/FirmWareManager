@@ -22,6 +22,8 @@ x-javascript-interface:
                 properties:
                   trigger-function:
                     type: string
+                    enum:
+                      - 'p1DeleteDevices'
         output:
           success:
             content:
