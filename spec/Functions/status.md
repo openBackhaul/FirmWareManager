@@ -21,14 +21,14 @@ Th = Thorsten
 
 | Function        |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
 |-----------------|-----|-----|-----|-----|-----|-----|-----|-----|
-| p1CreateDevices | Th  | Th  |     | Th  | Th  |     |     |     |
-| p1DeleteDevices | Th  | Th  |     | Th  | Th  |     |     |     |
+| p1CreateDevices | Th  | Th  |     | Th  | Th  |     |     | 6   |
+| p1DeleteDevices | Th  | Th  |     | Th  | Th  |     |     | 6   |
 
 ### Purging DeviceGroups
 
 | Function            |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
 |---------------------|-----|-----|-----|-----|-----|-----|-----|-----|
-| p1PurgeDeviceGroups | Th  | Th  |     | Th  | Th  |     |     |     |
+| p1PurgeDeviceGroups | Th  | Th  |     | Th  | Th  |     |     | 6   |
 
 ## Validation
 
@@ -39,15 +39,15 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 | Function                            |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
 |-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
-| p1MeasureDomain                     | Th  | Th  |     | Th  | Th  |     |     |     |
-| . p1ListUpdatedCcs                  | Th  | Th  |     | Th  | Th  |     |     |     |
-| . p1MeasureDevice                   | Th  | Th  | Ka  | Th  | Th  |     |     |     |
-| .. p1MeasureHw                      | Th  | Th  | Ka  | Th  | Th  |     |     |     |
-| .. p1MeasureFw                      | Th  | Th  | Ka  | Th  | Th  |     |     |     |
-| ... p1ExtractSingleFirmware         | Th  | Th  | Ka  | Th  | Th  |     |     |     |
-| ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     | Th  | Th  |     |     |     |
-| ... p1ExtractSeparatedAppToo        | Th  | Th  |     | Th  | Th  |     |     |     |
-| ... p1ExtractSeparatedBootWebOduToo | Th  | Th  |     | Th  | Th  |     |     |     |
+| p1MeasureDomain                     | Th  | Th  |     | Th  | Th  |     |     | 5   |
+| . p1ListUpdatedCcs                  | Th  | Th  |     | Th  | Th  |     |     | 5   |
+| . p1MeasureDevice                   | Th  | Th  | Ka  | Th  | Th  |     |     | 5   |
+| .. p1MeasureHw                      | Th  | Th  | Ka  | Th  | Th  |     |     | 5   |
+| .. p1MeasureFw                      | Th  | Th  | Ka  | Th  | Th  |     |     | 5   |
+| ... p1ExtractSingleFirmware         | Th  | Th  | Ka  | Th  | Th  |     |     | 5   |
+| ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     | Th  | Th  |     |     | 5   |
+| ... p1ExtractSeparatedAppToo        | Th  | Th  |     | Th  | Th  |     |     | 5   |
+| ... p1ExtractSeparatedBootWebOduToo | Th  | Th  |     | Th  | Th  |     |     | 5   |
 
 ### Administrative
 
