@@ -1,4 +1,21 @@
 function:
+  - name: 'p1PurgeDeviceGroups'
+    task: 'interpretation'
+    description: 'Deletes obsolete DeviceGroups from RunningDS.'
+    parameter:
+      - name: 'deleteDeviceGroupServiceName'
+        description: 'Name of the service used to delete a DeviceGroup from RunningDS.'
+        owner: 'platform'
+        value: '/delete-device-group'
+        pattern: '^/[a-z0-9]+(-[a-z0-9]+)*$'
+  - name: 'p1DeleteDevices'
+    task: 'interpretation'
+    description: 'Deletes obsolete devices from both OperationalDS and RunningDS.'
+    parameter:
+      - name: 'maximumPermissibleAge'
+        description: 'Maximum permitted age of the device data in the OperationalDS in hours.'
+        owner: 'platform'
+        value: '336'
   - name: 'p1MeasureDomain'
     task: 'measurement'
     description: 'Orchestrates updating the OperationalDS.'

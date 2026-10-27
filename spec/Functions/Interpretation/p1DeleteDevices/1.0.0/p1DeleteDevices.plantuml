@@ -18,18 +18,24 @@ requestor -> indServ
 activate indServ
 
   note over indServ
-    Reads parameters
-    from DomainController
+    Reads maximumPermissibleAge
+    from Parameters
   end note
     indServ -> DC
     activate DC
     indServ <-- DC: maximumPermissibleAge
     deactivate DC
 
+  note over indServ
+    expirationTime =
+      currentTime - 
+        maximumPermissibleAge
+  end note
+
   loop for each ODS:Device
     note over indServ
       Checks, whether lastUpdate
-      exceeds maximumPermissibleAge
+      elder than expirationTime
     end note
     note over indServ
       Reads ODS:Device
@@ -39,8 +45,8 @@ activate indServ
     indServ <-- OpDS: {mountName, deviceModel, lastUpdate ...}
     deactivate OpDS
     note over indServ
-      IF lastUpdate exceeds
-      maximumPermissibleAge:
+      IF lastUpdate elder
+      than expirationTime:
     end note
     note right indServ
       THEN {
@@ -107,21 +113,10 @@ activate indServ
       towards deleted Device
     end note
     loop for each DeviceGroup
+
       note over indServ
-        Reads deviceModel
-      end note
-      indServ -> CanDS
-      indServ <-- CanDS: deviceModel
-      note over indServ
-        IF deviceModel 
-            == obsoleteDevice.deviceModel:
-      end note
-      note over indServ
-        THEN {
-      end note
-      note right indServ
-        Checks, whether obsoleteDevice.mountName
-        exists in DeviceGroup.[device]
+        Deletes obsoleteDevice from
+        all DeviceGroup.[device]
       end note
       indServ -> CanDS
       indServ <-- CanDS
@@ -138,9 +133,6 @@ activate indServ
       end note
       indServ -> CanDS
       indServ <-- CanDS
-      note right indServ
-        }
-      end note
       note over indServ
         }
       end note

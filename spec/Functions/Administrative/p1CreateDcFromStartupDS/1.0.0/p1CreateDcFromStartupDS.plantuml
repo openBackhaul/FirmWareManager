@@ -39,7 +39,7 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL: functionName="p1LoadParameters",\nerrorMessage
+  p1CDCFS -> hEL: erroredFunction="p1LoadParameters",\nerrorMessage
   requestor <-- p1CDCFS: errorMessage
   note right p1CDCFS
     }
@@ -59,7 +59,7 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL: functionName="p1CreateDcFromStartupDS",\nerrorMessage
+  p1CDCFS -> hEL: erroredFunction="p1CreateDcFromStartupDS",\nerrorMessage
   requestor <-- p1CDCFS: errorMessage
   note right p1CDCFS
     }
@@ -80,7 +80,7 @@ activate p1CDCFS
   note right p1CDCFS
     THEN {
   end note
-  p1CDCFS -> hEL: functionName="p1CreateDcFromStartupDS",\nerrorMessage
+  p1CDCFS -> hEL: erroredFunction="p1CreateDcFromStartupDS",\nerrorMessage
   requestor <-- p1CDCFS: errorMessage
   note right p1CDCFS
     }

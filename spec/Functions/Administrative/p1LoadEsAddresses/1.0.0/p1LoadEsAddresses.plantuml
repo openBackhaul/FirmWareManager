@@ -33,7 +33,7 @@ activate p1LEA
   note right p1LEA
     THEN {
   end note
-  p1LEA -> hEL: functionName="p1LoadParameters",\nerrorMessage
+  p1LEA -> hEL: erroredFunction="p1LoadParameters",\nerrorMessage
   requestor <-- p1LEA: errorMessage
   note right p1LEA
     }
@@ -58,7 +58,7 @@ activate p1LEA
     note right p1LEA
       THEN {
     end note
-    p1LEA -> hEL: functionName="p1ResolveEsAddress",\nerrorMessage
+    p1LEA -> hEL: erroredFunction="p1ResolveEsAddress",\nerrorMessage
     requestor <-- p1LEA: errorMessage
     note right p1LEA
       }

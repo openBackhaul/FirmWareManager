@@ -1,0 +1,127 @@
+createDevices:
+  type: object
+  properties:
+
+    operationalDevice:
+      type: object
+      required:
+        - mountName
+        - deviceModel
+      properties:
+        mountName:
+          type: string
+          description: >
+            'from [/domain-controller/network-control-domain=operational/device=*/mount-name]'
+        deviceModel:
+          type: string
+          description: >
+            'from [/domain-controller/network-control-domain=operational/device=*/device-model]'
+    newDevices:
+      type: array
+      description: >
+        'create new instance'
+      items:
+        type: object
+        required:
+          - mountName
+          - deviceModel
+        properties:
+          mountName:
+            type: string
+            description: >
+              'from [/operationalDevice/mountName] IF [/domain-controller/network-control-domain=running/device={/operationalDevice/mountName}]==null'
+          deviceModel:
+            type: string
+            description: >
+              'from [/operationalDevice/deviceModel] IF [/domain-controller/network-control-domain=running/device={/operationalDevice/mountName}]==null'
+
+    defaultDeviceGroup:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-model={/operationalDevice/deviceModel}/default-device-group]'
+
+    targetFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={defaultDeviceGroup}/target-firmware-list]'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+    newFirmwareList:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'from [targetFirmwareList[i].resource].split(',')[0]'
+          version:
+            type: string
+            description: >
+              'from str.slice(str.indexOf(',') + 1) with str=[targetFirmwareList[i].resource]'
+          status:
+            type: string
+            description: >
+              'from [targetFirmwareList[i].status]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device:
+            type: array
+            x-key: mount-name
+            description: >
+              'create new instance'
+            items:
+              type: object
+              properties:
+                mount-name:
+                  type: string
+                  description: >
+                    'from [ /newDevices[i]/mountName ]'
+                device-model:
+                  type: string
+                  description: >
+                    'from [ /newDevices[i]/deviceModel ]'
+                last-update:
+                  type: string
+                  description: >
+                    'from {2010-11-20T14:00:00+01:00}'
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete existing and replace
+                    from [newFirmwareList]'
+          device-group:
+            type: array
+            x-key: label
+            items:
+              type: object
+              required:
+                - label
+                - device
+              properties:
+                label:
+                  type: string
+                  description: >
+                    'find [defaultDeviceGroup]'
+                device:
+                  type: array
+                  description: >
+                    'append from [ /newDevices[i]/mountName ]'

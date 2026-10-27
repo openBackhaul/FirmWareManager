@@ -10,7 +10,7 @@ x-javascript-interface:
       success:
         description: 'DeviceGroups purged'
     processing:
-      /delete-device-group:
+      _deleteDeviceGroupServiceName_:
         parameters:
           - $ref: '#/components/parameters/user'
           - $ref: '#/components/parameters/originator'
@@ -29,22 +29,12 @@ x-javascript-interface:
                   properties:
                     device-group-label:
                       type: string
+                      description: >
+                        'from [/purgeDeviceGroups/documentedDeviceGroup/label] 
+                                IF [/purgeDeviceGroups/currentTime] > [/purgeDeviceGroups/documentedDeviceGroup/purge-date]'
           responses:
             '204':
               description: 'DeviceGroup deleted'
-              headers:
-                x-correlator:
-                  schema:
-                    type: string
-                exec-time:
-                  schema:
-                    type: integer
-                backend-time:
-                  schema:
-                    type: integer
-                life-cycle-state:
-                  schema:
-                    type: string
             '462':
               $ref: '#/components/responses/462'
             '400':

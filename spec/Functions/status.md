@@ -21,14 +21,14 @@ Th = Thorsten
 
 | Function        |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
 |-----------------|-----|-----|-----|-----|-----|-----|-----|-----|
-| p1CreateDevices | Th  | Th  |     |     |     |     |     |     |
-| p1DeleteDevices | Th  | Th  |     |     |     |     |     |     |
+| p1CreateDevices | Th  | Th  |     | Th  | Th  |     |     |     |
+| p1DeleteDevices | Th  | Th  |     | Th  | Th  |     |     |     |
 
 ### Purging DeviceGroups
 
 | Function            |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
 |---------------------|-----|-----|-----|-----|-----|-----|-----|-----|
-| p1PurgeDeviceGroups | Th  | Th  |     |     |     |     |     |     |
+| p1PurgeDeviceGroups | Th  | Th  |     | Th  | Th  |     |     |     |
 
 ## Validation
 
