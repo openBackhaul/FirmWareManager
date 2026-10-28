@@ -139,14 +139,13 @@ servers:
           uuid: fwm-1-0-0-op-s-is-330
         - operation-name: /v1/withdraw-firmware-approval
           uuid: fwm-1-0-0-op-s-is-340
-          operation-key: n.a.
   http-server:
-    own-application-name:
-    own-release-number:
+    own-application-name: FirmWareManager
+    own-release-number: 1.0.0
     uuid: fwm-1-0-0-http-s-000
-    application-purpose:
-    owner-name:
-    owner-email-address:
+    application-purpose: Autonomously manages the firmware on the microwave devices in the mobile backhaul network.
+    owner-name: Thorsten Heinze
+    owner-email-address: Thorsten.Heinze@telefonica.com
     release-list:
       - release-number: 1.0.0
         release-date: 31.10.2026
