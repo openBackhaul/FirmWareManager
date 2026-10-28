@@ -41,7 +41,7 @@ activate indServ
   end note
   indServ -> OpDS: [firmwareList]
 
-requestor <-- indServ: 204
+requestor <-- indServ: ok
 deactivate indServ
 
 @enduml

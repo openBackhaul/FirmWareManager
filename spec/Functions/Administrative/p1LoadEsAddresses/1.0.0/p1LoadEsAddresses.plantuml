@@ -69,7 +69,7 @@ activate p1LEA
     end note
     p1LEA -> DC
   end loop
-requestor <-- p1LEA: 204
+requestor <-- p1LEA: ok
 deactivate p1LEA
 
 @enduml

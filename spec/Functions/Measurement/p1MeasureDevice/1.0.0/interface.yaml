@@ -23,6 +23,12 @@ x-javascript-interface:
     output:
       success:
         description: 'ControlConstruct interpreted'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'ok'
     processing:
       p1MeasureHw:
         input:
@@ -46,6 +52,10 @@ x-javascript-interface:
         output:
           success:
             description: 'Hardware updated in OperationalDS'
+            content:
+              application/json:
+                schema:
+                  type: string
       p1MeasureFw:
         input:
           required: true
@@ -68,6 +78,10 @@ x-javascript-interface:
         output:
           success:
             description: 'Firmware updated in OperationalDS'
+            content:
+              application/json:
+                schema:
+                  type: string
 
 paths:
   /:

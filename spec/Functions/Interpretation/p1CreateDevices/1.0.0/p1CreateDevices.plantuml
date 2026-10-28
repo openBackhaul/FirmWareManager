@@ -53,7 +53,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: 204
+  requestor <-- indServ: ok
   note left indServ
     }
   end note  
@@ -160,7 +160,7 @@ activate indServ
   end note
   indServ -X RunDS
 
-  requestor <-- indServ: 204
+  requestor <-- indServ: ok
   note right indServ
     }
   end note
@@ -182,7 +182,7 @@ activate indServ
   indServ -X RunDS
   deactivate RunDS
 
-requestor <-- indServ: 204
+requestor <-- indServ: ok
 deactivate indServ
 
 @enduml

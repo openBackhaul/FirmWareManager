@@ -9,11 +9,21 @@ x-javascript-interface:
     output:
       error:
         description: 'Pulser stopped due to an error'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'Pulser stopped'
     processing:
       _p1TargetFunction_:
         output:
           success:
             description: 'Something executed'
+            content:
+              application/json:
+                schema:
+                  type: string
 
 paths:
   /:

@@ -9,6 +9,12 @@ x-javascript-interface:
     output:
       error:
         description: 'Firmware management stopped due to an error'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'Firmware management stopped'
     processing:
       p1LoadEsAddresses:
         output:
@@ -34,6 +40,10 @@ x-javascript-interface:
         output:
           error:
             description: 'Pulser stopped due to an error'
+            content:
+              application/json:
+                schema:
+                  type: string
 
 paths:
   /:

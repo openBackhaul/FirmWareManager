@@ -87,7 +87,7 @@ activate indServ
     THEN {
   end note
   indServ -> hEL: erroredFunction=listUpdatedCcsFunctionName,\nerrorMessage
-  requestor <-- indServ: 204
+  requestor <-- indServ: ok
   note right indServ
     }
   end note
@@ -140,7 +140,7 @@ activate indServ
   end note
   indServ -> OpDS: lastMeasurementTime
 
-requestor <-- indServ: 204
+requestor <-- indServ: ok
 deactivate indServ
 
 @enduml

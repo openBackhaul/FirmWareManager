@@ -57,7 +57,7 @@ activate p1Trim
     }
   end note
 
-requestor <-- p1Trim: 204
+requestor <-- p1Trim: ok
 deactivate p1Trim
 
 @enduml

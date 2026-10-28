@@ -43,7 +43,7 @@ activate indServ
   end note
   indServ -> OpDS: lastMeasurementTime
 
-requestor <-- indServ: 204
+requestor <-- indServ: ok
 deactivate indServ
 
 @enduml

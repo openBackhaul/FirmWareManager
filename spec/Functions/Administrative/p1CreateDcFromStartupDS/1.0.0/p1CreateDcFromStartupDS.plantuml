@@ -93,7 +93,7 @@ activate p1CDCFS
   end note
   p1CDCFS -> DC: [esAddress]
 
-requestor <-- p1CDCFS: 204
+requestor <-- p1CDCFS: ok
 deactivate p1CDCFS
 
 @enduml

@@ -70,7 +70,7 @@ activate indServ
     end note
   end loop
 
-requestor <-- indServ: 204
+requestor <-- indServ: ok
 deactivate indServ
 
 @enduml

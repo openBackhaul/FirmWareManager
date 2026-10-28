@@ -9,6 +9,12 @@ x-javascript-interface:
     output:
       success:
         description: 'OperationalDS updated'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'ok'
     processing:
       _listUpdatedCcsFunctionName_:
         input:
@@ -76,6 +82,10 @@ x-javascript-interface:
         output:
           success:
             description: 'ControlConstruct interpreted and device updated'
+            content:
+              application/json:
+                schema:
+                  type: string
 
 paths:
   /:

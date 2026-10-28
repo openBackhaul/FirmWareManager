@@ -37,7 +37,7 @@ activate indServ
     THEN {
   end note
   indServ -> hEL: erroredFunction="p1MeasureFw",\nerrorMessage
-  requestor <-- indServ: 204
+  requestor <-- indServ: ok
   note right indServ
     }
   end note
@@ -47,7 +47,7 @@ activate indServ
   note left indServ
     THEN {
   end note
-  requestor <-- indServ: 204
+  requestor <-- indServ: ok
   note left indServ
     }
   end note
@@ -70,7 +70,7 @@ activate indServ
   indServ <-- extrFunc
   deactivate extrFunc
 
-requestor <-- indServ: 204
+requestor <-- indServ: ok
 deactivate indServ
 
 @enduml
