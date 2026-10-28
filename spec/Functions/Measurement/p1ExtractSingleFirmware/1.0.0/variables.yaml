@@ -19,10 +19,6 @@ extractSingleFirmware:
         'from [/controlConstruct/firmware-1-0:firmware-collection/firmware-component-list]'
     updatedFirmwareList:
       type: array
-      # kam könnte auch hier generell das
-      # IF [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
-      # einschieben, dann muss man es nicht unten jedes Mal separat angeben
-      # analog bei den anderen extractFirmware functions
       items:
         type: object
         required:

@@ -13,9 +13,9 @@ database "DomainController" as DC
 requestor -> indServ: { targetFunction,\n<color:LightGray>isActivated,\n<color:LightGray>periodLength,\n<color:LightGray>nextTime,\n<color:LightGray>endingTime</color> }
 activate indServ
 
-  note over indServ
-    Authenticates
-    administrator
+  note over indServ #White
+    Authenticates administrator
+    like existing OAM services
   end note
   indServ -> AA
   activate AA

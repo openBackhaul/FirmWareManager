@@ -98,7 +98,7 @@ activate indServ
 
   loop for each obsoleteDevice
     note over indServ
-      Deletes obsolete RDS:Device
+      Deletes obsolete CDS:Device
     end note
     indServ -> CanDS
     indServ <-- CanDS
@@ -150,8 +150,7 @@ activate indServ
   indServ <-- valiMan: result,\nreason
   deactivate valiMan
   note over indServ
-    IF (NOT 204) OR 
-          (result==failed):
+    IF result==failed:
   end note
   note right indServ
     THEN {

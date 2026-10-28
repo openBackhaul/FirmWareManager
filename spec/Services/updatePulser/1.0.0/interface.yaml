@@ -9,9 +9,6 @@ info:
     email: Thorsten.Heinze@telefonica.com
   x-api-id: u-1792-sdn-microwave-fwm
 
-
-# KM: es ist nirgends beschrieben, wie genau der Service sich authenticated...
-
 paths:
   /update-pulser:
     parameters:
@@ -36,7 +33,6 @@ paths:
               required:
                 - target-function
               properties:
-              
                 target-function:
                   type: string
                   description: >

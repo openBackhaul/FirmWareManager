@@ -13,9 +13,9 @@ database "DomainController" as DC
 requestor -> indServ
 activate indServ
 
-  note over indServ
-    Authenticates
-    administrator
+  note over indServ #White
+    Authenticates administrator
+    like existing OAM services
   end note
   indServ -> AA
   activate AA

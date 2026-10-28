@@ -132,25 +132,27 @@ extractSeparatedBootWebOduToo:
           - version
           - status
         properties:
-          # Müsste das nicht ODU oder Rad sein, statt nur ODU?
           name:
             type: string
             description: >
               'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name]
                 IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
-                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==ODU )'
+                    AND ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==Rad
+                            OR [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==ODU ) )'
           version:
             type: string
             description: >
               'from [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-version]
                 IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
-                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==ODU )'
+                    AND ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==Rad
+                            OR [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==ODU ) )'
           status:
             type: string
             description: >
               'derived from [/firmwareComponentList/firmware-component-pac/firmware-component-status/firmware-component-status]
                 IF ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/individual-activation-is-avail]==true
-                    AND [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==ODU )'
+                    AND ( [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==Rad
+                            OR [/firmwareComponentList/firmware-component-pac/firmware-component-capability/firmware-component-name].substring(0,3)==ODU ) )'
             enum:
               - 'active'
               - 'stand-by'

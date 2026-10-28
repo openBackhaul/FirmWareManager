@@ -9,9 +9,6 @@ info:
     email: Thorsten.Heinze@telefonica.com
   x-api-id: u-1792-sdn-microwave-fwm
 
-
-# KM: es ist nirgends beschrieben, wie genau der Service sich authenticated...
-
 paths:
   /update-es-address:
     parameters:
@@ -55,7 +52,7 @@ paths:
                 service-records-policy:
                   type: string
                   description: >
-                    'to [/domain-controller/es-address={es-name}/service-records-policy]'
+                    'to [/domain-controller/es-address={es-name}/service-records-policy] if given'
                 operational-state:
                   type: string
                   description: >

@@ -98,7 +98,7 @@ domain-controller:
           service-records-policy:
             type: string
             description: >
-              'from [/{resolveEsAddressFunctionName}/output/success/service-records-policy]'
+              'from [/{resolveEsAddressFunctionName}/output/success/service-records-policy] if exists'
           operational-state:
             type: string
             description: >
