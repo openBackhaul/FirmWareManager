@@ -58,7 +58,6 @@ x-javascript-interface:
                 - 'ElasticSearch read error'
                 - 'metadataTable not found in MWDI'
                 - 'general processing error'
-    processing:
 
 paths:
   /:

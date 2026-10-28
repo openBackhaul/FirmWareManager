@@ -21,7 +21,6 @@ domain-controller:
           - url
           - api-key
           - index-alias
-          - service-records-policy
           - operational-state
           - life-cycle-state
         properties:

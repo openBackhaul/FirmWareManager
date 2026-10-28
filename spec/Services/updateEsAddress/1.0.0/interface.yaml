@@ -52,7 +52,7 @@ paths:
                 service-records-policy:
                   type: string
                   description: >
-                    'to [/domain-controller/es-address={es-name}/service-records-policy]'
+                    'to [/domain-controller/es-address={es-name}/service-records-policy] if given'
                 operational-state:
                   type: string
                   description: >

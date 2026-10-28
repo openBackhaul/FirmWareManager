@@ -78,14 +78,14 @@ activate indServ
 
   loop for each newDevice
     note over indServ
-      Creates new RDS:Device from
+      Creates new CDS:Device from
       mountName and deviceModel
     end note
     indServ -> CanDS: {mountName, deviceModel}
     indServ <-- CanDS
 
     note over indServ
-      Attempts to add new RDS:Device
+      Attempts to add new CDS:Device
       to its default DeviceGroup
     end note
     note right indServ
@@ -108,7 +108,7 @@ activate indServ
       }
     end note
     note right indServ
-      Adds mountName of new RDS:Device
+      Adds mountName of new CDS:Device
       to [device] at defaultDeviceGroup
     end note
     indServ -> CanDS: mountName
@@ -119,7 +119,7 @@ activate indServ
       [targetFirmwareList]
       of defaultDeviceGroup
       to [firmwareList] at
-      new RDS:Device
+      new CDS:Device
     end note
     note over indServ
       Reads [targetFirmwareList]
@@ -129,7 +129,7 @@ activate indServ
     indServ <-- CanDS: [targetFirmwareList]
     note over indServ
       Updates [firmwareList]
-      at RDS:Device
+      at CDS:Device
     end note
     indServ -> CanDS: [firmwareList]
     indServ <-- CanDS

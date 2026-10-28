@@ -13,9 +13,9 @@ database "DomainController" as DC
 requestor -> indServ: { esName,\n<color:LightGray>url,\n<color:LightGray>apiKey,\n<color:LightGray>indexAlias,\n<color:LightGray>serviceRecordsPolicy,\n<color:LightGray>operationalState,\n<color:LightGray>lifeCycleState</color> }
 activate indServ
 
-  note over indServ
-    Authenticates
-    administrator
+  note over indServ #White
+    Authenticates administrator
+    like existing OAM services
   end note
   indServ -> AA
   activate AA
