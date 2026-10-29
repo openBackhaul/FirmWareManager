@@ -3109,11 +3109,6 @@
                 "logical-termination-point": "fwm-1-0-0-op-s-is-110"
               },
               {
-                "local-id": "172",
-                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "fwm-1-0-0-op-s-is-120"
-              },
-              {
                 "local-id": "173",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-120"

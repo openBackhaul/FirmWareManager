@@ -134,8 +134,6 @@ forwardings:
         uuid: fwm-1-0-0-op-s-is-100
       - operation-name: /v1/delete-target-firmware
         uuid: fwm-1-0-0-op-s-is-110
-      - operation-name: /v1/embed-yourself
-        uuid: fwm-1-0-0-op-s-is-120
       - operation-name: /v1/list-device-groups-without-devices
         uuid: fwm-1-0-0-op-s-is-120
       - operation-name: /v1/list-device-groups-without-target-firmware
