@@ -149,6 +149,8 @@ profile-instances:
           owner: 'platform'
         - parameter: 'fwm-1-0-0-string-p-032'
           owner: 'platform'
+        - parameter: 'fwm-1-0-0-string-p-033'
+          owner: 'platform'
       sub-function-list:
         - 'fwm-1-0-0-function-p-040'
         - 'fwm-1-0-0-function-p-050'
@@ -158,13 +160,21 @@ profile-instances:
   - profile-name: 'StringProfile'
     uuid: 'fwm-1-0-0-string-p-031'
     capability:
+      string-name: 'resolveEsAddressFunctionName'
+      purpose: 'Name of the function that resolves the ElasticSearch addresses'
+    configuration:
+      string-value: 'p1ResolveEsAddress'
+
+  - profile-name: 'StringProfile'
+    uuid: 'fwm-1-0-0-string-p-032'
+    capability:
       string-name: 'esName#0'
       purpose: 'esName'
     configuration:
       string-value: 'domainControllerEsClient'
 
   - profile-name: 'StringProfile'
-    uuid: 'fwm-1-0-0-string-p-032'
+    uuid: 'fwm-1-0-0-string-p-033'
     capability:
       string-name: 'esName#1'
       purpose: 'esName'

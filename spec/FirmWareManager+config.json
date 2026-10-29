@@ -251,6 +251,10 @@
                 {
                   "parameter": "fwm-1-0-0-string-p-032",
                   "owner": "platform"
+                },
+                {
+                  "parameter": "fwm-1-0-0-string-p-033",
+                  "owner": "platform"
                 }
               ],
               "sub-function-list": [
@@ -268,6 +272,19 @@
           "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
           "string-profile-1-0:string-profile-pac": {
             "string-profile-capability": {
+              "string-name": "resolveEsAddressFunctionName",
+              "string-purpose": "Name of the function that resolves the ElasticSearch addresses"
+            },
+            "string-profile-configuration": {
+              "string-value": "p1ResolveEsAddress"
+            }
+          }
+        },
+        {
+          "uuid": "fwm-1-0-0-string-p-032",
+          "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
+          "string-profile-1-0:string-profile-pac": {
+            "string-profile-capability": {
               "string-name": "esName#0",
               "string-purpose": "esName"
             },
@@ -277,7 +294,7 @@
           }
         },
         {
-          "uuid": "fwm-1-0-0-string-p-032",
+          "uuid": "fwm-1-0-0-string-p-033",
           "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
           "string-profile-1-0:string-profile-pac": {
             "string-profile-capability": {

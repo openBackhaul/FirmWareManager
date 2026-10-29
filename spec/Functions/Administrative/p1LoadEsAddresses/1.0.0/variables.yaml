@@ -48,7 +48,7 @@ loadEsAddresses:
       items:
         type: string
         description: >
-          'from [/parameters/function={resolveEsAddressFunctionName}/parameter=*/value] IF [/parameters/function={resolveEsAddressFunctionName}/parameter=*/purpose]==esName'
+          'from [/parameters/parameter=*/value] IF [/parameters/parameter=*/purpose]==esName'
 
 domain-controller:
   type: object
