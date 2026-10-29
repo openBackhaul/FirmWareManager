@@ -1362,7 +1362,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-120",
+        "uuid": "fwm-1-0-0-op-s-is-130",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1385,7 +1385,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-130",
+        "uuid": "fwm-1-0-0-op-s-is-140",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1408,7 +1408,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-140",
+        "uuid": "fwm-1-0-0-op-s-is-150",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1431,7 +1431,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-150",
+        "uuid": "fwm-1-0-0-op-s-is-160",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1454,7 +1454,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-160",
+        "uuid": "fwm-1-0-0-op-s-is-170",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1477,7 +1477,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-170",
+        "uuid": "fwm-1-0-0-op-s-is-180",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1500,7 +1500,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-180",
+        "uuid": "fwm-1-0-0-op-s-is-190",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1523,7 +1523,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-190",
+        "uuid": "fwm-1-0-0-op-s-is-200",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1546,7 +1546,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-200",
+        "uuid": "fwm-1-0-0-op-s-is-210",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1569,7 +1569,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-210",
+        "uuid": "fwm-1-0-0-op-s-is-220",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1592,7 +1592,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-220",
+        "uuid": "fwm-1-0-0-op-s-is-230",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1615,7 +1615,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-230",
+        "uuid": "fwm-1-0-0-op-s-is-240",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1638,7 +1638,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-240",
+        "uuid": "fwm-1-0-0-op-s-is-250",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1661,7 +1661,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-250",
+        "uuid": "fwm-1-0-0-op-s-is-260",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1684,7 +1684,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-260",
+        "uuid": "fwm-1-0-0-op-s-is-270",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1707,7 +1707,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-270",
+        "uuid": "fwm-1-0-0-op-s-is-280",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1730,7 +1730,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-280",
+        "uuid": "fwm-1-0-0-op-s-is-290",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1753,7 +1753,7 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-290",
+        "uuid": "fwm-1-0-0-op-s-is-300",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
@@ -1776,29 +1776,6 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-300",
-        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
-        "client-ltp": [],
-        "server-ltp": [
-          "fwm-1-0-0-http-s-000"
-        ],
-        "layer-protocol": [
-          {
-            "local-id": "0",
-            "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
-            "operation-server-interface-1-0:operation-server-interface-pac": {
-              "operation-server-interface-capability": {
-                "operation-name": "/v1/update-server"
-              },
-              "operation-server-interface-configuration": {
-                "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
-                "operation-key": "Operation key not yet provided."
-              }
-            }
-          }
-        ]
-      },
-      {
         "uuid": "fwm-1-0-0-op-s-is-310",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
@@ -1811,7 +1788,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/update-target-firmware"
+                "operation-name": "/v1/update-server"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1910,7 +1887,6 @@
           "fwm-1-0-0-op-s-is-090",
           "fwm-1-0-0-op-s-is-100",
           "fwm-1-0-0-op-s-is-110",
-          "fwm-1-0-0-op-s-is-120",
           "fwm-1-0-0-op-s-is-120",
           "fwm-1-0-0-op-s-is-130",
           "fwm-1-0-0-op-s-is-140",
@@ -3126,112 +3102,112 @@
                 "logical-termination-point": "fwm-1-0-0-op-s-is-110"
               },
               {
-                "local-id": "173",
+                "local-id": "172",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-120"
               },
               {
-                "local-id": "174",
+                "local-id": "173",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-130"
               },
               {
-                "local-id": "175",
+                "local-id": "174",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-140"
               },
               {
-                "local-id": "176",
+                "local-id": "175",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-150"
               },
               {
-                "local-id": "177",
+                "local-id": "176",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-160"
               },
               {
-                "local-id": "178",
+                "local-id": "177",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-170"
               },
               {
-                "local-id": "179",
+                "local-id": "178",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-180"
               },
               {
-                "local-id": "180",
+                "local-id": "179",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-190"
               },
               {
-                "local-id": "181",
+                "local-id": "180",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-200"
               },
               {
-                "local-id": "182",
+                "local-id": "181",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-210"
               },
               {
-                "local-id": "183",
+                "local-id": "182",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-220"
               },
               {
-                "local-id": "184",
+                "local-id": "183",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-230"
               },
               {
-                "local-id": "185",
+                "local-id": "184",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-240"
               },
               {
-                "local-id": "186",
+                "local-id": "185",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-250"
               },
               {
-                "local-id": "187",
+                "local-id": "186",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-260"
               },
               {
-                "local-id": "188",
+                "local-id": "187",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-270"
               },
               {
-                "local-id": "189",
+                "local-id": "188",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-280"
               },
               {
-                "local-id": "190",
+                "local-id": "189",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-290"
               },
               {
-                "local-id": "191",
+                "local-id": "190",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-300"
               },
               {
-                "local-id": "192",
+                "local-id": "191",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-310"
               },
               {
-                "local-id": "193",
+                "local-id": "192",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-320"
               },
               {
-                "local-id": "194",
+                "local-id": "193",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-330"
               },
