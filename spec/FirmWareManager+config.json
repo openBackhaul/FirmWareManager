@@ -1351,7 +1351,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/embed-yourself"
+                "operation-name": "/v1/list-device-groups-without-devices"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1374,7 +1374,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-device-groups-without-devices"
+                "operation-name": "/v1/list-device-groups-without-target-firmware"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1397,7 +1397,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-device-groups-without-target-firmware"
+                "operation-name": "/v1/list-device-models-without-approvals"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1420,7 +1420,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-device-models-without-approvals"
+                "operation-name": "/v1/list-existing-device-groups"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1443,7 +1443,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-existing-device-groups"
+                "operation-name": "/v1/list-existing-device-models"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1466,7 +1466,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-existing-device-models"
+                "operation-name": "/v1/list-existing-devices"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1489,7 +1489,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-existing-devices"
+                "operation-name": "/v1/list-existing-firmware-approvals"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1512,7 +1512,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-existing-firmware-approvals"
+                "operation-name": "/v1/list-existing-firmware-resources"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1535,7 +1535,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-existing-firmware-resources"
+                "operation-name": "/v1/list-existing-servers"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1558,7 +1558,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-existing-servers"
+                "operation-name": "/v1/list-firmware-extraction-functions"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1581,7 +1581,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-firmware-extraction-functions"
+                "operation-name": "/v1/list-hardware-extraction-functions"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1604,7 +1604,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-hardware-extraction-functions"
+                "operation-name": "/v1/list-incomplete-servers"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1627,7 +1627,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-incomplete-servers"
+                "operation-name": "/v1/list-unknown-device-models"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1650,7 +1650,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/list-unknown-device-models"
+                "operation-name": "/v1/provide-existing-device"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1673,7 +1673,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/provide-existing-device"
+                "operation-name": "/v1/provide-existing-device-group"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1696,7 +1696,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/provide-existing-device-group"
+                "operation-name": "/v1/remove-devices-from-device-group"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1719,7 +1719,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/remove-devices-from-device-group"
+                "operation-name": "/v1/update-device-group"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1742,7 +1742,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/update-device-group"
+                "operation-name": "/v1/update-device-model"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1765,7 +1765,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/update-device-model"
+                "operation-name": "/v1/update-firmware-resource"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1788,7 +1788,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/update-firmware-resource"
+                "operation-name": "/v1/update-server"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1811,7 +1811,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/update-server"
+                "operation-name": "/v1/update-target-firmware"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
