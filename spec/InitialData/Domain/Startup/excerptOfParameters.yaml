@@ -60,6 +60,7 @@ function:
     task: 'measurement'
     description: 'Updates the hardware information required to resolve dependencies of firmware for a Device in the OperationalDS.'
     parameter:
+      # TODO: was genau soll extrahiert werden, soll ich dafür während deines Urlaubs irgendwelche Daten aus den Geräten zusammenstellen/prüfen?
       - name: 'OptiXRTN950'
         description: 'hardwareExtractionFunction'
         owner: 'platform'
