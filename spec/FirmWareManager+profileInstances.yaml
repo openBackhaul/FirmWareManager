@@ -228,7 +228,7 @@ profile-instances:
       string-value: 'fwm-1-0-0-es-c-es-1-0-0-001'
 
 
-  # p1LoadEsAddresses
+  # p1CreateDcFromStartupDS
   - profile-name: 'FunctionProfile'
     uuid: 'fwm-1-0-0-function-p-060'
     capability:
