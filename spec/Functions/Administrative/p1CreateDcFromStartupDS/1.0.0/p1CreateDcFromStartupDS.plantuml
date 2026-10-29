@@ -1,0 +1,99 @@
+@startuml p1CreateDcFromStartupDS
+skinparam responseMessageBelowArrow true
+
+title
+  p1CreateDcFromStartupDS
+end title
+
+participant "requestor\n" as requestor
+participant "p1CreateDc\nFromStartupDS" as p1CDCFS
+participant "p1LoadParameters\n" as p1LP
+
+database "ElasticSearch" as StartDS
+database "DomainController" as DC
+database "ErrorList" as hEL
+
+requestor -> p1CDCFS
+activate p1CDCFS
+  note over p1CDCFS
+    Populates DomainController
+    from ElasticSearch
+  end note
+
+  note over p1CDCFS
+    Reads esName of FWM's
+    ElasticSearch index from
+    configFile
+  end note
+  p1CDCFS -> p1LP: functionName=\n"p1CreateDcFromStartupDS"
+  activate p1LP
+    note over p1LP
+      Loads parameters
+      from configFile
+    end note
+  p1CDCFS <-- p1LP: { esName==domainControllerEsClient, ... }
+  deactivate p1LP
+  note over p1CDCFS
+    IF errorMessage
+  end note
+  note right p1CDCFS
+    THEN {
+  end note
+  p1CDCFS -> hEL: erroredFunction="p1LoadParameters",\nerrorMessage
+  requestor <-- p1CDCFS: errorMessage
+  note right p1CDCFS
+    }
+  end note
+
+  note over p1CDCFS
+    Reads all ElasticSearchClients
+    from [EsAddress] into RAM
+  end note
+  p1CDCFS -> DC
+  activate DC
+  p1CDCFS <-- DC
+  deactivate DC
+  note over p1CDCFS
+    IF [esAddress]==null:
+  end note
+  note right p1CDCFS
+    THEN {
+  end note
+  p1CDCFS -> hEL: erroredFunction="p1CreateDcFromStartupDS",\nerrorMessage
+  requestor <-- p1CDCFS: errorMessage
+  note right p1CDCFS
+    }
+  end note
+
+  note over p1CDCFS
+    Loads {DomainController} from
+    ElasticSearch and overwrites
+    its own entire DomainController
+  end note
+  p1CDCFS -> StartDS: { domainControllerEsClient://domain-controller }
+  activate StartDS
+  p1CDCFS <-- StartDS: {DomainController}
+  deactivate StartDS
+  note over p1CDCFS
+    IF {DomainController}==null:
+  end note
+  note right p1CDCFS
+    THEN {
+  end note
+  p1CDCFS -> hEL: erroredFunction="p1CreateDcFromStartupDS",\nerrorMessage
+  requestor <-- p1CDCFS: errorMessage
+  note right p1CDCFS
+    }
+  end note
+  p1CDCFS -> DC: {DomainController}
+
+  note over p1CDCFS
+    Overwrites [EsAddress]
+    with [esAddress] from RAM
+  end note
+  p1CDCFS -> DC: [esAddress]
+
+requestor <-- p1CDCFS: ok
+deactivate p1CDCFS
+
+@enduml

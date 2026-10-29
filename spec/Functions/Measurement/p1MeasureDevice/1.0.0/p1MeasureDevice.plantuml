@@ -1,0 +1,49 @@
+@startuml p1MeasureDevice
+skinparam responseMessageBelowArrow true
+
+title
+  p1MeasureDevice
+end title
+
+participant "requestor\n" as requestor
+participant "p1MeasureDevice\n" as indServ
+participant "p1MeasureHw\n" as updateHw
+participant "p1MeasureFw\n" as updateFw
+
+database "OperationalDS" as OpDS
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+  indServ -> updateHw: updatedMountName,\nCC
+  activate updateHw
+    note over updateHw
+      Updates deviceModel
+      specific hardware
+      dependencies in
+      OperationalDS
+    end note
+  indServ <-- updateHw
+  deactivate updateHw
+
+  indServ -> updateFw: updatedMountName,\nCC
+  activate updateFw
+    note over updateFw
+      Updates deviceModel
+      specific firmware
+      composition in
+      OperationalDS
+    end note
+  indServ <-- updateFw
+  deactivate updateFw
+
+  note over indServ
+    Overwrites
+    lastMeasurementTime
+    with current timestamp
+  end note
+  indServ -> OpDS: lastMeasurementTime
+
+requestor <-- indServ: ok
+deactivate indServ
+
+@enduml

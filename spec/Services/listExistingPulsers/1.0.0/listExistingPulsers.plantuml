@@ -1,0 +1,46 @@
+@startuml listExistingPulsers
+skinparam responseMessageBelowArrow true
+
+title
+  listExistingPulsers
+end title
+
+participant "requestor\n" as requestor
+participant "listExistingPulsers\n" as indServ
+participant "AA\n" as AA
+database "DomainController" as DC
+
+requestor -> indServ
+activate indServ
+
+  note over indServ #White
+    Authenticates administrator
+    like existing OAM services
+  end note
+  indServ -> AA
+  activate AA
+  indServ <-- AA
+  deactivate AA
+  note over indServ
+    IF authentication failed:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 401,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Reads [Pulser]
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC: [Pulser]
+  deactivate DC
+
+requestor <-- indServ: [ { targetFunction,\nisActivated,\nperiodLength,\nnextTime,\nendingTime } ]
+deactivate indServ
+
+@enduml

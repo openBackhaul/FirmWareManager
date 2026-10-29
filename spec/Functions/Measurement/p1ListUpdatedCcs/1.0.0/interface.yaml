@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: p1ListUpdatedCcs
+  version: 1.0.0
+
+x-javascript-interface:
+  p1ListUpdatedCcs:
+    summary: 'Lists ControlConstructs that have been updated in MWDI'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - parameters
+              - mwdi-es-client
+              - last-examination-time
+            properties:
+              parameters:
+                type: object
+              mwdi-es-client:
+                type: object
+              last-examination-time:
+                type: string
+                pattern: '^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})((\.[0-9]{1,}){0,1})(Z|[\+\-][0-9]{2}:[0-9]{2})$'
+    output:
+      success:
+        description: 'UpdatedControlConstructs listed'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updated-mount-names
+                - examination-time
+              properties:
+                updated-mount-names:
+                  type: array
+                  description: >
+                    'from [/listUpdatedCcs/updatedMountNames]'
+                examination-time:
+                  type: string
+                  description: >
+                    'from [/listUpdatedCcs/examinationTime]'
+                  pattern: '^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})((\.[0-9]{1,}){0,1})(Z|[\+\-][0-9]{2}:[0-9]{2})$'
+      error:
+        description: 'UpdatedControlConstructs could not be listed'
+        content:
+          application/json:
+            schema:
+              type: string
+              description: >
+                'from [/listUpdatedCcs/errorMessage]'
+              enum:
+                - 'attribute value is not valid'
+                - 'connection to MWDI ES failed'
+                - 'ElasticSearch read error'
+                - 'metadataTable not found in MWDI'
+                - 'general processing error'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

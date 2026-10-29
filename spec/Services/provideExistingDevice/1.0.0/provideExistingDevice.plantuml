@@ -1,0 +1,38 @@
+@startuml provideExistingDevice
+skinparam responseMessageBelowArrow true
+
+title
+  provideExistingDevice
+end title
+
+participant "requestor\n" as requestor
+participant "provideExistingDevice\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ: { mountName }
+activate indServ
+
+  note over indServ
+    Checks whether given
+    mountName exists by
+    reading {Device}
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: {Device}
+  deactivate RunDS
+  note over indServ
+    IF Device NOT existing:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 404,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+requestor <-- indServ: { mountName,\ndeviceModel,\n[firmwareList],\n ... ,\nlastUpdate }
+deactivate indServ
+
+@enduml

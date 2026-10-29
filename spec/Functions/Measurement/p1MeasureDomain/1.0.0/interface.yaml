@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: p1MeasureDomain
+  version: 1.0.0
+
+x-javascript-interface:
+  p1MeasureDomain:
+    summary: 'Updates the OperationalDS'
+    output:
+      success:
+        description: 'OperationalDS updated'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'ok'
+    processing:
+      _listUpdatedCcsFunctionName_:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - parameters
+                  - mwdi-es-client
+                  - last-examination-time
+                properties:
+                  parameters:
+                    type: object
+                    description: >
+                      'from [/measureDomain/parametersForListUpdatedCcsFunction]'
+                  mwdi-es-client:
+                    type: object
+                    description: >
+                      'from [/measureDomain/mwdiEsClient]'
+                  last-examination-time:
+                    type: string
+                    description: >
+                      'from [/measureDomain/lastExaminationTime]'
+        output:
+          success:
+            description: 'Updated ControlConstructs listed'
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    updated-mount-names:
+                      type: array
+                      items:
+                        type: string
+                    examination-time:
+                      type: string
+          error:
+            description: 'Updated ControlConstructs could not be listed'
+            content:
+              application/json:
+                schema:
+                  type: string
+      _measureDeviceFunctionName_:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                    description: >
+                      'from [/measureDomain/updatedMountName]'
+                  control-construct:
+                    type: object
+                    description: >
+                      'from [/measureDomain/controlConstruct]'
+        output:
+          success:
+            description: 'ControlConstruct interpreted and device updated'
+            content:
+              application/json:
+                schema:
+                  type: string
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

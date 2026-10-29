@@ -1,0 +1,79 @@
+@startuml p1ManageFirmware
+skinparam responseMessageBelowArrow true
+
+title
+  p1ManageFirmware
+end title
+
+participant "embedYourself\n" as embed
+participant "p1ManageFirmware\n" as p1ManaFw
+participant "p1LoadEsAddresses\n" as p1LEA
+participant "p1CreateDomainController\nFromStartupDS" as p1CDCFS
+participant "p1Pulser\n" as p1Puls
+database "DomainController" as DC
+database "ErrorList" as hEL
+
+note right embed
+  Automatically starts
+  p1ManageFirmware
+end note
+embed -> p1ManaFw
+activate p1ManaFw
+
+  note over p1ManaFw
+    Instantiates DomainController
+  end note
+  p1ManaFw -> DC
+
+  p1ManaFw -> p1LEA
+  activate p1LEA
+    note over p1LEA
+      Makes ElasticSearch
+      addresses available
+      at DomainController
+    end note
+  p1ManaFw <-- p1LEA
+  deactivate p1LEA
+  note over p1ManaFw
+    IF errorMessage
+  end note
+  note right p1ManaFw
+    THEN {
+  end note
+  p1ManaFw -> hEL: erroredFunction="p1ManageFirmware",\nerrorMessage
+  ?<-- p1ManaFw
+  note right p1ManaFw
+    }
+  end note
+
+  p1ManaFw -> p1CDCFS
+  activate p1CDCFS
+    note over p1CDCFS
+      Populates
+      DomainController
+      and RunningDS
+      from ElasticSearch
+    end note
+  p1ManaFw <-- p1CDCFS
+  deactivate p1CDCFS
+  note over p1ManaFw
+    IF errorMessage
+  end note
+  note right p1ManaFw
+    THEN {
+  end note
+  p1ManaFw -> hEL: erroredFunction="p1ManageFirmware",\nerrorMessage
+  ?<-- p1ManaFw
+  note right p1ManaFw
+    }
+  end note
+
+  p1ManaFw -> p1Puls
+  activate p1Puls
+    note over p1Puls
+      Cyclically
+      invokes
+      functions
+    end note
+
+@enduml

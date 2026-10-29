@@ -1,0 +1,152 @@
+@startuml deleteTargetFirmware
+skinparam responseMessageBelowArrow true
+
+title
+  deleteTargetFirmware
+end title
+
+participant "requestor\n" as requestor
+participant "deleteTargetFirmware\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> indServ: { deviceGroupLabel,\nfirmwareResourceName,\nfirmwareResourceVersion }
+activate indServ
+
+  note over indServ
+    Checks whether given
+    deviceGroupLabel exists by
+    reading [targetFirmwareList]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [targetFirmwareList]
+  deactivate RunDS
+  note over indServ
+    IF DeviceGroup NOT existing:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 404,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Checks whether given combination
+    of firmwareResourceName and
+    firmwareResourceVersion actually
+    referenced in [targetFirmwareList]
+  end note
+  note over indServ
+    IF FirmwareResource NOT
+        in [targetFirmwareList]:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 404,\nErrorMessage2 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Locks RunningDS
+  end note
+  indServ -X RunDS
+  activate RunDS
+  note over indServ
+    Locks CandidateDS
+  end note
+  indServ -X CanDS
+  activate CanDS
+  note over indServ
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  indServ -> RunDS
+  RunDS -/ CanDS
+
+  note over indServ
+    Deletes given FirmwareResource
+    from [targetFirmwareList] of
+    given DeviceGroup
+  end note
+  indServ -> CanDS
+  indServ <-- CanDS
+
+  note over indServ
+    Deletes given FirmwareResource
+    from [firmwareList] of all Devices
+    referenced in [devices] of the
+    given DeviceGroup
+  end note
+  note right indServ
+    Reads [device] at
+    given DeviceGroup
+  end note
+  indServ -> CanDS
+  indServ <-- CanDS: [device]
+  loop for each referenced Device
+    note right indServ
+      Deletes given
+      FirmwareResource
+      from [firmwareList]
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+  end loop
+
+  note over indServ
+    Triggers Validation
+  end note
+  indServ -> valiMan: triggerFunction==deleteTargetFirmware
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  indServ <-- valiMan: result,\nreason
+  deactivate valiMan
+  note over indServ
+    IF result==failed:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { 462,\nErrorMessage3 }
+  note over indServ
+    ELSE
+  end note
+
+  note over indServ
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  indServ -> CanDS
+  CanDS -\ RunDS
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  deactivate CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  deactivate RunDS
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

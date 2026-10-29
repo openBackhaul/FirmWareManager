@@ -1,0 +1,98 @@
+@startuml p1Pulser
+skinparam responseMessageBelowArrow true
+
+title
+  p1Pulser
+end title
+
+participant "requestor\n" as requestor
+participant "p1Pulser\n" as p1Puls
+participant "<i>p1TargetFunction</i>\n" as p1Target
+database "DomainController" as DC
+database "ErrorList" as hEL
+
+requestor -> p1Puls
+activate p1Puls
+  note over p1Puls
+    Cyclically
+    invokes
+    functions
+  end note
+
+loop endless
+  note over p1Puls
+    Reads [Pulser] from
+    DomainController
+  end note
+  p1Puls -> DC
+  activate DC
+  p1Puls <-- DC: [Pulser]
+  deactivate DC
+  loop for each Pulser
+
+    note over p1Puls
+      Checks whether
+      Pulser is activated
+    end note
+    note over p1Puls
+      IF NOT isActivated:
+    end note
+    note left p1Puls
+      THEN {
+    end note
+    note left p1Puls
+      break
+    end note
+    note left p1Puls
+      }
+    end note
+
+    note over p1Puls
+      Checks whether nextTime
+      has been reached
+    end note
+    note over p1Puls
+      IF currentTime < nextTime:
+    end note
+    note left p1Puls
+      THEN {
+    end note
+    note left p1Puls
+      break
+    end note
+    note left p1Puls
+      }
+    end note
+
+    note over p1Puls
+      Sets new nextTime
+    end note
+    note over p1Puls
+      nextTime =
+        currentTime + periodLength
+    end note
+  p1Puls -> DC: nextTime
+
+    note over p1Puls
+      Calls targetFunction
+    end note
+    p1Puls -> p1Target
+    activate p1Target
+    p1Puls <-- p1Target
+    deactivate p1Target
+
+    note over p1Puls
+      IF calling targetFunction failed:
+    end note
+    note right p1Puls
+      THEN {
+    end note
+    p1Puls -> hEL: erroredFunction="p1Pulser",\nerrorMessage
+    note right p1Puls
+      }
+    end note
+  end loop
+
+end loop
+
+@enduml

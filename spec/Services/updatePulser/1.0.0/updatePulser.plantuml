@@ -1,0 +1,66 @@
+@startuml updatePulser
+skinparam responseMessageBelowArrow true
+
+title
+  updatePulser
+end title
+
+participant "requestor\n" as requestor
+participant "updatePulser\n" as indServ
+participant "AA\n" as AA
+database "DomainController" as DC
+
+requestor -> indServ: { targetFunction,\n<color:LightGray>isActivated,\n<color:LightGray>periodLength,\n<color:LightGray>nextTime,\n<color:LightGray>endingTime</color> }
+activate indServ
+
+  note over indServ #White
+    Authenticates administrator
+    like existing OAM services
+  end note
+  indServ -> AA
+  activate AA
+  indServ <-- AA
+  deactivate AA
+  note over indServ
+    IF authentication failed:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 401,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Checks whether given
+    Pulser exists
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC
+  deactivate DC
+  note over indServ
+    IF Pulser NOT existing:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 404,\nErrorMessage2 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Uses provided attributes
+    for updating Pulser
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC
+  deactivate DC
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

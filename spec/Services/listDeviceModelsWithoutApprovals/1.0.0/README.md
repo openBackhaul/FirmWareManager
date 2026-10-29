@@ -1,0 +1,29 @@
+# listDeviceModelsWithoutApprovals
+
+Lists all DeviceModels that do not reference any approved FirmwareResources.  
+
+## Diagram
+
+<p align="center">
+  <img src="./listDeviceModelsWithoutApprovals.png" alt="listDeviceModelsWithoutApprovals diagram" width="250" />
+</p>
+
+## Interface
+
+Please find a detailed description of the interface in the [openAPI specification](../../../FirmWareManager.yaml).  
+
+## Variables
+
+./.  
+
+## Error Codes
+
+./.  
+
+## Parameters
+
+./.  
+
+## NPM Module
+
+[onf-core-model-ap](https://www.npmjs.com/package/onf-core-model-ap) to be complemented.  

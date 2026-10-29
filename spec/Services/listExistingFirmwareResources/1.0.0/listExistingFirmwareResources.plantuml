@@ -1,0 +1,27 @@
+@startuml listExistingFirmwareResources
+skinparam responseMessageBelowArrow true
+
+title
+  listExistingFirmwareResources
+end title
+
+participant "requestor\n" as requestor
+participant "listExistingFirmwareResources\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Reads
+    [FirmwareResources]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [FirmwareResources]
+  deactivate RunDS
+
+requestor <-- indServ: [ { firmwareResourceName,\nfirmwareResourceVersion,\nserverLabel,\nsourceUri,\nfileName } ]
+deactivate indServ
+
+@enduml

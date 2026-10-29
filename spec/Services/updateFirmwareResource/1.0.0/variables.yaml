@@ -1,0 +1,77 @@
+update-firmware-resource:
+  type: object
+  required:
+    - firmwareResourceName
+    - firmwareResourceVersion
+    - serverLabel
+    - sourceUri
+    - fileName
+  properties:
+    firmwareResourceName:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-name]'
+    firmwareResourceVersion:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-version]'
+    serverLabel:
+      type: string
+      description: >
+        'from [/requestBody/server-label]'
+    sourceUri:
+      type: string
+      description: >
+        'from [/requestBody/source-uri]'
+    fileName:
+      type: string
+      description: >
+        'from [/requestBody/file-name]'
+
+    existingFwR:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/firmware-resource=*]'
+    alreadyDocumented:
+      type: boolean
+      description: >
+        'from [{true} IF ([existingFwR.server]==serverLabel AND [existingFwR.source-uri]==sourceUri AND [existingFwR.file-name]==fileName)]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          firmware-resource:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >
+                    'find [firmwareResourceName]'
+                version:
+                  type: string
+                  description: >
+                    'find [firmwareResourceVersion]'
+                server:
+                  type: string
+                  description: >
+                    'from [serverLabel], if given'
+                source-uri:
+                  type: string
+                  description: >
+                    'from [sourceUri], if given'
+                file-name:
+                  type: string
+                  description: >
+                    'from [fileName], if given'

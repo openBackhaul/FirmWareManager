@@ -1,0 +1,215 @@
+@startuml removeDevicesFromDeviceGroup
+skinparam responseMessageBelowArrow true
+
+title
+  removeDevicesFromDeviceGroup
+end title
+
+participant "requestor\n" as requestor
+participant "removeDevicesFromDeviceGroup\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> indServ: { deviceGroupLabel,\n[mountNameList] }
+activate indServ
+
+  note over indServ
+    Checks whether given
+    deviceGroupLabel exists
+    by reading the deviceModel
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: deviceModel
+  deactivate RunDS
+  note over indServ
+    IF DeviceGroup NOT existing:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 404,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Checks, whether
+    given DeviceGroup
+    is defaultDeviceGroup
+  end note
+  note over indServ
+    Reads defaultDeviceGroup
+    from DeviceModel
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: defaultDeviceGroup
+  deactivate RunDS
+  note over indServ
+    IF defaultDeviceGroup
+        ==given DeviceGroup:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 422,\nErrorMessage2 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Checks whether given mountNames are
+    actually in [device] of given DeviceGroup
+  end note
+  note over indServ
+    Reads [device] from
+    given DeviceGroup
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [device]
+  deactivate RunDS
+  loop for each mountName in [mountNameList]
+    note over indServ
+      IF mountName NOT in [device]:
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      Add mountName to [wrongGroupDevice]
+    end note
+    note right indServ
+      }
+    end note
+  end loop
+  note over indServ
+    IF [wrongGroupDevice].length > 0:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 482,\nErrorMessage4,\n[wrongGroupDevice] }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Locks RunningDS
+  end note
+  indServ -X RunDS
+  activate RunDS
+  note over indServ
+    Locks CandidateDS
+  end note
+  indServ -X CanDS
+  activate CanDS
+  note over indServ
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  indServ -> RunDS
+  RunDS -/ CanDS
+
+  loop for each mountName in [mountNameList]
+    note over indServ
+      Deletes given mountName from
+      [device] of all DeviceGroups
+    end note
+    loop for each DeviceGroup
+      note over indServ
+        Checks, whether mountName
+        in [device] at DeviceGroup
+      end note
+      indServ -> CanDS
+      indServ <-- CanDS
+      note over indServ
+        IF mountName in [device]:
+      end note
+      note right indServ
+        THEN {
+      end note
+      note right indServ
+        Deletes mountName from [device]
+      end note
+      indServ -> CanDS
+      indServ <-- CanDS
+      note right indServ
+        }
+      end note
+    end loop
+
+    note over indServ
+      Transfers content of
+      [targetFirmwareList] of
+      default DeviceGroup into
+      [firmwareList] at Device
+    end note
+    note right indServ
+      Delete existing contents
+      of [firmwareList]
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+    note right indServ
+      Write contents of
+      [defaultFirmwareList]
+      into [firmwareList]
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+  end loop
+
+  note over indServ
+    Triggers Validation
+  end note
+  indServ -> valiMan: triggerFunction==removeDevicesFromDeviceGroup
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  indServ <-- valiMan: result,\nreason
+  deactivate valiMan
+  note over indServ
+    IF result==failed:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { 462,\nErrorMessage3 }
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  indServ -> CanDS
+  CanDS -\ RunDS
+  note over indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  deactivate CanDS
+  note over indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  deactivate RunDS
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

@@ -1,0 +1,41 @@
+@startuml listDeviceGroupsWithoutDevices
+skinparam responseMessageBelowArrow true
+
+title
+  listDeviceGroupsWithoutDevices
+end title
+
+participant "requestor\n" as requestor
+participant "listDeviceGroupsWithoutDevices\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ
+activate indServ
+
+  loop for each DeviceGroup
+    note over indServ
+      Reads DeviceGroup
+    end note
+    indServ -> RunDS
+    activate RunDS
+    indServ <-- RunDS: DeviceGroup
+    deactivate RunDS
+    note over indServ
+      IF [device].length NOT > 0
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      Appends label of DeviceGroup
+      to [deviceGroupList]
+    end note
+    note right indServ
+      }
+    end note
+  end loop
+
+requestor <-- indServ: [deviceGroupList]
+deactivate indServ
+
+@enduml

@@ -1,0 +1,85 @@
+@startuml p1ValidationManager
+skinparam responseMessageBelowArrow true
+
+title
+  p1ValidationManager
+end title
+
+participant "requestor\n" as requestor
+participant "p1ValidationManager\n" as valiMan
+participant "<i>ValidationFunction</i>\n" as valiFun
+
+database "DomainController" as DC
+database "ErrorList" as hEL
+
+requestor -> valiMan: triggerFunction
+activate valiMan
+
+  note over valiMan
+    Reads [sequence] from
+    [ValidationSequence]
+    at DomainController
+  end note
+  valiMan -> DC:  .../validation-sequence={triggerFunction}/sequence
+  activate DC
+  valiMan <-- DC: [sequence]
+  deactivate DC
+  note over valiMan
+    IF [sequence]==null:
+  end note
+  note left valiMan
+    THEN {
+  end note
+  valiMan -> hEL: erroredFunction="p1ValidationManager",\nerrorMessage1
+  requestor <-- valiMan : ErrorMessage1
+  note left valiMan
+    }
+  end note
+
+  loop for [sequence]
+
+    note over valiMan
+      Calls ValidationFunction
+      according to sequence
+    end note
+    valiMan -> valiFun: triggerFunction
+    activate valiFun
+      note over valiFun
+        Validates
+        CandidateDS
+        contents
+      end note
+    valiMan <-- valiFun: result,\nreason
+    deactivate valiFun
+
+    note over valiMan
+      IF calling ValidationFunction failed:
+    end note
+    note left valiMan
+      THEN {
+    end note
+    valiMan -> hEL: erroredFunction="p1ValidationManager",\nerrorMessage2
+    requestor <-- valiMan: ErrorMessage2
+    note left valiMan
+      }
+    end note
+
+    note over valiMan
+      IF result==failed:
+    end note
+    note left valiMan
+      THEN {
+    end note
+    note left valiMan
+      Aborts validation
+    end note
+    requestor <-- valiMan: result,\nreason
+    note left valiMan
+      }
+    end note
+  end loop
+
+requestor <-- valiMan: result
+deactivate valiMan
+
+@enduml

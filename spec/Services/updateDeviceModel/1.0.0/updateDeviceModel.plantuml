@@ -1,0 +1,133 @@
+@startuml updateDeviceModel
+skinparam responseMessageBelowArrow true
+
+title
+  updateDeviceModel
+end title
+
+participant "requestor\n" as requestor
+participant "updateDeviceModel\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+database "DomainController" as DC
+
+requestor -> indServ: { deviceModelName,\n<color:LightGray>hardwareExtractionFunction,\n<color:LightGray>firmwareExtractionFunction</color> }
+activate indServ
+
+  note over indServ
+    Checks whether given
+    deviceModelName exists
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS
+  deactivate RunDS
+  note over indServ
+    IF DeviceModel NOT existing:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 404,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    IF hardwareExtractionFunction.length > 0:
+  end note
+  note over indServ
+    THEN {
+  end note
+  note right indServ
+    Load name of the hardware
+    update function from [Parameter]
+  end note
+  indServ -> DC: /function=updateDeviceModel/parameter=updateHwFunction/value
+  indServ <-- DC: updateHwFunction=p1MeasureHw
+  note right indServ
+    Checks whether deviceModelName
+    already exists in [Parameter]
+    of the p1MeasureHw Function
+  end note
+  indServ -> DC: /function=p1MeasureHw/parameter={deviceModelName}
+  note right indServ
+    IF deviceModelName already exists:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Overwrites its parameterValue
+    with hardwareExtractionFunction
+  end note
+  indServ -> DC: /function=p1MeasureHw/parameter={deviceModelName}/value\nhardwareExtractionFunction
+  note right indServ
+    }
+  end note
+  note right indServ
+    ELSE {
+  end note
+  note right indServ
+    Adds deviceModelName as parameterName
+    to [Parameter] of the p1MeasureHw
+    Function and hardwareExtractionFunction
+    as corresponding parameterValue.
+  end note
+  indServ -> DC: /function=p1MeasureHw/parameter={deviceModelName}\n{deviceModelName,hardwareExtractionFunction}
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    IF firmwareExtractionFunction.length > 0:
+  end note
+  note over indServ
+    THEN {
+  end note
+  note right indServ
+    Load name of the firmware
+    update function from [Parameter]
+  end note
+  indServ -> DC: /function=updateDeviceModel/parameter=updateFwFunction/value
+  indServ <-- DC: updateFwFunction=p1MeasureFw
+  note right indServ
+    Checks whether deviceModelName
+    already exists in [Parameter]
+    of the p1MeasureFw Function
+  end note
+  indServ -> DC: /function=p1MeasureFw/parameter={deviceModelName}
+  note right indServ
+    IF deviceModelName already exists:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Overwrites its parameterValue
+    with firmwareExtractionFunction
+  end note
+  indServ -> DC: /function=p1MeasureFw/parameter={deviceModelName}/value\nfirmwareExtractionFunction
+  note right indServ
+    }
+  end note
+  note right indServ
+    ELSE {
+  end note
+  note right indServ
+    Adds deviceModelName as parameterName
+    to [Parameter] of the p1MeasureFw
+    Function and firmwareExtractionFunction
+    as corresponding parameterValue.
+  end note
+  indServ -> DC: /function=p1MeasureFw/parameter={deviceModelName}\n{deviceModelName,firmwareExtractionFunction}
+  note right indServ
+    }
+  end note
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

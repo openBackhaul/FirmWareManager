@@ -1,0 +1,26 @@
+@startuml listExistingServers
+skinparam responseMessageBelowArrow true
+
+title
+  listExistingServers
+end title
+
+participant "requestor\n" as requestor
+participant "listExistingServers\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Reads [Server]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [Server]
+  deactivate RunDS
+
+requestor <-- indServ: [ { serverLabel,\nuserName,\npassword,\nsshKey } ]
+deactivate indServ
+
+@enduml

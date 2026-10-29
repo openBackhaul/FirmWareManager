@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: p1ExtractSeparatedAppToo
+  version: 1.0.0
+
+x-javascript-interface:
+  p1ExtractSeparatedAppToo:
+    summary: 'Extracts activatable firmware components of classes package and application software'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - updated-mount-name
+              - control-construct
+            properties:
+              updated-mount-name:
+                type: string
+              control-construct:
+                type: object
+    output:
+      success:
+        description: 'Firmware extracted'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'ok'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

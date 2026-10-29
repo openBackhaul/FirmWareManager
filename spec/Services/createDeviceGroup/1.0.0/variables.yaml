@@ -1,0 +1,60 @@
+create-device-group:
+  type: object
+  required:
+    - deviceGroupLabel
+    - deviceModelName
+    - purgeDate
+  properties:
+    deviceGroupLabel:
+      type: string
+      description: >
+        'from [/requestBody/device-group-label]'
+    deviceModelName:
+      type: string
+      description: >
+        'from [/requestBody/device-model-name]'
+    purgeDate:
+      type: string
+      description: >
+        'from [/requestBody/purge-date]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-group:
+            type: array
+            description: >
+              'Create new instance'
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  description: >
+                    'from [deviceGroupLabel]'
+                device-model:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+                purge-date:
+                  type: string
+                  description: >
+                    'from [purgeDate] if given'
+                target-firmware-list:
+                  type: array
+                  description: >
+                    'from [] empty list'
+                device:
+                  type: array
+                  description: >
+                    'from [] empty list'

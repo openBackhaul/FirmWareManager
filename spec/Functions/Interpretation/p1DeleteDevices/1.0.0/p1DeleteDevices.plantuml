@@ -1,0 +1,191 @@
+@startuml p1DeleteDevices
+skinparam responseMessageBelowArrow true
+
+title
+  p1DeleteDevices
+end title
+
+participant "requestor\n" as requestor
+participant "p1DeleteDevices\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+database "OperationalDS" as OpDS
+database "DomainController" as DC
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Reads maximumPermissibleAge
+    from Parameters
+  end note
+    indServ -> DC
+    activate DC
+    indServ <-- DC: maximumPermissibleAge
+    deactivate DC
+
+  note over indServ
+    expirationTime =
+      currentTime -
+        maximumPermissibleAge
+  end note
+
+  loop for each ODS:Device
+    note over indServ
+      Checks, whether lastUpdate
+      elder than expirationTime
+    end note
+    note over indServ
+      Reads ODS:Device
+    end note
+    indServ -> OpDS
+    activate OpDS
+    indServ <-- OpDS: {mountName, deviceModel, lastUpdate ...}
+    deactivate OpDS
+    note over indServ
+      IF lastUpdate elder
+      than expirationTime:
+    end note
+    note right indServ
+      THEN {
+    end note
+    note right indServ
+      Deletes obsolete ODS:Devices
+    end note
+    indServ -> OpDS
+    activate OpDS
+    indServ <-- OpDS
+    deactivate OpDS
+    note right indServ
+      Creates a new entry in [obsoleteDevice]
+      from mountName and deviceModel of
+      ODS:Device
+    end note
+    note right indServ
+      }
+    end note
+  end loop
+  note over indServ
+    IF [obsoleteDevice].length==0:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: ok
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Locks RunningDS
+  end note
+  indServ -X RunDS
+  activate RunDS
+  note over indServ
+    Locks CandidateDS
+  end note
+  indServ -X CanDS
+  activate CanDS
+  note over indServ
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  indServ -> RunDS
+  RunDS -/ CanDS
+
+  loop for each obsoleteDevice
+    note over indServ
+      Deletes obsolete CDS:Device
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+    note over indServ #White
+      Proceeds with cleaning up
+      references even if obsolete
+      Device would not have existed
+    end note
+
+    note over indServ
+      Removes references
+      towards deleted Device
+    end note
+    loop for each DeviceGroup
+
+      note over indServ
+        Deletes obsoleteDevice from
+        all DeviceGroup.[device]
+      end note
+      indServ -> CanDS
+      indServ <-- CanDS
+      note right indServ
+        IF obsoleteDevice referenced
+            in DeviceGroup.[device]:
+      end note
+      note right indServ
+        THEN {
+      end note
+      note right indServ
+        Remove obsoleteDevice:mountName
+        from DeviceGroup:[device]
+      end note
+      indServ -> CanDS
+      indServ <-- CanDS
+      note over indServ
+        }
+      end note
+    end loop
+  end loop
+
+  note over indServ
+    Triggers Validation
+  end note
+  indServ -> valiMan: triggerFunction==p1DeleteDevices
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  indServ <-- valiMan: result,\nreason
+  deactivate valiMan
+  note over indServ
+    IF result==failed:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: ok
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  indServ -> CanDS
+  CanDS -\ RunDS
+  note over indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  deactivate CanDS
+  note over indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  deactivate RunDS
+
+requestor <-- indServ: ok
+deactivate indServ
+
+@enduml

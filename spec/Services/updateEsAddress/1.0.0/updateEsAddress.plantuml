@@ -1,0 +1,66 @@
+@startuml updateEsAddress
+skinparam responseMessageBelowArrow true
+
+title
+  updateEsAddress
+end title
+
+participant "requestor\n" as requestor
+participant "updateEsAddress\n" as indServ
+participant "AA\n" as AA
+database "DomainController" as DC
+
+requestor -> indServ: { esName,\n<color:LightGray>url,\n<color:LightGray>apiKey,\n<color:LightGray>indexAlias,\n<color:LightGray>serviceRecordsPolicy,\n<color:LightGray>operationalState,\n<color:LightGray>lifeCycleState</color> }
+activate indServ
+
+  note over indServ #White
+    Authenticates administrator
+    like existing OAM services
+  end note
+  indServ -> AA
+  activate AA
+  indServ <-- AA
+  deactivate AA
+  note over indServ
+    IF authentication failed:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 401,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Checks whether given
+    EsAddress exists
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC
+  deactivate DC
+  note over indServ
+    IF EsAddress NOT existing:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 404,\nErrorMessage2 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Uses provided attributes
+    for updating EsAddress
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC
+  deactivate DC
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

@@ -1,0 +1,75 @@
+delete-firmware-resource:
+  type: object
+  required:
+    - firmwareResourceName
+    - firmwareResourceVersion
+  properties:
+    firmwareResourceName:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-name]'
+    firmwareResourceVersion:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-version]'
+
+    combination:
+      type: string
+      description: >
+        'from [firmwareResourceName + {,} + firmwareResourceVersion]'
+    targetFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group=*/target-firmware-list]'
+    label:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group=*/label]'
+    referencingObject:
+      type: array
+      description: >
+        'from [referencingObject.push(label) IF (targetFirmwareList[i].resource)==combination]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-model:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                approval:
+                  type: array
+                  description: >
+                    'delete instance'
+                  items:
+                    type: string
+                    description: >
+                      'find [combination]'
+          firmware-resource:
+            type: array
+            description: >
+              'delete instance'
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >
+                    'find [firmwareResourceName]'
+                version:
+                  type: string
+                  description: >
+                    'find [firmwareResourceVersion]'

@@ -1,0 +1,21 @@
+openapi: 3.0.0
+info:
+  title: p1TrimHistoricalErrorList
+  version: 1.0.0
+
+x-javascript-interface:
+  p1TrimHistoricalErrorList:
+    summary: 'Manages the length of historicalErrorList'
+    output:
+      success:
+        description: 'historicalErrorList managed'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'ok'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

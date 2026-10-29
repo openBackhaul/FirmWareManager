@@ -1,0 +1,31 @@
+﻿# listExistingDeviceGroups
+
+Returns list of existing DeviceGroups.  
+Service is for supporting the selection among existing DeviceGroups.  
+It does not provide detailed information about DeviceGroups.  
+
+## Diagram
+
+<p align="center">
+  <img src="./listExistingDeviceGroups.png" alt="listExistingDeviceGroups diagram" width="250" />
+</p>
+
+## Interface
+
+Please find a detailed description of the interface in the [openAPI specification](../../../FirmWareManager.yaml).  
+
+## Variables
+
+./.  
+
+## Error Codes
+
+./.  
+
+## Parameters
+
+./.  
+
+## NPM Module
+
+[onf-core-model-ap](https://www.npmjs.com/package/onf-core-model-ap) to be complemented.  

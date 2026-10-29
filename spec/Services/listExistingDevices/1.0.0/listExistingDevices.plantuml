@@ -1,0 +1,26 @@
+@startuml listExistingDevices
+skinparam responseMessageBelowArrow true
+
+title
+  listExistingDevices
+end title
+
+participant "requestor\n" as requestor
+participant "listExistingDevices\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Reads [Devices]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [Devices]
+  deactivate RunDS
+
+requestor <-- indServ: [mountName]
+deactivate indServ
+
+@enduml

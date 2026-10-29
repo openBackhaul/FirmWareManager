@@ -1,0 +1,42 @@
+@startuml listDeviceGroupsWithoutTargetFirmware
+skinparam responseMessageBelowArrow true
+
+title
+  listDeviceGroupsWithoutTargetFirmware
+end title
+
+participant "requestor\n" as requestor
+participant "listDeviceGroupsWithoutTargetFirmware\n" as indServ
+database "RunningDS" as RunDS
+
+requestor -> indServ
+activate indServ
+
+  loop for each DeviceGroup
+    note over indServ
+      Reads DeviceGroup
+    end note
+    indServ -> RunDS
+    activate RunDS
+    indServ <-- RunDS: DeviceGroup
+    deactivate RunDS
+    note over indServ
+      IF [targetFirmwareList].length NOT > 0
+    end note
+    note left indServ
+      THEN {
+    end note
+    note left indServ
+      Appends label of
+      DeviceGroup to
+      [deviceGroupList]
+    end note
+    note left indServ
+      }
+    end note
+  end loop
+
+requestor <-- indServ: [deviceGroupList]
+deactivate indServ
+
+@enduml

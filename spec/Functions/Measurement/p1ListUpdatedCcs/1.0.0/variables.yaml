@@ -1,0 +1,104 @@
+listUpdatedCcs:
+  type: object
+  required:
+    - parameters
+    - mwdiEsClient
+    - lastExaminationTime
+  properties:
+    parameters:
+      type: object
+      description: >
+        '! simplified representation !
+        from [/requestBody/parameters]'
+      properties:
+        parameter:
+          type: array
+          x-key: parameter-name
+          items:
+            type: object
+            properties:
+              parameter-name:
+                type: string
+              value:
+                type: string
+    mwdiEsClient:
+      type: object
+      description: >
+        'from [/requestBody/mwdi-es-client]'
+      required:
+        - url
+        - api-key
+        - index-alias
+        - operational-state
+        - life-cycle-state
+      properties:
+        url:
+          type: string
+        api-key:
+          type: string
+        index-alias:
+          type: string
+        service-records-policy:
+          type: string
+        operational-state:
+          type: string
+        life-cycle-state:
+          type: string
+    lastExaminationTime:
+      type: string
+      description: >
+        'from [/requestBody/last-examination-time]
+        later overwritten by max( [lastExaminationTime], ( [currentTime]-[maxAge] ) )'
+
+    currentTime:
+      type: string
+      description: 'Current system time in the format yyyy-mm-ddThh:mm:ss+hh:mm'
+      pattern: '^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})((\.[0-9]{1,}){0,1})(Z|[\+\-][0-9]{2}:[0-9]{2})$'
+    examinationTime:
+      type: string
+      description: >
+        'from [currentTime]'
+
+    errorMessage:
+      type: string
+      description: >
+        'from {attribute value is not valid} IF [lastExaminationTime] > [currentTime]
+        from {connection to MWDI ES failed} IF [mwdiEsClient] invalid
+        from {ElasticSearch read error} IF [mwdiEsClient] exists, but does not return any data
+        from {metadataTable not found in MWDI} IF [mwdiEsClient] returns data, but [metaData] could not be found or is invalid'
+
+    metaDataTablePath:
+      type: string
+      description: >
+        'from [/parameters/parameter=metaDataTablePath/value]'
+    metaData:
+      type: array
+      x-key: mount-name
+      description: >
+        'from [ [/mwdiEsClient/url][metaDataTablePath] ]'
+      items:
+        type: object
+        description: '! simplified representation !'
+        properties:
+          mount-name:
+            type: string
+            description: >
+              'Identifier of the device at the Controller
+              from [ [/mwdiEsClient/url][metaDataTablePath]/device-status-metadata[*]/mount-name ]'
+          last-successful-complete-control-construct-update-time:
+            type: string
+            description: >
+              'Timestamp of the last time, when the controlConstruct was successfully updated completely
+              from [ [/mwdiEsClient/url][metaDataTablePath]/device-status-metadata[*]/last-successful-complete-control-construct-update-time ]'
+
+    maxAge:
+      type: string
+      description: >
+        'from [/parameters/parameter=maxAge/value]'
+
+    updatedMountNames:
+      type: array
+      items:
+        type: string
+        description: >
+          'from [/metaData=*/mount-name] IF [/metaData=*/last-successful-complete-control-construct-update-time] > [lastExaminationTime]'

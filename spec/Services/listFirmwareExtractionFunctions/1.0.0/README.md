@@ -1,0 +1,30 @@
+# listFirmwareExtractionFunctions
+
+Lists names of MeasurementFunctions for extracting firmware information from the devices' ControlConstruct.  
+Filters list of Functions for description==firmwareExtractionFunction.  
+
+## Diagram
+
+<p align="center">
+  <img src="./listFirmwareExtractionFunctions.png" alt="listFirmwareExtractionFunctions diagram" width="250" />
+</p>
+
+## Interface
+
+Please find a detailed description of the interface in the [openAPI specification](../../../FirmWareManager.yaml).  
+
+## Variables
+
+./.  
+
+## Error Codes
+
+./.  
+
+## Parameters
+
+./.  
+
+## NPM Module
+
+[onf-core-model-ap](https://www.npmjs.com/package/onf-core-model-ap) to be complemented.  

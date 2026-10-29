@@ -1,0 +1,146 @@
+@startuml p1MeasureDomain
+skinparam responseMessageBelowArrow true
+
+title
+  p1MeasureDomain
+end title
+
+participant "requestor\n" as requestor
+participant "p1MeasureDomain\n" as indServ
+participant "p1ListUpdatedCcs\n" as listCcs
+participant "p1MeasureDevice\n" as updateCc
+
+database "OperationalDS" as OpDS
+database "DomainController" as DC
+database "MWDI ES" as Mwdi
+database "ErrorList" as hEL
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Updates OperationalDS
+  end note
+
+  note over indServ
+    Reads own parameters
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC: listUpdatedCcsFunctionName,\nmeasureDeviceFunctionName,\nmwdiEsName
+  deactivate DC
+
+  note over indServ
+    Composes {parameters} of
+    listUpdatedCcsFunction
+  end note
+  note over indServ
+    Reads parameters of
+    listUpdatedCcsFunction
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC: maxAge,\nmetaDataTablePath
+  deactivate DC
+  note over indServ
+    Creates {parameters} for
+    listUpdatedCcsFunction
+  end note
+
+  note over indServ
+    Reads MWDI ES address
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC: {mwdiEsClient}
+  deactivate DC
+
+  note over indServ
+    Derive lastExaminationTime
+    from OperationalDS
+  end note
+  indServ -> OpDS
+  activate OpDS
+  indServ <-- OpDS: lastMeasurementTime
+  deactivate OpDS
+  note over indServ
+    lastExaminationTime=
+      lastMeasurementTime
+  end note
+
+  note over indServ
+    Get list of mountNames to
+    be updated in OperationalDS
+  end note
+  indServ -> listCcs: {parameters},\n{mwdiEsClient},\nlastExaminationTime
+  activate listCcs
+    note over listCcs
+      Lists CCs that are
+      updated in MWDI
+    end note
+  indServ <-- listCcs: [updatedMountNames],\nexaminationTime,\nerrorMessage
+  deactivate listCcs
+  note over indServ
+    IF errorMessage
+  end note
+  note right indServ
+    THEN {
+  end note
+  indServ -> hEL: erroredFunction=listUpdatedCcsFunctionName,\nerrorMessage
+  requestor <-- indServ: ok
+  note right indServ
+    }
+  end note
+
+  group partially parallel execution of each updatedMountName
+
+    note over indServ
+      Reads updated
+      controlConstruct
+      from MWDI
+    end note
+    indServ -> Mwdi: mwdiEsClient://control-construct={updatedMountName}
+    activate Mwdi
+    indServ <-- Mwdi: controlConstruct
+    deactivate Mwdi
+    note over indServ
+      IF failed OR
+        controlConstruct=={} or null:
+    end note
+    note right indServ
+      THEN {
+    end note
+    indServ -> hEL: erroredFunction=p1MeasureDomain,\nerrorMessage
+    note right indServ
+      }
+    end note
+
+    note over indServ
+      Hands over for updating
+      device data in OperationalDS
+    end note
+    indServ -> updateCc: updatedMountName,\ncontrolConstruct
+    activate updateCc
+      note over updateCc
+        Updates Device
+        in OperationalDS
+      end note
+
+    indServ <-- updateCc
+    deactivate updateCc
+  end group updatedMountNames
+
+  note over indServ
+    Stores examinationTime
+    to OperationalDS
+  end note
+  note over indServ
+    lastMeasurementTime=
+      examinationTime
+  end note
+  indServ -> OpDS: lastMeasurementTime
+
+requestor <-- indServ: ok
+deactivate indServ
+
+@enduml

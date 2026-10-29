@@ -1,0 +1,163 @@
+@startuml measurement_overview
+skinparam responseMessageBelowArrow true
+
+title
+  Measurement Overview
+end title
+
+participant "requestor\n" as requestor
+participant "p1MeasureDomain\n" as indServ
+participant "p1ListUpdatedCcs\n" as listCcs
+participant "p1MeasureDevice\n" as updateCc
+participant "p1MeasureHw\n" as updateHw
+participant "<i>functionName</i>\n" as extractHw
+participant "p1MeasureFw\n" as updateFw
+participant "p1Extract\nActivatable" as extractAct
+participant "<i>functionName</i>\n" as extractFw
+
+database "DomainController" as DC
+database "OperationalDS" as OpDS
+database "MWDI ES" as Mwdi
+
+requestor -> indServ
+activate indServ
+  note over indServ
+    Updates
+    OperationalDS
+  end note
+
+  indServ -> listCcs: {parameters},\n{mwdiEsClient},\nlastExaminationTime
+  activate listCcs
+    note over listCcs
+      Lists CCs that are
+      updated in MWDI
+    end note
+  indServ <-- listCcs: [updatedMountNames],\nexaminationTime
+  deactivate listCcs
+
+  group partially parallel execution for each updatedMountName
+    note over indServ
+      Reads CC
+    end note
+    indServ -> Mwdi: updatedMountName
+    activate Mwdi
+    indServ <-- Mwdi: CC
+    deactivate Mwdi
+
+    indServ -> updateCc: updatedMountName,\nCC
+    activate updateCc
+      note over updateCc
+        Updates Device
+        in OperationalDS
+      end note
+
+      note over updateCc
+        Updates hardware info
+      end note
+      updateCc -> updateHw: updatedMountName,\nCC
+      activate updateHw
+        note over updateHw
+          Updates device model
+          specific hardware
+          dependencies
+        end note
+
+        note over updateHw
+          Extracts deviceModel
+          from CC
+        end note
+        note over updateHw
+          Writes deviceModel
+          into OperationalDS
+        end note
+        updateHw -> OpDS: deviceModel
+
+        note over updateHw
+          Reads name of extraction
+          function from Parameters
+        end note
+        updateHw -> DC: deviceModel
+        activate DC
+        updateHw <-- DC: functionName
+        deactivate DC
+        note over updateFw #White
+          Parameters cannot define set of input parameters.
+          All functions get called with updatedMountName and CC.
+        end note
+
+        note over updateHw
+          Calls functionName to
+          extract hardware info
+          and update OperationalDS
+        end note
+        updateHw -> extractHw: updatedMountName,\nCC
+        activate extractHw
+          note over extractHw
+            Extracts hardware info
+            from CC and writes it
+            into OperationalDS
+          end note
+        updateHw <-- extractHw
+        deactivate extractHw
+      updateCc <-- updateHw
+      deactivate updateHw
+
+      note over updateCc
+        Updates firmware info
+      end note
+      updateCc -> updateFw: updatedMountName,\nCC
+      activate updateFw
+        note over updateFw
+          Updates device model
+          specific firmware
+          composition
+        end note
+
+        note over updateFw
+          Extracts deviceModel
+          from CC
+        end note
+
+        note over updateFw
+          Reads name of extraction
+          function from Parameters
+        end note
+        updateFw -> DC: deviceModel
+        activate DC
+        updateFw <-- DC: functionName
+        deactivate DC
+        note over updateHw #White
+          Parameters cannot define set of input parameters.
+          All functions get called with updatedMountName and CC.
+        end note
+
+        note over updateFw
+          Calls functionName to
+          extract firmware info
+          and update OperationalDS
+        end note
+        updateFw -> extractFw: updatedMountName,\nCC
+        activate extractFw
+          note over extractFw
+            Extracts firmware info
+            from CC and writes it
+            into OperationalDS
+          end note
+        updateFw <-- extractFw
+        deactivate extractFw
+      updateCc <-- updateFw
+      deactivate updateFw
+
+      note over updateCc
+        Updates lastUpdate
+      end note
+      updateCc -> OpDS: lastUpdate
+
+    indServ <-- updateCc
+    deactivate updateCc
+  end group updatedMountNames
+
+requestor <-- indServ
+deactivate indServ
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml listExistingEsAddresses
+skinparam responseMessageBelowArrow true
+
+title
+  listExistingEsAddresses
+end title
+
+participant "requestor\n" as requestor
+participant "listExistingEsAddresses\n" as indServ
+participant "AA\n" as AA
+database "DomainController" as DC
+
+requestor -> indServ
+activate indServ
+
+  note over indServ #White
+    Authenticates administrator
+    like existing OAM services
+  end note
+  indServ -> AA
+  activate AA
+  indServ <-- AA
+  deactivate AA
+  note over indServ
+    IF authentication failed:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 401,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Reads [EsAddress]
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC: [EsAddress]
+  deactivate DC
+
+requestor <-- indServ: [ { esName,\nurl,\napiKey,\nindexAlias,\nserviceRecordsPolicy,\noperationalState,\nlifeCycleState } ]
+deactivate indServ
+
+@enduml

@@ -1,0 +1,50 @@
+update-device-group:
+  type: object
+  required:
+    - deviceGroupLabel
+    - purgeDate
+  properties:
+    deviceGroupLabel:
+      type: string
+      description: >
+        'from [/requestBody/device-group-label]'
+    purgeDate:
+      type: string
+      description: >
+        'from [/requestBody/purge-date]'
+
+    deviceModel:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group={deviceGroupLabel}/device-model]'
+    defaultDeviceGroup:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-model={deviceModel}/default-device-group]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-group:
+            type: array
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  enum:
+                    - {deviceGroupLabel}
+                purge-date:
+                  type: string
+                  description: >
+                    'from [purgeDate] if given'

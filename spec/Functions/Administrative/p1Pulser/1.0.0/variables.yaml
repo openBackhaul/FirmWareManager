@@ -1,0 +1,70 @@
+pulser:
+  type: object
+  properties:
+
+    functionName:
+      type: string
+      enum:
+        - 'p1Pulser'
+
+    pulser:
+      type: array
+      description: >
+        'from [/domain-controller/pulser]'
+      items:
+        type: object
+        required:
+          - target-function
+          - is-activated
+          - period-length
+        properties:
+          target-function:
+            type: string
+          is-activated:
+            type: boolean
+          period-length:
+            type: integer
+          next-time:
+            type: string
+            description: >
+              'from nextTime'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+          ending-time:
+            type: string
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+    currentTime:
+      type: string
+      description: 'Current system time in the format yyyy-mm-ddThh:mm:ss+hh:mm'
+      pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+    nextTime:
+      type: string
+      description: >
+        'from [/pulser=*/next-time]
+        overwritten by [ currentTime + [/pulser=*/period-length] ] IF currentTime>nextTime'
+      pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+
+domain-controller:
+  type: object
+  description: >
+    'instantiate DomainController object'
+
+  properties:
+    historical-error-list:
+      type: array
+      items:
+        type: object
+        properties:
+          errored-function:
+            type: string
+            description: >
+              'from [functionName]'
+          error-message:
+            type: string
+            description: >
+              'from
+                  {/pulser=*/target-function} could not be reached'
+          timestamp:
+            type: string
+            description: >
+              'from current system time'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'

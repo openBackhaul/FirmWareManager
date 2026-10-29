@@ -1,0 +1,76 @@
+@startuml p1PurgeDeviceGroups
+skinparam responseMessageBelowArrow true
+
+title
+  p1PurgeDeviceGroups
+end title
+
+participant "requestor\n" as requestor
+participant "p1PurgeDeviceGroups\n" as indServ
+participant "/deleteDeviceGroup\n" as delGroup
+
+database "RunningDS" as RunDS
+database "DomainController" as DC
+database "ErrorList" as hEL
+
+requestor -> indServ
+activate indServ
+
+  note over indServ
+    Reads own parameters
+  end note
+  indServ -> DC
+  activate DC
+  indServ <-- DC: deleteDeviceGroupServiceName
+  deactivate DC
+
+  loop for each DeviceGroup
+    note over indServ
+      Reads DeviceGroup
+    end note
+    indServ -> RunDS
+    activate RunDS
+    indServ <-- RunDS: {label, purgeDate ... }
+    deactivate RunDS
+
+    note over indServ
+      IF purgeDate exceeded:
+    end note
+    note over indServ
+      THEN {
+    end note
+
+  note right indServ
+    Deletes outdated DeviceGroup by
+    calling deleteDeviceGroupService
+  end note
+    indServ -> delGroup: label
+    activate delGroup
+      note over delGroup
+        Deletes DeviceGroup
+        Adds Devices to default DeviceGroup
+        Updates [firmwareList] of Devices
+      end note
+    indServ <-- delGroup
+    deactivate delGroup
+
+    note right indServ
+      IF failed to call
+    end note
+    note right indServ
+      THEN {
+    end note
+    indServ -> hEL: erroredFunction=p1PurgeDeviceGroups,\nerrorMessage
+    note right indServ
+      }
+    end note
+
+    note over indServ
+      }
+    end note
+  end loop
+
+requestor <-- indServ: ok
+deactivate indServ
+
+@enduml

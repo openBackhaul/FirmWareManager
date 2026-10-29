@@ -1,0 +1,196 @@
+@startuml updateTargetFirmware
+skinparam responseMessageBelowArrow true
+
+title
+  updateTargetFirmware
+end title
+
+participant "requestor\n" as requestor
+participant "updateTargetFirmware\n" as indServ
+participant "p1ValidationManager\n" as valiMan
+database "CandidateDS" as CanDS
+database "RunningDS" as RunDS
+
+requestor -> indServ: { deviceGroupLabel,\nfirmwareResourceName,\nfirmwareResourceVersion,\n<color:LightGray>firmwareStatus</color> }
+activate indServ
+
+  note over indServ
+    Checks whether given
+    deviceGroupLabel exists
+    by reading [targetFirmwareList]
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: [targetFirmwareList]
+  deactivate RunDS
+  note over indServ
+    IF DeviceGroup NOT existing:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 404,\nErrorMessage1 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Checks whether given combination
+    of firmwareResourceName and
+    firmwareResourceVersion actually
+    referenced in [targetFirmwareList]
+  end note
+  note over indServ
+    IF FirmwareResource NOT
+    in [targetFirmwareList]:
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: { 404,\nErrorMessage2 }
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Updates [targetFirmwareList]
+    and assures maximum one
+    firmware is active at a time
+  end note
+  note over indServ
+    IF firmwareStatus given:
+  end note
+  note over indServ
+    THEN {
+  end note
+  note right indServ
+    IF firmwareStatus==active:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    targetFirmwareList[*].status=stand-by
+  end note
+  note right indServ
+    }
+  end note
+  note right indServ
+    Update targetFirmware identified
+    by given firmwareResourceName and
+    firmwareResourceVersion by given
+    firmwareStatus
+  end note
+  note over indServ
+    }
+  end note
+
+  note over indServ
+    Replicates the contents of the
+    [updatedTargetFirmwareList]
+    into an [updatedFirmwareList]
+  end note
+
+  note over indServ
+    Locks RunningDS
+  end note
+  indServ -X RunDS
+  activate RunDS
+  note over indServ
+    Locks CandidateDS
+  end note
+  indServ -X CanDS
+  activate CanDS
+  note over indServ
+    Overwrites
+    CandidateDS
+    with RunningDS
+  end note
+  indServ -> RunDS
+  RunDS -/ CanDS
+
+  note over indServ
+    Replaces contents of the [targetFirmwareList]
+    at the given DeviceGroup by the contents of
+    the [updatedTargetFirmwareList]
+  end note
+  indServ -> CanDS
+  indServ <-- CanDS
+
+  note over indServ
+    Replaces contents of the [firmwareList]
+    at the Devices referenced in [devices]
+    of the given DeviceGroup by the contents
+    of [updatedFirmwareList]
+  end note
+  note right indServ
+    Reads [device] at
+    given DeviceGroup
+  end note
+  indServ -> CanDS
+  indServ <-- CanDS: [device]
+  loop for each referenced Device
+    note right indServ
+      Delete existing contents
+      of [firmwareList]
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+    note right indServ
+      Write contents of [updatedFirmwareList]
+      into [firmwareList] at the Device
+    end note
+    indServ -> CanDS
+    indServ <-- CanDS
+  end loop
+
+  note over indServ
+    Triggers Validation
+  end note
+  indServ -> valiMan: triggerFunction==updateTargetFirmware
+  activate valiMan
+    note over valiMan
+      Validates
+    end note
+  indServ <-- valiMan: result,\nreason
+  deactivate valiMan
+  note over indServ
+    IF result==failed:
+  end note
+  note right indServ
+    THEN {
+  end note
+  note right indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  note right indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  requestor <-- indServ: { 462,\nErrorMessage3 }
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    Overwrites RunningDS
+    with CandidateDS
+  end note
+  indServ -> CanDS
+  CanDS -\ RunDS
+  note over indServ
+    Unlocks CandidateDS
+  end note
+  indServ -X CanDS
+  deactivate CanDS
+  note over indServ
+    Unlocks RunningDS
+  end note
+  indServ -X RunDS
+  deactivate RunDS
+
+requestor <-- indServ: 204
+deactivate indServ
+
+@enduml

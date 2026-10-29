@@ -1,0 +1,76 @@
+@startuml p1MeasureFw
+skinparam responseMessageBelowArrow true
+
+title
+  p1MeasureFw
+end title
+
+participant "requestor\n" as requestor
+participant "p1MeasureFw\n" as indServ
+participant "<i>extractionFunctionName</i>\n" as extrFunc
+
+database "DomainController" as DC
+database "ErrorList" as hEL
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Extracts deviceModelName
+    from CC
+  end note
+
+  note over indServ
+    Reads name of function for
+    extracting firmware info
+    from Parameters
+  end note
+  indServ -> DC: deviceModelName
+  activate DC
+  indServ <-- DC: extractionFunctionName
+  deactivate DC
+  note over indServ
+    IF failed OR
+      extractionFunctionName==null:
+  end note
+  note right indServ
+    THEN {
+  end note
+  indServ -> hEL: erroredFunction="p1MeasureFw",\nerrorMessage
+  requestor <-- indServ: ok
+  note right indServ
+    }
+  end note
+  note over indServ
+    IF extractionFunctionName=="":
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: ok
+  note left indServ
+    }
+  end note
+
+  note over extrFunc #White
+    As it is not possible to define specific input parameters.
+    All functions get called with updatedMountName and CC.
+  end note
+
+  note over indServ
+    Calls extractionFunctionName
+  end note
+  indServ -> extrFunc: updatedMountName,\nCC
+  activate extrFunc
+    note over extrFunc
+      Extracts firmware info
+      from CC and writes it
+      into OperationalDS
+    end note
+  indServ <-- extrFunc
+  deactivate extrFunc
+
+requestor <-- indServ: ok
+deactivate indServ
+
+@enduml
