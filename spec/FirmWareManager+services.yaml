@@ -152,7 +152,7 @@ servers:
     - description: Without TLS layer
       local-protocol: http
       own-ip-address: 127.0.0.1
-      own-tcp-port:
+      own-tcp-port: 4036
       uuid: fwm-1-0-0-tcp-s-000
 
 
@@ -182,7 +182,7 @@ clients:
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port:
+      tcp-port: 4036
       uuid: fwm-1-0-0-tcp-c-or-1-0-0-000
     operation-clients:
       own-oam:
@@ -201,7 +201,7 @@ clients:
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port:
+      tcp-port: 4036
       uuid: fwm-1-0-0-tcp-c-nr-1-0-0-000
     operation-clients:
       own-oam:
