@@ -3,6 +3,8 @@
 Returns list of configured Pulsers.  
 Service provides detailed information.  
 
+The periodLength parameter defines the time period in seconds.  
+
 ## Diagram
 
 <p align="center">

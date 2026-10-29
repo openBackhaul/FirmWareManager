@@ -25,7 +25,7 @@ domain-controller:
           error-message:
             type: string
             description: >
-              'from 
+              'from
                   firmware management stopped as ElasticSearch addresses could not be loaded
                 OR
                   firmware management stopped as initial DomainController data or StartupDS could not be loaded'

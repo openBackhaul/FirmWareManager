@@ -42,7 +42,7 @@ activate indServ
     THEN {
   end note
   note right indServ
-    Load name of the hardware 
+    Load name of the hardware
     update function from [Parameter]
   end note
   indServ -> DC: /function=updateDeviceModel/parameter=updateHwFunction/value
@@ -88,7 +88,7 @@ activate indServ
     THEN {
   end note
   note right indServ
-    Load name of the firmware 
+    Load name of the firmware
     update function from [Parameter]
   end note
   indServ -> DC: /function=updateDeviceModel/parameter=updateFwFunction/value

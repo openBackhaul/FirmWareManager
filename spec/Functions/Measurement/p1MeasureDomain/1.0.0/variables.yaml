@@ -62,7 +62,7 @@ measureDomain:
       type: string
       description: >
         'from [{listUpdatedCcsFunctionName}] OR
-          from 
+          from
             - connection to MWDI ES failed
             - ElasticSearch read error
             - controlConstruct not found in MWDI

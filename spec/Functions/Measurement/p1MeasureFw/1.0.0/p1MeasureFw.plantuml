@@ -30,7 +30,7 @@ activate indServ
   indServ <-- DC: extractionFunctionName
   deactivate DC
   note over indServ
-    IF failed OR 
+    IF failed OR
       extractionFunctionName==null:
   end note
   note right indServ

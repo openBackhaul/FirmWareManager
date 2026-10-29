@@ -28,7 +28,7 @@ activate indServ
 
   note over indServ
     expirationTime =
-      currentTime - 
+      currentTime -
         maximumPermissibleAge
   end note
 
@@ -76,7 +76,7 @@ activate indServ
   requestor <-- indServ: ok
   note left indServ
     }
-  end note  
+  end note
 
   note over indServ
     Locks RunningDS

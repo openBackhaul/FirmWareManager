@@ -61,7 +61,7 @@ domain-controller:
           error-message:
             type: string
             description: >
-              'from 
+              'from
                   {/pulser=*/target-function} could not be reached'
           timestamp:
             type: string

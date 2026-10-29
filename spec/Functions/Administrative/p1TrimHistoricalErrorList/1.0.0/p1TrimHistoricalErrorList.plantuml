@@ -12,7 +12,7 @@ database "DomainController" as DC
 requestor -> p1Trim
 activate p1Trim
   note over p1Trim
-    Manages length of 
+    Manages length of
     historicalErrorList
   end note
 

@@ -56,7 +56,7 @@ activate indServ
   requestor <-- indServ: ok
   note left indServ
     }
-  end note  
+  end note
 
   note over indServ
     Locks RunningDS
@@ -113,7 +113,7 @@ activate indServ
     end note
     indServ -> CanDS: mountName
     indServ <-- CanDS
- 
+
     note over indServ
       Transfers content of
       [targetFirmwareList]

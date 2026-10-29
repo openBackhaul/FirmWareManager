@@ -104,7 +104,7 @@ activate indServ
     indServ <-- Mwdi: controlConstruct
     deactivate Mwdi
     note over indServ
-      IF failed OR 
+      IF failed OR
         controlConstruct=={} or null:
     end note
     note right indServ

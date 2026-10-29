@@ -17,7 +17,7 @@ activate valiMan
 
   note over valiMan
     Reads [sequence] from
-    [ValidationSequence] 
+    [ValidationSequence]
     at DomainController
   end note
   valiMan -> DC:  .../validation-sequence={triggerFunction}/sequence

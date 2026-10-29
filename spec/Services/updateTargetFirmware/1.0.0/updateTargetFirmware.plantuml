@@ -86,7 +86,7 @@ activate indServ
   end note
 
   note over indServ
-    Replicates the contents of the 
+    Replicates the contents of the
     [updatedTargetFirmwareList]
     into an [updatedFirmwareList]
   end note
@@ -119,7 +119,7 @@ activate indServ
 
   note over indServ
     Replaces contents of the [firmwareList]
-    at the Devices referenced in [devices] 
+    at the Devices referenced in [devices]
     of the given DeviceGroup by the contents
     of [updatedFirmwareList]
   end note

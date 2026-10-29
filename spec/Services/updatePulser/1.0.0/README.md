@@ -2,6 +2,8 @@
 
 Updates an existing Pulser definition.  
 
+The periodLength parameter defines the time period in seconds.  
+
 ## Diagram
 
 <p align="center">

@@ -8,7 +8,7 @@ The FirmWareManager belongs to the Automated Network Management.
 
 ## Description
 
-The FWM is an autonomous maintenance function that ensures that the generically specified firmware version is active on all individual devices.  
+The FWM is an autonomous maintenance function that ensures that the right generically specified firmware version is active on all individual devices.  
 It follows the design pattern for AutomationApplications.  
 
 ## Relevance

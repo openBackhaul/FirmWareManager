@@ -1,30 +1,19 @@
 # FirmWareManager Specification
 
-## Design Aspects
+## Services
 
-The documents linked in this section are NOT part of the official specification.  
-They might be helpful for understanding the overall design and functionality of the FirmWareManager, but they weren't updated regularly during the specification process.  
+### High Level Specification
 
-External design aspects:  
+- [serviceList](./FirmWareManager+services.yaml)
+- [forwardingList](./FirmWareManager+forwardings.yaml)
+- [profileList](./FirmWareManager+profiles.yaml)
+- [profileInstanceList](./FirmWareManager+profileInstances.yaml)
 
-- [Integration with Tools](https://github.com/openBackhaul/_FirmwareManagement/tree/develop/components/)
+### Open API specification (Swagger)
 
-Internal design aspects:  
+- [FirmWareManager v1.0](./FirmWareManager.yaml)  
 
-- [AutomationArchitecture](./Functions/diagrams/AutomationArchitecture/AutomationArchitecture.png)
-- [User Stories](./additionalDocumentation/UserStories/)
-- [Concepts of Target Firmware](./additionalDocumentation/ConceptsOfTargetFirmware/)
-- [Measurement Overview](./additionalDocumentation/Measurement/measurement_overview.png)
-
-## Detailed Specification
-
-### API
-
-#### Open API specification (Swagger)
-
-  [FirmWareManager](./FirmWareManager.yaml)  
-
-#### ServiceList
+### Service Modules
 
 - **Documenting firmware approvals (Engineering)**
   - Preparing servers
@@ -87,31 +76,22 @@ Internal design aspects:
     - [/list-existing-pulsers](./Services/listExistingPulsers/1.0.0/)
     - [/update-pulser](./Services/updatePulser/1.0.0/)
 
-### Initial Data
+## Functions
 
-#### configFile
+### Administrative
 
-- configFile (JSON)
-  - [FirmWareManager+config](./InitialData/configFile/FirmWareManager+config.json)
+- Ramp-up application
+  - [p1ManageFirmware](./Functions/Administrative/p1ManageFirmware/1.0.0/)  
+  - [p1LoadEsAddresses](./Functions/Administrative/p1LoadEsAddresses/1.0.0/)
+  - [p1LoadParameters](./Functions/Administrative/p1LoadParameters/)  
+  - [p1ResolveEsAddress](./Functions/Administrative/p1ResolveEsAddress/)  
+  - [p1CreateDcFromStartupDS](./Functions/Administrative/p1CreateDcFromStartupDS/1.0.0/)
 
-- ProfileList and ProfileInstanceList
-  - _[do we still need this?]_
+- CyclicProcesses
+  - [p1Pulser](./Functions/Administrative/p1Pulser/1.0.0/)
+  - [p1TrimHistoricalErrorList](./Functions/Administrative/p1TrimHistoricalErrorList/1.0.0/)
 
-- ForwardingList
-  - _[do we still need this?]_
-
-#### Domain
-
-- Schema
-  - [Information Structure](./InitialData/Domain/Schema/)
-
-- Initial StartupDS
-  - [Initial StartupDS Structure](./InitialData/Domain/Startup/)  
-    Contains the configuration information that is directly attached to the DomainController and the persistent copy of the RunningDS (StartupDS).  
-
-### Functions
-
-#### Interpretation
+### Interpretation
 
 - Preparing devices
   - [p1CreateDevices](./Functions/Interpretation/p1CreateDevices/1.0.0/)
@@ -120,11 +100,11 @@ Internal design aspects:
 - Purging DeviceGroups
   - [p1PurgeDeviceGroups](./Functions/Interpretation/p1PurgeDeviceGroups/1.0.0/)
 
-#### Validation
+### Validation
 
-- _[there are four definitions, but in an early stage]_
+- _[future work]_
 
-#### Measurement
+### Measurement
 
 - [p1MeasureDomain](./Functions/Measurement/p1MeasureDomain/1.0.0/)
 - [p1ListUpdatedCcs](./Functions/Measurement/p1ListUpdatedCcs/1.0.0/)
@@ -136,23 +116,39 @@ Internal design aspects:
 - [p1ExtractSeparatedAppToo](./Functions/Measurement/p1ExtractSeparatedAppToo/1.0.0/)
 - [p1ExtractSeparatedBootWebOduToo](./Functions/Measurement/p1ExtractSeparatedBootWebOduToo/1.0.0/)
 
-#### Monitoring
+### Monitoring
 
 - _[future work]_
 
-#### Implementation
+### Implementation
 
 - _[future work]_
 
-#### Administrative
+## Initial Data
 
-- Kicking-off application
-  - [p1ManageFirmware](./Functions/Administrative/p1ManageFirmware/1.0.0/)  
-  - [p1LoadEsAddresses](./Functions/Administrative/p1LoadEsAddresses/1.0.0/)
-  - [p1LoadParameters](./Functions/Administrative/p1LoadParameters/)  
-  - [p1ResolveEsAddress](./Functions/Administrative/p1ResolveEsAddress/)  
-  - [p1CreateDcFromStartupDS](./Functions/Administrative/p1CreateDcFromStartupDS/1.0.0/)
+### configFile
 
-- CyclicProcesses
-  - [p1Pulser](./Functions/Administrative/p1Pulser/1.0.0/)
-  - [p1TrimHistoricalErrorList](./Functions/Administrative/p1TrimHistoricalErrorList/1.0.0/)
+- [configFile](./FirmWareManager+config.json)
+
+### Domain
+
+- [UML source](./InformationStructure/Schema/)
+- [openApi specification](./InformationStructure/Schema/openApiSpec/informationStructure.yaml)
+- [initial DomainController](./InformationStructure/initialData/domain-controller.json)
+
+## Further Design Aspects
+
+The documents linked in this section are NOT part of the official specification.  
+They might be helpful for understanding the overall design and functionality of the FirmWareManager, but they weren't updated regularly during the specification process.  
+
+External design aspects:  
+
+- [Integration with Tools](https://github.com/openBackhaul/_FirmwareManagement/tree/develop/components/)
+
+Internal design aspects:  
+
+- [AutomationArchitecture](./Functions/diagrams/AutomationArchitecture/AutomationArchitecture.png)
+- [High-Level Sequence Diagram](./diagrams/hl_sequence.png)
+- [User Stories](./additionalDocumentation/UserStories/)
+- [Concepts of Target Firmware](./additionalDocumentation/ConceptsOfTargetFirmware/)
+- [Measurement Overview](./additionalDocumentation/Measurement/measurement_overview.png)

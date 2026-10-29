@@ -7,12 +7,12 @@ end title
 
 ' Administration
 participant "/embedYourself\n" as embed
-participant "p1ManageFirmware\n" as p1ManaFw #LightBlue
-participant "p1LoadEsAddresses\n" as p1LEA #LightBlue
+participant "p1ManageFirmware\n" as p1ManaFw
+participant "p1LoadEsAddresses\n" as p1LEA
 participant "p1LoadParameters\n" as p1LP #White
 participant "p1ResolveEsAddress\n" as p1REA #White
-participant "p1CreateDomainController\nFromStartupDS" as p1CDCFS #LightBlue
-participant "p1Pulser\n" as p1Puls #LightBlue
+participant "p1CreateDomainController\nFromStartupDS" as p1CDCFS
+participant "p1Pulser\n" as p1Puls
 
 ' Interpretation
 participant "p1CreateDevices\n" as p1CreDev
@@ -34,7 +34,7 @@ participant "p1ExtractSeparatedNpuRauToo\n" as extractNpu
 participant "p1ExtractSeparatedAppToo\n" as extractApp
 participant "p1ExtractSeparatedBootWebOduToo\n" as extractBoot
 
-participant "p1TrimHistoricalErrorList\n" as p1TrimErrors #LightBlue
+participant "p1TrimHistoricalErrorList\n" as p1TrimErrors
 
 embed -> p1ManaFw
 activate p1ManaFw
@@ -86,7 +86,7 @@ activate p1ManaFw
 
   p1ManaFw <-- p1CDCFS
   deactivate p1CDCFS
-  
+
   p1ManaFw -> p1Puls
   activate p1Puls
     note over p1Puls
@@ -104,7 +104,7 @@ activate p1ManaFw
         p1CreDev -> p1ValMan
         activate p1ValMan
           note over p1ValMan
-            Orchestrates 
+            Orchestrates
             Validation of
             OperationalDS
           end note
@@ -123,7 +123,7 @@ activate p1ManaFw
         p1DelDev -> p1ValMan
         activate p1ValMan
           note over p1ValMan
-            Orchestrates 
+            Orchestrates
             Validation of
             OperationalDS
           end note
@@ -147,7 +147,7 @@ activate p1ManaFw
           delGroup -> p1ValMan
           activate p1ValMan
             note over p1ValMan
-              Orchestrates 
+              Orchestrates
               Validation of
               OperationalDS
             end note

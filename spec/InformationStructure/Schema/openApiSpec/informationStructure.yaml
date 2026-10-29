@@ -168,7 +168,7 @@ domain-controller:
             description: 'If true, triggering the targetFunction is activated'
           period-length:
             type: integer
-            description: 'Time period [in ms] between two trigger of the _targetFunction'
+            description: 'Time period [in seconds] between two trigger of the _targetFunction'
           next-time:
             type: string
             description: 'The earliest time at which the targetFunction will be triggered again. An initial value can be used to configure some future starting time. Format: yyyy-mm-ddThh:mm:ss+hh:mm'

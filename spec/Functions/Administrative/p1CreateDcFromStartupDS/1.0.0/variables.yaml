@@ -37,7 +37,7 @@ createDcFromStartupDS:
     errorMessage:
       type: string
       description: >
-        'from [/p1LoadParameters/output/error] OR 
+        'from [/p1LoadParameters/output/error] OR
                 - ElasticSearchClient not found in DomainController
                 - dataStoreUrl invalid
                 - ElasticSearch read error

@@ -4,6 +4,8 @@ Cyclically invokes functions of all categories.
 Both request and response must be without any body.  
 Configured through DomainController::Pulser.  
 
+The periodLength parameter defines the time period in seconds.  
+
 ## Diagram
 
 <p align="center">

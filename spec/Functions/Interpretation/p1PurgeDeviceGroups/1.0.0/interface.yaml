@@ -36,7 +36,7 @@ x-javascript-interface:
                     device-group-label:
                       type: string
                       description: >
-                        'from [/purgeDeviceGroups/documentedDeviceGroup/label] 
+                        'from [/purgeDeviceGroups/documentedDeviceGroup/label]
                                 IF [/purgeDeviceGroups/currentTime] > [/purgeDeviceGroups/documentedDeviceGroup/purge-date]'
           responses:
             '204':
