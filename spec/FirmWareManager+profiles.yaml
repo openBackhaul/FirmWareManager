@@ -24,26 +24,6 @@ profiles:
       static-value: string
       value-reference: string
 
-  - profile-name: 'FileProfile'
-    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-file-p-[0-9]{3}$'
-    capability:
-      file-identifier: string
-      file-description: string
-    configuration:
-      file-path: string
-      operation: string
-
-  - profile-name: 'IntegerProfile'
-    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-integer-p-[0-9]{3}$'
-    capability:
-      integer-name: string
-      purpose: string
-      unit: string
-      minimum: integer
-      maximum: integer
-    configuration:
-      integer-value: integer
-
   - profile-name: 'StringProfile'
     uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-string-p-[0-9]{3}$'
     capability:
@@ -54,13 +34,14 @@ profiles:
     configuration:
       string-value: string
 
-
-  - profile-name: 'RegexPatternMappingProfile'
-    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-mapping-p-[0-9]{3}$'
+  - profile-name: 'FunctionProfile'
+    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-function-p-[0-9]{3}$'
     capability:
-      mapping-name: string
-      purpose: string
+      function-name: string
+      function-description: string
+      parameter-list:
+        - parameter: _StringProfile
+          owner: {'platform', 'engineering', 'user'}
+      sub-function-list: [_FunctionProfile]
     configuration:
-      mapping-list:
-        - regex-string: string
-          map-to-string: string
+      is-active: boolean
