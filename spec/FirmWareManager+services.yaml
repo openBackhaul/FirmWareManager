@@ -93,52 +93,50 @@ servers:
           uuid: fwm-1-0-0-op-s-is-100
         - operation-name: /v1/delete-target-firmware
           uuid: fwm-1-0-0-op-s-is-110
-        - operation-name: /v1/embed-yourself
-          uuid: fwm-1-0-0-op-s-is-120
         - operation-name: /v1/list-device-groups-without-devices
-          uuid: fwm-1-0-0-op-s-is-130
+          uuid: fwm-1-0-0-op-s-is-120
         - operation-name: /v1/list-device-groups-without-target-firmware
-          uuid: fwm-1-0-0-op-s-is-140
+          uuid: fwm-1-0-0-op-s-is-130
         - operation-name: /v1/list-device-models-without-approvals
-          uuid: fwm-1-0-0-op-s-is-150
+          uuid: fwm-1-0-0-op-s-is-140
         - operation-name: /v1/list-existing-device-groups
-          uuid: fwm-1-0-0-op-s-is-160
+          uuid: fwm-1-0-0-op-s-is-150
         - operation-name: /v1/list-existing-device-models
-          uuid: fwm-1-0-0-op-s-is-170
+          uuid: fwm-1-0-0-op-s-is-160
         - operation-name: /v1/list-existing-devices
-          uuid: fwm-1-0-0-op-s-is-180
+          uuid: fwm-1-0-0-op-s-is-170
         - operation-name: /v1/list-existing-firmware-approvals
-          uuid: fwm-1-0-0-op-s-is-190
+          uuid: fwm-1-0-0-op-s-is-180
         - operation-name: /v1/list-existing-firmware-resources
-          uuid: fwm-1-0-0-op-s-is-200
+          uuid: fwm-1-0-0-op-s-is-190
         - operation-name: /v1/list-existing-servers
-          uuid: fwm-1-0-0-op-s-is-210
+          uuid: fwm-1-0-0-op-s-is-200
         - operation-name: /v1/list-firmware-extraction-functions
-          uuid: fwm-1-0-0-op-s-is-220
+          uuid: fwm-1-0-0-op-s-is-210
         - operation-name: /v1/list-hardware-extraction-functions
-          uuid: fwm-1-0-0-op-s-is-230
+          uuid: fwm-1-0-0-op-s-is-220
         - operation-name: /v1/list-incomplete-servers
-          uuid: fwm-1-0-0-op-s-is-240
+          uuid: fwm-1-0-0-op-s-is-230
         - operation-name: /v1/list-unknown-device-models
-          uuid: fwm-1-0-0-op-s-is-250
+          uuid: fwm-1-0-0-op-s-is-240
         - operation-name: /v1/provide-existing-device
-          uuid: fwm-1-0-0-op-s-is-260
+          uuid: fwm-1-0-0-op-s-is-250
         - operation-name: /v1/provide-existing-device-group
-          uuid: fwm-1-0-0-op-s-is-270
+          uuid: fwm-1-0-0-op-s-is-260
         - operation-name: /v1/remove-devices-from-device-group
-          uuid: fwm-1-0-0-op-s-is-280
+          uuid: fwm-1-0-0-op-s-is-270
         - operation-name: /v1/update-device-group
-          uuid: fwm-1-0-0-op-s-is-290
+          uuid: fwm-1-0-0-op-s-is-280
         - operation-name: /v1/update-device-model
-          uuid: fwm-1-0-0-op-s-is-300
+          uuid: fwm-1-0-0-op-s-is-290
         - operation-name: /v1/update-firmware-resource
-          uuid: fwm-1-0-0-op-s-is-310
+          uuid: fwm-1-0-0-op-s-is-300
         - operation-name: /v1/update-server
-          uuid: fwm-1-0-0-op-s-is-320
+          uuid: fwm-1-0-0-op-s-is-310
         - operation-name: /v1/update-target-firmware
-          uuid: fwm-1-0-0-op-s-is-330
+          uuid: fwm-1-0-0-op-s-is-320
         - operation-name: /v1/withdraw-firmware-approval
-          uuid: fwm-1-0-0-op-s-is-340
+          uuid: fwm-1-0-0-op-s-is-330
   http-server:
     own-application-name: FirmWareManager
     own-release-number: 1.0.0
@@ -154,7 +152,7 @@ servers:
     - description: Without TLS layer
       local-protocol: http
       own-ip-address: 127.0.0.1
-      own-tcp-port:
+      own-tcp-port: 4036
       uuid: fwm-1-0-0-tcp-s-000
 
 
@@ -184,7 +182,7 @@ clients:
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port:
+      tcp-port: 4036
       uuid: fwm-1-0-0-tcp-c-or-1-0-0-000
     operation-clients:
       own-oam:
@@ -203,7 +201,7 @@ clients:
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port:
+      tcp-port: 4036
       uuid: fwm-1-0-0-tcp-c-nr-1-0-0-000
     operation-clients:
       own-oam:
