@@ -1,0 +1,25 @@
+{
+  "/list-existing-firmware-resources": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "firmware-resource-name": {
+          "type": "string"
+        },
+        "firmware-resource-version": {
+          "type": "string"
+        },
+        "server-label": {
+          "type": "string"
+        },
+        "source-uri": {
+          "type": "string"
+        },
+        "file-name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "/list-device-groups-without-target-firmware": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  }
+}

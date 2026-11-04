@@ -1,0 +1,19 @@
+{
+  "/list-historical-errors": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "errored-function": {
+          "type": "string"
+        },
+        "error-message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

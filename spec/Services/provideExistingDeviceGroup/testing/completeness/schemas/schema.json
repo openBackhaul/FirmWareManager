@@ -1,0 +1,46 @@
+{
+  "/provide-existing-device-group": {
+    "type": "object",
+    "required": [
+      "device-group-label",
+      "device-model-name",
+      "target-firmware-list",
+      "device-list"
+    ],
+    "properties": {
+      "device-group-label": {
+        "type": "string"
+      },
+      "device-model-name": {
+        "type": "string"
+      },
+      "purge-date": {
+        "type": "string"
+      },
+      "target-firmware-list": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "resource",
+            "status"
+          ],
+          "properties": {
+            "resource": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "device-list": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "/list-existing-servers": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "server-label": {
+          "type": "string"
+        },
+        "user-name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "ssh-key": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
