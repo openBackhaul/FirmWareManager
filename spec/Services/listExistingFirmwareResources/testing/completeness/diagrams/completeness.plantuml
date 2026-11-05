@@ -1,4 +1,4 @@
-@startuml diagram.completeness
+@startuml completeness
 skinparam responseMessageBelowArrow true
 
 title
