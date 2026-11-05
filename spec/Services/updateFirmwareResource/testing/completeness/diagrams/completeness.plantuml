@@ -10,19 +10,19 @@ participant "Data\n" as Data
 participant "Collection\n" as Collection
 
 
-participant "" as cur #LightBlue
+participant "updateFirmwareResource" as cur #LightBlue
 
 
 
 group Preparation
-  Data --\\o Postman : {servers, x}
+  Data --\\o Postman : {servers, firmwareResourceName, firmwareResourceVersion, serverLabel, sourceUri, fileName}
   activate Postman
-  Postman --\\o Collection : {servers, x}
+  Postman --\\o Collection : {servers, firmwareResourceName, firmwareResourceVersion, serverLabel, sourceUri, fileName}
 end
 
 group completeness test
   Collection --\\o Postman: {servers}
-  Postman -> cur: {x}
+  Postman -> cur: {firmwareResourceName, firmwareResourceVersion, serverLabel, sourceUri, fileName}
   cur <-- Postman: ResponseCode, {ResponseBody}
   note right Postman #Orange
     check for ResponseCode == 204

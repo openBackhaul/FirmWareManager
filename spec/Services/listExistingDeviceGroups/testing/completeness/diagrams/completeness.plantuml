@@ -10,19 +10,19 @@ participant "Data\n" as Data
 participant "Collection\n" as Collection
 
 
-participant "addDevicesToDeviceGroup" as cur #LightBlue
+participant "listExistingDeviceGroups" as cur #LightBlue
 
 
 
 group Preparation
-  Data --\\o Postman : {servers, xyz}
+  Data --\\o Postman : {servers}
   activate Postman
-  Postman --\\o Collection : {servers, xyz}
+  Postman --\\o Collection : {servers}
 end
 
 group completeness test
   Collection --\\o Postman: {servers}
-  Postman -> cur: {xyz}
+  Postman -> cur
   cur <-- Postman: ResponseCode, {ResponseBody}
   note right Postman #Orange
     check for ResponseCode == 200
