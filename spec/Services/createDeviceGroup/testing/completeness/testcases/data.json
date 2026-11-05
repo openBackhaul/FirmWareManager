@@ -36,8 +36,8 @@
     "collectionInputList": [
       {
         "_comment": "INPUT FOR ACTUAL TEST",
-        "collectionName": "nep",
-        "serverToBeApplied": "NetExplorerProxy",
+        "collectionName": "fwm",
+        "serverToBeApplied": "FirmWareManager",
         "kindOfReference": "dynamic",
         "mountName": "513250011",
         "mountNameList": ["101250001", "101250002"],
@@ -69,8 +69,8 @@
       },
       {
         "_comment": "INPUT FOR SIMULATOR TEST",
-        "collectionName": "nep_simulator",
-        "serverToBeApplied": "NetExplorerProxy+simu",
+        "collectionName": "fwm_simulator",
+        "serverToBeApplied": "FirmWareManager+simu",
         "kindOfReference": "static",
         "suffixUrlEncodingIsRequired": true,
         "mountName": "513250011",
