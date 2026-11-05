@@ -1,38 +1,38 @@
 [
-	{
-		"mode": "debug",
-		"serverList": [
-			{
-				"serverName": "dummy",
-				"dummyUri": "ping.openBackhaul.com"
-			},
-			{
+  {
+    "mode": "debug",
+    "serverList": [
+      {
+        "serverName": "dummy",
+        "dummyUri": "ping.openBackhaul.com"
+      },
+      {
         "_comment": "SETTINGS FOR TESTING AGAINST ACTUAL SERVER",
-				"serverName": "FirmWareManager",
-				"server": "http://127.0.0.1:4036",
-				"pathToControlConstruct": "",
-				"authorizationCode": "Basic ????",
-				"operationKey": "Operation key not yet provided.",
-				"userName": "Katharina Mohr",
-				"originator": "fwm+testcase.completeness",
-				"xCorrelator": "00000000-0000-0000-0000-000000000000",
-				"traceIndicator": "1",
-				"customerJourney": ""
-			},
-			{
+        "serverName": "FirmWareManager",
+        "server": "http://127.0.0.1:4036",
+        "pathToControlConstruct": "",
+        "authorizationCode": "Basic ????",
+        "operationKey": "Operation key not yet provided.",
+        "userName": "Katharina Mohr",
+        "originator": "fwm+testcase.completeness",
+        "xCorrelator": "00000000-0000-0000-0000-000000000000",
+        "traceIndicator": "1",
+        "customerJourney": ""
+      },
+      {
         "_comment": "SETTINGS FOR TESTING AGAINST SIMULATOR",
-				"serverName": "FirmWareManager+simu",
-				"server": "http://localhost:3003",
-				"pathToControlConstruct": "",
-				"authorizationCode": "Basic ????",
-				"operationKey": "Operation key not yet provided.",
-				"userName": "Katharina Mohr",
-				"originator": "fwm+testcase.completeness",
-				"xCorrelator": "00000000-0000-0000-0000-000000000000",
-				"traceIndicator": "1",
-				"customerJourney": ""
-			}
-		],
+        "serverName": "FirmWareManager+simu",
+        "server": "http://localhost:3003",
+        "pathToControlConstruct": "",
+        "authorizationCode": "Basic ????",
+        "operationKey": "Operation key not yet provided.",
+        "userName": "Katharina Mohr",
+        "originator": "fwm+testcase.completeness",
+        "xCorrelator": "00000000-0000-0000-0000-000000000000",
+        "traceIndicator": "1",
+        "customerJourney": ""
+      }
+    ],
     "collectionInputList": [
       {
         "_comment": "INPUT FOR ACTUAL TEST",
@@ -102,5 +102,5 @@
         "lifeCycleState": "elasticsearch-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED"
       }
     ]
-	}
+  }
 ]
