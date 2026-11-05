@@ -1,0 +1,75 @@
+# all input parameters
+# all to be included in data file (may not always be filled/used - depends on the testcase)
+
+firmware-resource-name:
+  type: string
+firmware-resource-version:
+  type: string
+firmware-status:
+  type: string
+  enum:
+    - 'active'
+    - 'stand-by'
+    - 'not-yet-defined'
+
+server-label:
+  type: string
+user-name:
+  type: string
+password:
+  type: string
+ssh-key:
+  type: string
+source-uri:
+  type: string
+file-name:
+  type: string
+
+device-group-label:
+  type: string
+device-model-name:
+  type: string
+
+es-name:
+  type: string
+url:
+  type: string
+api-key:
+  type: string
+index-alias:
+  type: string
+
+# ingore because of type error, also not required
+#service-records-policy:
+#  type: string
+operational-state:
+  type: string
+life-cycle-state:
+  type: string
+
+mount-name:
+  type: string
+mount-name-list:
+  type: array
+  items:
+    type: string
+
+hardware-extraction-function:
+  type: string
+firmware-extraction-function:
+  type: string
+
+target-function:
+  type: string
+is-activated:
+  type: boolean
+period-length:
+  type: integer
+next-time:
+  type: string
+ending-time:
+  type: string
+
+purge-date:
+  type: string
+  pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'

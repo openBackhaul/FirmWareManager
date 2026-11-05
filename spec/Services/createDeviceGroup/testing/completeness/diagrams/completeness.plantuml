@@ -15,13 +15,13 @@ participant "createDeviceGroup" as cur #LightBlue
 
 
 group Preparation
-  Data --\\o Postman : {servers, deviceGroupLabel, deviceModelName}
+  Data --\\o Postman : {servers, deviceGroupLabel, deviceModelName, purgeDate}
   activate Postman
-  Postman --\\o Collection : {servers, deviceGroupLabel, deviceModelName}
+  Postman --\\o Collection : {servers, deviceGroupLabel, deviceModelName, purgeDate}
 end
 
 group completeness test
-  Collection --\\o Postman: {servers}
+  Collection --\\o Postman: {servers, purgeDate}
   Postman -> cur: {deviceGroupLabel, deviceModelName}
   cur <-- Postman: ResponseCode, {ResponseBody}
   note right Postman #Orange
