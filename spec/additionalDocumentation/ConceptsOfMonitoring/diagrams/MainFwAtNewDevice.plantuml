@@ -1,0 +1,15 @@
+@startuml MainFwAtNewDevice
+
+"{x,y*}" -down->[+a] "{a,y*}"
+"{x,y*}" -down[#green]->[<color:green>+b] "{b,y*}"
+"{x,y*}" -->[b*] "{x,y*}"
+
+"{a,y*}" -->[+b] "{b,y*}"
+"{a,y*}" -->[b*] "{a,y*}"
+
+"{b,y*}" -left->[+a] "{a,y*}"
+"{b,y*}" -down[#green]->[<color:green>b*] "{b*,y}"
+
+"{b*,y}" -down[#green]->[<color:green>+a] "{a,b*}"
+
+@enduml

@@ -7,7 +7,7 @@ domain-controller:
     - validation-sequence
     - pulser
     - to-do-code
-    - to-do
+    - deviating-object
     - network-control-domain
   properties:
     es-address:
@@ -57,7 +57,7 @@ domain-controller:
         properties:
           errored-function:
             type: string
-            description: 'Function that indicated the error'
+            description: 'Reference towards the Function that indicated the error'
           error-message:
             type: string
             description: 'Error message as indicated by the referenced function'
@@ -168,7 +168,7 @@ domain-controller:
             description: 'If true, triggering the targetFunction is activated'
           period-length:
             type: integer
-            description: 'Time period [in seconds] between two trigger of the _targetFunction'
+            description: 'Time period [in ms] between two trigger of the _targetFunction'
           next-time:
             type: string
             description: 'The earliest time at which the targetFunction will be triggered again. An initial value can be used to configure some future starting time. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
@@ -180,13 +180,13 @@ domain-controller:
     to-do-code:
       type: array
       x-key: to-do-code
-      description: 'List of ToDoCodes that indicate a specific divergence between OperationalDS and RunningDS and its corresponding sequence of ImplementationFunctions for resolving it'
+      description: 'List of ToDoCodes that indicate a specific divergence between OperationalDS and RunningDS and the respective ImplementationFunction for resolving it'
       items:
         type: object
         required:
           - to-do-code
           - description
-          - sequence
+          - implementation-function
         properties:
           to-do-code:
             type: integer
@@ -194,29 +194,58 @@ domain-controller:
           description:
             type: string
             description: 'Description of the ToDoCode. Internal codes: Meaningful description of the divergence; needed for understanding the mechanics of the application. External codes: Also used as ErrorMessage for addressing humans'
-          sequence:
-            type: array
-            description: 'Only applicable for internal ToDoCodes. Ordered array of Strings referencing entries in the list of Functions. Only Functions for task==implementation are allowed to be referenced. Ideally, each internal code would be handled by a function or a sequence of functions. The order of the entries defines the order of execution'
-            items:
-              type: string
-    to-do:
+          implementation-function:
+            type: string
+            description: 'Reference towards the ImplementationFunction (task==implementation) that handles the ToDo'
+    deviating-object:
       type: array
-      x-key: affected-device
-      description: 'List of current divergences between RunningDS and OperationalDS'
+      x-key: deviating-object
+      description: 'List of objects in the OperationalDS that have deviations from the RunningDS'
       items:
         type: object
         required:
-          - affected-device
-          - to-do-code
+          - deviating-object
+          - deviation-list
         properties:
-          affected-device:
+          deviating-object:
             type: string
-            description: 'Unique and invariant reference towards an entry in the list of Devices (OperationalDS). Identifies the device which needs to be addressed by ImplementationFunctions to correct some divergence between RunningDS and OperationalDS'
-          to-do-code:
+            description: 'Unique and invariant reference towards an entry in the list of Devices (OperationalDS). Identifies a Device in the OperationalDS that has at least one deviation from the RunningDS'
+          deviation-list:
             type: array
-            description: 'Reference towards one or several entries in the list of codes for associating a divergence between OperationalDS and RunningDS with a sequence of ImplementationFunctions to resolve it'
+            description: 'Ordered array of deviations between OperationalDS and RunningDS identified for this object'
             items:
-              type: string
+              type: object
+              required:
+                - to-do-code
+                - input
+                - log
+              properties:
+                to-do-code:
+                  type: string
+                  description: 'Unique and invariant reference towards the ToDoCode definition for resolving the deviation'
+                input:
+                  type: object
+                  description: 'Set of input parameters passed from Monitoring to Implementation'
+                log:
+                  type: array
+                  description: 'Ordered array of kinds of event that happened during resolving the deviation'
+                  items:
+                    type: object
+                    required:
+                      - event-kind
+                      - latest-timestamp
+                      - occurrences
+                    properties:
+                      event-kind:
+                        type: string
+                        description: 'Description of a kind of event that happened during resolving the deviation'
+                      latest-timestamp:
+                        type: string
+                        description: 'Time when an event of this kind last occurred. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
+                        pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+                      occurrences:
+                        type: integer
+                        description: 'Number of occurrences of an event of this kind'
     network-control-domain:
       type: array
       minItems: 4

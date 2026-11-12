@@ -12,8 +12,7 @@ participant "p1MeasureDevice\n" as updateCc
 participant "p1MeasureHw\n" as updateHw
 participant "<i>functionName</i>\n" as extractHw
 participant "p1MeasureFw\n" as updateFw
-participant "p1Extract\nActivatable" as extractAct
-participant "<i>functionName</i>\n" as extractFw
+participant "<i>functionName</i>\n(e.g. p1ExtractSingleFirmware,\np1ExtractSeparatedAppToo,\np1ExtractSeparatedNpuRauToo,\np1ExtractSeparatedBootWebOduToo)" as extractFw
 
 database "DomainController" as DC
 database "OperationalDS" as OpDS

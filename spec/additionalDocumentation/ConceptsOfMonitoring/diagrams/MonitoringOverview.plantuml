@@ -1,0 +1,311 @@
+@startuml MonitoringOverview
+skinparam responseMessageBelowArrow true
+
+title
+  Monitoring Overview
+end title
+
+participant "requestor\n" as requestor
+participant "p1MonitorDomain\n" as indServ
+participant "p1MonitorDevice\n" as monDev
+
+participant "p1MonitorHuawei\nLikeFwCombi" as monHua
+participant "p1MonitorTn\nLikeFwCombi" as monTn
+participant "p1Monitor6600\nLikeFwCombi" as mon66
+participant "p1MonitorSiae\nLikeFwCombi" as monSiae
+
+participant "p1Consolidate\nObjectDeviations" as conObjDev
+
+participant "p1AnalyzeSingleFw\n" as analSiFw
+participant "p1AnalyzeControllerFw\n" as analCont
+participant "p1AnalyzeOduFw\n" as analOdu
+participant "p1AnalyzeAppFw\n" as analApp
+participant "p1AnalyzeBootFw\n" as analBoot
+participant "p1AnalyzeWebServer\n" as analWeb
+
+database "OperationalDS" as OpDS
+database "RunningDS" as RunDS
+database "DomainController" as DC
+
+requestor -> indServ
+activate indServ
+  note over indServ
+    Reads
+    ODS:[Device.mountName]
+  end note
+  indServ -> OpDS
+  activate OpDS
+  indServ <-- OpDS: ODS:[Device.mountName]
+  deactivate OpDS
+
+  loop for each ODS:Device.mountName
+    indServ -> monDev: mountName
+    activate monDev
+      note over monDev
+        Reads deviceModel
+        from ODS:Device
+      end note
+      monDev -> OpDS: mountName
+      activate OpDS
+      monDev <-- OpDS: deviceModel
+      deactivate OpDS
+
+      note over monDev
+        Reads name of monitoring
+        function from Parameters
+      end note
+      monDev -> DC: deviceModel
+      activate DC
+      monDev <-- DC: functionName
+      deactivate DC
+
+      note over monDev #LightBlue
+        [deviceDeviation] = []
+      end note
+
+      note over monDev
+        IF functionName==p1MonitorHuaweiLikeFwCombi:
+      end note
+      note right monDev
+        THEN {
+      end note
+      monDev -> monHua: mountName
+      activate monHua
+        note over monHua
+          Reads name of analysis
+          function from Parameters
+        end note
+        monHua -> DC
+        activate DC
+        monHua <-- DC: analyzeSingleFwFunctionName
+        deactivate DC
+
+        note over monHua #LightGreen
+          [fwDeviation] = []
+        end note
+
+        monHua -> analSiFw: mountName
+        activate analSiFw
+          note over analSiFw
+            Analyzes main FwPackage
+          end note
+        monHua <-- analSiFw: [deviation]
+        deactivate analSiFw
+        note over monHua #LightGreen
+          [fwDeviation].push(...[deviation])
+        end note
+      monDev <-- monHua: [fwDeviation]
+      deactivate monHua
+      note over monDev #LightBlue
+        [deviceDeviation].push(...[fwDeviation])
+      end note
+      note right monDev
+        }
+      end note
+
+      note over monDev
+        IF functionName==p1MonitorTnLikeFwCombi:
+      end note
+      note right monDev
+        THEN {
+      end note
+      monDev -> monTn: mountName
+      activate monTn
+        note over monTn
+          Reads names of analysis
+          functions from Parameters
+        end note
+        monTn -> DC
+        activate DC
+        monTn <-- DC: analyzeSingleFwFunctionName, analyzeControllerFwFunctionName, analyzeOduFwFunctionName
+        deactivate DC
+
+        note over monTn #LightGreen
+          [fwDeviation] = []
+        end note
+
+        monTn -> analSiFw: mountName
+        activate analSiFw
+          note over analSiFw
+            Analyzes main FwPackage
+          end note
+        monTn <-- analSiFw: [deviation]
+        deactivate analSiFw
+        note over monTn #LightGreen
+          [fwDeviation].push(...[deviation])
+        end note
+
+        monTn -> analCont: mountName
+        activate analCont
+          note over analCont
+            Analyzes ControlFw
+          end note
+        monTn <-- analCont: [deviation]
+        deactivate analCont
+        note over monTn #LightGreen
+          [fwDeviation].push(...[deviation])
+        end note
+
+        monTn -> analOdu: mountName
+        activate analOdu
+          note over analOdu
+            Analyzes ODU Fw
+          end note
+        monTn <-- analOdu: [deviation]
+        deactivate analOdu
+        note over monTn #LightGreen
+          [fwDeviation].push(...[deviation])
+        end note
+      monDev <-- monTn: [fwDeviation]
+      deactivate monTn
+      note over monDev #LightBlue
+        [deviceDeviation].push(...[fwDeviation])
+      end note
+      note right monDev
+        }
+      end note
+
+      note over monDev
+        IF functionName==p1Monitor6600LikeFwCombi:
+      end note
+      note right monDev
+        THEN {
+      end note
+      monDev -> mon66: mountName
+      activate mon66
+        note over mon66
+          Reads names of analysis
+          functions from Parameters
+        end note
+        mon66 -> DC
+        activate DC
+        mon66 <-- DC: analyzeSingleFwFunctionName, analyzeAppFwFunctionName
+        deactivate DC
+
+        note over mon66 #LightGreen
+          [fwDeviation] = []
+        end note
+
+        mon66 -> analSiFw: mountName
+        activate analSiFw
+          note over analSiFw
+            Analyzes main FwPackage
+          end note
+        mon66 <-- analSiFw: [deviation]
+        deactivate analSiFw
+        note over mon66 #LightGreen
+          [fwDeviation].push(...[deviation])
+        end note
+
+        mon66 -> analApp: mountName
+        activate analApp
+          note over analApp
+            Analyzes Application Fw
+          end note
+        mon66 <-- analApp: [deviation]
+        deactivate analApp
+        note over mon66 #LightGreen
+          [fwDeviation].push(...[deviation])
+        end note
+      monDev <-- mon66: [fwDeviation]
+      deactivate mon66
+      note over monDev #LightBlue
+        [deviceDeviation].push(...[fwDeviation])
+      end note
+      note right monDev
+        }
+      end note
+
+      note over monDev
+        IF functionName==p1MonitorSiaeLikeFwCombi:
+      end note
+      note right monDev
+        THEN {
+      end note
+      monDev -> monSiae: mountName
+      activate monSiae
+        note over monSiae
+          Reads names of analysis
+          functions from Parameters
+        end note
+        monSiae -> DC
+        activate DC
+        monSiae <-- DC: analyzeSingleFwFunctionName, analyzeOduFwFunctionName, analyzeBootFwFunctionName, analyzeWebServerFunctionName
+        deactivate DC
+
+        note over monSiae #LightGreen
+          [fwDeviation] = []
+        end note
+
+        monSiae -> analSiFw: mountName
+        activate analSiFw
+          note over analSiFw
+            Analyzes main FwPackage
+          end note
+        monSiae <-- analSiFw: [deviation]
+        deactivate analSiFw
+        note over monSiae #LightGreen
+          [fwDeviation].push(...[deviation])
+        end note
+
+        monSiae -> analOdu: mountName
+        activate analOdu
+          note over analOdu
+            Analyzes ODU Fw
+          end note
+        monSiae <-- analOdu: [deviation]
+        deactivate analOdu
+        note over monSiae #LightGreen
+          [fwDeviation].push(...[deviation])
+        end note
+
+        monSiae -> analBoot: mountName
+        activate analBoot
+          note over analBoot
+            Analyzes BootFw
+          end note
+        monSiae <-- analBoot: [deviation]
+        deactivate analBoot
+        note over monSiae #LightGreen
+          [fwDeviation].push(...[deviation])
+        end note
+
+        monSiae -> analWeb: mountName
+        activate analWeb
+          note over analWeb
+            Analyzes WebServer
+          end note
+        monSiae <-- analWeb: [deviation]
+        deactivate analWeb
+        note over monSiae #LightGreen
+          [fwDeviation].push(...[deviation])
+        end note
+      monDev <-- monSiae: [fwDeviation]
+      deactivate monSiae
+      note over monDev #LightBlue
+        [deviceDeviation].push(...[fwDeviation])
+      end note
+      note right monDev
+        }
+      end note
+
+      monDev -> conObjDev: mountName, [deviceDeviation]
+      activate conObjDev
+        note over conObjDev
+          Uses [deviceDeviation] to update
+          DC:DeviatingObject=mountName/[deviationList]
+        end note
+        conObjDev -> DC
+        activate DC
+        conObjDev <-- DC
+        deactivate DC
+      monDev <-- conObjDev: ok
+      deactivate conObjDev
+    indServ <-- monDev: ok
+    deactivate monDev
+  end loop
+
+requestor <-- indServ
+deactivate indServ
+
+@enduml

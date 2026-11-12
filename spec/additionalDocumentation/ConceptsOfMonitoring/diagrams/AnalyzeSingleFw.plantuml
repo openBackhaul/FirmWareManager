@@ -1,0 +1,131 @@
+@startuml AnalyzeSingleFw
+skinparam responseMessageBelowArrow true
+
+title
+  Analyze Single Firmware Overview
+end title
+
+participant "requestor\n" as requestor
+participant "p1AnalyzeSingleFw\n" as indServ
+
+database "RunningDS" as RunDS
+database "OperationalDS" as OpDS
+
+requestor -> indServ: mountName
+activate indServ
+
+  note over indServ
+    Attempts to read fwToBeActivated from\n
+    RDS:device=mountName/firmwareList
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: fwToBeActivated
+  deactivate RunDS
+
+  note over indServ
+    IF fwToBeActivated != null:
+  end note
+  note over indServ
+    THEN {
+  end note
+    note right indServ
+      Checks, whether fwToBeActivated
+      already on the device
+    end note
+    indServ -> OpDS
+    activate OpDS
+    indServ <-- OpDS
+    deactivate OpDS
+    note right indServ
+      IF fwToBeActivated
+        NOT on the device:
+    end note
+    note right indServ
+      THEN {
+    end note
+      note right indServ
+        - document need for downloading
+          fwToBeActivated in [deviation]
+        - terminate
+      end note
+      requestor <-- indServ: [deviation]
+    note right indServ
+      }
+    end note
+
+    note right indServ
+      Checks, whether fwToBeActivated
+      already activated on the device
+    end note
+    indServ -> OpDS
+    activate OpDS
+    indServ <-- OpDS
+    deactivate OpDS
+    note right indServ
+      IF fwToBeActivated
+        NOT activated on the device:
+    end note
+    note right indServ
+      THEN {
+    end note
+      note right indServ
+        - document need for activating
+          fwToBeActivated in [deviation]
+        - terminate
+      end note
+      requestor <-- indServ: [deviation]
+    note right indServ
+      }
+    end note
+  note over indServ
+    }
+  end note
+
+  note over indServ
+    Attempts to read inactiveFw from\n
+    RDS:device=mountName/firmwareList
+  end note
+  indServ -> RunDS
+  activate RunDS
+  indServ <-- RunDS: inactiveFw
+  deactivate RunDS
+
+  note over indServ
+    IF inactiveFw != null:
+  end note
+  note over indServ
+    THEN {
+  end note
+    note right indServ
+      Checks, whether inactiveFw
+      already on the device
+    end note
+    indServ -> OpDS
+    activate OpDS
+    indServ <-- OpDS
+    deactivate OpDS
+    note right indServ
+      IF inactiveFw
+        NOT on the device:
+    end note
+    note right indServ
+      THEN {
+    end note
+      note right indServ
+        - document need for downloading
+          inactiveFw in [deviation]
+        - terminate
+      end note
+      requestor <-- indServ: [deviation]
+    note right indServ
+      }
+    end note
+  note over indServ
+    }
+  end note
+
+requestor <-- indServ: []
+deactivate indServ
+
+@enduml

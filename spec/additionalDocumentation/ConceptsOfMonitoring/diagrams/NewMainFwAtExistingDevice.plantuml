@@ -1,0 +1,8 @@
+@startuml NewMainFwAtExistingDevice
+
+"{x, a*}" -down[#green]->[<color:green>+b] "{a*, b}"
+"{x, a*}" -->[b*] "{x, a*}"
+
+"{a*, b}" -down[#green]->[<color:green>b*] "{a, b*}"
+
+@enduml

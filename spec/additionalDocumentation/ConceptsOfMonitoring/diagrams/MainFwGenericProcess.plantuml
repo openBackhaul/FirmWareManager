@@ -1,0 +1,25 @@
+@startuml MainFwGenericProcess
+
+(*) --> "Checks, whether FW, which shall be <color:red>active</color>\nin target config, is already on the device"
+if "Is already on device?" then
+  -->[no] "Downloads FW, which shall be <color:red>active</color> in\ntarget config"
+  --> "Checks, whether FW, which shall be <color:red>active</color>\nin target config, is already activated"
+else
+  -->[yes] "Checks, whether FW, which shall be <color:red>active</color>\nin target config, is already activated"
+endif
+
+if "Is already activated?" then
+  -->[no] "Activates FW, which shall be <color:red>active</color> in\ntarget config"
+  --> "Checks, whether FW, which shall be <color:blue>inactive</color>\nin target config, is already on the device"
+else
+  -->[yes] "Checks, whether FW, which shall be <color:blue>inactive</color>\nin target config, is already on the device"
+endif
+
+if "Is already on device?" then
+  -->[no] "Downloads FW, which shall be <color:blue>inactive</color> in\ntarget config"
+  --> (*)
+else
+  -->[yes] (*)
+endif
+
+@enduml

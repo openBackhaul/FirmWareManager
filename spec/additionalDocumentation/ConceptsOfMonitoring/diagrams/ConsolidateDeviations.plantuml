@@ -1,0 +1,58 @@
+@startuml ConsolidateDeviations
+skinparam responseMessageBelowArrow true
+
+title
+  ConsolidateDeviations Overview
+end title
+
+participant "p1MonitorDevice\n" as monDev
+participant "p1Consolidate\nObjectDeviations" as conObjDev
+
+database "DomainController" as DC
+
+monDev -> conObjDev: mountName, [deviceDeviation]
+activate conObjDev
+  loop for each entry in DC:DeviatingObject=mountName/[deviationList]
+    note over conObjDev
+      IF entry NOT in [deviceDeviation]:
+    end note
+    note right conObjDev
+      THEN {
+    end note
+    note right conObjDev
+      Delete entry from
+      DC:DeviatingObject=mountName/[deviationList]
+    end note
+    conObjDev -> DC
+    activate DC
+    conObjDev <-- DC
+    deactivate DC
+    note right conObjDev
+      }
+    end note
+  end loop
+
+  loop for each [deviceDeviation]
+    note over conObjDev
+      IF deviceDeviation NOT in
+        DC:DeviatingObject=mountName/[deviationList]:
+    end note
+    note right conObjDev
+      THEN {
+    end note
+    note right conObjDev
+      Append deviceDeviation to
+      DC:DeviatingObject=mountName/[deviationList]
+    end note
+    conObjDev -> DC
+    activate DC
+    conObjDev <-- DC
+    deactivate DC
+    note right conObjDev
+      }
+    end note
+  end loop
+monDev <-- conObjDev: ok
+deactivate conObjDev
+
+@enduml
