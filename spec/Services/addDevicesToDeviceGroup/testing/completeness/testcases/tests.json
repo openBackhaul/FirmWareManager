@@ -1,8 +1,7 @@
 {
   "info": {
     "name": "FirmWareManager_/add-devices-to-device-group+test.completeness",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "9698906"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
