@@ -1,0 +1,14 @@
+{
+  "name": "mw-sdn-p1-manage-firmware",
+  "version": "1.0.0",
+  "description": "Startup of the autonomous firmware management",
+  "main": "P1ManageFirmware.js",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

@@ -1,0 +1,28 @@
+# Dependencies: node_modules here and in functions/<category>/<function>.
+# package-lock.json stays tracked, for reproducible installs.
+node_modules/
+
+# Test and coverage output (jest)
+coverage/
+junit.xml
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.swp
+*~
+
+# Operating systems
+.DS_Store
+Thumbs.db
+desktop.ini
