@@ -1,0 +1,32 @@
+{
+  "elasticsearch": {
+    "nodes": ["https://example.com", "https://example.com"],
+    "cluster_name": "production-cluster",
+    "authentication": {
+      "scheme": "basic",
+      "basic": {
+        "username": "elastic",
+        "password": "your_secure_password_here"
+      },
+      "api_key": {
+        "id": "optional_api_key_id",
+        "key": "optional_api_key_value"
+      }
+    },
+    "tls": {
+      "verify_certs": true,
+      "ca_certs_path": "/etc/ssl/certs/ca-bundle.crt",
+      "client_cert_path": null,
+      "client_key_path": null
+    },
+    "connection_settings": {
+      "request_timeout_seconds": 30,
+      "max_retries": 3,
+      "sniff_on_start": false,
+      "sniff_on_connection_fault": true
+    }
+  },
+  "monitoring": {
+    "enabled": false
+  }
+}
