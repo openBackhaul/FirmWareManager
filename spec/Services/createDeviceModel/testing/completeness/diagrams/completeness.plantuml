@@ -14,13 +14,13 @@ participant "createDeviceModel" as cur #LightBlue
 
 
 
-group Preparation
-  Data --\\o Postman : {servers, deviceModelName}
+group Preparation - all parameters
+  Data --\\o Postman : {servers, deviceModelName, hardwareExtractionFunction, FirmwareExtractionFunction}
   activate Postman
   Postman --\\o Collection : {servers, deviceModelName}
 end
 
-group completeness test
+group completeness test - required parameters only
   Collection --\\o Postman: {servers}
   Postman -> cur: {deviceModelName}
   cur <-- Postman: ResponseCode, {ResponseBody}

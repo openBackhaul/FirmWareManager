@@ -20,8 +20,18 @@ group Preparation
   Postman --\\o Collection : {servers, deviceGroupLabel, deviceModelName, purgeDate}
 end
 
-group completeness test
-  Collection --\\o Postman: {servers, purgeDate}
+group completeness test - all parameters
+  Collection --\\o Postman: {servers, deviceGroupLabel, deviceModelName, purgeDate}
+  Postman -> cur: {deviceGroupLabel, deviceModelName, purgeDate}
+  cur <-- Postman: ResponseCode, {ResponseBody}
+  note right Postman #Orange
+    check for ResponseCode == 204
+  end note
+end
+
+
+group completeness test - required parameters only
+  Collection --\\o Postman: {servers, deviceGroupLabel, deviceModelName}
   Postman -> cur: {deviceGroupLabel, deviceModelName}
   cur <-- Postman: ResponseCode, {ResponseBody}
   note right Postman #Orange
