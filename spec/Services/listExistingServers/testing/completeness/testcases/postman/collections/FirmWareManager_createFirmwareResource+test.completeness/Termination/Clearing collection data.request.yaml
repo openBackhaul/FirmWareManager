@@ -1,0 +1,183 @@
+$kind: http-request
+url: "{{uri}}"
+method: GET
+body:
+  type: json
+  content: "{{requestBody}}"
+auth:
+  type: noauth
+scripts:
+  - type: beforeRequest
+    code: "logger.struc(\"\\n===== Clearing collection data ============================================================\");\r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Loading Input Data\r
+
+      ****************************************************************************************/\r
+
+      var dummyServerInfo;\r
+
+      try {\r
+
+      \    let serverList;\r
+
+      \    serverList = pm.environment.get(\"serverList\");\r
+
+      \    dummyServerInfo = ExtractServerInformation(serverList, \"dummy\")\r
+
+      \r
+
+      } catch (error) {\r
+
+      \    logger.error(\"! Input data could not be loaded.\")\r
+
+      }\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Processing\r
+
+      ****************************************************************************************/\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Setting Local Variables and Preparing the Request\r
+
+      ****************************************************************************************/\r
+
+      try {\r
+
+      \    let uri;\r
+
+      \    uri = dummyServerInfo.dummyUri;\r
+
+      \r
+
+      \    pm.variables.clear();\r
+
+      \r
+
+      \    pm.variables.set(\"uri\", uri);\r
+
+      \r
+
+      \    pm.request.headers.upsert({ key: \"Accept\", value: \"application/json\" });\r
+
+      \    pm.request.headers.upsert({ key: \"Content-Type\", value: \"application/json\" })\r
+
+      \r
+
+      } catch (error) {\r
+
+      \    logger.error(\"! Local variables could not be set.\")\r
+
+      }\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Functions\r
+
+      ****************************************************************************************/\r
+
+      function ExtractServerInformation(serverList, searchedServerName) {\r
+
+      \    try {\r
+
+      \        for(let i=0; i<serverList.length; i++) {\r
+
+      \            if(serverList[i].serverName==searchedServerName) {\r
+
+      \                return serverList[i]\r
+
+      \            }\r
+
+      \        }\r
+
+      \    } catch (error) {\r
+
+      \        logger.error(\"! serverList not found or faulty\");\r
+
+      \        return {}\r
+
+      \    }\r
+
+      \    logger.warn(\"Server could not be found in serverList.\");\r
+
+      \    return {}\r
+
+      }\r
+
+      \r\n"
+    language: text/javascript
+  - type: afterResponse
+    code: "/****************************************************************************************\r
+
+      * Loading Input Data\r
+
+      ****************************************************************************************/\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Extracting Result\r
+
+      ****************************************************************************************/\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Setting Environment Variables\r
+
+      ****************************************************************************************/\r
+
+      try {\r
+
+      \    pm.environment.clear();\r
+
+      \    pm.collectionVariables.clear();\r
+
+      \    pm.variables.clear()\r
+
+      \r
+
+      } catch (error) {\r
+
+      \    logger.error(\"! Environment variables could not be set.\")\r
+
+      }\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Functions\r
+
+      ****************************************************************************************/\r
+
+      \r\n"
+    language: text/javascript
+settings: {}
+order: 1000

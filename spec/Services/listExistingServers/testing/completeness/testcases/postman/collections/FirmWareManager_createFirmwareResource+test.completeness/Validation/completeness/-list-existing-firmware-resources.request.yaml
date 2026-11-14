@@ -1,0 +1,651 @@
+$kind: http-request
+name: /list-existing-firmware-resources
+url: "{{uri}}"
+method: POST
+body:
+  type: json
+  content: "{{requestBody}}"
+auth:
+  type: noauth
+scripts:
+  - type: beforeRequest
+    code: "logger.struc(\"\\n===== /create-firmware-resource============================================\");\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Loading Input Data\r
+
+      ****************************************************************************************/\r
+
+      var mountName = \"\";\r
+
+      var mountNameList = [];\r
+
+      var deviceGroupLabel = \"\";\r
+
+      var deviceModelName = \"\";\r
+
+      var firmwareResourceName = \"\";\r
+
+      var firmwareResourceVersion = \"\";\r
+
+      var firmwareStatus = \"\";\r
+
+      var purgeDate = \"\";\r
+
+      var hardwareExtractionFunction = \"\";\r
+
+      var firmwareExtractionFunction = \"\";\r
+
+      var targetFunction = \"\";\r
+
+      var isActivated = false;\r
+
+      var periodLength = 0;\r
+
+      var nextTime = \"\";\r
+
+      var endingTime = \"\";\r
+
+      var serverLabel = \"\";\r
+
+      var userName = \"\";\r
+
+      var password = \"\";\r
+
+      var sshKey = \"\";\r
+
+      var sourceUri = \"\";\r
+
+      var fileName = \"\";\r
+
+      var esName = \"\";\r
+
+      var url = \"\";\r
+
+      var apiKey = \"\";\r
+
+      var indexAlias = \"\";\r
+
+      var operationalState = \"\";\r
+
+      var lifeCycleState = \"\";\r
+
+      \r
+
+      var serverInfo = {};\r
+
+      var dummyServerInfo = {};\r
+
+      try {\r
+
+      \    let collectionInfo;\r
+
+      \    let collectionInputList;\r
+
+      \    collectionInputList = pm.environment.get(\"collectionInputList\");\r
+
+      \    collectionInfo = ExtractCollectionInput(collectionInputList, \"fwm_simulator\");\r
+
+      \r
+
+      \    // individual input parameters (not all used)\r
+
+      \    mountName = collectionInfo.mountName;\r
+
+      \    mountNameList = collectionInfo.mountNameList;\r
+
+      \r
+
+      \    deviceGroupLabel = collectionInfo.deviceGroupLabel;\r
+
+      \    deviceModelName = collectionInfo.deviceModelName;\r
+
+      \r
+
+      \    firmwareResourceName = collectionInfo.firmwareResourceName;\r
+
+      \    firmwareResourceVersion = collectionInfo.firmwareResourceVersion;\r
+
+      \    firmwareStatus = collectionInfo.firmwareStatus;\r
+
+      \r
+
+      \    purgeDate = collectionInfo.purgeDate;\r
+
+      \r
+
+      \    hardwareExtractionFunction = collectionInfo.hardwareExtractionFunction;\r
+
+      \    firmwareExtractionFunction = collectionInfo.firmwareExtractionFunction;\r
+
+      \r
+
+      \    targetFunction = collectionInfo.targetFunction;\r
+
+      \    isActivated = collectionInfo.isActivated;\r
+
+      \    periodLength = collectionInfo.periodLength;\r
+
+      \    nextTime = collectionInfo.nextTime;\r
+
+      \    endingTime = collectionInfo.endingTime;\r
+
+      \r
+
+      \    serverLabel = collectionInfo.serverLabel;\r
+
+      \    userName = collectionInfo.userName;\r
+
+      \    password = collectionInfo.password;\r
+
+      \    sshKey = collectionInfo.sshKey;\r
+
+      \r
+
+      \    sourceUri = collectionInfo.sourceUri;\r
+
+      \    fileName = collectionInfo.fileName;\r
+
+      \r
+
+      \    esName = collectionInfo.esName;\r
+
+      \    url = collectionInfo.url;\r
+
+      \    apiKey = collectionInfo.apiKey;\r
+
+      \    indexAlias = collectionInfo.indexAlias;\r
+
+      \    operationalState = collectionInfo.operationalState;\r
+
+      \    lifeCycleState = collectionInfo.lifeCycleState;\r
+
+      \    //-------------\r
+
+      \r
+
+      \    let serverList;\r
+
+      \    serverList = pm.environment.get(\"serverList\");\r
+
+      \    let serverToBeApplied;\r
+
+      \    serverToBeApplied = collectionInfo.serverToBeApplied;\r
+
+      \    serverInfo = ExtractServerInformation(serverList, serverToBeApplied);\r
+
+      \    dummyServerInfo = ExtractServerInformation(serverList, \"dummy\");\r
+
+      \r
+
+      } catch (error) {\r
+
+      \    logger.error(\"! Input data could not be loaded.\")\r
+
+      }\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Processing\r
+
+      ****************************************************************************************/\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Setting Local Variables and Preparing the Request\r
+
+      ****************************************************************************************/\r
+
+      try {\r
+
+      \    let servicePath;\r
+
+      \    servicePath = \"/create-firmware-resource\";\r
+
+      \r
+
+      \    let server;\r
+
+      \    server = serverInfo.server;\r
+
+      \r
+
+      \    let uri = server + servicePath;\r
+
+      \r
+
+      \    let requestBody;\r
+
+      \r
+
+      \    //requestBody individually composed from input parameters according to service requestBody\r
+
+      \    requestBody = '{'\r
+
+      \        + '\"firmware-resource-name\" : ' + '\"' + firmwareResourceName + '\",'\r
+
+      \        + '\"firmware-resource-version\": ' + firmwareResourceVersion +','\r
+
+      \        + '\"server-label\": ' + serverLabel + ','\r
+
+      \        + '\"source-uri\": ' + sourceUri + ','\r
+
+      \        + '\"file-name\": ' + fileName \r
+
+      \        + '}';\r
+
+      \r
+
+      \r
+
+      \r
+
+      \    pm.variables.clear();\r
+
+      \r
+
+      \    pm.variables.set(\"uri\", uri);\r
+
+      \    pm.variables.set(\"requestBody\", requestBody);\r
+
+      \    \r
+
+      \    pm.request.headers.upsert({ key: \"Authorization\", value: serverInfo.authorizationCode });\r
+
+      \    pm.request.headers.upsert({ key: \"operation-key\", value: serverInfo.operationKey });\r
+
+      \    pm.request.headers.upsert({ key: \"user\", value: serverInfo.userName });\r
+
+      \    pm.request.headers.upsert({ key: \"originator\", value: serverInfo.originator });\r
+
+      \    pm.request.headers.upsert({ key: \"x-correlator\", value: serverInfo.xCorrelator });\r
+
+      \    pm.request.headers.upsert({ key: \"trace-indicator\", value: serverInfo.traceIndicator });\r
+
+      \    pm.request.headers.upsert({ key: \"customer-journey\", value: serverInfo.customerJourney });\r
+
+      \r
+
+      \    pm.request.headers.upsert({ key: \"Accept\", value: \"application/json\" });\r
+
+      \    pm.request.headers.upsert({ key: \"Content-Type\", value: \"application/json\" })\r
+
+      \r
+
+      } catch (error) {\r
+
+      \    logger.error(\"! Local variables could not be set.\")\r
+
+      }\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Functions\r
+
+      ****************************************************************************************/\r
+
+      function ExtractServerInformation(serverList, searchedServerName) {\r
+
+      \    try {\r
+
+      \        for(let i=0; i<serverList.length; i++) {\r
+
+      \            if(serverList[i].serverName==searchedServerName) {\r
+
+      \                return serverList[i]\r
+
+      \            }\r
+
+      \        }\r
+
+      \    } catch (error) {\r
+
+      \        logger.error(\"! serverList not found or faulty\");\r
+
+      \        return {}\r
+
+      \    }\r
+
+      \    logger.warn(\"Server could not be found in serverList.\");\r
+
+      \    return {}\r
+
+      }\r
+
+      \r
+
+      function ExtractCollectionInput(collectionInputList, searchedCollection) {\r
+
+      \    try {\r
+
+      \        for(let i=0; i<collectionInputList.length; i++) {\r
+
+      \            if(collectionInputList[i].collectionName==searchedCollection) {\r
+
+      \                return collectionInputList[i]\r
+
+      \            }\r
+
+      \        }\r
+
+      \    } catch (error) {\r
+
+      \        logger.error(\"! collectionInputList not found or faulty\");\r
+
+      \        return {}\r
+
+      \    }\r
+
+      \    logger.warn(\"Collection could not be found in collectionInputList.\");\r
+
+      \    return {}\r
+
+      }\r
+
+      \r\n"
+    language: text/javascript
+  - type: afterResponse
+    code: "var serviceName = \"/create-firmware-resource\";\r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Loading Input Data\r
+
+      ****************************************************************************************/\r
+
+      var uri;\r
+
+      var dummyUri;\r
+
+      try {\r
+
+      \    uri = pm.variables.get(\"uri\");\r
+
+      \r
+
+      \    let serverList;\r
+
+      \    serverList = pm.environment.get(\"serverList\");\r
+
+      \    let dummyServerInfo;\r
+
+      \    dummyServerInfo = ExtractServerInformation(serverList, \"dummy\");\r
+
+      \    dummyUri = dummyServerInfo.dummyUri;\r
+
+      \r
+
+      } catch (error) {\r
+
+      \    logger.error(\"! Input data could not be loaded.\")\r
+
+      }\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Extracting Result\r
+
+      ****************************************************************************************/\r
+
+      var responseCode;\r
+
+      var responseObject = {};\r
+
+      try {\r
+
+      \    if (uri != dummyUri) {\r
+
+      \        let response;\r
+
+      \        response = pm.response;\r
+
+      \r
+
+      \        responseCode = parseInt(response.code);\r
+
+      \r
+
+      \    }\r
+
+      \r
+
+      } catch (error) {\r
+
+      \    logger.error(\"! result could not be extracted.\")\r
+
+      }\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Processing\r
+
+      ****************************************************************************************/\r
+
+      var reference;\r
+
+      \r
+
+      //reference schema according to service responseBody (if 200)\r
+
+      try {\r
+
+      \    reference = {\r
+
+      \    \"type\": \"array\",\r
+
+      \    \"items\": {\r
+
+      \      \"type\": \"object\",\r
+
+      \      \"properties\": {\r
+
+      \        \"firmware-resource-name\": {\r
+
+      \          \"type\": \"string\"\r
+
+      \        },\r
+
+      \        \"firmware-resource-version\": {\r
+
+      \          \"type\": \"string\"\r
+
+      \        },\r
+
+      \        \"server-label\": {\r
+
+      \          \"type\": \"string\"\r
+
+      \        },\r
+
+      \        \"source-uri\": {\r
+
+      \          \"type\": \"string\"\r
+
+      \        },\r
+
+      \        \"file-name\": {\r
+
+      \          \"type\": \"string\"\r
+
+      \        }\r
+
+      \      }\r
+
+      \    }\r
+
+      \    }\r
+
+      \r
+
+      } catch (error) {\r
+
+      \    logger.error(\"! reference could not be defined.\")\r
+
+      }\r
+
+      \r
+
+      try {\r
+
+      \    if (uri != dummyUri) {\r
+
+      \        logger.log(\"Analysis:\");\r
+
+      \r
+
+      \r
+
+      \r
+
+      \        pm.test(serviceName + \" could be executed\", function () {\r
+
+      \            pm.expect(responseCode).to.equal(204)\r
+
+      \        });\r
+
+      \        if (responseCode == 204) {\r
+
+      \            logger.log(\"  - ok: \" + serviceName + \" could be executed\")\r
+
+      \        } else {\r
+
+      \            logger.log(\"  - FAIL: \" + serviceName + \" provided \" + responseCode + \" instead of 204\")\r
+
+      \        }\r
+
+      \r
+
+      \        if (Object.keys(responseObject).length != 0) {\r
+
+      \            logger.log(\"Reference Schema:\");\r
+
+      \            logger.log(reference);\r
+
+      \r
+
+      \            logger.log(\"Interface Response:\");\r
+
+      \            logger.log(responseObject);\r
+
+      \r
+
+      \            let validationResult;\r
+
+      \            validationResult = tv4.validateMultiple(responseObject, reference, true, true);\r
+
+      \            logger.log(\"Validation Result:\");\r
+
+      \            logger.log(validationResult);\r
+
+      \r
+
+      \            pm.test(\"Response matches schema definition\", function () {\r
+
+      \                pm.expect(validationResult.errors.length).to.equal(0)\r
+
+      \            });\r
+
+      \            if (validationResult.errors.length == 0) {\r
+
+      \                logger.log(\"  - ok: Response matches schema definition\")\r
+
+      \            } else {\r
+
+      \                logger.log(\"  - FAIL: Response matches schema definition\")\r
+
+      \            }\r
+
+      \r
+
+      \        }\r
+
+      \r
+
+      \    }\r
+
+      \r
+
+      } catch (error) {\r
+
+      \    logger.error(\"! validation could not be completely executed.\")\r
+
+      }\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Setting Collection Variables\r
+
+      ****************************************************************************************/\r
+
+      \r
+
+      \r
+
+      /****************************************************************************************\r
+
+      * Functions\r
+
+      ****************************************************************************************/\r
+
+      function ExtractServerInformation(serverList, searchedServerName) {\r
+
+      \    try {\r
+
+      \        for (let i = 0; i < serverList.length; i++) {\r
+
+      \            if (serverList[i].serverName == searchedServerName) {\r
+
+      \                return serverList[i]\r
+
+      \            }\r
+
+      \        }\r
+
+      \    } catch (error) {\r
+
+      \        logger.error(\"! serverList not found or faulty\");\r
+
+      \        return {}\r
+
+      \    }\r
+
+      \    logger.warn(\"Server could not be found in serverList.\");\r
+
+      \    return {}\r
+
+      }\r
+
+      \r\n"
+    language: text/javascript
+order: 1000

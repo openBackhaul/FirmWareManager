@@ -1,0 +1,37 @@
+$kind: collection
+description: ""
+scripts:
+  - type: http:beforeRequest
+    code: |
+      // Log levels ordered based on most to less verbose:
+      // This script expects "logLevel" environment variable to be one of these log levels:
+      // debug -> log -> info -> warn -> error -> struc -> none
+      // It creates "logger" global variable which can be used anywhere in nested collection scripts
+
+      const logLevels = ["debug", "log", "info", "warn", "error", "struc", "none"];
+
+      const shouldLog = (level) => {
+        return logLevels.indexOf(level) >= logLevels.indexOf(pm.environment.get("logLevel"));
+      };
+
+      logger = {
+        debug: (message, ...optionalParams) => {
+          shouldLog("debug") && console.log(message, ...optionalParams);
+        },
+        log: (message, ...optionalParams) => {
+          shouldLog("log") && console.log(message, ...optionalParams);
+        },
+        info: (message, ...optionalParams) => {
+          shouldLog("info") && console.log(message, ...optionalParams);
+        },
+        warn: (message, ...optionalParams) => {
+          shouldLog("warn") && console.log(message, ...optionalParams);
+        },
+        error: (message, ...optionalParams) => {
+          shouldLog("error") && console.error(message, ...optionalParams);
+        },
+        struc: (message, ...optionalParams) => {
+          shouldLog("error") && console.log(message, ...optionalParams);
+        },
+      };
+    language: text/javascript
