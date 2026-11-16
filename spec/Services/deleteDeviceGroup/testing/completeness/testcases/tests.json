@@ -1,9 +1,7 @@
 {
 	"info": {
-		"_postman_id": "67a43539-5568-4860-93a0-abc3b10ae88c",
 		"name": "FirmWareManager_/delete-device-group+test.completeness",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "19854154"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
