@@ -53,7 +53,7 @@ class DomainControllerStore {
         if (index === -1) {
             domains.push(datastore);
         } else {
-            domains[index] = structuredClone(sourceData);
+            domains[index] = datastore;
         }
         return { success: true };
     }

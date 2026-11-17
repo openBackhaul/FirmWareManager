@@ -478,24 +478,24 @@ exports.listExistingFirmwareResources = function (user, originator, xCorrelator,
  * returns List
  **/
 exports.listExistingServers = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(function (resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [{
-      "password": "password",
-      "ssh-key": "ssh-key",
-      "server-label": "server-label",
-      "user-name": "user-name"
-    }, {
-      "password": "password",
-      "ssh-key": "ssh-key",
-      "server-label": "server-label",
-      "user-name": "user-name"
-    }];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+  return new Promise(async function (resolve, reject) {
+   try {
+      const dcStore = await databaseCC.DomainControllerStore.load();
+      const store = dcStore.store;
+      const runningResult = store.getDatastore('running').data;
+      runningResult.server = runningResult.server || [];
+      
+      let returnObject = {};
+      returnObject = JSON.stringify(
+                                    runningResult.server,
+                                    null,
+                                    2
+                                )
+      resolve(returnObject);                          
+      } catch (error) {
+      reject(error);
     }
+
   });
 }
 
@@ -754,9 +754,75 @@ exports.updateFirmwareResource = function (body, user, originator, xCorrelator, 
  * no response value expected for this operation
  **/
 exports.updateServer = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(function (resolve, reject) {
-    resolve();
-  });
+  return new Promise(async function (resolve, reject) {
+    try {
+      //extract input paramters from request body
+      const {
+            "server-label": serverLabel,
+            "user-name": userName,
+            password,
+            "ssh-key": sshKey
+        } = body || {};
+
+      if (!serverLabel) {
+          throw new Error("server-label is mandatory");
+      }
+
+      const dcStore = await databaseCC.DomainControllerStore.load();
+      const store = dcStore.store;
+      const runningResult = store.getDatastore('running').data;
+      runningResult.server = runningResult.server || [];
+      const indexPos = runningResult.server.findIndex(server => server.label === serverLabel);
+      if (indexPos == -1) {
+        throw new createHttpError(409, 'Server does not exists');
+      }
+      else {
+        await databaseCC.executeTransaction({
+          store,
+          modifyCandidate: async (
+            candidateDS
+          ) => {
+            if (userName !== undefined) {
+                if (typeof userName !== "string" || userName.trim() === "") {
+                    console.log("user-name is empty string");
+                } else {
+                  candidateDS.server[indexPos]["user-name"] = userName;
+                }
+            }
+
+            if (password !== undefined) {
+                if (typeof password !== "string" || password.trim() === "") {
+                    console.log("password is empty string");
+                } else {
+                  candidateDS.server[indexPos]["password"] = password;
+                }
+            }
+
+            if (sshKey !== undefined) {
+                if (typeof sshKey !== "string" || sshKey.trim() === "") {
+                    console.log("ssh-key is empty string");
+                } else {
+                  candidateDS.server[indexPos]["ssh-key"] = sshKey;
+                }
+            }
+            
+            return {
+              success: true
+            };
+          },
+
+          validations: [
+            // validateServerLabels,
+            // validateCredentials
+          ]
+        })
+        await store.save();
+        resolve();
+      }
+    } catch (error) {
+      reject(error);
+    }
+  })
 }
 
 
