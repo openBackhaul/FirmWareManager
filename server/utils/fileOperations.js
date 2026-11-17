@@ -1,88 +1,290 @@
-const fs = require("fs").promises;
+const fs = require("fs");
 const path = require("path");
 
-const dcFilePath = path.join("../database", "DC.json");
+const filePath = global.databasePath
+    ? path.resolve(global.databasePath)
+    : path.resolve(__dirname, "../database", "DC.json");
 
-async function loadDCData() {
+class DomainControllerStore {
+
+    constructor(domainControllerJson, jsonFilePath) {
+        this.domainController =
+            structuredClone(domainControllerJson);
+
+        this.jsonFilePath = jsonFilePath;
+
+        this.locks = {
+            running: false,
+            candidate: false
+        };
+    }
+
+    getDatastore(storage) {
+
+        const datastore =
+            this.domainController["domain-controller"]
+            ["network-control-domain"]
+                .find(ds => ds.storage === storage);
+
+        if (!datastore) {
+            return { success: false, data: {} }
+        }
+
+        return { success: true, data: datastore };
+    }
+
+    overwriteDatastore(
+        targetStorage,
+        sourceData
+    ) {
+
+        const domains =
+            this.domainController["domain-controller"]
+            ["network-control-domain"];
+
+        const index =
+            domains.findIndex(
+                ds => ds.storage === targetStorage
+            );
+        const datastore = structuredClone(sourceData);
+
+        datastore.storage = targetStorage;
+
+        if (index === -1) {
+            domains.push(datastore);
+        } else {
+            domains[index] = structuredClone(sourceData);
+        }
+        return { success: true };
+    }
+
+    cloneDatastore(storage) {
+        const result = this.getDatastore(storage);
+        if (!result.success) {
+            return { success: false, data: null };
+        }
+        return { success: true, data: structuredClone(result.data) };
+    }
+
+    lock(storage) {
+
+        if (this.locks[storage]) {
+            return { success: false, error: new Error(`${storage} datastore locked`) };
+        }
+
+        this.locks[storage] = true;
+        return { success: true };
+    }
+
+    unlock(storage) {
+        this.locks[storage] = false;
+        return { success: true };
+    }
+
+    isLocked(storage) {
+        return this.locks[storage];
+    }
+    async save() {
+
+        if (!this.jsonFilePath) {
+            return {
+                success: false,
+                message: "jsonFilePath not configured"
+            };
+        }
+
+        try {
+
+            await fs.promises.writeFile(
+                this.jsonFilePath,
+                JSON.stringify(
+                    this.domainController,
+                    null,
+                    2
+                ),
+                "utf8"
+            );
+
+            return {
+                success: true
+            };
+
+        } catch (err) {
+
+            return {
+                success: false,
+                error: err
+            };
+        }
+    }
+    static async load(jsonPath = filePath) {
+
+        try {
+
+            const content =
+                await fs.promises.readFile(
+                    jsonPath,
+                    "utf8"
+                );
+
+            const json =
+                JSON.parse(content);
+
+            return {
+                success: true,
+                store: new DomainControllerStore(
+                    json,
+                    jsonPath
+                )
+            };
+
+        } catch (err) {
+
+            return {
+                success: false,
+                error: err
+            };
+        }
+    }
+    async reload() {
+
+        try {
+
+            const content =
+                await fs.promises.readFile(
+                    this.jsonFilePath,
+                    "utf8"
+                );
+
+            this.domainController =
+                JSON.parse(content);
+
+            return {
+                success: true
+            };
+
+        } catch (err) {
+
+            return {
+                success: false,
+                error: err
+            };
+        }
+    }
+}
+
+async function executeTransaction({
+    store,
+    modifyCandidate,
+    validations = []
+}) {
+
+    let runningLocked = false;
+    let candidateLocked = false;
+
     try {
-        const fileContent = await fs.readFile(dcFilePath, "utf8");
-        return JSON.parse(fileContent);
-    } catch (err) {
-        throw new Error(`Failed to load DC.json: ${err.message}`);
+        // Lock Running
+        const runningLock =
+            store.lock("running");
+
+        if (!runningLock.success) {
+            return {
+                success: false,
+                status: 423,
+                error: runningLock
+            };
+        }
+
+        runningLocked = true;
+
+        // Lock Candidate
+        const candidateLock = store.lock("candidate");
+
+        if (!candidateLock.success) {
+            store.unlock("running");
+            return {
+                success: false,
+                status: 423,
+                error: candidateLock
+            };
+        }
+        candidateLocked = true;
+
+        // Clone Candidate from Running
+        const runningCopy = store.cloneDatastore("running");
+
+        if (!runningCopy.success) {
+            return runningCopy;
+        }
+
+        runningCopy.data.storage = "candidate";
+
+        const overwriteResult =
+            store.overwriteDatastore(
+                "candidate",
+                runningCopy.data
+            );
+        if (!overwriteResult.success) {
+            return overwriteResult;
+        }
+
+        // Get CandidateDS
+        const candidateResult = store.getDatastore("candidate");
+
+        const candidateDS = candidateResult.data;
+
+        // Apply Service Specific Changes
+        const changeResult = await modifyCandidate(candidateDS);
+
+        if (changeResult && changeResult.success === false) {
+            return changeResult;
+        }
+        // Trigger Validations
+        for (const validation of validations) {
+
+            const result = await validation(candidateDS);
+            if (!result.success) {
+                return {
+                    success: false,
+                    status: 462,
+                    error: result
+                };
+            }
+        }
+
+        // Overwrite Running from Candidate
+        const candidateCopy = store.cloneDatastore("candidate");
+
+        if (!candidateCopy.success) {
+            return candidateCopy;
+        }
+
+        candidateCopy.data.storage = "running";
+
+        const commitResult = store.overwriteDatastore("running", candidateCopy.data);
+
+        if (!commitResult.success) {
+            return commitResult;
+        }
+
+        return {
+            success: true,
+            status: 204
+        };
+
+    } finally {
+
+        if (candidateLocked) {
+            store.unlock("candidate");
+        }
+
+        if (runningLocked) {
+            store.unlock("running");
+        }
     }
-}
-
-async function saveDCData(dcData) {
-    try {
-        await fs.writeFile(
-            dcFilePath,
-            JSON.stringify(dcData, null, 4)
-        );
-    } catch (err) {
-        throw new Error(`Failed to save DC.json: ${err.message}`);
-    }
-}
-
-function getDataStore(dcData, storageName) {
-
-    const storage =
-        dcData["domain-controller"]
-              ["network-control-domain"]
-              .find(item => item.storage === storageName);
-
-    if (!storage) {
-        throw new Error(`${storageName} storage not found`);
-    }
-
-    return storage;
-}
-
-function copyFromRunningDSToCandidateDS(dcData) {
-
-    const runningDS = getDataStore(dcData, "running");
-
-    const candidateCopy =
-        JSON.parse(JSON.stringify(runningDS));
-
-    candidateCopy.storage = "candidate";
-
-    return candidateCopy;
-}
-
-function overwriteToRunningDS(dcData, candidateDS) {
-
-    const domains =
-        dcData["domain-controller"]
-              ["network-control-domain"];
-
-    const runningIndex = domains.findIndex(
-        item => item.storage === "running"
-    );
-
-    if (runningIndex === -1) {
-        throw new Error("Running storage not found");
-    }
-
-    const runningCopy =
-        JSON.parse(JSON.stringify(candidateDS));
-
-    runningCopy.storage = "running";
-
-    domains[runningIndex] = runningCopy;
-}
-
-function fetchCollection(dcData, storageName, collectionName) {
-
-    const storage = getDataStore(dcData, storageName);
-
-    return storage[collectionName];
 }
 
 module.exports = {
-    loadDCData,
-    saveDCData,
-    getDataStore,
-    copyFromRunningDSToCandidateDS,
-    overwriteToRunningDS,
-    fetchCollection
+    DomainControllerStore,
+    executeTransaction
 };

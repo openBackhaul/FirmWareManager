@@ -3,7 +3,10 @@
 var utils = require('../utils/writer.js');
 var IndividualServices = require('../service/IndividualServicesService');
 
-module.exports.addDevicesToDeviceGroup = function addDevicesToDeviceGroup (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+var responseBuilder = require('onf-core-model-ap/applicationPattern/rest/server/ResponseBuilder');
+var responseCodeEnum = require('onf-core-model-ap/applicationPattern/rest/server/ResponseCode');
+
+module.exports.addDevicesToDeviceGroup = function addDevicesToDeviceGroup(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.addDevicesToDeviceGroup(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -13,7 +16,7 @@ module.exports.addDevicesToDeviceGroup = function addDevicesToDeviceGroup (req, 
     });
 };
 
-module.exports.addFirmwareApproval = function addFirmwareApproval (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.addFirmwareApproval = function addFirmwareApproval(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.addFirmwareApproval(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -23,7 +26,7 @@ module.exports.addFirmwareApproval = function addFirmwareApproval (req, res, nex
     });
 };
 
-module.exports.addTargetFirmware = function addTargetFirmware (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.addTargetFirmware = function addTargetFirmware(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.addTargetFirmware(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -33,7 +36,7 @@ module.exports.addTargetFirmware = function addTargetFirmware (req, res, next, b
     });
 };
 
-module.exports.bequeathYourDataAndDie = function bequeathYourDataAndDie (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.bequeathYourDataAndDie = function bequeathYourDataAndDie(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.bequeathYourDataAndDie(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -43,7 +46,7 @@ module.exports.bequeathYourDataAndDie = function bequeathYourDataAndDie (req, re
     });
 };
 
-module.exports.createDeviceGroup = function createDeviceGroup (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.createDeviceGroup = function createDeviceGroup(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.createDeviceGroup(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -53,7 +56,7 @@ module.exports.createDeviceGroup = function createDeviceGroup (req, res, next, b
     });
 };
 
-module.exports.createDeviceModel = function createDeviceModel (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.createDeviceModel = function createDeviceModel(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.createDeviceModel(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -63,7 +66,7 @@ module.exports.createDeviceModel = function createDeviceModel (req, res, next, b
     });
 };
 
-module.exports.createFirmwareResource = function createFirmwareResource (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.createFirmwareResource = function createFirmwareResource(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.createFirmwareResource(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -73,17 +76,19 @@ module.exports.createFirmwareResource = function createFirmwareResource (req, re
     });
 };
 
-module.exports.createServer = function createServer (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.createServer = function createServer(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
   IndividualServices.createServer(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
 };
 
-module.exports.deleteDeviceGroup = function deleteDeviceGroup (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.deleteDeviceGroup = function deleteDeviceGroup(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.deleteDeviceGroup(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -93,7 +98,7 @@ module.exports.deleteDeviceGroup = function deleteDeviceGroup (req, res, next, b
     });
 };
 
-module.exports.deleteDeviceModel = function deleteDeviceModel (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.deleteDeviceModel = function deleteDeviceModel(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.deleteDeviceModel(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -103,7 +108,7 @@ module.exports.deleteDeviceModel = function deleteDeviceModel (req, res, next, b
     });
 };
 
-module.exports.deleteFirmwareResource = function deleteFirmwareResource (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.deleteFirmwareResource = function deleteFirmwareResource(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.deleteFirmwareResource(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -113,7 +118,7 @@ module.exports.deleteFirmwareResource = function deleteFirmwareResource (req, re
     });
 };
 
-module.exports.deleteServer = function deleteServer (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.deleteServer = function deleteServer(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.deleteServer(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -123,7 +128,7 @@ module.exports.deleteServer = function deleteServer (req, res, next, body, user,
     });
 };
 
-module.exports.deleteTargetFirmware = function deleteTargetFirmware (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.deleteTargetFirmware = function deleteTargetFirmware(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.deleteTargetFirmware(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -133,7 +138,7 @@ module.exports.deleteTargetFirmware = function deleteTargetFirmware (req, res, n
     });
 };
 
-module.exports.listDeviceGroupsWithoutDevices = function listDeviceGroupsWithoutDevices (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listDeviceGroupsWithoutDevices = function listDeviceGroupsWithoutDevices(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listDeviceGroupsWithoutDevices(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -143,7 +148,7 @@ module.exports.listDeviceGroupsWithoutDevices = function listDeviceGroupsWithout
     });
 };
 
-module.exports.listDeviceGroupsWithoutTargetFirmware = function listDeviceGroupsWithoutTargetFirmware (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listDeviceGroupsWithoutTargetFirmware = function listDeviceGroupsWithoutTargetFirmware(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listDeviceGroupsWithoutTargetFirmware(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -153,7 +158,7 @@ module.exports.listDeviceGroupsWithoutTargetFirmware = function listDeviceGroups
     });
 };
 
-module.exports.listDeviceModelsWithoutApprovals = function listDeviceModelsWithoutApprovals (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listDeviceModelsWithoutApprovals = function listDeviceModelsWithoutApprovals(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listDeviceModelsWithoutApprovals(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -163,7 +168,7 @@ module.exports.listDeviceModelsWithoutApprovals = function listDeviceModelsWitho
     });
 };
 
-module.exports.listExistingDeviceGroups = function listExistingDeviceGroups (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listExistingDeviceGroups = function listExistingDeviceGroups(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listExistingDeviceGroups(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -173,7 +178,7 @@ module.exports.listExistingDeviceGroups = function listExistingDeviceGroups (req
     });
 };
 
-module.exports.listExistingDeviceModels = function listExistingDeviceModels (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listExistingDeviceModels = function listExistingDeviceModels(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listExistingDeviceModels(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -183,7 +188,7 @@ module.exports.listExistingDeviceModels = function listExistingDeviceModels (req
     });
 };
 
-module.exports.listExistingDevices = function listExistingDevices (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listExistingDevices = function listExistingDevices(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listExistingDevices(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -193,7 +198,7 @@ module.exports.listExistingDevices = function listExistingDevices (req, res, nex
     });
 };
 
-module.exports.listExistingFirmwareApprovals = function listExistingFirmwareApprovals (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listExistingFirmwareApprovals = function listExistingFirmwareApprovals(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listExistingFirmwareApprovals(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -203,7 +208,7 @@ module.exports.listExistingFirmwareApprovals = function listExistingFirmwareAppr
     });
 };
 
-module.exports.listExistingFirmwareResources = function listExistingFirmwareResources (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listExistingFirmwareResources = function listExistingFirmwareResources(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listExistingFirmwareResources(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -213,7 +218,7 @@ module.exports.listExistingFirmwareResources = function listExistingFirmwareReso
     });
 };
 
-module.exports.listExistingServers = function listExistingServers (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listExistingServers = function listExistingServers(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listExistingServers(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -223,7 +228,7 @@ module.exports.listExistingServers = function listExistingServers (req, res, nex
     });
 };
 
-module.exports.listFirmwareExtractionFunctions = function listFirmwareExtractionFunctions (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listFirmwareExtractionFunctions = function listFirmwareExtractionFunctions(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listFirmwareExtractionFunctions(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -233,7 +238,7 @@ module.exports.listFirmwareExtractionFunctions = function listFirmwareExtraction
     });
 };
 
-module.exports.listHardwareExtractionFunctions = function listHardwareExtractionFunctions (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listHardwareExtractionFunctions = function listHardwareExtractionFunctions(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listHardwareExtractionFunctions(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -243,7 +248,7 @@ module.exports.listHardwareExtractionFunctions = function listHardwareExtraction
     });
 };
 
-module.exports.listIncompleteServers = function listIncompleteServers (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listIncompleteServers = function listIncompleteServers(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listIncompleteServers(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -253,7 +258,7 @@ module.exports.listIncompleteServers = function listIncompleteServers (req, res,
     });
 };
 
-module.exports.listUnknownDeviceModels = function listUnknownDeviceModels (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.listUnknownDeviceModels = function listUnknownDeviceModels(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.listUnknownDeviceModels(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -263,7 +268,7 @@ module.exports.listUnknownDeviceModels = function listUnknownDeviceModels (req, 
     });
 };
 
-module.exports.provideExistingDevice = function provideExistingDevice (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.provideExistingDevice = function provideExistingDevice(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.provideExistingDevice(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -273,7 +278,7 @@ module.exports.provideExistingDevice = function provideExistingDevice (req, res,
     });
 };
 
-module.exports.provideExistingDeviceGroup = function provideExistingDeviceGroup (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.provideExistingDeviceGroup = function provideExistingDeviceGroup(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.provideExistingDeviceGroup(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -283,7 +288,7 @@ module.exports.provideExistingDeviceGroup = function provideExistingDeviceGroup 
     });
 };
 
-module.exports.removeDevicesFromDeviceGroup = function removeDevicesFromDeviceGroup (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.removeDevicesFromDeviceGroup = function removeDevicesFromDeviceGroup(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.removeDevicesFromDeviceGroup(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -293,7 +298,7 @@ module.exports.removeDevicesFromDeviceGroup = function removeDevicesFromDeviceGr
     });
 };
 
-module.exports.updateDeviceGroup = function updateDeviceGroup (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.updateDeviceGroup = function updateDeviceGroup(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.updateDeviceGroup(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -303,7 +308,7 @@ module.exports.updateDeviceGroup = function updateDeviceGroup (req, res, next, b
     });
 };
 
-module.exports.updateDeviceModel = function updateDeviceModel (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.updateDeviceModel = function updateDeviceModel(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.updateDeviceModel(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -313,7 +318,7 @@ module.exports.updateDeviceModel = function updateDeviceModel (req, res, next, b
     });
 };
 
-module.exports.updateFirmwareResource = function updateFirmwareResource (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.updateFirmwareResource = function updateFirmwareResource(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.updateFirmwareResource(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -323,7 +328,7 @@ module.exports.updateFirmwareResource = function updateFirmwareResource (req, re
     });
 };
 
-module.exports.updateServer = function updateServer (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.updateServer = function updateServer(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.updateServer(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -333,7 +338,7 @@ module.exports.updateServer = function updateServer (req, res, next, body, user,
     });
 };
 
-module.exports.updateTargetFirmware = function updateTargetFirmware (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.updateTargetFirmware = function updateTargetFirmware(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.updateTargetFirmware(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -343,7 +348,7 @@ module.exports.updateTargetFirmware = function updateTargetFirmware (req, res, n
     });
 };
 
-module.exports.withdrawFirmwareApproval = function withdrawFirmwareApproval (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+module.exports.withdrawFirmwareApproval = function withdrawFirmwareApproval(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   IndividualServices.withdrawFirmwareApproval(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
       utils.writeJson(res, response);

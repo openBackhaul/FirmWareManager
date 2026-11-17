@@ -1,5 +1,7 @@
 'use strict';
 
+const databaseCC = require('../utils/fileOperations');
+const createHttpError = require("http-errors");
 
 /**
  * Adds Devices to a DeviceGroup
@@ -12,8 +14,8 @@
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.addDevicesToDeviceGroup = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.addDevicesToDeviceGroup = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -30,8 +32,8 @@ exports.addDevicesToDeviceGroup = function(body,user,originator,xCorrelator,trac
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.addFirmwareApproval = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.addFirmwareApproval = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -48,8 +50,8 @@ exports.addFirmwareApproval = function(body,user,originator,xCorrelator,traceInd
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.addTargetFirmware = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.addTargetFirmware = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -66,8 +68,8 @@ exports.addTargetFirmware = function(body,user,originator,xCorrelator,traceIndic
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.bequeathYourDataAndDie = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.bequeathYourDataAndDie = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -84,8 +86,8 @@ exports.bequeathYourDataAndDie = function(body,user,originator,xCorrelator,trace
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.createDeviceGroup = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.createDeviceGroup = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -102,8 +104,8 @@ exports.createDeviceGroup = function(body,user,originator,xCorrelator,traceIndic
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.createDeviceModel = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.createDeviceModel = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -120,8 +122,8 @@ exports.createDeviceModel = function(body,user,originator,xCorrelator,traceIndic
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.createFirmwareResource = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.createFirmwareResource = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -138,12 +140,43 @@ exports.createFirmwareResource = function(body,user,originator,xCorrelator,trace
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.createServer = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
+exports.createServer = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      const { "server-label": serverLabel, ...rest } = body;
+      const dcStore = await databaseCC.DomainControllerStore.load();
+      const store = dcStore.store;
+      const runningResult = store.getDatastore('running').data;
+      runningResult.server = runningResult.server || [];
+      const exists = runningResult.server.some(server => server.label === serverLabel);
+      if (exists) {
+        throw new createHttpError(409, 'Server already exists');
+      }
+      else {
+        await databaseCC.executeTransaction({
+          store,
+          modifyCandidate: async (
+            candidateDS
+          ) => {
+            candidateDS.server.push({ "label": serverLabel, ...rest });
+            return {
+              success: true
+            };
+          },
 
+          validations: [
+            // validateServerLabels,
+            // validateCredentials
+          ]
+        })
+        await store.save();
+        resolve();
+      }
+    } catch (error) {
+      reject(error);
+    }
+  })
+};
 
 /**
  * Deletes an existing DeviceGroup
@@ -156,8 +189,8 @@ exports.createServer = function(body,user,originator,xCorrelator,traceIndicator,
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.deleteDeviceGroup = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.deleteDeviceGroup = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -174,8 +207,8 @@ exports.deleteDeviceGroup = function(body,user,originator,xCorrelator,traceIndic
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.deleteDeviceModel = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.deleteDeviceModel = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -192,8 +225,8 @@ exports.deleteDeviceModel = function(body,user,originator,xCorrelator,traceIndic
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.deleteFirmwareResource = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.deleteFirmwareResource = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -210,8 +243,8 @@ exports.deleteFirmwareResource = function(body,user,originator,xCorrelator,trace
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.deleteServer = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.deleteServer = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -228,8 +261,8 @@ exports.deleteServer = function(body,user,originator,xCorrelator,traceIndicator,
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.deleteTargetFirmware = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.deleteTargetFirmware = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -245,10 +278,10 @@ exports.deleteTargetFirmware = function(body,user,originator,xCorrelator,traceIn
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listDeviceGroupsWithoutDevices = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listDeviceGroupsWithoutDevices = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ "", "" ];
+    examples['application/json'] = ["", ""];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -268,10 +301,10 @@ exports.listDeviceGroupsWithoutDevices = function(user,originator,xCorrelator,tr
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listDeviceGroupsWithoutTargetFirmware = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listDeviceGroupsWithoutTargetFirmware = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ "", "" ];
+    examples['application/json'] = ["", ""];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -291,10 +324,10 @@ exports.listDeviceGroupsWithoutTargetFirmware = function(user,originator,xCorrel
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listDeviceModelsWithoutApprovals = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listDeviceModelsWithoutApprovals = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ "", "" ];
+    examples['application/json'] = ["", ""];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -327,16 +360,16 @@ exports.listExistingDeviceGroups = require('./individualServices/listExistingDev
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listExistingDeviceModels = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listExistingDeviceModels = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ {
-  "device-model-name" : "device-model-name",
-  "default-device-group" : "default-device-group"
-}, {
-  "device-model-name" : "device-model-name",
-  "default-device-group" : "default-device-group"
-} ];
+    examples['application/json'] = [{
+      "device-model-name": "device-model-name",
+      "default-device-group": "default-device-group"
+    }, {
+      "device-model-name": "device-model-name",
+      "default-device-group": "default-device-group"
+    }];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -356,10 +389,10 @@ exports.listExistingDeviceModels = function(user,originator,xCorrelator,traceInd
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listExistingDevices = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listExistingDevices = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ "", "" ];
+    examples['application/json'] = ["", ""];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -380,16 +413,16 @@ exports.listExistingDevices = function(user,originator,xCorrelator,traceIndicato
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listExistingFirmwareApprovals = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listExistingFirmwareApprovals = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ {
-  "firmware-resource-version" : "firmware-resource-version",
-  "firmware-resource-name" : "firmware-resource-name"
-}, {
-  "firmware-resource-version" : "firmware-resource-version",
-  "firmware-resource-name" : "firmware-resource-name"
-} ];
+    examples['application/json'] = [{
+      "firmware-resource-version": "firmware-resource-version",
+      "firmware-resource-name": "firmware-resource-name"
+    }, {
+      "firmware-resource-version": "firmware-resource-version",
+      "firmware-resource-name": "firmware-resource-name"
+    }];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -409,22 +442,22 @@ exports.listExistingFirmwareApprovals = function(body,user,originator,xCorrelato
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listExistingFirmwareResources = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listExistingFirmwareResources = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ {
-  "server-label" : "server-label",
-  "firmware-resource-version" : "firmware-resource-version",
-  "source-uri" : "source-uri",
-  "firmware-resource-name" : "firmware-resource-name",
-  "file-name" : "file-name"
-}, {
-  "server-label" : "server-label",
-  "firmware-resource-version" : "firmware-resource-version",
-  "source-uri" : "source-uri",
-  "firmware-resource-name" : "firmware-resource-name",
-  "file-name" : "file-name"
-} ];
+    examples['application/json'] = [{
+      "server-label": "server-label",
+      "firmware-resource-version": "firmware-resource-version",
+      "source-uri": "source-uri",
+      "firmware-resource-name": "firmware-resource-name",
+      "file-name": "file-name"
+    }, {
+      "server-label": "server-label",
+      "firmware-resource-version": "firmware-resource-version",
+      "source-uri": "source-uri",
+      "firmware-resource-name": "firmware-resource-name",
+      "file-name": "file-name"
+    }];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -444,20 +477,20 @@ exports.listExistingFirmwareResources = function(user,originator,xCorrelator,tra
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listExistingServers = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listExistingServers = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ {
-  "password" : "password",
-  "ssh-key" : "ssh-key",
-  "server-label" : "server-label",
-  "user-name" : "user-name"
-}, {
-  "password" : "password",
-  "ssh-key" : "ssh-key",
-  "server-label" : "server-label",
-  "user-name" : "user-name"
-} ];
+    examples['application/json'] = [{
+      "password": "password",
+      "ssh-key": "ssh-key",
+      "server-label": "server-label",
+      "user-name": "user-name"
+    }, {
+      "password": "password",
+      "ssh-key": "ssh-key",
+      "server-label": "server-label",
+      "user-name": "user-name"
+    }];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -477,10 +510,10 @@ exports.listExistingServers = function(user,originator,xCorrelator,traceIndicato
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listFirmwareExtractionFunctions = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listFirmwareExtractionFunctions = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ "", "" ];
+    examples['application/json'] = ["", ""];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -500,10 +533,10 @@ exports.listFirmwareExtractionFunctions = function(user,originator,xCorrelator,t
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listHardwareExtractionFunctions = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listHardwareExtractionFunctions = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ "", "" ];
+    examples['application/json'] = ["", ""];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -523,10 +556,10 @@ exports.listHardwareExtractionFunctions = function(user,originator,xCorrelator,t
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listIncompleteServers = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listIncompleteServers = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ "", "" ];
+    examples['application/json'] = ["", ""];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -546,10 +579,10 @@ exports.listIncompleteServers = function(user,originator,xCorrelator,traceIndica
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listUnknownDeviceModels = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.listUnknownDeviceModels = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ "", "" ];
+    examples['application/json'] = ["", ""];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -570,28 +603,28 @@ exports.listUnknownDeviceModels = function(user,originator,xCorrelator,traceIndi
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns inline_response_200_5
  **/
-exports.provideExistingDevice = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.provideExistingDevice = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "device-model" : "device-model",
-  "odu-firmware-list" : [ null, null ],
-  "boot-firmware-list" : [ null, null ],
-  "application-firmware-list" : [ null, null ],
-  "mount-name" : "mount-name",
-  "web-server-list" : [ null, null ],
-  "firmware-list" : [ {
-    "name" : "name",
-    "version" : "version",
-    "status" : "status"
-  }, {
-    "name" : "name",
-    "version" : "version",
-    "status" : "status"
-  } ],
-  "controller-firmware-list" : [ null, null ],
-  "last-update" : "last-update"
-};
+      "device-model": "device-model",
+      "odu-firmware-list": [null, null],
+      "boot-firmware-list": [null, null],
+      "application-firmware-list": [null, null],
+      "mount-name": "mount-name",
+      "web-server-list": [null, null],
+      "firmware-list": [{
+        "name": "name",
+        "version": "version",
+        "status": "status"
+      }, {
+        "name": "name",
+        "version": "version",
+        "status": "status"
+      }],
+      "controller-firmware-list": [null, null],
+      "last-update": "last-update"
+    };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -612,22 +645,22 @@ exports.provideExistingDevice = function(body,user,originator,xCorrelator,traceI
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns inline_response_200_6
  **/
-exports.provideExistingDeviceGroup = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.provideExistingDeviceGroup = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "target-firmware-list" : [ {
-    "resource" : "resource",
-    "status" : "status"
-  }, {
-    "resource" : "resource",
-    "status" : "status"
-  } ],
-  "device-list" : [ "device-list", "device-list" ],
-  "device-group-label" : "device-group-label",
-  "purge-date" : "purge-date",
-  "device-model-name" : "device-model-name"
-};
+      "target-firmware-list": [{
+        "resource": "resource",
+        "status": "status"
+      }, {
+        "resource": "resource",
+        "status": "status"
+      }],
+      "device-list": ["device-list", "device-list"],
+      "device-group-label": "device-group-label",
+      "purge-date": "purge-date",
+      "device-model-name": "device-model-name"
+    };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -648,8 +681,8 @@ exports.provideExistingDeviceGroup = function(body,user,originator,xCorrelator,t
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.removeDevicesFromDeviceGroup = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.removeDevicesFromDeviceGroup = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -666,8 +699,8 @@ exports.removeDevicesFromDeviceGroup = function(body,user,originator,xCorrelator
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateDeviceGroup = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.updateDeviceGroup = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -684,8 +717,8 @@ exports.updateDeviceGroup = function(body,user,originator,xCorrelator,traceIndic
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateDeviceModel = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.updateDeviceModel = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -702,8 +735,8 @@ exports.updateDeviceModel = function(body,user,originator,xCorrelator,traceIndic
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateFirmwareResource = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.updateFirmwareResource = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -720,8 +753,8 @@ exports.updateFirmwareResource = function(body,user,originator,xCorrelator,trace
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateServer = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.updateServer = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -738,8 +771,8 @@ exports.updateServer = function(body,user,originator,xCorrelator,traceIndicator,
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateTargetFirmware = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.updateTargetFirmware = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
@@ -756,8 +789,8 @@ exports.updateTargetFirmware = function(body,user,originator,xCorrelator,traceIn
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.withdrawFirmwareApproval = function(body,user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
+exports.withdrawFirmwareApproval = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  return new Promise(function (resolve, reject) {
     resolve();
   });
 }
