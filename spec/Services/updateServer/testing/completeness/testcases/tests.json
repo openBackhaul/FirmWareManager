@@ -1,9 +1,7 @@
 {
   "info": {
-    "_postman_id": "e5cf1e15-2caf-467c-bdd9-7d539f185f55",
     "name": "FirmWareManager_updateServer+test.completeness",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "44919990"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
@@ -222,13 +220,13 @@
           "name": "completeness",
           "item": [
             {
-              "name": "/update-server",
+              "name": "/update-server-requiredParameters",
               "event": [
                 {
                   "listen": "prerequest",
                   "script": {
                     "exec": [
-                      "logger.struc(\"\\n===== /update-server ============================================\");\r",
+                      "logger.struc(\"\\n===== /update-server (required parameters) ============================================\");\r",
                       "\r",
                       "\r",
                       "/****************************************************************************************\r",
@@ -572,7 +570,7 @@
               "response": []
             },
             {
-              "name": "/update-server_with_full_requestBody",
+              "name": "/update-server",
               "event": [
                 {
                   "listen": "prerequest",
@@ -692,10 +690,10 @@
                       "    //requestBody individually composed from input parameters according to service requestBody\r",
                       "    requestBody = ''\r",
                       "        +   '{ '\r",
-                      "        +       '\"server-label\": \"' + serverLabel + '\"',\r",
-                      "        +       '\"user-name\": \"' + userName + '\"',\r",
-                      "        +       '\"password\": \"' + password + '\"',\r",
-                      "        +       '\"ssh-key\": \"' + sshKey + '\"',\r",
+                      "        +       '\"server-label\": \"' + serverLabel + '\",'\r",
+                      "        +       '\"user-name\": \"' + userName + '\",'\r",
+                      "        +       '\"password\": \"' + password + '\",'\r",
+                      "        +       '\"ssh-key\": \"' + sshKey + '\"'\r",
                       "        +   ' }';\r",
                       "\r",
                       "\r",

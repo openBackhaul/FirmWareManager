@@ -220,13 +220,13 @@
           "name": "completeness",
           "item": [
             {
-              "name": "/create-server",
+              "name": "/create-server-requiredParameters",
               "event": [
                 {
                   "listen": "prerequest",
                   "script": {
                     "exec": [
-                      "logger.struc(\"\\n===== /create-server ============================================\");\r",
+                      "logger.struc(\"\\n===== /create-server (requiredParameters) ============================================\");\r",
                       "\r",
                       "\r",
                       "/****************************************************************************************\r",
@@ -570,7 +570,7 @@
               "response": []
             },
             {
-              "name": "/create-server_with_full_requestBody",
+              "name": "/create-server",
               "event": [
                 {
                   "listen": "prerequest",

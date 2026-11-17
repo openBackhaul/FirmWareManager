@@ -220,7 +220,7 @@
           "name": "completeness",
           "item": [
             {
-              "name": "/list-existing-firmware-resources",
+              "name": "/create-firmware-resource",
               "event": [
                 {
                   "listen": "prerequest",
@@ -340,10 +340,10 @@
                       "    //requestBody individually composed from input parameters according to service requestBody\r",
                       "    requestBody = '{'\r",
                       "        + '\"firmware-resource-name\" : ' + '\"' + firmwareResourceName + '\",'\r",
-                      "        + '\"firmware-resource-version\": ' + firmwareResourceVersion +','\r",
-                      "        + '\"server-label\": ' + serverLabel + ','\r",
-                      "        + '\"source-uri\": ' + sourceUri + ','\r",
-                      "        + '\"file-name\": ' + fileName \r",
+                      "        + '\"firmware-resource-version\": ' + '\"' + firmwareResourceVersion +'\",'\r",
+                      "        + '\"server-label\": ' + '\"' + serverLabel + '\",'\r",
+                      "        + '\"source-uri\": ' + '\"' + sourceUri + '\",'\r",
+                      "        + '\"file-name\": '+ '\"' + fileName +  '\"'\r",
                       "        + '}';\r",
                       "\r",
                       "\r",
@@ -500,7 +500,7 @@
                       "        if (responseCode == 204) {\r",
                       "            logger.log(\"  - ok: \" + serviceName + \" could be executed\")\r",
                       "        } else {\r",
-                      "            logger.log(\"  - FAIL: \" + serviceName + \" provided \" + responseCode + \" instead of 200\")\r",
+                      "            logger.log(\"  - FAIL: \" + serviceName + \" provided \" + responseCode + \" instead of 204\")\r",
                       "        }\r",
                       "\r",
                       "        if (Object.keys(responseObject).length != 0) {\r",

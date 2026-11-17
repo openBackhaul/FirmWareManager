@@ -339,7 +339,7 @@
                       "\r",
                       "    //requestBody individually composed from input parameters according to service requestBody\r",
                       "    requestBody = '{'\r",
-                      "        + '\"device-model-name\" : ' + '\"' + deviceModelName  \r",
+                      "        + '\"device-model-name\" : ' + '\"' + deviceModelName + '\"'  \r",
                       "        + '}';\r",
                       "\r",
                       "\r",
