@@ -22,7 +22,7 @@
       {
         "_comment": "SETTINGS FOR TESTING AGAINST SIMULATOR",
         "serverName": "FirmWareManager+simu",
-        "server": "http://localhost:3003",
+        "server": "http://localhost:3001",
         "pathToControlConstruct": "",
         "authorizationCode": "Basic ????",
         "operationKey": "Operation key not yet provided.",
