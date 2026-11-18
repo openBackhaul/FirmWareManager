@@ -132,7 +132,7 @@ class DomainControllerStore {
 
             return {
                 success: true,
-                store: new DomainControllerStore(
+                storage: new DomainControllerStore(
                     json,
                     jsonPath
                 )
@@ -174,7 +174,7 @@ class DomainControllerStore {
 }
 
 async function executeTransaction({
-    store,
+    storage,
     modifyCandidate,
     validations = []
 }) {
@@ -185,7 +185,7 @@ async function executeTransaction({
     try {
         // Lock Running
         const runningLock =
-            store.lock("running");
+            storage.lock("running");
 
         if (!runningLock.success) {
             return {
@@ -198,10 +198,10 @@ async function executeTransaction({
         runningLocked = true;
 
         // Lock Candidate
-        const candidateLock = store.lock("candidate");
+        const candidateLock = storage.lock("candidate");
 
         if (!candidateLock.success) {
-            store.unlock("running");
+            storage.unlock("running");
             return {
                 success: false,
                 status: 423,
@@ -211,7 +211,7 @@ async function executeTransaction({
         candidateLocked = true;
 
         // Clone Candidate from Running
-        const runningCopy = store.cloneDatastore("running");
+        const runningCopy = storage.cloneDatastore("running");
 
         if (!runningCopy.success) {
             return runningCopy;
@@ -220,7 +220,7 @@ async function executeTransaction({
         runningCopy.data.storage = "candidate";
 
         const overwriteResult =
-            store.overwriteDatastore(
+            storage.overwriteDatastore(
                 "candidate",
                 runningCopy.data
             );
@@ -229,7 +229,7 @@ async function executeTransaction({
         }
 
         // Get CandidateDS
-        const candidateResult = store.getDatastore("candidate");
+        const candidateResult = storage.getDatastore("candidate");
 
         const candidateDS = candidateResult.data;
 
@@ -253,7 +253,7 @@ async function executeTransaction({
         }
 
         // Overwrite Running from Candidate
-        const candidateCopy = store.cloneDatastore("candidate");
+        const candidateCopy = storage.cloneDatastore("candidate");
 
         if (!candidateCopy.success) {
             return candidateCopy;
@@ -261,7 +261,7 @@ async function executeTransaction({
 
         candidateCopy.data.storage = "running";
 
-        const commitResult = store.overwriteDatastore("running", candidateCopy.data);
+        const commitResult = storage.overwriteDatastore("running", candidateCopy.data);
 
         if (!commitResult.success) {
             return commitResult;
@@ -275,11 +275,11 @@ async function executeTransaction({
     } finally {
 
         if (candidateLocked) {
-            store.unlock("candidate");
+            storage.unlock("candidate");
         }
 
         if (runningLocked) {
-            store.unlock("running");
+            storage.unlock("running");
         }
     }
 }

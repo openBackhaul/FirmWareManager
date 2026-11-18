@@ -83,7 +83,7 @@ module.exports.createServer = function createServer(req, res, next, body, user, 
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      let sentResp = responseBuilder.buildResponse(res, response.code, response);
       responseCode = sentResp.code;
     });
 };
@@ -249,12 +249,14 @@ module.exports.listHardwareExtractionFunctions = function listHardwareExtraction
 };
 
 module.exports.listIncompleteServers = function listIncompleteServers(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.OK;
   IndividualServices.listIncompleteServers(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, response.code, response);
+      responseCode = sentResp.code;
     });
 };
 

@@ -1,7 +1,6 @@
 'use strict';
 
 const databaseCC = require('../utils/fileOperations');
-const createHttpError = require("http-errors");
 
 /**
  * Adds Devices to a DeviceGroup
@@ -140,43 +139,7 @@ exports.createFirmwareResource = function (body, user, originator, xCorrelator, 
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.createServer = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(async function (resolve, reject) {
-    try {
-      const { "server-label": serverLabel, ...rest } = body;
-      const dcStore = await databaseCC.DomainControllerStore.load();
-      const store = dcStore.store;
-      const runningResult = store.getDatastore('running').data;
-      runningResult.server = runningResult.server || [];
-      const exists = runningResult.server.some(server => server.label === serverLabel);
-      if (exists) {
-        throw new createHttpError(409, 'Server already exists');
-      }
-      else {
-        await databaseCC.executeTransaction({
-          store,
-          modifyCandidate: async (
-            candidateDS
-          ) => {
-            candidateDS.server.push({ "label": serverLabel, ...rest });
-            return {
-              success: true
-            };
-          },
-
-          validations: [
-            // validateServerLabels,
-            // validateCredentials
-          ]
-        })
-        await store.save();
-        resolve();
-      }
-    } catch (error) {
-      reject(error);
-    }
-  })
-};
+exports.createServer = require('./individualServices/createServer/createServer').createServer;
 
 /**
  * Deletes an existing DeviceGroup
@@ -477,27 +440,7 @@ exports.listExistingFirmwareResources = function (user, originator, xCorrelator,
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listExistingServers = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(async function (resolve, reject) {
-   try {
-      const dcStore = await databaseCC.DomainControllerStore.load();
-      const store = dcStore.store;
-      const runningResult = store.getDatastore('running').data;
-      runningResult.server = runningResult.server || [];
-      
-      let returnObject = {};
-      returnObject = JSON.stringify(
-                                    runningResult.server,
-                                    null,
-                                    2
-                                )
-      resolve(returnObject);                          
-      } catch (error) {
-      reject(error);
-    }
-
-  });
-}
+exports.listExistingServers = require('./individualServices/listExistingServers/listExistingServers').listExistingServers;
 
 
 /**
@@ -556,17 +499,7 @@ exports.listHardwareExtractionFunctions = function (user, originator, xCorrelato
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listIncompleteServers = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(function (resolve, reject) {
-    var examples = {};
-    examples['application/json'] = ["", ""];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
+exports.listIncompleteServers = require('./individualServices/listIncompleteServers/listIncompleteServers').listIncompleteServers;
 
 
 /**
@@ -753,77 +686,7 @@ exports.updateFirmwareResource = function (body, user, originator, xCorrelator, 
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateServer = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(async function (resolve, reject) {
-    try {
-      //extract input paramters from request body
-      const {
-            "server-label": serverLabel,
-            "user-name": userName,
-            password,
-            "ssh-key": sshKey
-        } = body || {};
-
-      if (!serverLabel) {
-          throw new Error("server-label is mandatory");
-      }
-
-      const dcStore = await databaseCC.DomainControllerStore.load();
-      const store = dcStore.store;
-      const runningResult = store.getDatastore('running').data;
-      runningResult.server = runningResult.server || [];
-      const indexPos = runningResult.server.findIndex(server => server.label === serverLabel);
-      if (indexPos == -1) {
-        throw new createHttpError(409, 'Server does not exists');
-      }
-      else {
-        await databaseCC.executeTransaction({
-          store,
-          modifyCandidate: async (
-            candidateDS
-          ) => {
-            if (userName !== undefined) {
-                if (typeof userName !== "string" || userName.trim() === "") {
-                    console.log("user-name is empty string");
-                } else {
-                  candidateDS.server[indexPos]["user-name"] = userName;
-                }
-            }
-
-            if (password !== undefined) {
-                if (typeof password !== "string" || password.trim() === "") {
-                    console.log("password is empty string");
-                } else {
-                  candidateDS.server[indexPos]["password"] = password;
-                }
-            }
-
-            if (sshKey !== undefined) {
-                if (typeof sshKey !== "string" || sshKey.trim() === "") {
-                    console.log("ssh-key is empty string");
-                } else {
-                  candidateDS.server[indexPos]["ssh-key"] = sshKey;
-                }
-            }
-            
-            return {
-              success: true
-            };
-          },
-
-          validations: [
-            // validateServerLabels,
-            // validateCredentials
-          ]
-        })
-        await store.save();
-        resolve();
-      }
-    } catch (error) {
-      reject(error);
-    }
-  })
-}
+exports.updateServer = require('./individualServices/updateServer/updateServer').updateServer;
 
 
 /**
