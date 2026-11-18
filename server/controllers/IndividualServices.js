@@ -209,22 +209,26 @@ module.exports.listExistingFirmwareApprovals = function listExistingFirmwareAppr
 };
 
 module.exports.listExistingFirmwareResources = function listExistingFirmwareResources(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.OK;
   IndividualServices.listExistingFirmwareResources(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, response.code, response);
+      responseCode = sentResp.code;
     });
 };
 
 module.exports.listExistingServers = function listExistingServers(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.OK;
   IndividualServices.listExistingServers(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, response.code, response);
+      responseCode = sentResp.code;
     });
 };
 
@@ -321,22 +325,26 @@ module.exports.updateDeviceModel = function updateDeviceModel(req, res, next, bo
 };
 
 module.exports.updateFirmwareResource = function updateFirmwareResource(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
   IndividualServices.updateFirmwareResource(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, response.code, response);
+      responseCode = sentResp.code;
     });
 };
 
 module.exports.updateServer = function updateServer(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
   IndividualServices.updateServer(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, response.code, response);
+      responseCode = sentResp.code;
     });
 };
 

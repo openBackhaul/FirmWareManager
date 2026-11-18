@@ -29,61 +29,61 @@ function updateServer(body, user, originator, xCorrelator, traceIndicator, custo
                 "ssh-key": sshKey
             } = body || {};
 
-            if (!serverLabel) {
-                throw new Error("server-label is mandatory");
-            }
-
             const dcStore = await databaseCC.DomainControllerStore.load();
             const storage = dcStore.storage;
+
             const runningResult = storage.getDatastore('running').data;
             runningResult.server = runningResult.server || [];
             const indexPos = runningResult.server.findIndex(server => server.label === serverLabel);
             if (indexPos == -1) {
-                throw new createHttpError(409, 'Server does not exists');
+                throw new createHttpError(404, 'Server does not exists');
             }
-            else {
-                await databaseCC.executeTransaction({
-                    storage,
-                    modifyCandidate: async (
-                        candidateDS
-                    ) => {
-                        if (userName !== undefined) {
-                            if (typeof userName !== "string" || userName.trim() === "") {
-                                console.log("user-name is empty string");
-                            } else {
-                                candidateDS.server[indexPos]["user-name"] = userName;
-                            }
+
+            const transactionResult = await databaseCC.executeTransaction({
+                storage,
+                modifyCandidate: async (
+                    candidateDS
+                ) => {
+                    candidateDS.server[indexPos]["label"] = serverLabel;
+
+                    if (userName !== undefined) {
+                        if (typeof userName !== "string" || userName.trim() === "") {
+                            console.log("user-name is empty string");
+                        } else {
+                            candidateDS.server[indexPos]["user-name"] = userName;
                         }
+                    }
 
-                        if (password !== undefined) {
-                            if (typeof password !== "string" || password.trim() === "") {
-                                console.log("password is empty string");
-                            } else {
-                                candidateDS.server[indexPos]["password"] = password;
-                            }
+                    if (password !== undefined) {
+                        if (typeof password !== "string" || password.trim() === "") {
+                            console.log("password is empty string");
+                        } else {
+                            candidateDS.server[indexPos]["password"] = password;
                         }
+                    }
 
-                        if (sshKey !== undefined) {
-                            if (typeof sshKey !== "string" || sshKey.trim() === "") {
-                                console.log("ssh-key is empty string");
-                            } else {
-                                candidateDS.server[indexPos]["ssh-key"] = sshKey;
-                            }
+                    if (sshKey !== undefined) {
+                        if (typeof sshKey !== "string" || sshKey.trim() === "") {
+                            console.log("ssh-key is empty string");
+                        } else {
+                            candidateDS.server[indexPos]["ssh-key"] = sshKey;
                         }
+                    }
+                    return {
+                        success: true
+                    };
+                },
 
-                        return {
-                            success: true
-                        };
-                    },
-
-                    validations: [
-                        // validateServerLabels,
-                        // validateCredentials
-                    ]
-                })
-                await storage.save();
-                resolve();
+                validations: [
+                    // validateServerLabels,
+                    // validateCredentials
+                ]
+            })
+            if (!transactionResult.success) {
+                throw new createHttpError(462, 'Validation failed.');
             }
+            await storage.save();
+            resolve();
         } catch (error) {
             reject(error);
         }

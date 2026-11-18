@@ -405,29 +405,7 @@ exports.listExistingFirmwareApprovals = function (body, user, originator, xCorre
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listExistingFirmwareResources = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(function (resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [{
-      "server-label": "server-label",
-      "firmware-resource-version": "firmware-resource-version",
-      "source-uri": "source-uri",
-      "firmware-resource-name": "firmware-resource-name",
-      "file-name": "file-name"
-    }, {
-      "server-label": "server-label",
-      "firmware-resource-version": "firmware-resource-version",
-      "source-uri": "source-uri",
-      "firmware-resource-name": "firmware-resource-name",
-      "file-name": "file-name"
-    }];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
+exports.listExistingFirmwareResources = require('./individualServices/listExistingFirmwareResources/listExistingFirmwareResources').listExistingFirmwareResources;
 
 
 /**
@@ -668,11 +646,7 @@ exports.updateDeviceModel = function (body, user, originator, xCorrelator, trace
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.updateFirmwareResource = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(function (resolve, reject) {
-    resolve();
-  });
-}
+exports.updateFirmwareResource = require('./individualServices/updateFirmwareResource/updateFirmwareResource').updateFirmwareResource;
 
 
 /**

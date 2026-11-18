@@ -21,18 +21,11 @@ function listExistingServers(user, originator, xCorrelator, traceIndicator, cust
             const dcStore = await databaseCC.DomainControllerStore.load();
             const storage = dcStore.storage;
             const runningResult = storage.getDatastore('running').data;
-            runningResult.server = runningResult.server || [];
-            let returnObject = {};
-            returnObject = JSON.stringify(
-                runningResult.server,
-                null,
-                2
-            )
+            const returnObject = runningResult.server;
             resolve(returnObject);
         } catch (error) {
-            reject(error);
+            reject({ code: error.statusCode, message: error.message });
         }
-
     });
 }
 
