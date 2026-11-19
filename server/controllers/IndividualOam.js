@@ -1,54 +1,82 @@
 'use strict';
 
-var utils = require('../utils/writer.js');
 var IndividualOam = require('../service/IndividualOamService');
 
-module.exports.listExistingEsAddresses = function listExistingEsAddresses (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  IndividualOam.listExistingEsAddresses(user, originator, xCorrelator, traceIndicator, customerJourney)
+var responseBuilder = require('onf-core-model-ap/applicationPattern/rest/server/ResponseBuilder');
+var responseCodeEnum = require('onf-core-model-ap/applicationPattern/rest/server/ResponseCode');
+var oamLogService = require('onf-core-model-ap/applicationPattern/services/OamLogService');
+
+module.exports.listExistingEsAddresses = async function listExistingEsAddresses (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.OK;
+
+  await IndividualOam.listExistingEsAddresses(req.url, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
+
+  oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.listExistingPulsers = function listExistingPulsers (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  IndividualOam.listExistingPulsers(user, originator, xCorrelator, traceIndicator, customerJourney)
+module.exports.listExistingPulsers = async function listExistingPulsers (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.OK;
+
+  await IndividualOam.listExistingPulsers(req.url, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
+
+  oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.listHistoricalErrors = function listHistoricalErrors (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  IndividualOam.listHistoricalErrors(user, originator, xCorrelator, traceIndicator, customerJourney)
+module.exports.listHistoricalErrors = async function listHistoricalErrors (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.OK;
+
+  await IndividualOam.listHistoricalErrors(req.url, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
+
+  oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.updateEsAddress = function updateEsAddress (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  IndividualOam.updateEsAddress(body, user, originator, xCorrelator, traceIndicator, customerJourney)
+module.exports.updateEsAddress = async function updateEsAddress (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.OK;
+
+  await IndividualOam.updateEsAddress(body, req.url, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
+
+  oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.updatePulser = function updatePulser (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  IndividualOam.updatePulser(body, user, originator, xCorrelator, traceIndicator, customerJourney)
+module.exports.updatePulser = async function updatePulser (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.OK;
+
+  await IndividualOam.updatePulser(body, req.url, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
+
+  oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
