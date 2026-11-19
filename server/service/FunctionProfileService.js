@@ -1,22 +1,28 @@
 'use strict';
+var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 
 
 /**
  * Returns the description of the Function
  *
- * uuid String 
+ * url String
  * returns inline_response_200_34
  **/
-exports.getFunctionProfileDescription = function(uuid) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "function-profile-1-0:description" : "Removes invalid data"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+exports.getFunctionProfileDescription = function (url) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let value = await fileOperation.readFromDatabaseAsync(url);
+      let response = {};
+      response['application/json'] = {
+        "function-profile-1-0:description": value
+      };
+      if (Object.keys(response).length > 0) {
+        resolve(response[Object.keys(response)[0]]);
+      } else {
+        resolve();
+      }
+    } catch (error) {
+      reject(error);
     }
   });
 }
@@ -25,19 +31,24 @@ exports.getFunctionProfileDescription = function(uuid) {
 /**
  * Returns the name of the Function
  *
- * uuid String 
+ * url String
  * returns inline_response_200_33
  **/
-exports.getFunctionProfileFunctionName = function(uuid) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "function-profile-1-0:function-name" : "p1RemoveInvalidData"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+exports.getFunctionProfileFunctionName = function (url) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let value = await fileOperation.readFromDatabaseAsync(url);
+      let response = {};
+      response['application/json'] = {
+        "function-profile-1-0:function-name": value
+      };
+      if (Object.keys(response).length > 0) {
+        resolve(response[Object.keys(response)[0]]);
+      } else {
+        resolve();
+      }
+    } catch (error) {
+      reject(error);
     }
   });
 }
@@ -46,19 +57,24 @@ exports.getFunctionProfileFunctionName = function(uuid) {
 /**
  * Returns the configured value of isActive of the Function
  *
- * uuid String 
+ * url String
  * returns inline_response_200_37
  **/
-exports.getFunctionProfileIsActive = function(uuid) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "function-profile-1-0:is-active" : true
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+exports.getFunctionProfileIsActive = function (url) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let value = await fileOperation.readFromDatabaseAsync(url);
+      let response = {};
+      response['application/json'] = {
+        "function-profile-1-0:is-active": value
+      };
+      if (Object.keys(response).length > 0) {
+        resolve(response[Object.keys(response)[0]]);
+      } else {
+        resolve();
+      }
+    } catch (error) {
+      reject(error);
     }
   });
 }
@@ -67,22 +83,24 @@ exports.getFunctionProfileIsActive = function(uuid) {
 /**
  * Returns the ParameterList of the Function
  *
- * uuid String 
+ * url String
  * returns inline_response_200_35
  **/
-exports.getFunctionProfileParameterList = function(uuid) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "function-profile-1-0:parameter-list" : [ {
-    "parameter" : "xy-15-3-2-string-p-001",
-    "owner" : "platform"
-  } ]
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+exports.getFunctionProfileParameterList = function (url) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let value = await fileOperation.readFromDatabaseAsync(url);
+      let response = {};
+      response['application/json'] = {
+        "function-profile-1-0:parameter-list": value
+      };
+      if (Object.keys(response).length > 0) {
+        resolve(response[Object.keys(response)[0]]);
+      } else {
+        resolve();
+      }
+    } catch (error) {
+      reject(error);
     }
   });
 }
@@ -91,19 +109,24 @@ exports.getFunctionProfileParameterList = function(uuid) {
 /**
  * Returns the SubFunctionList of the Function
  *
- * uuid String 
+ * url String
  * returns inline_response_200_36
  **/
-exports.getFunctionProfileSubFunctionList = function(uuid) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "function-profile-1-0:sub-function-list" : [ "function-profile-1-0:sub-function-list", "function-profile-1-0:sub-function-list" ]
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+exports.getFunctionProfileSubFunctionList = function (url) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let value = await fileOperation.readFromDatabaseAsync(url);
+      let response = {};
+      response['application/json'] = {
+        "function-profile-1-0:sub-function-list": value
+      };
+      if (Object.keys(response).length > 0) {
+        resolve(response[Object.keys(response)[0]]);
+      } else {
+        resolve();
+      }
+    } catch (error) {
+      reject(error);
     }
   });
 }
@@ -112,13 +135,17 @@ exports.getFunctionProfileSubFunctionList = function(uuid) {
 /**
  * Configures value of isActive of the Function
  *
- * body Functionprofileconfiguration_isactive_body 
- * uuid String 
+ * url String
+ * body Functionprofileconfiguration_isactive_body
  * no response value expected for this operation
  **/
-exports.putFunctionProfileIsActive = function(body,uuid) {
-  return new Promise(function(resolve, reject) {
-    resolve();
+exports.putFunctionProfileIsActive = function (url, body) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      await fileOperation.writeToDatabaseAsync(url, body, false);
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
   });
 }
-
