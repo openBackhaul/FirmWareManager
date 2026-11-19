@@ -1,7 +1,5 @@
 'use strict';
 
-const databaseCC = require('../utils/fileOperations');
-
 /**
  * Adds Devices to a DeviceGroup
  *

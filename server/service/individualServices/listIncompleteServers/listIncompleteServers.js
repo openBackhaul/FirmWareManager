@@ -1,7 +1,7 @@
 
 'use strict';
 
-const databaseCC = require('../../../utils/fileOperations');
+const DomainControllerStore = require('../../../utils/DomainControllerStore');
 
 /**
  * listIncompleteServers: POST /list-incomplete-servers
@@ -19,15 +19,10 @@ const databaseCC = require('../../../utils/fileOperations');
 function listIncompleteServers(user, originator, xCorrelator, traceIndicator, customerJourney) {
     return new Promise(async function (resolve, reject) {
         try {
-            const dcStore = await databaseCC.DomainControllerStore.load();
-            const storage = dcStore.storage;
-            const runningResult = storage.getDatastore('running').data;
-            runningResult.server = runningResult.server || [];
-            const returnObject = runningResult.server
-                .filter((server) => ![
-                    server['user-name'],
-                    server.password,
-                    server['ssh-key']
+            const runningDS = DomainControllerStore.getDatastore('running').data;
+            runningDS.server = runningDS.server || [];
+            const returnObject = runningDS.server
+                .filter((server) => ![server['user-name'], server.password, server['ssh-key']
                 ].every((value) => value != null && value.length > 0))
                 .map((server) => server.label);
             resolve(returnObject);

@@ -4,7 +4,15 @@ var path = require('path');
 var http = require('http');
 
 var oas3Tools = require('oas3-tools');
+const DomainControllerStore = require('./utils/DomainControllerStore');
+
+
 var serverPort = 4036;
+
+// Load JSON ONCE during startup
+DomainControllerStore.initialize(
+    path.join(__dirname, './database/domain-controller.json')
+);
 
 // swaggerRouter configuration
 var options = {

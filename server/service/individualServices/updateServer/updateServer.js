@@ -1,6 +1,7 @@
 'use strict';
 
-const databaseCC = require('../../../utils/fileOperations');
+const DomainControllerStore = require('../../../utils/DomainControllerStore');
+const { executeTransaction } = require('../../../utils/writeOperations');
 const createHttpError = require("http-errors");
 
 /**
@@ -29,17 +30,15 @@ function updateServer(body, user, originator, xCorrelator, traceIndicator, custo
                 "ssh-key": sshKey
             } = body || {};
 
-            const dcStore = await databaseCC.DomainControllerStore.load();
-            const storage = dcStore.storage;
-
-            const runningResult = storage.getDatastore('running').data;
+            const storage = DomainControllerStore.getDatastore('running').data;
+            const runningResult = storage;
             runningResult.server = runningResult.server || [];
             const indexPos = runningResult.server.findIndex(server => server.label === serverLabel);
             if (indexPos == -1) {
                 throw new createHttpError(404, 'Server does not exists');
             }
 
-            const transactionResult = await databaseCC.executeTransaction({
+            const transactionResult = await executeTransaction({
                 storage,
                 modifyCandidate: async (
                     candidateDS
@@ -82,7 +81,7 @@ function updateServer(body, user, originator, xCorrelator, traceIndicator, custo
             if (!transactionResult.success) {
                 throw new createHttpError(462, 'Validation failed.');
             }
-            await storage.save();
+            await DomainControllerStore.save();
             resolve();
         } catch (error) {
             reject(error);

@@ -1,6 +1,6 @@
 `use strict`;
 
-const databaseCC = require('../../../utils/fileOperations');
+const DomainControllerStore = require('../../../utils/DomainControllerStore');
 
 /**
  * listExistingFirmwareResources: POST /list-existing-firmware-resources
@@ -18,10 +18,8 @@ const databaseCC = require('../../../utils/fileOperations');
 function listExistingFirmwareResources(user, originator, xCorrelator, traceIndicator, customerJourney) {
     return new Promise(async function (resolve, reject) {
         try {
-            const dcStore = await databaseCC.DomainControllerStore.load();
-            const storage = dcStore.storage;
-            const runningResult = storage.getDatastore('running').data;
-            const returnObject = runningResult["firmware-resource"];
+            const runningDS = DomainControllerStore.getDatastore('running').data;
+            const returnObject = runningDS["firmware-resource"];
             resolve(returnObject);
         } catch (error) {
             reject({ code: error.statusCode, message: error.message });

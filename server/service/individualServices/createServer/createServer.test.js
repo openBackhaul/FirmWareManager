@@ -1,34 +1,36 @@
 'use strict';
 
-jest.mock('../../../utils/fileOperations', () => ({
-    DomainControllerStore: {
-        load: jest.fn()
-    },
+jest.mock('../../../utils/DomainControllerStore', () => ({
+    getDatastore: jest.fn(),
+    save: jest.fn()
+}));
+
+jest.mock('../../../utils/writeOperations', () => ({
     executeTransaction: jest.fn()
 }));
 
-const databaseCC = require('../../../utils/fileOperations');
+const { executeTransaction } = require('../../../utils/writeOperations');
+const DomainControllerStore = require('../../../utils/DomainControllerStore');
 const { createServer } = require('./createServer');
 
 describe('createServer', () => {
     let runningData;
-    let storage;
 
     beforeEach(() => {
         jest.clearAllMocks();
         runningData = { server: [] };
-        storage = {
-            getDatastore: jest.fn(() => ({ data: runningData })),
-            save: jest.fn().mockResolvedValue({ success: true })
-        };
-        databaseCC.DomainControllerStore.load.mockResolvedValue({ storage });
+        DomainControllerStore.getDatastore.mockReturnValue({ data: runningData });
+        DomainControllerStore.save.mockResolvedValue({ success: true });
+        executeTransaction.mockResolvedValue({ success: true });
     });
 
     test('creates a server and saves the datastore', async () => {
         const candidateDS = { server: [] };
-        databaseCC.executeTransaction.mockImplementation(async ({ storage, modifyCandidate }) => {
-            expect(storage).toBe(storage);
-            return modifyCandidate(candidateDS);
+        executeTransaction.mockImplementation(async (transaction) => {
+            expect(transaction.storage).toBe(DomainControllerStore);
+            expect(transaction.validations).toEqual([]);
+            await transaction.modifyCandidate(candidateDS);
+            return { success: true };
         });
 
         await expect(createServer({
@@ -44,7 +46,8 @@ describe('createServer', () => {
             password: 'secret',
             'ssh-key': 'key-data'
         }]);
-        expect(storage.save).toHaveBeenCalledTimes(1);
+        expect(DomainControllerStore.getDatastore).toHaveBeenCalledWith('running');
+        expect(DomainControllerStore.save).toHaveBeenCalledTimes(1);
     });
 
     test('rejects when the server label already exists', async () => {
@@ -55,18 +58,18 @@ describe('createServer', () => {
             message: 'Server already exists'
         });
 
-        expect(databaseCC.executeTransaction).not.toHaveBeenCalled();
-        expect(storage.save).not.toHaveBeenCalled();
+        expect(executeTransaction).not.toHaveBeenCalled();
+        expect(DomainControllerStore.save).not.toHaveBeenCalled();
     });
 
     test('rejects when the transaction fails without saving', async () => {
-        databaseCC.executeTransaction.mockResolvedValue({ success: false });
+        executeTransaction.mockResolvedValue({ success: false });
 
         await expect(createServer({ 'server-label': 'edge-server' })).rejects.toEqual({
             code: 462,
             message: 'Validation failed.'
         });
 
-        expect(storage.save).not.toHaveBeenCalled();
+        expect(DomainControllerStore.save).not.toHaveBeenCalled();
     });
 });

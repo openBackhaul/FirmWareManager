@@ -1,8 +1,8 @@
 'use strict';
 
-const databaseCC = require('../../../utils/fileOperations');
 const createHttpError = require("http-errors");
-
+const { executeTransaction } = require('../../../utils/writeOperations');
+const DomainControllerStore = require('../../../utils/DomainControllerStore');
 
 /**
  * createServer: POST /create-server
@@ -22,16 +22,14 @@ function createServer(body, user, originator, xCorrelator, traceIndicator, custo
     return new Promise(async function (resolve, reject) {
         try {
             const { "server-label": serverLabel, ...rest } = body;
-            const dcStore = await databaseCC.DomainControllerStore.load();
-            const storage = dcStore.storage;
-            const runningResult = storage.getDatastore('running').data;
-            runningResult.server = runningResult.server || [];
-            const exists = runningResult.server.some(server => server.label === serverLabel);
+            const runningDS = DomainControllerStore.getDatastore('running').data;
+            runningDS.server = runningDS.server || [];
+            const exists = runningDS.server.some(server => server.label === serverLabel);
             if (exists) {
                 throw new createHttpError(409, 'Server already exists');
             }
-            const transactionResult = await databaseCC.executeTransaction({
-                storage: storage,
+            const transactionResult = await executeTransaction({
+                storage: DomainControllerStore,
                 modifyCandidate: async (
                     candidateDS
                 ) => {
@@ -49,7 +47,7 @@ function createServer(body, user, originator, xCorrelator, traceIndicator, custo
             if (!transactionResult.success) {
                 throw new createHttpError(462, 'Validation failed.');
             }
-            await storage.save();
+            await DomainControllerStore.save();
             resolve();
         } catch (error) {
             reject({ code: error.statusCode, message: error.message });

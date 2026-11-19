@@ -1,6 +1,7 @@
 'use strict';
 
-const databaseCC = require('../../../utils/fileOperations');
+const DomainControllerStore = require('../../../utils/DomainControllerStore');
+const { executeTransaction } = require('../../../utils/writeOperations');
 const createHttpError = require("http-errors");
 
 /**
@@ -30,11 +31,11 @@ function updateFirmwareResource(body, user, originator, xCorrelator, traceIndica
                 "file-name": fileName
             } = body || {};
 
-            const dcStore = await databaseCC.DomainControllerStore.load();
-            const storage = dcStore.storage;
-            const runningResult = storage.getDatastore('running').data;
+
+            const runningDS = DomainControllerStore.getDatastore('running').data;
+            const runningResult = runningDS;
             const firmwareResources = runningResult["firmware-resource"] || [];
-            
+
             const indexPos = firmwareResources.findIndex(fw => fw.name === firmwareResourceName);
             if (indexPos == -1) {
                 throw new createHttpError(404, 'firmware-resource does not exists');
@@ -57,8 +58,8 @@ function updateFirmwareResource(body, user, originator, xCorrelator, traceIndica
                 throw new createHttpError(422, 'serverLabel, sourceUri and fileName already documented');
             }
 
-            const transactionResult = await databaseCC.executeTransaction({
-                storage,
+            const transactionResult = await executeTransaction({
+                storage: DomainControllerStore,
                 modifyCandidate: async (
                     candidateDS
                 ) => {
@@ -106,7 +107,7 @@ function updateFirmwareResource(body, user, originator, xCorrelator, traceIndica
             if (!transactionResult.success) {
                 throw new createHttpError(462, 'Validation failed.');
             }
-            await storage.save();
+            await DomainControllerStore.save();
             resolve();
         } catch (error) {
             reject(error);
