@@ -3,6 +3,10 @@
 var path = require('path');
 var http = require('http');
 
+global.databasePath = path.join(__dirname, 'database', 'config.json');
+global.runtimeConfigPath = path.join(__dirname, 'database/runtime.json');
+
+
 var oas3Tools = require('oas3-tools');
 var serverPort = 4036;
 
