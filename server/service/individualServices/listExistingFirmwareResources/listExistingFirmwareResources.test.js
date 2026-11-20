@@ -1,13 +1,9 @@
 'use strict';
 
 const { listExistingFirmwareResources } = require('./listExistingFirmwareResources');
-const databaseCC = require('../../../utils/fileOperations');
+const DomainControllerStore = require('../../../utils/DomainControllerStore');
 
-jest.mock('../../../utils/fileOperations', () => ({
-    DomainControllerStore: {
-        load: jest.fn()
-    }
-}));
+jest.mock('../../../utils/DomainControllerStore');
 
 describe('listExistingFirmwareResources', () => {
 
@@ -15,90 +11,81 @@ describe('listExistingFirmwareResources', () => {
         jest.clearAllMocks();
     });
 
-    test('should return firmware-resource from running datastore', async () => {
+    test('should return list of existing firmware resources', async () => {
         const mockFirmwareResources = [
             {
-                uuid: 'fw-1',
-                name: 'Firmware-1',
-                version: '1.0.0'
+                name: 'HuaweiFirmware',
+                version: '1.2.3',
+                server: 'server1',
+                'source-uri': 'https://example.com/fw1',
+                'file-name': 'fw1.bin'
             },
             {
-                uuid: 'fw-2',
-                name: 'Firmware-2',
-                version: '2.0.0'
+                name: 'NokiaFirmware',
+                version: '2.0.0',
+                server: 'server2',
+                'source-uri': 'https://example.com/fw2',
+                'file-name': 'fw2.bin'
             }
         ];
 
-        const mockStorage = {
-            getDatastore: jest.fn().mockReturnValue({
-                data: {
-                    'firmware-resource': mockFirmwareResources
-                }
-            })
-        };
-
-        databaseCC.DomainControllerStore.load.mockResolvedValue({
-            storage: mockStorage
+        DomainControllerStore.getDatastore.mockReturnValue({
+            data: {
+                'firmware-resource': mockFirmwareResources
+            }
         });
 
         const result = await listExistingFirmwareResources(
             'testUser',
             'testOriginator',
-            'testCorrelationId',
-            '1',
-            'testJourney'
+            'corr-id',
+            'trace-id',
+            'journey-id'
         );
 
-        expect(databaseCC.DomainControllerStore.load).toHaveBeenCalledTimes(1);
-        expect(mockStorage.getDatastore).toHaveBeenCalledWith('running');
+        expect(DomainControllerStore.getDatastore)
+            .toHaveBeenCalledWith('running');
+
         expect(result).toEqual(mockFirmwareResources);
     });
 
-    test('should return empty array when firmware-resource is empty', async () => {
-        const mockStorage = {
-            getDatastore: jest.fn().mockReturnValue({
-                data: {
-                    'firmware-resource': []
-                }
-            })
-        };
-
-        databaseCC.DomainControllerStore.load.mockResolvedValue({
-            storage: mockStorage
+    test('should return empty array when no firmware resources exist', async () => {
+        DomainControllerStore.getDatastore.mockReturnValue({
+            data: {
+                'firmware-resource': []
+            }
         });
 
         const result = await listExistingFirmwareResources();
 
+        expect(DomainControllerStore.getDatastore)
+            .toHaveBeenCalledWith('running');
+
         expect(result).toEqual([]);
-        expect(mockStorage.getDatastore).toHaveBeenCalledWith('running');
     });
 
-    test('should reject when DomainControllerStore.load throws error', async () => {
-        const mockError = new Error('Failed to load datastore');
+    test('should reject when getDatastore throws an error', async () => {
+        const mockError = new Error('Datastore not found');
         mockError.statusCode = 500;
 
-        databaseCC.DomainControllerStore.load.mockRejectedValue(mockError);
-
-        await expect(
-            listExistingFirmwareResources(
-                'testUser',
-                'testOriginator',
-                'testCorrelationId',
-                '1',
-                'testJourney'
-            )
-        ).rejects.toEqual({
-            code: 500,
-            message: 'Failed to load datastore'
+        DomainControllerStore.getDatastore.mockImplementation(() => {
+            throw mockError;
         });
 
-        expect(databaseCC.DomainControllerStore.load).toHaveBeenCalledTimes(1);
+        await expect(
+            listExistingFirmwareResources()
+        ).rejects.toEqual({
+            code: 500,
+            message: 'Datastore not found'
+        });
     });
 
-    test('should reject with undefined code when error has no statusCode', async () => {
+    test('should reject with undefined code if statusCode is missing', async () => {
         const mockError = new Error('Unexpected error');
 
-        databaseCC.DomainControllerStore.load.mockRejectedValue(mockError);
+        DomainControllerStore.getDatastore.mockImplementation(() => {
+            throw mockError;
+        });
 
         await expect(
             listExistingFirmwareResources()

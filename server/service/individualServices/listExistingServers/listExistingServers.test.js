@@ -1,109 +1,93 @@
 'use strict';
 
 const { listExistingServers } = require('./listExistingServers');
-const databaseCC = require('../../../utils/fileOperations');
+const DomainControllerStore = require('../../../utils/DomainControllerStore');
 
-jest.mock('../../../utils/fileOperations', () => ({
-    DomainControllerStore: {
-        load: jest.fn()
-    }
-}));
+jest.mock('../../../utils/DomainControllerStore');
 
 describe('listExistingServers', () => {
 
-    afterEach(() => {
+    beforeEach(() => {
         jest.clearAllMocks();
     });
 
-    test('should return existing servers from running datastore', async () => {
+    test('should return list of existing servers', async () => {
         const mockServers = [
             {
                 label: 'server1',
-                'user-name': 'admin1'
+                'user-name': 'admin1',
+                password: 'pass1'
             },
             {
                 label: 'server2',
-                'user-name': 'admin2'
+                'user-name': 'admin2',
+                password: 'pass2'
             }
         ];
 
-        const mockStorage = {
-            getDatastore: jest.fn().mockReturnValue({
-                data: {
-                    server: mockServers
-                }
-            })
-        };
-
-        databaseCC.DomainControllerStore.load.mockResolvedValue({
-            storage: mockStorage
+        DomainControllerStore.getDatastore.mockReturnValue({
+            data: {
+                server: mockServers
+            }
         });
 
         const result = await listExistingServers(
-            'user1',
-            'originator1',
-            'corr-123',
-            'trace-123',
-            'journey-123'
+            'testUser',
+            'testOriginator',
+            'corr-id',
+            'trace-id',
+            'journey-id'
         );
 
-        expect(databaseCC.DomainControllerStore.load).toHaveBeenCalledTimes(1);
-        expect(mockStorage.getDatastore).toHaveBeenCalledWith('running');
+        expect(DomainControllerStore.getDatastore)
+            .toHaveBeenCalledWith('running');
+
         expect(result).toEqual(mockServers);
     });
 
     test('should return empty array when no servers exist', async () => {
-        const mockStorage = {
-            getDatastore: jest.fn().mockReturnValue({
-                data: {
-                    server: []
-                }
-            })
-        };
-
-        databaseCC.DomainControllerStore.load.mockResolvedValue({
-            storage: mockStorage
+        DomainControllerStore.getDatastore.mockReturnValue({
+            data: {
+                server: []
+            }
         });
 
         const result = await listExistingServers();
 
+        expect(DomainControllerStore.getDatastore)
+            .toHaveBeenCalledWith('running');
+
         expect(result).toEqual([]);
-        expect(mockStorage.getDatastore).toHaveBeenCalledWith('running');
     });
 
-    test('should reject when DomainControllerStore.load fails', async () => {
-        const error = new Error('Load failed');
-        error.statusCode = 500;
+    test('should reject when getDatastore throws an error', async () => {
+        const mockError = new Error('Datastore not found');
+        mockError.statusCode = 500;
 
-        databaseCC.DomainControllerStore.load.mockRejectedValue(error);
+        DomainControllerStore.getDatastore.mockImplementation(() => {
+            throw mockError;
+        });
 
         await expect(
             listExistingServers()
         ).rejects.toEqual({
             code: 500,
-            message: 'Load failed'
+            message: 'Datastore not found'
         });
     });
 
-    test('should reject when getDatastore throws error', async () => {
-        const error = new Error('Datastore error');
-        error.statusCode = 400;
+    test('should reject with undefined code if statusCode is missing', async () => {
+        const mockError = new Error('Unexpected error');
 
-        const mockStorage = {
-            getDatastore: jest.fn(() => {
-                throw error;
-            })
-        };
-
-        databaseCC.DomainControllerStore.load.mockResolvedValue({
-            storage: mockStorage
+        DomainControllerStore.getDatastore.mockImplementation(() => {
+            throw mockError;
         });
 
         await expect(
             listExistingServers()
         ).rejects.toEqual({
-            code: 400,
-            message: 'Datastore error'
+            code: undefined,
+            message: 'Unexpected error'
         });
     });
 

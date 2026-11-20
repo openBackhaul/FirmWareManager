@@ -29,44 +29,30 @@ function updateServer(body, user, originator, xCorrelator, traceIndicator, custo
                 password,
                 "ssh-key": sshKey
             } = body || {};
-
-            const storage = DomainControllerStore.getDatastore('running').data;
-            const runningResult = storage;
-            runningResult.server = runningResult.server || [];
-            const indexPos = runningResult.server.findIndex(server => server.label === serverLabel);
+            
+            const runningDS = DomainControllerStore.getDatastore('running').data;
+            runningDS.server = runningDS.server || [];
+            
+            const indexPos = runningDS.server.findIndex(server => server.label === serverLabel);
             if (indexPos == -1) {
                 throw new createHttpError(404, 'Server does not exists');
             }
-
+            
             const transactionResult = await executeTransaction({
-                storage,
+                storage: DomainControllerStore,
                 modifyCandidate: async (
                     candidateDS
                 ) => {
                     candidateDS.server[indexPos]["label"] = serverLabel;
-
+                    
                     if (userName !== undefined) {
-                        if (typeof userName !== "string" || userName.trim() === "") {
-                            console.log("user-name is empty string");
-                        } else {
-                            candidateDS.server[indexPos]["user-name"] = userName;
-                        }
+                       candidateDS.server[indexPos]["user-name"] = userName;
                     }
-
                     if (password !== undefined) {
-                        if (typeof password !== "string" || password.trim() === "") {
-                            console.log("password is empty string");
-                        } else {
-                            candidateDS.server[indexPos]["password"] = password;
-                        }
+                        candidateDS.server[indexPos]["password"] = password;
                     }
-
                     if (sshKey !== undefined) {
-                        if (typeof sshKey !== "string" || sshKey.trim() === "") {
-                            console.log("ssh-key is empty string");
-                        } else {
-                            candidateDS.server[indexPos]["ssh-key"] = sshKey;
-                        }
+                        candidateDS.server[indexPos]["ssh-key"] = sshKey;
                     }
                     return {
                         success: true

@@ -31,31 +31,34 @@ function updateFirmwareResource(body, user, originator, xCorrelator, traceIndica
                 "file-name": fileName
             } = body || {};
 
-
             const runningDS = DomainControllerStore.getDatastore('running').data;
-            const runningResult = runningDS;
-            const firmwareResources = runningResult["firmware-resource"] || [];
+            const firmwareResources = runningDS["firmware-resource"] || [];
 
             const indexPos = firmwareResources.findIndex(fw => fw.name === firmwareResourceName);
             if (indexPos == -1) {
-                throw new createHttpError(404, 'firmware-resource does not exists');
+                throw new createHttpError(404, 'firmware-resource-name does not exists');
+            }
+   
+            //Check input serverLabel exists in runningDS server list
+            if (serverLabel !== undefined) {
+                runningDS.server = runningDS.server || [];
+                const serverExists = runningDS.server.some(server => server.label === serverLabel);
+                if (!serverExists) {
+                    throw new createHttpError(404, 'server-label does not exists');
+                }
             }
 
-            //Check server label exists
-            runningResult.server = runningResult.server || [];
-            const serverExists = runningResult.server.some(server => server.label === serverLabel);
-            if (!serverExists) {
-                throw new createHttpError(404, 'Server label does not exists');
-            }
+            const serverLabelTemp = serverLabel ?? firmwareResources[indexPos]["server"];
+            const sourceUriTemp = sourceUri ?? firmwareResources[indexPos]["source-uri"];
+            const fileNameTemp   = fileName ?? firmwareResources[indexPos]["file-name"];
 
-            // Verify serverLabel, sourceUri and fileName already documented
             const fwExists = firmwareResources.some(firmware =>
-                firmware.server === serverLabel &&
-                firmware["source-uri"] === sourceUri &&
-                firmware["file-name"] === fileName
+                firmware.server === serverLabelTemp &&
+                firmware["source-uri"] === sourceUriTemp &&
+                firmware["file-name"] === fileNameTemp
             );
             if (fwExists) {
-                throw new createHttpError(422, 'serverLabel, sourceUri and fileName already documented');
+                throw new createHttpError(422, 'server-label, source-uri, file-name combination already documented');
             }
 
             const transactionResult = await executeTransaction({
@@ -64,36 +67,11 @@ function updateFirmwareResource(body, user, originator, xCorrelator, traceIndica
                     candidateDS
                 ) => {
                     candidateDS["firmware-resource"][indexPos]["name"] = firmwareResourceName;
-
-                    if (typeof firmwareResourceVersion !== "string" || firmwareResourceVersion.trim() === "") {
-                        console.log("firmwareResourceVersion is empty string");
-                    } else {
-                        candidateDS["firmware-resource"][indexPos]["version"] = firmwareResourceVersion;
-                    }
-
-                    if (serverLabel !== undefined) {
-                        if (typeof serverLabel !== "string" || serverLabel.trim() === "") {
-                            console.log("server label is empty string");
-                        } else {
-                            candidateDS["firmware-resource"][indexPos]["server"] = serverLabel;
-                        }
-                    }
-
-                    if (sourceUri !== undefined) {
-                        if (typeof sourceUri !== "string" || sourceUri.trim() === "") {
-                            console.log("sourceUri is empty string");
-                        } else {
-                            candidateDS["firmware-resource"][indexPos]["source-uri"] = sourceUri;
-                        }
-                    }
-
-                    if (fileName !== undefined) {
-                        if (typeof fileName !== "string" || fileName.trim() === "") {
-                            console.log("file-name is empty string");
-                        } else {
-                            candidateDS["firmware-resource"][indexPos]["file-name"] = fileName;
-                        }
-                    }
+                    candidateDS["firmware-resource"][indexPos]["version"] = firmwareResourceVersion;
+                    candidateDS["firmware-resource"][indexPos]["server"] = serverLabelTemp;
+                    candidateDS["firmware-resource"][indexPos]["source-uri"] = sourceUriTemp;
+                    candidateDS["firmware-resource"][indexPos]["file-name"] = fileNameTemp;
+                    
                     return {
                         success: true
                     };
