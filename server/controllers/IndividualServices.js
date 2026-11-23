@@ -119,12 +119,14 @@ module.exports.deleteFirmwareResource = function deleteFirmwareResource(req, res
 };
 
 module.exports.deleteServer = function deleteServer(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
   IndividualServices.deleteServer(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, response.code, response);
+      responseCode = sentResp.code;
     });
 };
 
