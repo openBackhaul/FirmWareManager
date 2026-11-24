@@ -204,11 +204,7 @@ exports.deleteFirmwareResource = function (body, user, originator, xCorrelator, 
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.deleteServer = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(function (resolve, reject) {
-    resolve();
-  });
-}
+exports.deleteServer = require('./individualServices/deleteServer/deleteServer').deleteServer;
 
 
 /**
