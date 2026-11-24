@@ -40,6 +40,9 @@ class DomainControllerStore {
                 .find(ds => ds.storage === storage);
 
         if (!datastore) {
+            if (storage === "running") {
+                return { success: false, error: new Error("Running datastore not found") };
+            }
             return { success: false, data: {} }
         }
 
@@ -74,7 +77,7 @@ class DomainControllerStore {
     cloneDatastore(storage) {
         const result = this.getDatastore(storage);
         if (!result.success) {
-            return { success: false, data: null };
+            return { ...result, data: null };
         }
         return { success: true, data: structuredClone(result.data) };
     }
