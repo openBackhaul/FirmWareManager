@@ -109,12 +109,14 @@ module.exports.deleteDeviceModel = function deleteDeviceModel(req, res, next, bo
 };
 
 module.exports.deleteFirmwareResource = function deleteFirmwareResource(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
   IndividualServices.deleteFirmwareResource(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, response.code, response);
+      responseCode = sentResp.code;
     });
 };
 

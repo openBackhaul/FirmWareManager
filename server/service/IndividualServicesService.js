@@ -186,11 +186,7 @@ exports.deleteDeviceModel = function (body, user, originator, xCorrelator, trace
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.deleteFirmwareResource = function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(function (resolve, reject) {
-    resolve();
-  });
-}
+exports.deleteFirmwareResource = require('./individualServices/deleteFirmwareResource/deleteFirmwareResource').deleteFirmwareResource;
 
 
 /**
