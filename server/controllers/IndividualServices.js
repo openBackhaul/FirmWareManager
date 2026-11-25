@@ -179,12 +179,14 @@ module.exports.listExistingDeviceGroups = function listExistingDeviceGroups(req,
 };
 
 module.exports.listExistingDeviceModels = function listExistingDeviceModels(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let responseCode = responseCodeEnum.code.OK;
   IndividualServices.listExistingDeviceModels(user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(function (response) {
-      utils.writeJson(res, response);
+      responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      let sentResp = responseBuilder.buildResponse(res, response.code, response);
+      responseCode = sentResp.code;
     });
 };
 

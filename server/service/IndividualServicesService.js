@@ -321,23 +321,7 @@ exports.listExistingDeviceGroups = require('./individualServices/listExistingDev
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listExistingDeviceModels = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(function (resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [{
-      "device-model-name": "device-model-name",
-      "default-device-group": "default-device-group"
-    }, {
-      "device-model-name": "device-model-name",
-      "default-device-group": "default-device-group"
-    }];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
+exports.listExistingDeviceModels = require('./individualServices/listExistingDeviceModels/listExistingDeviceModels').listExistingDeviceModels;
 
 
 /**
