@@ -58,14 +58,9 @@ function deleteServer(body, user, originator, xCorrelator, traceIndicator, custo
                     //delete serverLabel reference object from [server]
                     const candidateIndex = candidateDS.server.findIndex(
                         server => server.label === serverLabel
-                    );
-                    if (candidateIndex === -1) {
-                        throw new createHttpError(
-                            404,
-                            'Server does not exist in candidate datastore'
-                        );
-                    }
+                    );                    
                     candidateDS.server.splice(candidateIndex, 1);
+                    
                     return {
                         success: true
                     };

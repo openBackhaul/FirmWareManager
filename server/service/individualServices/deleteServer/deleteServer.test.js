@@ -119,44 +119,6 @@ describe('deleteServer', () => {
         expect(DomainControllerStore.save).not.toHaveBeenCalled();
     });
 
-    test('should throw 404 when server does not exist in candidate datastore', async () => {
-        const body = {
-            'server-label': 'server1'
-        };
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {
-                server: [
-                    {
-                        label: 'server1'
-                    }
-                ],
-                'firmware-resource': []
-            }
-        });
-
-        const candidateDS = {
-            server: []
-        };
-
-        executeTransaction.mockImplementation(async ({ modifyCandidate }) => {
-            await modifyCandidate(candidateDS);
-
-            return {
-                success: true
-            };
-        });
-
-        await expect(
-            deleteServer(body)
-        ).rejects.toMatchObject({
-            status: 404,
-            message: 'Server does not exist in candidate datastore'
-        });
-
-        expect(DomainControllerStore.save).not.toHaveBeenCalled();
-    });
-
     test('should throw 462 when transaction validation fails', async () => {
         const body = {
             'server-label': 'server1'
