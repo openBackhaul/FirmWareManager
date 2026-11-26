@@ -1,7 +1,7 @@
 ﻿# updateDeviceGroup
 
 Updates an existing DeviceGroup definition.  
-As deviceModelName is invariant, and targetFirmwareList and _device are managed by dedicated services, this service is limited to updating the purgeDate.  
+As deviceModelName is invariant, and target firmware lists and _device are managed by dedicated services, this service is limited to updating the purgeDate.  
 
 ## Diagram
 

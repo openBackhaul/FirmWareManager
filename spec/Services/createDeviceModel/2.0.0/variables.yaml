@@ -1,0 +1,97 @@
+create-device-model:
+  type: object
+  required:
+    - deviceModelName
+    - firmwareStructure
+  properties:
+    deviceModelName:
+      type: string
+      description: >
+        'from [/requestBody/device-model-name]'
+    firmwareStructure:
+      type: string
+      description: >
+        'from [/requestBody/firmware-structure]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-model:
+            type: array
+            description: >
+              'Create new instance'
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+                firmware-structure:
+                  type: string
+                  description: >
+                    'from [firmwareStructure]'
+                default-device-group:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+          device-group:
+            type: array
+            description: >
+              'Create new instance'
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+                device-model:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+                target-firmware-list:
+                  type: array
+                  maxItems: 2
+                  description: >
+                    'from [] empty list'
+                target-controller-firmware-list:
+                  type: array
+                  maxItems: 1
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-npu-and-rau'
+                target-odu-firmware-list:
+                  type: array
+                  maxItems: 1
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-npu-and-rau OR [firmwareStructure]==separated-boot-and-web-and-odu'
+                target-application-firmware-list:
+                  type: array
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-application'
+                target-boot-firmware-list:
+                  type: array
+                  maxItems: 1
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-boot-and-web-and-odu'
+                target-web-server-list:
+                  type: array
+                  maxItems: 1
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-boot-and-web-and-odu'
+                device:
+                  type: array
+                  items:
+                    type: string
+                    description: >
+                      'from [/domain-controller/network-control-domain=candidate/device=*/mount-name] IF [/domain-controller/network-control-domain=candidate/device=*/device-model]==deviceModelName'

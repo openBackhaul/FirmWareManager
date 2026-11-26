@@ -1,0 +1,261 @@
+delete-device-group:
+  type: object
+  required:
+    - deviceGroupLabel
+  properties:
+    deviceGroupLabel:
+      type: string
+      description: >
+        'from [/requestBody/device-group-label]'
+
+    deviceModel:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-group={deviceGroupLabel}/device-model]'
+    defaultDeviceGroup:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-model={deviceModel}/default-device-group]'
+
+    defaultTargetFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={defaultDeviceGroup}/target-firmware-list]'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+    defaultFirmwareList:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/defaultTargetFirmwareList[i]/resource].split(',')[0]'
+          version:
+            type: string
+            description: >
+              'from str.slice(str.indexOf(',') + 1) with str=[/defaultTargetFirmwareList[i]/resource]'
+          status:
+            type: string
+            description: >
+              'from [/defaultTargetFirmwareList[i]/status]'
+    defaultTargetControllerFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={defaultDeviceGroup}/target-controller-firmware-list]
+        IF exists'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+    defaultControllerFirmwareList:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/defaultTargetControllerFirmwareList[i]/resource].split(',')[0]'
+          version:
+            type: string
+            description: >
+              'from str.slice(str.indexOf(',') + 1) with str=[/defaultTargetControllerFirmwareList[i]/resource]'
+          status:
+            type: string
+            description: >
+              'from [/defaultTargetControllerFirmwareList[i]/status]'
+    defaultTargetOduFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={defaultDeviceGroup}/target-odu-firmware-list]
+        IF exists'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+    defaultOduFirmwareList:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/defaultTargetOduFirmwareList[i]/resource].split(',')[0]'
+          version:
+            type: string
+            description: >
+              'from str.slice(str.indexOf(',') + 1) with str=[/defaultTargetOduFirmwareList[i]/resource]'
+          status:
+            type: string
+            description: >
+              'from [/defaultTargetOduFirmwareList[i]/status]'
+    defaultTargetApplicationFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={defaultDeviceGroup}/target-application-firmware-list]
+        IF exists'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+    defaultApplicationFirmwareList:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/defaultTargetApplicationFirmwareList[i]/resource].split(',')[0]'
+          version:
+            type: string
+            description: >
+              'from str.slice(str.indexOf(',') + 1) with str=[/defaultTargetApplicationFirmwareList[i]/resource]'
+          status:
+            type: string
+            description: >
+              'from [/defaultTargetApplicationFirmwareList[i]/status]'
+    defaultTargetBootFirmwareList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={defaultDeviceGroup}/target-boot-firmware-list]
+        IF exists'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+    defaultBootFirmwareList:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/defaultTargetBootFirmwareList[i]/resource].split(',')[0]'
+          version:
+            type: string
+            description: >
+              'from str.slice(str.indexOf(',') + 1) with str=[/defaultTargetBootFirmwareList[i]/resource]'
+          status:
+            type: string
+            description: >
+              'from [/defaultTargetBootFirmwareList[i]/status]'
+    defaultTargetWebServerList:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={defaultDeviceGroup}/target-web-server-list]
+        IF exists'
+      items:
+        type: object
+        properties:
+          resource:
+            type: string
+          status:
+            type: string
+    defaultWebServerList:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: >
+              'from [/defaultTargetWebServerList[i]/resource].split(',')[0]'
+          version:
+            type: string
+            description: >
+              'from str.slice(str.indexOf(',') + 1) with str=[/defaultTargetWebServerList[i]/resource]'
+          status:
+            type: string
+            description: >
+              'from [/defaultTargetWebServerList[i]/status]'
+
+    affectedDevices:
+      type: array
+      description: >
+        'from [/domain-controller/network-control-domain=candidate/device-group={deviceGroupLabel}/device]'
+      items:
+        type: string
+
+domain-controller:
+  type: object
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-group:
+            type: array
+            description: >
+              'delete instance [/domain-controller/network-control-domain=candidate/device-group={deviceGroupLabel}]'
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  enum:
+                    - {defaultDeviceGroup}
+                device:
+                  type: array
+                  description: >
+                    'from device.push(...affectedDevices)'
+                  items:
+                    type: string
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                mount-name:
+                  type: string
+                  enum: [{affectedDevices}]
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete contents and replace with contents from [defaultFirmwareList]'
+                controller-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete contents and replace with contents from [defaultControllerFirmwareList]'
+                odu-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete contents and replace with contents from [defaultOduFirmwareList]'
+                application-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete contents and replace with contents from [defaultApplicationFirmwareList]'
+                boot-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete contents and replace with contents from [defaultBootFirmwareList]'
+                web-server-list:
+                  type: array
+                  description: >
+                    'IF exists, delete contents and replace with contents from [defaultWebServerList]'

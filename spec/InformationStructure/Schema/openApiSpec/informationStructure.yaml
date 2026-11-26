@@ -331,12 +331,21 @@ domain-controller:
               type: object
               required:
                 - name
+                - firmware-structure
                 - approval
                 - default-device-group
               properties:
                 name:
                   type: string
                   description: 'Unique and invariant name of the device type'
+                firmware-structure:
+                  type: string
+                  description: 'Invariant definition of the combination of activatable firmware components'
+                  enum:
+                    - 'single-firmware-package'
+                    - 'separated-npu-and-rau'
+                    - 'separated-application'
+                    - 'separated-boot-and-web-and-odu'
                 approval:
                   type: array
                   description: 'Ordered array of Strings combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) of firmware that have been approved for being operated on a ControlConstructPac::deviceModelName. Attribute required, to be initialized as an empty list'
@@ -354,7 +363,6 @@ domain-controller:
               required:
                 - label
                 - device-model
-                - target-firmware-list
                 - device
               properties:
                 label:
@@ -367,34 +375,244 @@ domain-controller:
                   type: string
                   description: 'Optional date on which all devices in this group will be automatically migrated to the default group of its device type and the definition of this device group will be deleted. Format: yyyy-mm-ddThh:mm:ss+hh:mm'
                   pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
-                target-firmware-list:
-                  type: array
-                  description: 'Ordered array of firmware components to be operated on all grouped devices'
-                  items:
-                    type: object
-                    required:
-                      - resource
-                      - status
-                    properties:
-                      resource:
-                        type: string
-                        description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
-                      status:
-                        type: string
-                        description: 'Status of the firmware. It is the administrative state in RunningDS and the operational state in OperationalDS'
-                        enum:
-                          - 'active'
-                          - 'stand-by'
-                          - 'committed'
-                          - 'like-superior-firmware-component'
-                          - 'not-applicable'
-                          - 'incomplete'
-                          - 'not-yet-defined'
                 device:
                   type: array
                   description: 'Ordered array of Strings referencing devices that got associated with this group (either automatically (default group) or willingly by the operator (any other group))'
                   items:
                     type: string
+              oneOf:
+                - description: >
+                    'targetOfSingleFirmwarePackage
+                    to be applied if [/domain-controller/network-control-domain=running/device-model={device-model}/firmware-structure]==single-firmware-package'
+                  type: object
+                  required:
+                    - target-firmware-list
+                  properties:
+                    target-firmware-list:
+                      type: array
+                      maxItems: 2
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true'
+                      items:
+                        type: object
+                        required:
+                          - resource
+                          - status
+                        properties:
+                          resource:
+                            type: string
+                            description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                          status:
+                            type: string
+                            description: 'Activation state that shall be set for this firmware at all devices of this group in RunningDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'not-yet-defined'
+                - description: >
+                    'targetOfSeparatedNpuAndRau
+                    to be applied if [/domain-controller/network-control-domain=running/device-model={device-model}/firmware-structure]==separated-npu-and-rau'
+                  type: object
+                  required:
+                    - target-firmware-list
+                    - target-controller-firmware-list
+                    - target-odu-firmware-list
+                  properties:
+                    target-firmware-list:
+                      type: array
+                      maxItems: 2
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE'
+                      items:
+                        type: object
+                        required:
+                          - resource
+                          - status
+                        properties:
+                          resource:
+                            type: string
+                            description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                          status:
+                            type: string
+                            description: 'Activation state that shall be set for this firmware at all devices of this group in RunningDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'not-yet-defined'
+                    target-controller-firmware-list:
+                      type: array
+                      maxItems: 1
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND relatedKindsOfEquipmentList==[NPU3 C]'
+                      items:
+                        type: object
+                        required:
+                          - resource
+                          - status
+                        properties:
+                          resource:
+                            type: string
+                            description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                          status:
+                            type: string
+                            description: 'Activation state that shall be set for this firmware at all devices of this group in RunningDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'not-yet-defined'
+                    target-odu-firmware-list:
+                      type: array
+                      maxItems: 1
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND relatedKindsOfEquipmentList==[RAU]'
+                      items:
+                        type: object
+                        required:
+                          - resource
+                          - status
+                        properties:
+                          resource:
+                            type: string
+                            description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                          status:
+                            type: string
+                            description: 'Activation state that shall be set for this firmware at all devices of this group in RunningDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'not-yet-defined'
+                - description: >
+                    'targetOfSeparatedApplication
+                    to be applied if [/domain-controller/network-control-domain=running/device-model={device-model}/firmware-structure]==separated-application'
+                  type: object
+                  required:
+                    - target-firmware-list
+                    - target-application-firmware-list
+                  properties:
+                    target-firmware-list:
+                      type: array
+                      maxItems: 2
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_PACKAGE'
+                      items:
+                        type: object
+                        required:
+                          - resource
+                          - status
+                        properties:
+                          resource:
+                            type: string
+                            description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                          status:
+                            type: string
+                            description: 'Activation state that shall be set for this firmware at all devices of this group in RunningDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'not-yet-defined'
+                    target-application-firmware-list:
+                      type: array
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentClass==FIRMWARE_COMPONENT_CLASS_TYPE_APPLICATION_SOFTWARE'
+                      items:
+                        type: object
+                        required:
+                          - resource
+                          - status
+                        properties:
+                          resource:
+                            type: string
+                            description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                          status:
+                            type: string
+                            description: 'Activation state that shall be set for this firmware at all devices of this group in RunningDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'not-yet-defined'
+                - description: >
+                    'targetOfSeparatedBootAndWebAndOdu
+                    to be applied if [/domain-controller/network-control-domain=running/device-model={device-model}/firmware-structure]==separated-boot-and-web-and-odu'
+                  type: object
+                  required:
+                    - target-firmware-list
+                    - target-boot-firmware-list
+                    - target-web-server-list
+                    - target-odu-firmware-list
+                  properties:
+                    target-firmware-list:
+                      type: array
+                      maxItems: 2
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentName.substring(0,3)==IDU'
+                      items:
+                        type: object
+                        required:
+                          - resource
+                          - status
+                        properties:
+                          resource:
+                            type: string
+                            description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                          status:
+                            type: string
+                            description: 'Activation state that shall be set for this firmware at all devices of this group in RunningDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'not-yet-defined'
+                    target-boot-firmware-list:
+                      type: array
+                      maxItems: 1
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentName.substring(0,3)==Boo'
+                      items:
+                        type: object
+                        required:
+                          - resource
+                          - status
+                        properties:
+                          resource:
+                            type: string
+                            description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                          status:
+                            type: string
+                            description: 'Activation state that shall be set for this firmware at all devices of this group in RunningDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'not-yet-defined'
+                    target-web-server-list:
+                      type: array
+                      maxItems: 1
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND firmwareComponentName.substring(0,3)==Web'
+                      items:
+                        type: object
+                        required:
+                          - resource
+                          - status
+                        properties:
+                          resource:
+                            type: string
+                            description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                          status:
+                            type: string
+                            description: 'Activation state that shall be set for this firmware at all devices of this group in RunningDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'not-yet-defined'
+                    target-odu-firmware-list:
+                      type: array
+                      description: 'Ordered array of firmware components with FirmwareComponentCapability::individualActivationIsAvail==true AND (firmwareComponentName.substring(0,3)==Rad OR firmwareComponentName.substring(0,3)==ODU)'
+                      items:
+                        type: object
+                        required:
+                          - resource
+                          - status
+                        properties:
+                          resource:
+                            type: string
+                            description: 'String combining FirmwareComponentCapability::firmwareComponentName and FirmwareComponentCapability::firmwareComponentVersion (separated by comma) for referencing a firmware resource that shall be installed on all devices of this group'
+                          status:
+                            type: string
+                            description: 'Activation state that shall be set for this firmware at all devices of this group in RunningDS'
+                            enum:
+                              - 'active'
+                              - 'stand-by'
+                              - 'not-yet-defined'
           device:
             type: array
             x-key: mount-name
@@ -418,20 +636,8 @@ domain-controller:
                   pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
               oneOf:
                 - description: >
-                    'singleFirmwarePackage'
-                     according to initial configuration to be used for:
-                      - OptiXRTN950
-                      - OptiXRTN950F
-                      - OptiXRTN950N
-                      - OptiXRTN9051A
-                      - OptiXRTN9052A
-                      - OptiXRTN9052E
-                      - OptiXRTN380
-                      - OptiXRTN380AX
-                      - OptiXRTN380H
-                      - OptiXRTN9052F
-                      - OptiXRTN6900
-                      - MINI-LINK 6352'
+                    'singleFirmwarePackage
+                    to be applied if [/domain-controller/network-control-domain=running/device-model={device-model}/firmware-structure]==single-firmware-package'
                   type: object
                   required:
                     - firmware-list
@@ -466,8 +672,7 @@ domain-controller:
                               - 'not-yet-defined'
                 - description: >
                     'separatedNpuAndRau
-                     according to initial configuration to be used for:
-                      - MINI-LINK Traffic Node'
+                    to be applied if [/domain-controller/network-control-domain=running/device-model={device-model}/firmware-structure]==separated-npu-and-rau'
                   type: object
                   required:
                     - firmware-list
@@ -560,8 +765,7 @@ domain-controller:
                               - 'not-yet-defined'
                 - description: >
                     'separatedApplication
-                     according to initial configuration to be used for:
-                      - MINI-LINK 6600'
+                    to be applied if [/domain-controller/network-control-domain=running/device-model={device-model}/firmware-structure]==separated-application'
                   type: object
                   required:
                     - firmware-list
@@ -624,11 +828,7 @@ domain-controller:
                               - 'not-yet-defined'
                 - description: >
                     'separatedBootAndWebAndOdu
-                     according to initial configuration to be used for:
-                      - ALCplus2e
-                      - AGS20
-                      - AGS20L
-                      - ALFO80'
+                    to be applied if [/domain-controller/network-control-domain=running/device-model={device-model}/firmware-structure]==separated-boot-and-web-and-odu'
                   type: object
                   required:
                     - firmware-list

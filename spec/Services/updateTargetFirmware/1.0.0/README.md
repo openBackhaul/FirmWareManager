@@ -3,7 +3,9 @@
 Updates an entry in the targetFirmwareList of a given DeviceGroup in the provided attributes (currently limited to the administrative state of the firmware).  
 Replicates the same changes into the firmwareList of all Devices referenced by the given DeviceGroup.  
 
-Consequences: The firmware will be attempted to be loaded onto the devices.  
+Consequences: Depending on the kind of update, some downloaded firmware might be activated, which involves restarting the affected devices.  
+
+Remark: This service is for updating an existing target firmware entry. As long as the main firmware package is the only type of firmware allowing updating any attribute (status), additional target firmware lists do not create any need for change on this service.
 
 ## Diagram
 

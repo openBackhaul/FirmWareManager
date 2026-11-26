@@ -144,22 +144,11 @@ activate indServ
     indServ -> CanDS
     indServ <-- CanDS
 
-    note over indServ
-      Transfers content of
-      [targetFirmwareList]
-      of DeviceGroup into
-      [firmwareList] at Device
-    end note
-    note right indServ
-      Delete existing contents
-      of [firmwareList]
-    end note
-    indServ -> CanDS
-    indServ <-- CanDS
-    note right indServ
-      Write contents of
-      [newFirmwareList]
-      into [firmwareList]
+    note over indServ #Orange
+      Overwrites contents of firmware
+      attributes at Device with
+      contents of targetFirmware
+      attributes at DeviceGroup
     end note
     indServ -> CanDS
     indServ <-- CanDS

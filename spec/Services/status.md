@@ -42,11 +42,10 @@ Th = Thorsten
 | ------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- | -- | --- |
 | [/list-existing-device-models](./listExistingDeviceModels/1.0.0/)               | Th | Th | Ka | Th | /  | Ka |    |  3  |
 | [/list-unknown-device-models](./listUnknownDeviceModels/1.0.0/)                 | Th | Th | Ka | Th | /  | Ka |    |  3  |
-| [/list-hardware-extraction-functions](./listHardwareExtractionFunctions/1.0.0/) | Th | Th |    | Th | /  | Ka |    |  3  |
-| [/list-firmware-extraction-functions](./listFirmwareExtractionFunctions/1.0.0/) | Th | Th |    | Th | /  | Ka |    |  3  |
 | [/create-device-model](./createDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th | Ka |    |  3  |
-| [/update-device-model](./updateDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th | Ka |    |  3  |
+| [/create-device-model](./createDeviceModel/2.0.0/)                              | Th | Th |    | Th | Th |    |    |     |
 | [/delete-device-model](./deleteDeviceModel/1.0.0/)                              | Th | Th |    | Th | Th | Ka |    |  3  |
+| [/delete-device-model](./deleteDeviceModel/2.0.0/)                              | Th | Th |    | Th | Th |    |    |     |
 
 ### Documenting firmware approvals
 
@@ -56,6 +55,7 @@ Th = Thorsten
 | [/list-existing-firmware-approvals](./listExistingFirmwareApprovals/1.0.0/)        | Th | Th | Ka | Th | Th | Ka |    |  3  |
 | [/add-firmware-approval](./addFirmwareApproval/1.0.0/)                             | Th | Th |    | Th | Th | Ka |    |  3  |
 | [/withdraw-firmware-approval](./withdrawFirmwareApproval/1.0.0/)                   | Th | Th |    | Th | Th | Ka |    |  3  |
+| [/withdraw-firmware-approval](./withdrawFirmwareApproval/2.0.0/)                   | Th | Th |    | Th | Th |    |    |     |
 
 ## Preparing device groups and initiating firmware roll-out (Operations)
 
@@ -65,18 +65,25 @@ Th = Thorsten
 | ------------------------------------------------------------------| -- | -- | -- | -- | -- | -- | -- | --- |
 | [/list-existing-device-groups](./listExistingDeviceGroups/1.0.0/) | Th | Th | Ka | Th | /  | Ka |    |  4  |
 | [/create-device-group](./createDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th | Ka |    |  4  |
+| [/create-device-group](./createDeviceGroup/2.0.0/)                | Th | Th |    | Th | Th |    |    |     |
 | [/update-device-group](./updateDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th | Ka |    |  4  |
 | [/delete-device-group](./deleteDeviceGroup/1.0.0/)                | Th | Th | Ka | Th | Th | Ka |    |  4  |
+| [/delete-device-group](./deleteDeviceGroup/2.0.0/)                | Th | Th |    | Th | Th |    |    |     |
 
 ### Initiate firmware roll-out
 
 | Service                                                                                       | 1  | 2  | 3  | 4  | 5  | 6  | 7  | lot |
 | --------------------------------------------------------------------------------------------- | -- | -- | -- | -- | -- | -- | -- | --- |
 | [/list-device-groups-without-target-firmware](./listDeviceGroupsWithoutTargetFirmware/1.0.0/) | Th | Th | Ka | Th | /  | Ka |    |  4  |
+| [/list-device-groups-without-target-firmware](./listDeviceGroupsWithoutTargetFirmware/2.0.0/) | Th | Th |    | Th | Th |    |    |     |
+| [/list-device-groups-lacking-target-firmware](./listDeviceGroupsLackingTargetFirmware/1.0.0/) | Th | Th |    | Th | Th |    |    |     |
 | [/provide-existing-device-group](./provideExistingDeviceGroup/1.0.0/)                         | Th | Th | Ka | Th | /  | Ka |    |  4  |
+| [/provide-existing-device-group](./provideExistingDeviceGroup/2.0.0/)                         | Th | Th |    | Th | Th |    |    |     |
 | [/add-target-firmware](./addTargetFirmware/1.0.0/)                                            | Th | Th |    | Th | Th | Ka |    |  4  |
+| [/add-target-firmware](./addTargetFirmware/2.0.0/)                                            | Th | Th |    | Th | Th |    |    |     |
 | [/update-target-firmware](./updateTargetFirmware/1.0.0/)                                      | Th | Th |    | Th | Th | Ka |    |  4  |
 | [/delete-target-firmware](./deleteTargetFirmware/1.0.0/)                                      | Th | Th | Ka | Th | Th | Ka |    |  4  |
+| [/delete-target-firmware](./deleteTargetFirmware/2.0.0/)                                      | Th | Th |    | Th | Th |    |    |     |
 
 ## Categorizing individual devices into device groups (Planning)
 

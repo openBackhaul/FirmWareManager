@@ -22,10 +22,14 @@ measureHw:
       type: string
       description: >
         'from [/controlConstruct/equipment-augment-1-0:control-construct-pac/device-model-name]'
+    firmwareStructure:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-model={deviceModelName}/firmware-structure]'
     extractionFunctionName:
       type: string
       description: >
-        'from [/domain-controller/function={functionName}/parameter={deviceModelName}/value] IF [/domain-controller/function={functionName}/parameter={deviceModelName}/description]==hardwareExtractionFunction'
+        'from [/domain-controller/function={functionName}/parameter={firmwareStructure}/value] IF [/domain-controller/function={functionName}/parameter={deviceModelName}/description]==hardwareExtractionFunction'
 
     errorMessage:
       type: string

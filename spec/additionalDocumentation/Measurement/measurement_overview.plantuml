@@ -8,7 +8,10 @@ end title
 participant "requestor\n" as requestor
 participant "p1MeasureDomain\n" as indServ
 participant "p1ListUpdatedCcs\n" as listCcs
-participant "p1MeasureDevice\n" as updateCc
+participant "p2MeasureDevice\n" as measDev #LightGreen
+participant "p1CreateOperational\nDevice" as createDev #LightGreen
+participant "p1CompleteDevice\nObject" as completeDev #LightGreen
+participant "<i>functionName</i>\n(e.g. p1ComplementSingleFirmware,\np1ComplementSeparatedAppToo,\np1ComplementSeparatedNpuRauToo,\np1ComplementSeparatedBootWebOduToo)" as complementDev #LightGreen
 participant "p1MeasureHw\n" as updateHw
 participant "<i>functionName</i>\n" as extractHw
 participant "p1MeasureFw\n" as updateFw
@@ -43,17 +46,120 @@ activate indServ
     indServ <-- Mwdi: CC
     deactivate Mwdi
 
-    indServ -> updateCc: updatedMountName,\nCC
-    activate updateCc
-      note over updateCc
-        Updates Device
-        in OperationalDS
+    indServ -> measDev: updatedMountName,\nCC
+    activate measDev
+      note over measDev #LightGreen
+        Reads function names for 
+          - createDeviceFunction
+          - completeDeviceObjectFunction
+          - measureHardwareFunction
+          - measureFirmwareFunction
+        from parameters
+      end note
+      measDev -> DC
+      activate DC
+      measDev <-- DC: createDeviceFunctionName,\ncompleteDeviceObjectFunctionName,\nmeasureHardwareFunctionName,\nmeasureFirmwareFunctionName
+      deactivate DC
+
+      note over measDev #LightGreen
+        Checks, whether updatedMountName
+        already exists in ODS:[Device]
+      end note
+      note over measDev #LightGreen
+        IF NOT existing:
+      end note
+      note right measDev #LightGreen
+        THEN {
+      end note
+      measDev -> createDev: updatedMountName,\nCC
+      activate createDev
+        note over createDev #LightGreen
+          Creates device
+          in OperationalDS
+        end note
+        createDev -> OpDS: updatedMountName
+        note over createDev #LightGreen
+          Extracts deviceModel
+          from CC
+        end note
+        note over createDev #LightGreen
+          Writes deviceModel
+          into OperationalDS
+        end note
+        createDev -> OpDS: deviceModel
+      measDev <-- createDev
+      deactivate createDev
+      note right measDev #LightGreen
+        }
       end note
 
-      note over updateCc
-        Updates hardware info
+      note over measDev #LightGreen
+        Checks, whether Device object
+        completed in ODS:[Device]
       end note
-      updateCc -> updateHw: updatedMountName,\nCC
+      note over measDev #LightGreen
+        IF NOT completed:
+      end note
+      note right measDev #LightGreen
+        THEN {
+      end note
+      measDev -> completeDev: updatedMountName,\nCC
+      activate completeDev
+        note over completeDev #LightGreen
+          Completes device object
+          in OperationalDS
+        end note
+
+        note over completeDev #LightGreen
+          Extracts deviceModel
+          from CC
+        end note
+
+        note over completeDev #LightGreen
+          Reads firmwareStructure
+          from DeviceModel
+        end note
+        completeDev -> DC: deviceModel
+        activate DC
+        completeDev <-- DC: firmwareStructure
+        deactivate DC
+
+        note over completeDev #LightGreen
+          Reads name of extraction
+          function from Parameters
+        end note
+        completeDev -> DC: firmwareStructure
+        activate DC
+        completeDev <-- DC: functionName
+        deactivate DC
+
+        note over updateFw #White
+          Parameters cannot define set of input parameters.
+          All functions get called with updatedMountName and CC.
+        end note
+
+        note over completeDev #LightGreen
+          Calls functionName to
+          complete device object
+          in OperationalDS
+        end note
+        completeDev -> complementDev: updatedMountName,\nCC
+        activate complementDev
+          note over complementDev #LightGreen
+            Completes device object in OperationalDS 
+            incl.
+            - Creates the respective hardware attributes in ODS:Device
+            - Creates the respective firmwareList attributes in ODS:Device
+          end note
+        completeDev <-- complementDev
+        deactivate complementDev
+      measDev <-- completeDev
+      deactivate completeDev
+      note right measDev #LightGreen
+        }
+      end note
+
+      measDev -> updateHw: updatedMountName,\nCC
       activate updateHw
         note over updateHw
           Updates device model
@@ -65,20 +171,30 @@ activate indServ
           Extracts deviceModel
           from CC
         end note
-        note over updateHw
+        note over updateHw #Orange
           Writes deviceModel
           into OperationalDS
         end note
         updateHw -> OpDS: deviceModel
 
         note over updateHw
-          Reads name of extraction
-          function from Parameters
+          Reads firmwareStructure
+          from DeviceModel
         end note
         updateHw -> DC: deviceModel
         activate DC
+        updateHw <-- DC: firmwareStructure
+        deactivate DC
+
+        note over updateHw
+          Reads name of extraction
+          function from Parameters
+        end note
+        updateHw -> DC: firmwareStructure
+        activate DC
         updateHw <-- DC: functionName
         deactivate DC
+
         note over updateFw #White
           Parameters cannot define set of input parameters.
           All functions get called with updatedMountName and CC.
@@ -98,13 +214,10 @@ activate indServ
           end note
         updateHw <-- extractHw
         deactivate extractHw
-      updateCc <-- updateHw
+      measDev <-- updateHw
       deactivate updateHw
 
-      note over updateCc
-        Updates firmware info
-      end note
-      updateCc -> updateFw: updatedMountName,\nCC
+      measDev -> updateFw: updatedMountName,\nCC
       activate updateFw
         note over updateFw
           Updates device model
@@ -118,13 +231,23 @@ activate indServ
         end note
 
         note over updateFw
-          Reads name of extraction
-          function from Parameters
+          Reads firmwareStructure
+          from DeviceModel
         end note
         updateFw -> DC: deviceModel
         activate DC
+        updateFw <-- DC: firmwareStructure
+        deactivate DC
+
+        note over updateFw
+          Reads name of extraction
+          function from Parameters
+        end note
+        updateFw -> DC: firmwareStructure
+        activate DC
         updateFw <-- DC: functionName
         deactivate DC
+
         note over updateHw #White
           Parameters cannot define set of input parameters.
           All functions get called with updatedMountName and CC.
@@ -144,16 +267,16 @@ activate indServ
           end note
         updateFw <-- extractFw
         deactivate extractFw
-      updateCc <-- updateFw
+      measDev <-- updateFw
       deactivate updateFw
 
-      note over updateCc
+      note over measDev
         Updates lastUpdate
       end note
-      updateCc -> OpDS: lastUpdate
+      measDev -> OpDS: lastUpdate
 
-    indServ <-- updateCc
-    deactivate updateCc
+    indServ <-- measDev
+    deactivate measDev
   end group updatedMountNames
 
 requestor <-- indServ

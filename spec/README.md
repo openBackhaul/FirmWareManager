@@ -30,11 +30,8 @@
   - Preparing device models
     - [/list-existing-device-models](./Services/listExistingDeviceModels/1.0.0/)
     - [/list-unknown-device-models](./Services/listUnknownDeviceModels/1.0.0/)
-    - [/list-hardware-extraction-functions](./Services/listHardwareExtractionFunctions/1.0.0/)
-    - [/list-firmware-extraction-functions](./Services/listFirmwareExtractionFunctions/1.0.0/)
     - [/create-device-model](./Services/createDeviceModel/1.0.0/)
     - [/delete-device-model](./Services/deleteDeviceModel/1.0.0/)
-    - [/update-device-model](./Services/updateDeviceModel/1.0.0/)
   - Documenting firmware approvals
     - [/list-device-models-without-approvals](./Services/listDeviceModelsWithoutApprovals/1.0.0/)
     - [/list-existing-firmware-approvals](./Services/listExistingFirmwareApprovals/1.0.0/)
@@ -48,7 +45,8 @@
     - [/update-device-group](./Services/updateDeviceGroup/1.0.0/)
     - [/delete-device-group](./Services/deleteDeviceGroup/1.0.0/)
   - Initiate firmware roll-out
-    - [/list-device-groups-without-target-firmware](./Services/listDeviceGroupsWithoutTargetFirmware/1.0.0/)
+    - [/list-device-groups-without-target-firmware](./Services/listDeviceGroupsWithoutTargetFirmware/2.0.0/)
+    - [/list-device-groups-lacking-target-firmware](./Services/listDeviceGroupsLackingTargetFirmware/1.0.0/)
     - [/provide-existing-device-group](./Services/provideExistingDeviceGroup/1.0.0/)
     - [/add-target-firmware](./Services/addTargetFirmware/1.0.0/)
     - [/update-target-firmware](./Services/updateTargetFirmware/1.0.0/)

@@ -37,17 +37,24 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 
 ### Measurement
 
-| Function                            |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
-|-------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
-| p1MeasureDomain                     | Th  | Th  |     | Th  | Th  | K   |     |  5  |
-| . p1ListUpdatedCcs                  | Th  | Th  |     | Th  | Th  | Ka  |     |  5  |
-| . p1MeasureDevice                   | Th  | Th  | Ka  | Th  | Th  | K   |     |  5  |
-| .. p1MeasureHw                      | Th  | Th  | Ka  | Th  | Th  | K   |     |  5  |
-| .. p1MeasureFw                      | Th  | Th  | Ka  | Th  | Th  | K   |     |  5  |
-| ... p1ExtractSingleFirmware         | Th  | Th  | Ka  | Th  | Th  | Ka  |     |  5  |
-| ... p1ExtractSeparatedNpuRauToo     | Th  | Th  |     | Th  | Th  | K   |     |  5  |
-| ... p1ExtractSeparatedAppToo        | Th  | Th  |     | Th  | Th  | K   |     |  5  |
-| ... p1ExtractSeparatedBootWebOduToo | Th  | Th  |     | Th  | Th  | Ka  |     |  5  |
+| Function                               |  1  |  2  |  3  |  4  |  5  |  6  |  7  | lot |
+|----------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|
+| p1MeasureDomain                        | Th  | Th  |     | Th  | Th  | K   |     |  5  |
+| . p1ListUpdatedCcs                     | Th  | Th  |     | Th  | Th  | Ka  |     |  5  |
+| . p1MeasureDevice                      | Th  | Th  | Ka  | Th  | Th  | K   |     |  5  |
+| . p2MeasureDevice                      |     |     |     |     |     |     |     |     |
+| .. p1CreateOperationalDevice           |     |     |     |     |     |     |     |     |
+| .. p1CompleteDeviceObject              |     |     |     |     |     |     |     |     |
+| ... p1ComplementSingleFirmware         |     |     |     |     |     |     |     |     |
+| ... p1ComplementSeparatedAppToo        |     |     |     |     |     |     |     |     |
+| ... p1ComplementSeparatedNpuRauToo     |     |     |     |     |     |     |     |     |
+| ... p1ComplementSeparatedBootWebOduToo |     |     |     |     |     |     |     |     |
+| .. p1MeasureHw                         | Th  | Th  | Ka  | Th  | Th  | K   |     |  5  |
+| .. p1MeasureFw                         | Th  | Th  | Ka  | Th  | Th  | K   |     |  5  |
+| ... p1ExtractSingleFirmware            | Th  | Th  | Ka  | Th  | Th  | Ka  |     |  5  |
+| ... p1ExtractSeparatedNpuRauToo        | Th  | Th  |     | Th  | Th  | K   |     |  5  |
+| ... p1ExtractSeparatedAppToo           | Th  | Th  |     | Th  | Th  | K   |     |  5  |
+| ... p1ExtractSeparatedBootWebOduToo    | Th  | Th  |     | Th  | Th  | Ka  |     |  5  |
 
 ### Administrative
 

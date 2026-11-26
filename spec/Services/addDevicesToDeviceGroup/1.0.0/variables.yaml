@@ -111,8 +111,33 @@ domain-controller:
                 mount-name:
                   type: string
                   enum: [{mountNameList}]
+
+
+  # Hier besteht das Problem, dass nicht von targetFirmwareList kopiert werden kann, sondern die Referenz in zwei separate Attribute aufgeteilt werden muss
+  # Ansonsten ist unten einfach attribute weise zu übernehmen
+
+
                 firmware-list:
                   type: array
                   description: >
-                    'delete existing and replace
-                    from [newFirmwareList]'
+                    'from [] empty list'
+                controller-firmware-list:
+                  type: array
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-npu-and-rau'
+                odu-firmware-list:
+                  type: array
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-npu-and-rau OR [firmwareStructure]==separated-boot-and-web-and-odu'
+                application-firmware-list:
+                  type: array
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-application'
+                boot-firmware-list:
+                  type: array
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-boot-and-web-and-odu'
+                web-server-list:
+                  type: array
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-boot-and-web-and-odu'

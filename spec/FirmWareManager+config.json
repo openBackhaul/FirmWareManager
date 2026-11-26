@@ -1546,52 +1546,6 @@
         ]
       },
       {
-        "uuid": "fwm-1-0-0-op-s-is-210",
-        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
-        "client-ltp": [],
-        "server-ltp": [
-          "fwm-1-0-0-http-s-000"
-        ],
-        "layer-protocol": [
-          {
-            "local-id": "0",
-            "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
-            "operation-server-interface-1-0:operation-server-interface-pac": {
-              "operation-server-interface-capability": {
-                "operation-name": "/v1/list-firmware-extraction-functions"
-              },
-              "operation-server-interface-configuration": {
-                "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
-                "operation-key": "Operation key not yet provided."
-              }
-            }
-          }
-        ]
-      },
-      {
-        "uuid": "fwm-1-0-0-op-s-is-220",
-        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
-        "client-ltp": [],
-        "server-ltp": [
-          "fwm-1-0-0-http-s-000"
-        ],
-        "layer-protocol": [
-          {
-            "local-id": "0",
-            "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
-            "operation-server-interface-1-0:operation-server-interface-pac": {
-              "operation-server-interface-capability": {
-                "operation-name": "/v1/list-hardware-extraction-functions"
-              },
-              "operation-server-interface-configuration": {
-                "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
-                "operation-key": "Operation key not yet provided."
-              }
-            }
-          }
-        ]
-      },
-      {
         "uuid": "fwm-1-0-0-op-s-is-230",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
@@ -1720,29 +1674,6 @@
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
                 "operation-name": "/v1/update-device-group"
-              },
-              "operation-server-interface-configuration": {
-                "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
-                "operation-key": "Operation key not yet provided."
-              }
-            }
-          }
-        ]
-      },
-      {
-        "uuid": "fwm-1-0-0-op-s-is-290",
-        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
-        "client-ltp": [],
-        "server-ltp": [
-          "fwm-1-0-0-http-s-000"
-        ],
-        "layer-protocol": [
-          {
-            "local-id": "0",
-            "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
-            "operation-server-interface-1-0:operation-server-interface-pac": {
-              "operation-server-interface-capability": {
-                "operation-name": "/v1/update-device-model"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -1896,15 +1827,12 @@
           "fwm-1-0-0-op-s-is-180",
           "fwm-1-0-0-op-s-is-190",
           "fwm-1-0-0-op-s-is-200",
-          "fwm-1-0-0-op-s-is-210",
-          "fwm-1-0-0-op-s-is-220",
           "fwm-1-0-0-op-s-is-230",
           "fwm-1-0-0-op-s-is-240",
           "fwm-1-0-0-op-s-is-250",
           "fwm-1-0-0-op-s-is-260",
           "fwm-1-0-0-op-s-is-270",
           "fwm-1-0-0-op-s-is-280",
-          "fwm-1-0-0-op-s-is-290",
           "fwm-1-0-0-op-s-is-300",
           "fwm-1-0-0-op-s-is-310",
           "fwm-1-0-0-op-s-is-320",
@@ -3147,16 +3075,6 @@
                 "logical-termination-point": "fwm-1-0-0-op-s-is-200"
               },
               {
-                "local-id": "181",
-                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "fwm-1-0-0-op-s-is-210"
-              },
-              {
-                "local-id": "182",
-                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "fwm-1-0-0-op-s-is-220"
-              },
-              {
                 "local-id": "183",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-230"
@@ -3185,11 +3103,6 @@
                 "local-id": "188",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "fwm-1-0-0-op-s-is-280"
-              },
-              {
-                "local-id": "189",
-                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "fwm-1-0-0-op-s-is-290"
               },
               {
                 "local-id": "190",

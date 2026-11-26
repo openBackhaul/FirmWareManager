@@ -9,6 +9,7 @@ participant "requestor\n" as requestor
 participant "p1MeasureFw\n" as indServ
 participant "<i>extractionFunctionName</i>\n" as extrFunc
 
+database "RunningDS" as RunDS
 database "DomainController" as DC
 database "ErrorList" as hEL
 
@@ -21,14 +22,23 @@ activate indServ
   end note
 
   note over indServ
+    Reads firmwareStructure
+    from DeviceModel
+  end note
+  indServ -> RunDS: deviceModelName
+  activate RunDS
+  indServ <-- RunDS: firmwareStructure
+  deactivate RunDS
+  note over indServ
     Reads name of function for
     extracting firmware info
     from Parameters
   end note
-  indServ -> DC: deviceModelName
+  indServ -> DC: firmwareStructure
   activate DC
   indServ <-- DC: extractionFunctionName
   deactivate DC
+
   note over indServ
     IF failed OR
       extractionFunctionName==null:

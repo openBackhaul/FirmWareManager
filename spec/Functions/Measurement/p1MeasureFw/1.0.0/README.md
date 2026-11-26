@@ -1,7 +1,7 @@
 # p1MeasureFw
 
 Updates the information about the composition of firmware on a Device in the OperationalDS.  
-Depending on the deviceModel, different subfunctions get called to allow different information structures.  
+Depending on the deviceModel, respectively its firmwareStructure, different subfunctions get called to allow different information structures.  
 
 ## Diagram
 
@@ -19,11 +19,9 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Parameters
 
-| Parameter Name    | Description                                                                                                                                                                                  |
-|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [deviceModelName] | Special usage of the Parameters. For all Parameters with attribute description==firmwareExtractionFunction, attribute value contains the name of the subfunction to be called by p1MeasureFw |
-
-In its initial release, the ElasticSearchClients domainControllerEsClient and mwdiEsClient are defined.  
+| Parameter Name      | Description                                                                                                                                                                                  |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [firmwareStructure] | Special usage of the Parameters. For all Parameters with attribute description==firmwareExtractionFunction, attribute value contains the name of the subfunction to be called by p1MeasureFw |
 
 ## NPM Module
 

@@ -1,0 +1,121 @@
+withdraw-firmware-approval:
+  type: object
+  required:
+    - deviceModelName
+    - firmwareResourceName
+    - firmwareResourceVersion
+  properties:
+    deviceModelName:
+      type: string
+      description: >
+        'from [/requestBody/device-model-name]'
+    firmwareResourceName:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-name]'
+    firmwareResourceVersion:
+      type: string
+      description: >
+        'from [/requestBody/firmware-resource-version]'
+
+    combination:
+      type: string
+      description: >
+        'from [firmwareResourceName + {,} + firmwareResourceVersion]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-model:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  enum:
+                    - {deviceModelName}
+                approval:
+                  type: array
+                  description: >
+                    'from [ approval.filter(value => value !== {combination}) ]'
+          device-group:
+            type: array
+            items:
+              type: object
+              properties:
+                target-firmware-list:
+                  type: array
+                  description: >
+                    'delete instance IF [/domain-controller/network-control-domain=candidate/device-group=*/target-firmware-list[i]/resource]==combination'
+                target-controller-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete instance IF [/domain-controller/network-control-domain=candidate/device-group=*/target-controller-firmware-list[i]/resource]==combination'
+                target-odu-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete instance IF [/domain-controller/network-control-domain=candidate/device-group=*/target-odu-firmware-list[i]/resource]==combination'
+                target-application-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete instance IF [/domain-controller/network-control-domain=candidate/device-group=*/target-application-firmware-list[i]/resource]==combination'
+                target-boot-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete instance IF [/domain-controller/network-control-domain=candidate/device-group=*/target-boot-firmware-list[i]/resource]==combination'
+                target-web-server-list:
+                  type: array
+                  description: >
+                    'IF exists, delete instance IF [/domain-controller/network-control-domain=candidate/device-group=*/target-web-server-list[i]/resource]==combination'
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                firmware-list:
+                  type: array
+                  description: >
+                    'delete instance IF
+                        ( [/domain-controller/network-control-domain=candidate/device=*/firmware-list[i]/name]==firmwareResourceName
+                          AND [/domain-controller/network-control-domain=candidate/device=*/firmware-list[i]/version]==firmwareResourceVersion )'
+                controller-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete instance IF
+                        ( [/domain-controller/network-control-domain=candidate/device=*/controller-firmware-list[i]/name]==firmwareResourceName
+                          AND [/domain-controller/network-control-domain=candidate/device=*/controller-firmware-list[i]/version]==firmwareResourceVersion )'
+                odu-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete instance IF
+                        ( [/domain-controller/network-control-domain=candidate/device=*/odu-firmware-list[i]/name]==firmwareResourceName
+                          AND [/domain-controller/network-control-domain=candidate/device=*/odu-firmware-list[i]/version]==firmwareResourceVersion )'
+                application-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete instance IF
+                        ( [/domain-controller/network-control-domain=candidate/device=*/application-firmware-list[i]/name]==firmwareResourceName
+                          AND [/domain-controller/network-control-domain=candidate/device=*/application-firmware-list[i]/version]==firmwareResourceVersion )'
+                boot-firmware-list:
+                  type: array
+                  description: >
+                    'IF exists, delete instance IF
+                        ( [/domain-controller/network-control-domain=candidate/device=*/boot-firmware-list[i]/name]==firmwareResourceName
+                          AND [/domain-controller/network-control-domain=candidate/device=*/boot-firmware-list[i]/version]==firmwareResourceVersion )'
+                web-server-list:
+                  type: array
+                  description: >
+                    'IF exists, delete instance IF
+                        ( [/domain-controller/network-control-domain=candidate/device=*/web-server-list[i]/name]==firmwareResourceName
+                          AND [/domain-controller/network-control-domain=candidate/device=*/web-server-list[i]/version]==firmwareResourceVersion )'

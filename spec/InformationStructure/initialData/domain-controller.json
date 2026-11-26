@@ -256,126 +256,28 @@
                 "description": "Updates deviceModel specific firmware composition in OperationalDS",
                 "parameter": [
                     {
-                        "name": "OptiXRTN950",
+                        "name": "single-firmware-package",
                         "description": "firmwareExtractionFunction",
                         "owner": "platform",
                         "value": "p1ExtractSingleFirmware",
                         "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
                     },
                     {
-                        "name": "OptiXRTN950F",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN950N",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN9051A",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN9052A",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN9052E",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN380",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN380AX",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN380H",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN9052F",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN6900",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "MINI-LINK 6352",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSingleFirmware",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "MINI-LINK Traffic Node",
+                        "name": "separated-npu-and-rau",
                         "description": "firmwareExtractionFunction",
                         "owner": "platform",
                         "value": "p1ExtractSeparatedNpuRauToo",
                         "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
                     },
                     {
-                        "name": "MINI-LINK 6600",
+                        "name": "separated-application",
                         "description": "firmwareExtractionFunction",
                         "owner": "platform",
                         "value": "p1ExtractSeparatedAppToo",
                         "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
                     },
                     {
-                        "name": "ALCplus2e",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSeparatedBootWebOduToo",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "AGS20",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSeparatedBootWebOduToo",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "AGS20L",
-                        "description": "firmwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "p1ExtractSeparatedBootWebOduToo",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "ALFO80",
+                        "name": "separated-boot-and-web-and-odu",
                         "description": "firmwareExtractionFunction",
                         "owner": "platform",
                         "value": "p1ExtractSeparatedBootWebOduToo",
@@ -389,126 +291,28 @@
                 "description": "Updates deviceModel specific hardware dependencies in OperationalDS",
                 "parameter": [
                     {
-                        "name": "OptiXRTN950",
+                        "name": "single-firmware-package",
                         "description": "hardwareExtractionFunction",
                         "owner": "platform",
                         "value": "",
                         "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
                     },
                     {
-                        "name": "OptiXRTN950F",
+                        "name": "separated-npu-and-rau",
                         "description": "hardwareExtractionFunction",
                         "owner": "platform",
                         "value": "",
                         "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
                     },
                     {
-                        "name": "OptiXRTN950N",
+                        "name": "separated-application",
                         "description": "hardwareExtractionFunction",
                         "owner": "platform",
                         "value": "",
                         "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
                     },
                     {
-                        "name": "OptiXRTN9051A",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN9052A",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN9052E",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN380",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN380AX",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN380H",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN9052F",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "OptiXRTN6900",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "MINI-LINK 6352",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "MINI-LINK Traffic Node",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "MINI-LINK 6600",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "ALCplus2e",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "AGS20",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "AGS20L",
-                        "description": "hardwareExtractionFunction",
-                        "owner": "platform",
-                        "value": "",
-                        "pattern": "^p[1-9][0-9]?Extract[A-Za-z0-9]*$"
-                    },
-                    {
-                        "name": "ALFO80",
+                        "name": "separated-boot-and-web-and-odu",
                         "description": "hardwareExtractionFunction",
                         "owner": "platform",
                         "value": "",
@@ -585,40 +389,849 @@
                 ],
                 "device-model": [
                     {
-                        "name": "ALC_42%",
+                        "name": "OptiXRTN950",
+                        "firmware-structure": "single-firmware-package",
                         "approval": [
-                            "HuaweiFirmware,1.2.3"
+                            "OptiXRTN950N,V100R020C10SPC500"
                         ],
-                        "default-device-group": "ALC_42%"
+                        "default-device-group": "OptiXRTN950"
+                    },
+                    {
+                        "name": "OptiXRTN950F",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "OptiXRTN950F,V100R020C10SPC500"
+                        ],
+                        "default-device-group": "OptiXRTN950F"
+                    },
+                    {
+                        "name": "OptiXRTN950N",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "OptiXRTN950N,V100R020C10SPC500"
+                        ],
+                        "default-device-group": "OptiXRTN950N"
+                    },
+                    {
+                        "name": "OptiXRTN9051A",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "OptiXRTN9051A,V100R023C10SPC200"
+                        ],
+                        "default-device-group": "OptiXRTN9051A"
+                    },
+                    {
+                        "name": "OptiXRTN9052A",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "OptiXRTN9052A,V100R023C10SPC200"
+                        ],
+                        "default-device-group": "OptiXRTN9052A"
+                    },
+                    {
+                        "name": "OptiXRTN9052E",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "OptiXRTN9052E,V100R023C10SPC200"
+                        ],
+                        "default-device-group": "OptiXRTN9052E"
+                    },
+                    {
+                        "name": "OptiXRTN380",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "OptiXRTN380,V100R023C10SPC200"
+                        ],
+                        "default-device-group": "OptiXRTN380"
+                    },
+                    {
+                        "name": "OptiXRTN380AX",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "OptiXRTN380AX,V100R023C10SPC200"
+                        ],
+                        "default-device-group": "OptiXRTN380AX"
+                    },
+                    {
+                        "name": "OptiXRTN380H",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "OptiXRTN380H,V100R023C10SPC200"
+                        ],
+                        "default-device-group": "OptiXRTN380H"
+                    },
+                    {
+                        "name": "OptiXRTN9052F",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "OptiXRTN9052F,V100R025C10SPC100"
+                        ],
+                        "default-device-group": "OptiXRTN9052F"
+                    },
+                    {
+                        "name": "OptiXRTN6900",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "OptiXRTN6900,V100R023C10SPC200"
+                        ],
+                        "default-device-group": "OptiXRTN6900"
+                    },
+                    {
+                        "name": "MINI-LINK 6352",
+                        "firmware-structure": "single-firmware-package",
+                        "approval": [
+                            "CXP9026371/3,R21A687, 2.20"
+                        ],
+                        "default-device-group": "MINI-LINK 6352"
+                    },
+                    {
+                        "name": "MINI-LINK Traffic Node",
+                        "firmware-structure": "separated-npu-and-rau",
+                        "approval": [
+                            "CXP9010021_3,MINI-LINK_TN_5.4FP.5_LH_1.6FP.5_R33G124",
+                            "CXP9010021_1,MINI-LINK_TN_6.1.11_LH_2.1.11_R46A113",
+                            "CXP 901 2878,R4F02"
+                        ],
+                        "default-device-group": "MINI-LINK Traffic Node"
+                    },
+                    {
+                        "name": "MINI-LINK 6600",
+                        "firmware-structure": "separated-application",
+                        "approval": [
+                            "CXP9036600_1,MINI-LINK_6600_6366_1.16_R17L119",
+                            "CXP 901 3640,R2B08"
+                        ],
+                        "default-device-group": "MINI-LINK 6600"
+                    },
+                    {
+                        "name": "ALCplus2e",
+                        "firmware-structure": "separated-boot-and-web-and-odu",
+                        "approval": [
+                            "IDU Board Bench 1,N50010  02.02.05",
+                            "IDU Board Bench 2,N50010  02.03.04",
+                            "Web Server LCT,N96109 02.02.01",
+                            "Radio 1A,N90629 02.01.00",
+                            "Radio 2A,N90629 02.01.00",
+                            "Boot,E82103 01.00.06"
+                        ],
+                        "default-device-group": "ALCplus2e"
+                    },
+                    {
+                        "name": "AGS20",
+                        "firmware-structure": "separated-boot-and-web-and-odu",
+                        "approval": [
+                            "IDU Board Bench 2,N31030  01.12.04",
+                            "IDU Board Bench 1,N31030  16.05.22",
+                            "Web Server LCT,N96121  01.12.03",
+                            "ODU-B,N90716 01.01.00",
+                            "ODU-A,N90716 01.01.00",
+                            "Boot,E82103 01.00.06"
+                        ],
+                        "default-device-group": "AGS20"
+                    },
+                    {
+                        "name": "AGS20L",
+                        "firmware-structure": "separated-boot-and-web-and-odu",
+                        "approval": [
+                            "IDU Board Bench 2,N33030 01.10.01",
+                            "IDU Board Bench 1,N33030 01.09.01",
+                            "Web Server LCT,01.09.00",
+                            "ODU-7/A,N90772 01.01.01",
+                            "ODU-3/A,N90772 01.01.01",
+                            "ODU-8/B,N90716 01.01.00",
+                            "ODU-8/A,N90716 01.01.00"
+                        ],
+                        "default-device-group": "AGS20L"
+                    },
+                    {
+                        "name": "ALFO80",
+                        "firmware-structure": "separated-boot-and-web-and-odu",
+                        "approval": [],
+                        "default-device-group": "ALFO80"
                     }
                 ],
                 "device-group": [
                     {
-                        "label": "ALC_42%",
-                        "device-model": "ALC_42%",
+                        "label": "OptiXRTN950",
+                        "device-model": "OptiXRTN950",
                         "target-firmware-list": [
                             {
-                                "resource": "HuaweiFirmware,1.2.3",
+                                "resource": "OptiXRTN950,V100R020C10SPC500",
                                 "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN950,V100R020C10SPC500",
+                                "status": "active"
+                            }
+                        ],
+                        "device": []
+                    },
+                    {
+                        "label": "OptiXRTN950F",
+                        "device-model": "OptiXRTN950F",
+                        "target-firmware-list": [
+                            {
+                                "resource": "OptiXRTN950F,V100R020C10SPC500",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN950F,V100R020C10SPC500",
+                                "status": "active"
+                            }
+                        ],
+                        "device": []
+                    },
+                    {
+                        "label": "OptiXRTN950N",
+                        "device-model": "OptiXRTN950N",
+                        "target-firmware-list": [
+                            {
+                                "resource": "OptiXRTN950N,V100R020C10SPC500",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN950N,V100R020C10SPC500",
+                                "status": "active"
                             }
                         ],
                         "device": [
-                            "radio-001"
+                            "513250005"
                         ]
+                    },
+                    {
+                        "label": "OptiXRTN9051A",
+                        "device-model": "OptiXRTN9051A",
+                        "target-firmware-list": [
+                            {
+                                "resource": "OptiXRTN9051A,V100R023C10SPC200",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN9051A,V100R023C10SPC200",
+                                "status": "active"
+                            }
+                        ],
+                        "device": []
+                    },
+                    {
+                        "label": "OptiXRTN9052A",
+                        "device-model": "OptiXRTN9052A",
+                        "target-firmware-list": [
+                            {
+                                "resource": "OptiXRTN9052A,V100R023C10SPC200",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN9052A,V100R023C10SPC200",
+                                "status": "active"
+                            }
+                        ],
+                        "device": []
+                    },
+                    {
+                        "label": "OptiXRTN9052E",
+                        "device-model": "OptiXRTN9052E",
+                        "target-firmware-list": [
+                            {
+                                "resource": "OptiXRTN9052E,V100R023C10SPC200",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN9052E,V100R023C10SPC200",
+                                "status": "active"
+                            }
+                        ],
+                        "device": [
+                            "CO02060"
+                        ]
+                    },
+                    {
+                        "label": "OptiXRTN380",
+                        "device-model": "OptiXRTN380",
+                        "target-firmware-list": [
+                            {
+                                "resource": "OptiXRTN380,V100R023C10SPC200",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN380,V100R023C10SPC200",
+                                "status": "active"
+                            }
+                        ],
+                        "device": []
+                    },
+                    {
+                        "label": "OptiXRTN380AX",
+                        "device-model": "OptiXRTN380AX",
+                        "target-firmware-list": [
+                            {
+                                "resource": "OptiXRTN380AX,V100R023C10SPC200",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN380AX,V100R023C10SPC200",
+                                "status": "active"
+                            }
+                        ],
+                        "device": [
+                            "CO17693"
+                        ]
+                    },
+                    {
+                        "label": "OptiXRTN380H",
+                        "device-model": "OptiXRTN380H",
+                        "target-firmware-list": [
+                            {
+                                "resource": "OptiXRTN380H,V100R023C10SPC200",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN380H,V100R023C10SPC200",
+                                "status": "active"
+                            }
+                        ],
+                        "device": []
+                    },
+                    {
+                        "label": "OptiXRTN9052F",
+                        "device-model": "OptiXRTN9052F",
+                        "target-firmware-list": [
+                            {
+                                "resource": "OptiXRTN9052F,V100R025C10SPC100",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN9052F,V100R025C10SPC100",
+                                "status": "active"
+                            }
+                        ],
+                        "device": [
+                            "CO17694"
+                        ]
+                    },
+                    {
+                        "label": "OptiXRTN6900",
+                        "device-model": "OptiXRTN6900",
+                        "target-firmware-list": [
+                            {
+                                "resource": "OptiXRTN6900,V100R023C10SPC200",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "OptiXRTN6900,V100R023C10SPC200",
+                                "status": "active"
+                            }
+                        ],
+                        "device": [
+                            "513559991A"
+                        ]
+                    },
+                    {
+                        "label": "MINI-LINK 6352",
+                        "device-model": "MINI-LINK 6352",
+                        "target-firmware-list": [
+                            {
+                                "resource": "CXP9026371/3,R21A687, 2.20",
+                                "status": "active"
+                            }
+                        ],
+                        "device": [
+                            "513559991A"
+                        ]
+                    },
+                    {
+                        "label": "MINI-LINK Traffic Node",
+                        "device-model": "MINI-LINK Traffic Node",
+                        "target-firmware-list": [
+                            {
+                                "resource": "CXP9010021_3,MINI-LINK_TN_5.4FP.5_LH_1.6FP.5_R33G124",
+                                "status": "active"
+                            },
+                            {
+                                "resource": "CXP9010021_1,MINI-LINK_TN_6.1.11_LH_2.1.11_R46A113",
+                                "status": "stand-by"
+                            }
+                        ],
+                        "target-controller-firmware-list": [
+                            {
+                                "resource": "CXP 901 2516/5,R33G124",
+                                "status": "stand-by"
+                            }
+                        ],
+                        "target-odu-firmware-list": [
+                            {
+                                "resource": "CXP 901 2878,R4F02",
+                                "status": "active"
+                            }
+                        ],
+                        "device": [
+                            "513250010",
+                            "513250011"
+                        ]
+                    },
+                    {
+                        "label": "MINI-LINK 6600",
+                        "device-model": "MINI-LINK 6600",
+                        "target-firmware-list": [
+                            {
+                                "resource": "CXP9036600_1,MINI-LINK_6600_6366_1.16_R17L119",
+                                "status": "active"
+                            },
+                            {
+                                "resource": "CXP9036600_1,MINI-LINK_6600_6366_1.16_R17L119",
+                                "status": "stand-by"
+                            }
+                        ],
+                        "target-application-firmware-list": [
+                            {
+                                "resource": "CXP 901 3640,R2B08",
+                                "status": "active"
+                            }
+                        ],
+                        "device": [
+                            "CO15337"
+                        ]
+                    },
+                    {
+                        "label": "ALCplus2e",
+                        "device-model": "ALCplus2e",
+                        "target-firmware-list": [
+                            {
+                                "resource": "IDU Board Bench 2,N50010  02.03.04",
+                                "status": "active"
+                            },
+                            {
+                                "resource": "IDU Board Bench 1,N50010  02.02.05",
+                                "status": "stand-by"
+                            }
+                        ],
+                        "target-web-server-list": [
+                            {
+                                "resource": "Web Server LCT,N96109 02.02.01",
+                                "status": "active"
+                            }
+                        ],
+                        "target-odu-firmware-list": [
+                            {
+                                "resource": "Radio 1A,N90629 02.01.00",
+                                "status": "active"
+                            },
+                            {
+                                "resource": "Radio 2A,N90629 02.01.00",
+                                "status": "active"
+                            }
+                        ],
+                        "target-boot-firmware-list": [
+                            {
+                                "resource": "Boot,E82103 01.00.06",
+                                "status": "active"
+                            }
+                        ],
+                        "device": [
+                            "513250008"
+                        ]
+                    },
+                    {
+                        "label": "AGS20",
+                        "device-model": "AGS20",
+                        "target-firmware-list": [
+                            {
+                                "resource": "IDU Board Bench 2,N31030  01.12.04",
+                                "status": "stand-by"
+                            },
+                            {
+                                "resource": "IDU Board Bench 1,N31030  16.05.22",
+                                "status": "active"
+                            }
+                        ],
+                        "target-web-server-list": [
+                            {
+                                "resource": "Web Server LCT,N96121  01.12.03",
+                                "status": "active"
+                            }
+                        ],
+                        "target-odu-firmware-list": [
+                            {
+                                "resource": "ODU-B,N90716 01.01.00",
+                                "status": "active"
+                            },
+                            {
+                                "resource": "ODU-A,N90716 01.01.00",
+                                "status": "active"
+                            }
+                        ],
+                        "target-boot-firmware-list": [
+                            {
+                                "resource": "Boot,E82115  01.02.01",
+                                "status": "active"
+                            }
+                        ],
+                        "device": [
+                            "513250007"
+                        ]
+                    },
+                    {
+                        "label": "AGS20L",
+                        "device-model": "AGS20L",
+                        "target-firmware-list": [
+                            {
+                                "resource": "IDU Board Bench 2,N33030 01.10.01",
+                                "status": "active"
+                            },
+                            {
+                                "resource": "IDU Board Bench 1,N33030 01.09.01",
+                                "status": "stand-by"
+                            }
+                        ],
+                        "target-web-server-list": [
+                            {
+                                "resource": "Web Server LCT,01.09.00",
+                                "status": "active"
+                            }
+                        ],
+                        "target-odu-firmware-list": [
+                            {
+                                "resource": "ODU-7/A,N90772 01.01.01",
+                                "status": "active"
+                            },
+                            {
+                                "resource": "ODU-3/A,N90772 01.01.01",
+                                "status": "active"
+                            },
+                            {
+                                "resource": "ODU-8/B,N90716 01.01.00",
+                                "status": "active"
+                            },
+                            {
+                                "resource": "ODU-8/A,N90716 01.01.00",
+                                "status": "active"
+                            }
+                        ],
+                        "target-boot-firmware-list": [],
+                        "device": [
+                            "CO13306"
+                        ]
+                    },
+                    {
+                        "label": "ALFO80",
+                        "device-model": "ALFO80",
+                        "target-firmware-list": [],
+                        "target-web-server-list": [],
+                        "target-odu-firmware-list": [],
+                        "target-boot-firmware-list": [],
+                        "device": []
                     }
                 ],
                 "device": [
                     {
-                        "mount-name": "radio-001",
-                        "device-model": "ALC_42%",
+                        "mount-name": "513250005",
+                        "device-model": "OptiXRTN950N",
                         "last-update": "2026-10-29T00:00:00Z",
                         "firmware-list": [
                             {
-                                "name": "HuaweiFirmware",
-                                "version": "1.2.3",
+                                "name": "OptiXRTN950N",
+                                "version": "V100R020C10SPC500",
+                                "status": "active"
+                            },
+                            {
+                                "name": "OptiXRTN950N",
+                                "version": "V100R020C10SPC500",
                                 "status": "stand-by"
                             }
                         ]
+                    },
+                    {
+                        "mount-name": "CO02060",
+                        "device-model": "OptiXRTN9052E",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "OptiXRTN9052E",
+                                "version": "V100R023C10SPC200",
+                                "status": "active"
+                            },
+                            {
+                                "name": "OptiXRTN9052E",
+                                "version": "V100R023C10SPC200",
+                                "status": "stand-by"
+                            }
+                        ]
+                    },
+                    {
+                        "mount-name": "CO17693",
+                        "device-model": "OptiXRTN380AX",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "OptiXRTN380AX",
+                                "version": "V100R023C10SPC200",
+                                "status": "active"
+                            },
+                            {
+                                "name": "OptiXRTN380AX",
+                                "version": "V100R023C10SPC200",
+                                "status": "stand-by"
+                            }
+                        ]
+                    },
+                    {
+                        "mount-name": "CO17694",
+                        "device-model": "OptiXRTN9052F",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "OptiXRTN9052F",
+                                "version": "V100R025C10SPC100",
+                                "status": "active"
+                            },
+                            {
+                                "name": "OptiXRTN9052F",
+                                "version": "V100R025C10SPC100",
+                                "status": "stand-by"
+                            }
+                        ]
+                    },
+                    {
+                        "mount-name": "?",
+                        "device-model": "OptiXRTN6900",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "OptiXRTN6900",
+                                "version": "V100R023C10SPC200",
+                                "status": "active"
+                            },
+                            {
+                                "name": "OptiXRTN6900",
+                                "version": "V100R023C10SPC200",
+                                "status": "stand-by"
+                            }
+                        ]
+                    },
+                    {
+                        "mount-name": "513559991A",
+                        "device-model": "MINI-LINK 6352",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "CXP9026371/3",
+                                "version": "R21A687, 2.20",
+                                "status": "active"
+                            }
+                        ]
+                    },
+                    {
+                        "mount-name": "513250010",
+                        "device-model": "MINI-LINK Traffic Node",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "CXP9010021_3",
+                                "version": "MINI-LINK_TN_5.4FP.5_LH_1.6FP.5_R33G124",
+                                "status": "active"
+                            },
+                            {
+                                "name": "CXP9010021_1",
+                                "version": "MINI-LINK_TN_6.1.11_LH_2.1.11_R46A113",
+                                "status": "stand-by"
+                            }
+                        ],
+                        "controller-firmware-list": [],
+                        "odu-firmware-list": [
+                            {
+                                "name": "CXP 901 2878",
+                                "version": "R4F02",
+                                "status": "active"
+                            }
+                        ]
+                    },
+                    {
+                        "mount-name": "513250011",
+                        "device-model": "MINI-LINK Traffic Node",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "CXP9010021_1",
+                                "version": "MINI-LINK_TN_6.1.11_LH_2.1.11_R46A113",
+                                "status": "active"
+                            },
+                            {
+                                "name": "CXP9010021_1",
+                                "version": "MINI-LINK_TN_6.1.11_LH_2.1.11_R46A113",
+                                "status": "stand-by"
+                            }
+                        ],
+                        "controller-firmware-list": [
+                            {
+                                "name": "CXP 901 2516/5",
+                                "version": "R33G124",
+                                "status": "active"
+                            }
+                        ],
+                        "odu-firmware-list": [
+                            {
+                                "name": "CXP 901 2878",
+                                "version": "R4F02",
+                                "status": "active"
+                            }
+                        ]
+                    },
+                    {
+                        "mount-name": "CO15337",
+                        "device-model": "MINI-LINK 6600",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "CXP9036600_1",
+                                "version": "MINI-LINK_6600_6366_1.16_R17L119",
+                                "status": "active"
+                            },
+                            {
+                                "name": "CXP9036600_1",
+                                "version": "MINI-LINK_6600_6366_1.16_R17L119",
+                                "status": "stand-by"
+                            }
+                        ],
+                        "application-firmware-list": [
+                            {
+                                "name": "CXP 901 3640",
+                                "version": "R2B08",
+                                "status": "active"
+                            }
+                        ]
+                    },
+                    {
+                        "mount-name": "513250008",
+                        "device-model": "ALCplus2e",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "IDU Board Bench 2",
+                                "version": "N50010  02.03.04",
+                                "status": "active"
+                            },
+                            {
+                                "name": "IDU Board Bench 1",
+                                "version": "N50010  02.02.05",
+                                "status": "stand-by"
+                            }
+                        ],
+                        "web-server-list": [
+                            {
+                                "name": "Web Server LCT",
+                                "version": "N96109 02.02.01",
+                                "status": "active"
+                            }
+                        ],
+                        "odu-firmware-list": [
+                            {
+                                "name": "Radio 1A",
+                                "version": "N90629 02.01.00",
+                                "status": "active"
+                            },
+                            {
+                                "name": "Radio 2A",
+                                "version": "N90629 02.01.00",
+                                "status": "active"
+                            }
+                        ],
+                        "boot-firmware-list": [
+                            {
+                                "name": "Boot",
+                                "version": "E82103 01.00.06",
+                                "status": "active"
+                            }
+                        ]
+                    },
+                    {
+                        "mount-name": "513250007",
+                        "device-model": "AGS20",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "IDU Board Bench 2",
+                                "version": "N31030  01.12.04",
+                                "status": "stand-by"
+                            },
+                            {
+                                "name": "IDU Board Bench 1",
+                                "version": "N31030  16.05.22",
+                                "status": "active"
+                            }
+                        ],
+                        "web-server-list": [
+                            {
+                                "name": "Web Server LCT",
+                                "version": "N96121  01.12.03",
+                                "status": "active"
+                            }
+                        ],
+                        "odu-firmware-list": [
+                            {
+                                "name": "ODU-B",
+                                "version": "N90716 01.01.00",
+                                "status": "active"
+                            },
+                            {
+                                "name": "ODU-A",
+                                "version": "N90716 01.01.00",
+                                "status": "active"
+                            }
+                        ],
+                        "boot-firmware-list": [
+                            {
+                                "name": "Boot",
+                                "version": "E82115  01.02.01",
+                                "status": "active"
+                            }
+                        ]
+                    },
+                    {
+                        "mount-name": "CO13306",
+                        "device-model": "AGS20L",
+                        "last-update": "2026-10-29T00:00:00Z",
+                        "firmware-list": [
+                            {
+                                "name": "IDU Board Bench 2",
+                                "version": "N33030 01.10.01",
+                                "status": "active"
+                            },
+                            {
+                                "name": "IDU Board Bench 1",
+                                "version": "N33030 01.09.01",
+                                "status": "stand-by"
+                            }
+                        ],
+                        "web-server-list": [
+                            {
+                                "name": "Web Server LCT",
+                                "version": "01.09.00",
+                                "status": "active"
+                            }
+                        ],
+                        "odu-firmware-list": [
+                            {
+                                "name": "ODU-7/A",
+                                "version": "N90772 01.01.01",
+                                "status": "active"
+                            },
+                            {
+                                "name": "ODU-3/A",
+                                "version": "N90772 01.01.01",
+                                "status": "active"
+                            },
+                            {
+                                "name": "ODU-8/B",
+                                "version": "N90716 01.01.00",
+                                "status": "active"
+                            },
+                            {
+                                "name": "ODU-8/A",
+                                "version": "N90716 01.01.00",
+                                "status": "active"
+                            }
+                        ],
+                        "boot-firmware-list": []
                     }
                 ]
             }

@@ -1,0 +1,90 @@
+create-device-group:
+  type: object
+  required:
+    - deviceGroupLabel
+    - deviceModelName
+    - purgeDate
+  properties:
+    deviceGroupLabel:
+      type: string
+      description: >
+        'from [/requestBody/device-group-label]'
+    deviceModelName:
+      type: string
+      description: >
+        'from [/requestBody/device-model-name]'
+    purgeDate:
+      type: string
+      description: >
+        'from [/requestBody/purge-date]'
+
+    firmwareStructure:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-model={deviceModelName}/firmware-structure]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'candidate'
+          device-group:
+            type: array
+            description: >
+              'Create new instance'
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                  description: >
+                    'from [deviceGroupLabel]'
+                device-model:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
+                purge-date:
+                  type: string
+                  description: >
+                    'from [purgeDate] if given'
+                target-firmware-list:
+                  type: array
+                  maxItems: 2
+                  description: >
+                    'from [] empty list'
+                target-controller-firmware-list:
+                  type: array
+                  maxItems: 1
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-npu-and-rau'
+                target-odu-firmware-list:
+                  type: array
+                  maxItems: 1
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-npu-and-rau OR [firmwareStructure]==separated-boot-and-web-and-odu'
+                target-application-firmware-list:
+                  type: array
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-application'
+                target-boot-firmware-list:
+                  type: array
+                  maxItems: 1
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-boot-and-web-and-odu'
+                target-web-server-list:
+                  type: array
+                  maxItems: 1
+                  description: >
+                    'from [] empty list IF [firmwareStructure]==separated-boot-and-web-and-odu'
+                device:
+                  type: array
+                  description: >
+                    'from [] empty list'
