@@ -488,17 +488,7 @@ exports.listIncompleteServers = require('./individualServices/listIncompleteServ
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * returns List
  **/
-exports.listUnknownDeviceModels = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  return new Promise(function (resolve, reject) {
-    var examples = {};
-    examples['application/json'] = ["", ""];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
+exports.listUnknownDeviceModels = require('./individualServices/listUnknownDeviceModels/listUnknownDeviceModels').listUnknownDeviceModels;
 
 
 /**
