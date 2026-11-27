@@ -850,6 +850,36 @@ paths:
                   - 'OBSOLETE'
                   - 'UNKNOWN'
                   - 'NOT_YET_DEFINED'
+  /list-hardware-extraction-functions:
+    post:
+      operationId: listHardwareExtractionFunctions
+      summary: 'Provides list of HardwareExtractionFunctions'
+      tags:
+        - IndividualServices
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: 'List of HardwareExtractionFunctions provided'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+          headers:
+            life-cycle-state:
+              schema:
+                type: string
+                enum:
+                  - 'EXPERIMENTAL'
+                  - 'OPERATIONAL'
+                  - 'DEPRECATED'
+                  - 'OBSOLETE'
+                  - 'UNKNOWN'
+                  - 'NOT_YET_DEFINED'
+
+
   /list-firmware-extraction-functions:
     post:
       operationId: listFirmwareExtractionFunctions
