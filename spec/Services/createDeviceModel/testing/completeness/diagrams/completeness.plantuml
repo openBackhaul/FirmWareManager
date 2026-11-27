@@ -1,0 +1,32 @@
+@startuml completeness
+skinparam responseMessageBelowArrow true
+
+title
+test.completeness
+end title
+
+participant "Postman\n" as Postman #Orange 
+participant "Data\n" as Data
+participant "Collection\n" as Collection
+
+
+participant "createDeviceModel" as cur #LightBlue
+
+
+
+group Preparation - all parameters
+  Data --\\o Postman : {servers, deviceModelName, hardwareExtractionFunction, FirmwareExtractionFunction}
+  activate Postman
+  Postman --\\o Collection : {servers, deviceModelName}
+end
+
+group completeness test - required parameters only
+  Collection --\\o Postman: {servers}
+  Postman -> cur: {deviceModelName}
+  cur <-- Postman: ResponseCode, {ResponseBody}
+  note right Postman #Orange
+    check for ResponseCode == 204
+  end note
+end
+
+

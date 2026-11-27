@@ -1,0 +1,8 @@
+﻿{
+  "/list-device-models-without-approvals": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  }
+}

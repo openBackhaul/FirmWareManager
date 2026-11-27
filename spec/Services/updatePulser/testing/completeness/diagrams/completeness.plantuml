@@ -1,0 +1,32 @@
+@startuml completeness
+skinparam responseMessageBelowArrow true
+
+title
+test.completeness
+end title
+
+participant "Postman\n" as Postman #Orange 
+participant "Data\n" as Data
+participant "Collection\n" as Collection
+
+
+participant "updatePulser" as cur #LightBlue
+
+
+
+group Preparation
+  Data --\\o Postman : {servers, targetFunction, isActivated, periodLength, nextTime, endingTime}
+  activate Postman
+  Postman --\\o Collection : {servers, targetFunction, isActivated, periodLength, nextTime, endingTime}
+end
+
+group completeness test
+  Collection --\\o Postman: {servers}
+  Postman -> cur: {targetFunction, isActivated, periodLength, nextTime, endingTime}
+  cur <-- Postman: ResponseCode, {ResponseBody}
+  note right Postman #Orange
+    check for ResponseCode == 204
+  end note
+end
+
+

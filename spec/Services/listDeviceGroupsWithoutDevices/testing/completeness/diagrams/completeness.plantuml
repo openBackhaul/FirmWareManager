@@ -1,0 +1,33 @@
+@startuml completeness
+skinparam responseMessageBelowArrow true
+
+title
+test.completeness
+end title
+
+participant "Postman\n" as Postman #Orange 
+participant "Data\n" as Data
+participant "Collection\n" as Collection
+
+
+participant "listDeviceGroupsWithoutDevices" as cur #LightBlue
+
+
+
+group Preparation
+  Data --\\o Postman : {servers}
+  activate Postman
+  Postman --\\o Collection : {servers}
+end
+
+group completeness test
+  Collection --\\o Postman: {servers}
+  Postman -> cur
+  cur <-- Postman: ResponseCode, {ResponseBody}
+  note right Postman #Orange
+    check for ResponseCode == 200
+    check for ResponseBody matches reference schema
+  end note
+end
+
+

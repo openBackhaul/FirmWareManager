@@ -1,0 +1,31 @@
+{
+  "/list-existing-es-addresses": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "es-name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "api-key": {
+          "type": "string"
+        },
+        "index-alias": {
+          "type": "string"
+        },
+        "service-records-policy": {
+          "type": "string"
+        },
+        "operational-state": {
+          "type": "string"
+        },
+        "life-cycle-state": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

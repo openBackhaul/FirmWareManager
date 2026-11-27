@@ -1,0 +1,4 @@
+﻿/list-existing-devices:
+  type: array
+  items:
+    type: string

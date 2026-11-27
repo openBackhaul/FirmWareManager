@@ -1,0 +1,4 @@
+﻿/list-hardware-extraction-functions:
+  type: array
+  items:
+    type: string

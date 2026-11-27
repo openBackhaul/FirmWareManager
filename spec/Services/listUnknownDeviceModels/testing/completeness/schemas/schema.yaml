@@ -1,0 +1,4 @@
+﻿/list-unknown-device-models:
+  type: array
+  items:
+    type: string

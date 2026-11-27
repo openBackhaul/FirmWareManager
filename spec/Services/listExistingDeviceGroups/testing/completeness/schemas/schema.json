@@ -1,0 +1,16 @@
+{
+  "/list-existing-device-groups": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "device-group-label": {
+          "type": "string"
+        },
+        "device-model-name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@startuml completeness
+skinparam responseMessageBelowArrow true
+
+title
+test.completeness
+end title
+
+participant "Postman\n" as Postman #Orange 
+participant "Data\n" as Data
+participant "Collection\n" as Collection
+
+
+participant "addDevicesToDeviceGroup" as cur #LightBlue
+
+
+
+group Preparation
+  Data --\\o Postman : {servers, deviceGroupList,  mountNameList}
+  activate Postman
+  Postman --\\o Collection : {servers, deviceGroupList,  mountNameList}
+end
+
+group completeness test
+  Collection --\\o Postman: {servers}
+  Postman -> cur: {deviceGroupList,  mountNameList}
+  cur <-- Postman: ResponseCode, {ResponseBody}
+  note right Postman #Orange
+    check for ResponseCode == 204
+  end note
+end
+
+

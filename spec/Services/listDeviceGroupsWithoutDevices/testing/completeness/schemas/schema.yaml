@@ -1,0 +1,4 @@
+﻿/list-device-groups-without-devices:
+  type: array
+  items:
+    type: string

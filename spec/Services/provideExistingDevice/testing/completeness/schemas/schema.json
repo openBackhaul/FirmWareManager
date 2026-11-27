@@ -1,0 +1,154 @@
+{
+  "/provide-existing-device": {
+    "type": "object",
+    "required": [
+      "mount-name",
+      "device-model",
+      "firmware-list",
+      "last-update"
+    ],
+    "properties": {
+      "mount-name": {
+        "type": "string"
+      },
+      "device-model": {
+        "type": "string"
+      },
+      "firmware-list": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "name",
+            "version",
+            "status"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "controller-firmware-list": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "name",
+            "version",
+            "status"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "odu-firmware-list": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "name",
+            "version",
+            "status"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "application-firmware-list": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "name",
+            "version",
+            "status"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "boot-firmware-list": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "name",
+            "version",
+            "status"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "web-server-list": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "name",
+            "version",
+            "status"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "last-update": {
+        "type": "string"
+      }
+    }
+  }
+}

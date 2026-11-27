@@ -1,0 +1,4 @@
+﻿/list-incomplete-servers:
+  type: array
+  items:
+    type: string

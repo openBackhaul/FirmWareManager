@@ -1,0 +1,16 @@
+{
+  "/list-existing-firmware-approvals": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "firmware-resource-name": {
+          "type": "string"
+        },
+        "firmware-resource-version": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

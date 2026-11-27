@@ -1,0 +1,9 @@
+﻿/list-existing-device-models:
+  type: array
+  items:
+    type: object
+    properties:
+      device-model-name:
+        type: string
+      default-device-group:
+        type: string

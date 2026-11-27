@@ -1,0 +1,25 @@
+{
+  "/list-existing-pulsers": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "target-function": {
+          "type": "string"
+        },
+        "is-activated": {
+          "type": "boolean"
+        },
+        "period-length": {
+          "type": "integer"
+        },
+        "next-time": {
+          "type": "string"
+        },
+        "ending-time": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+﻿/list-firmware-extraction-functions:
+  type: array
+  items:
+    type: string

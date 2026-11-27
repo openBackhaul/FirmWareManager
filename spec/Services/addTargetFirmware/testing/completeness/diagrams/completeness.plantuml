@@ -1,0 +1,32 @@
+@startuml completeness
+skinparam responseMessageBelowArrow true
+
+title
+test.completeness
+end title
+
+participant "Postman\n" as Postman #Orange 
+participant "Data\n" as Data
+participant "Collection\n" as Collection
+
+
+participant "addTargetFirmware" as cur #LightBlue
+
+
+
+group Preparation
+  Data --\\o Postman : {servers, deviceGroupLabel, firmwareResourceName, firmwareResourceVersion, firmwareStatus}
+  activate Postman
+  Postman --\\o Collection : {servers, deviceGroupLabel, firmwareResourceName, firmwareResourceVersion, firmwareStatus}
+end
+
+group completeness test
+  Collection --\\o Postman: {servers}
+  Postman -> cur: {deviceGroupLabel, firmwareResourceName, firmwareResourceVersion, firmwareStatus}
+  cur <-- Postman: ResponseCode, {ResponseBody}
+  note right Postman #Orange
+    check for ResponseCode == 204
+  end note
+end
+
+
