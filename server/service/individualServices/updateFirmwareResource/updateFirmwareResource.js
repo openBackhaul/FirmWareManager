@@ -34,7 +34,9 @@ function updateFirmwareResource(body, user, originator, xCorrelator, traceIndica
             const runningDS = DomainControllerStore.getDatastore('running').data;
             const firmwareResources = runningDS["firmware-resource"] || [];
 
-            const indexPos = firmwareResources.findIndex(fw => fw.name === firmwareResourceName);
+            const indexPos = firmwareResources.findIndex(
+                fwr => fwr.name === firmwareResourceName
+            );
             if (indexPos == -1) {
                 throw new createHttpError(404, 'firmware-resource-name does not exists');
             }
@@ -42,22 +44,25 @@ function updateFirmwareResource(body, user, originator, xCorrelator, traceIndica
             //Check input serverLabel exists in runningDS server list
             if (serverLabel !== undefined) {
                 runningDS.server = runningDS.server || [];
-                const serverExists = runningDS.server.some(server => server.label === serverLabel);
+                const serverExists = runningDS.server.some(
+                    server => server.label === serverLabel
+                );
                 if (!serverExists) {
                     throw new createHttpError(404, 'server-label does not exists');
                 }
             }
 
+            // Check server-label, source-uri, file-name combination available
             const serverLabelTemp = serverLabel ?? firmwareResources[indexPos]["server"];
             const sourceUriTemp = sourceUri ?? firmwareResources[indexPos]["source-uri"];
             const fileNameTemp   = fileName ?? firmwareResources[indexPos]["file-name"];
 
-            const fwExists = firmwareResources.some(firmware =>
-                firmware.server === serverLabelTemp &&
-                firmware["source-uri"] === sourceUriTemp &&
-                firmware["file-name"] === fileNameTemp
+            const fwrExists = firmwareResources.some(fwr =>
+                fwr.server === serverLabelTemp &&
+                fwr["source-uri"] === sourceUriTemp &&
+                fwr["file-name"] === fileNameTemp
             );
-            if (fwExists) {
+            if (fwrExists) {
                 throw new createHttpError(422, 'server-label, source-uri, file-name combination already documented');
             }
 
@@ -66,11 +71,22 @@ function updateFirmwareResource(body, user, originator, xCorrelator, traceIndica
                 modifyCandidate: async (
                     candidateDS
                 ) => {
-                    candidateDS["firmware-resource"][indexPos]["name"] = firmwareResourceName;
-                    candidateDS["firmware-resource"][indexPos]["version"] = firmwareResourceVersion;
-                    candidateDS["firmware-resource"][indexPos]["server"] = serverLabelTemp;
-                    candidateDS["firmware-resource"][indexPos]["source-uri"] = sourceUriTemp;
-                    candidateDS["firmware-resource"][indexPos]["file-name"] = fileNameTemp;
+                    const cdsFwResources = candidateDS["firmware-resource"] || [];
+                    const cdsFwRIndex = cdsFwResources.findIndex(
+                        fwr => fwr.name === firmwareResourceName
+                    );
+
+                    cdsFwResources[cdsFwRIndex]["name"] = firmwareResourceName;
+                    cdsFwResources[cdsFwRIndex]["version"] = firmwareResourceVersion;
+                    if (serverLabel !== undefined) {
+                        cdsFwResources[cdsFwRIndex]["server"] = serverLabel;
+                    }
+                    if (sourceUri !== undefined) {
+                        cdsFwResources[cdsFwRIndex]["source-uri"] = sourceUri;
+                    }
+                    if (fileName !== undefined) {
+                        cdsFwResources[cdsFwRIndex]["file-name"] = fileName;
+                    }
                     
                     return {
                         success: true

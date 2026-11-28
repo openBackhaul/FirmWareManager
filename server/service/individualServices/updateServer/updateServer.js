@@ -43,16 +43,20 @@ function updateServer(body, user, originator, xCorrelator, traceIndicator, custo
                 modifyCandidate: async (
                     candidateDS
                 ) => {
-                    candidateDS.server[indexPos]["label"] = serverLabel;
+                    candidateDS.server = candidateDS.server || [];
+                    const cdsServerIndex = candidateDS.server.findIndex(
+                        server => server.label === serverLabel
+                    );
+                    candidateDS.server[cdsServerIndex]["label"] = serverLabel;
                     
                     if (userName !== undefined) {
-                       candidateDS.server[indexPos]["user-name"] = userName;
+                       candidateDS.server[cdsServerIndex]["user-name"] = userName;
                     }
                     if (password !== undefined) {
-                        candidateDS.server[indexPos]["password"] = password;
+                        candidateDS.server[cdsServerIndex]["password"] = password;
                     }
                     if (sshKey !== undefined) {
-                        candidateDS.server[indexPos]["ssh-key"] = sshKey;
+                        candidateDS.server[cdsServerIndex]["ssh-key"] = sshKey;
                     }
                     return {
                         success: true

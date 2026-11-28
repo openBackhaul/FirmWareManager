@@ -1,314 +1,212 @@
 'use strict';
 
-const { updateServer } = require('./updateServer');
+jest.mock('../../../utils/DomainControllerStore');
+jest.mock('../../../utils/writeOperations');
+
 const DomainControllerStore = require('../../../utils/DomainControllerStore');
 const { executeTransaction } = require('../../../utils/writeOperations');
-
-jest.mock('../../../utils/DomainControllerStore');
-jest.mock('../../../utils/writeOperations', () => ({
-    executeTransaction: jest.fn()
-}));
+const { updateServer } = require('./updateServer');
 
 describe('updateServer', () => {
+    let runningData;
+    let candidateData;
 
     beforeEach(() => {
         jest.clearAllMocks();
+
+        runningData = {
+            server: [
+                {
+                    label: 'server1',
+                    'user-name': 'oldUser',
+                    password: 'oldPassword',
+                    'ssh-key': 'oldKey'
+                }
+            ]
+        };
+
+        candidateData = {
+            server: [
+                {
+                    label: 'server1',
+                    'user-name': 'oldUser',
+                    password: 'oldPassword',
+                    'ssh-key': 'oldKey'
+                }
+            ]
+        };
+
+        DomainControllerStore.getDatastore.mockReturnValue({
+            data: runningData
+        });
 
         DomainControllerStore.save = jest.fn().mockResolvedValue();
     });
 
     test('should update all server fields successfully', async () => {
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {
-                server: [
-                    {
-                        label: 'server1',
-                        'user-name': 'user1',
-                        password: 'pass1',
-                        'ssh-key': 'key1'
-                    }
-                ]
-            }
+        executeTransaction.mockImplementation(async (config) => {
+            await config.modifyCandidate(candidateData);
+            return { success: true };
         });
 
-        executeTransaction.mockImplementation(
-            async ({ modifyCandidate }) => {
-
-                const candidateDS = {
-                    server: [
-                        {
-                            label: 'server1',
-                            'user-name': 'user1',
-                            password: 'pass1',
-                            'ssh-key': 'key1'
-                        }
-                    ]
-                };
-
-                await modifyCandidate(candidateDS);
-
-                expect(candidateDS.server[0]).toEqual({
-                    label: 'server1',
-                    'user-name': 'newUser',
-                    password: 'newPassword',
-                    'ssh-key': 'newKey'
-                });
-
-                return { success: true };
-            }
-        );
+        const body = {
+            'server-label': 'server1',
+            'user-name': 'newUser',
+            password: 'newPassword',
+            'ssh-key': 'newKey'
+        };
 
         await expect(
-            updateServer({
-                'server-label': 'server1',
-                'user-name': 'newUser',
-                password: 'newPassword',
-                'ssh-key': 'newKey'
-            })
+            updateServer(body)
         ).resolves.toBeUndefined();
 
-        expect(executeTransaction).toHaveBeenCalled();
+        expect(candidateData.server[0]).toEqual({
+            label: 'server1',
+            'user-name': 'newUser',
+            password: 'newPassword',
+            'ssh-key': 'newKey'
+        });
+
         expect(DomainControllerStore.save).toHaveBeenCalled();
     });
 
     test('should update only user-name', async () => {
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {
-                server: [
-                    {
-                        label: 'server1',
-                        'user-name': 'oldUser',
-                        password: 'oldPassword',
-                        'ssh-key': 'oldKey'
-                    }
-                ]
-            }
+        executeTransaction.mockImplementation(async (config) => {
+            await config.modifyCandidate(candidateData);
+            return { success: true };
         });
 
-        executeTransaction.mockImplementation(
-            async ({ modifyCandidate }) => {
+        const body = {
+            'server-label': 'server1',
+            'user-name': 'newUser'
+        };
 
-                const candidateDS = {
-                    server: [
-                        {
-                            label: 'server1',
-                            'user-name': 'oldUser',
-                            password: 'oldPassword',
-                            'ssh-key': 'oldKey'
-                        }
-                    ]
-                };
+        await updateServer(body);
 
-                await modifyCandidate(candidateDS);
+        expect(candidateData.server[0]).toEqual({
+            label: 'server1',
+            'user-name': 'newUser',
+            password: 'oldPassword',
+            'ssh-key': 'oldKey'
+        });
 
-                expect(candidateDS.server[0]).toEqual({
-                    label: 'server1',
-                    'user-name': 'newUser',
-                    password: 'oldPassword',
-                    'ssh-key': 'oldKey'
-                });
-
-                return { success: true };
-            }
-        );
-
-        await expect(
-            updateServer({
-                'server-label': 'server1',
-                'user-name': 'newUser'
-            })
-        ).resolves.toBeUndefined();
+        expect(DomainControllerStore.save).toHaveBeenCalled();
     });
 
     test('should update only password', async () => {
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {
-                server: [
-                    {
-                        label: 'server1',
-                        password: 'oldPassword'
-                    }
-                ]
-            }
+        executeTransaction.mockImplementation(async (config) => {
+            await config.modifyCandidate(candidateData);
+            return { success: true };
         });
 
-        executeTransaction.mockResolvedValue({
-            success: true
+        const body = {
+            'server-label': 'server1',
+            password: 'newPassword'
+        };
+
+        await updateServer(body);
+
+        expect(candidateData.server[0]).toEqual({
+            label: 'server1',
+            'user-name': 'oldUser',
+            password: 'newPassword',
+            'ssh-key': 'oldKey'
         });
-
-        await expect(
-            updateServer({
-                'server-label': 'server1',
-                password: 'newPassword'
-            })
-        ).resolves.toBeUndefined();
-
-        expect(executeTransaction).toHaveBeenCalled();
     });
 
     test('should update only ssh-key', async () => {
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {
-                server: [
-                    {
-                        label: 'server1',
-                        'ssh-key': 'oldKey'
-                    }
-                ]
-            }
+        executeTransaction.mockImplementation(async (config) => {
+            await config.modifyCandidate(candidateData);
+            return { success: true };
         });
 
-        executeTransaction.mockResolvedValue({
-            success: true
+        const body = {
+            'server-label': 'server1',
+            'ssh-key': 'newKey'
+        };
+
+        await updateServer(body);
+
+        expect(candidateData.server[0]).toEqual({
+            label: 'server1',
+            'user-name': 'oldUser',
+            password: 'oldPassword',
+            'ssh-key': 'newKey'
         });
-
-        await expect(
-            updateServer({
-                'server-label': 'server1',
-                'ssh-key': 'newKey'
-            })
-        ).resolves.toBeUndefined();
-    });
-
-    test('should succeed when no optional fields are provided', async () => {
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {
-                server: [
-                    {
-                        label: 'server1',
-                        'user-name': 'user1'
-                    }
-                ]
-            }
-        });
-
-        executeTransaction.mockResolvedValue({
-            success: true
-        });
-
-        await expect(
-            updateServer({
-                'server-label': 'server1'
-            })
-        ).resolves.toBeUndefined();
-
-        expect(executeTransaction).toHaveBeenCalled();
     });
 
     test('should throw 404 when server does not exist', async () => {
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {
-                server: []
-            }
-        });
+        const body = {
+            'server-label': 'unknownServer'
+        };
 
         await expect(
-            updateServer({
-                'server-label': 'unknownServer'
-            })
+            updateServer(body)
         ).rejects.toMatchObject({
             status: 404,
             message: 'Server does not exists'
         });
-    });
 
-    test('should throw 404 when server array is undefined', async () => {
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {}
-        });
-
-        await expect(
-            updateServer({
-                'server-label': 'server1'
-            })
-        ).rejects.toMatchObject({
-            status: 404,
-            message: 'Server does not exists'
-        });
+        expect(executeTransaction).not.toHaveBeenCalled();
+        expect(DomainControllerStore.save).not.toHaveBeenCalled();
     });
 
     test('should throw 462 when transaction validation fails', async () => {
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {
-                server: [
-                    {
-                        label: 'server1'
-                    }
-                ]
-            }
-        });
-
         executeTransaction.mockResolvedValue({
             success: false
         });
 
+        const body = {
+            'server-label': 'server1'
+        };
+
         await expect(
-            updateServer({
-                'server-label': 'server1',
-                'user-name': 'newUser'
-            })
+            updateServer(body)
         ).rejects.toMatchObject({
             status: 462,
             message: 'Validation failed.'
         });
-    });
 
-    test('should reject when executeTransaction throws error', async () => {
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {
-                server: [
-                    {
-                        label: 'server1'
-                    }
-                ]
-            }
-        });
-
-        executeTransaction.mockRejectedValue(
-            new Error('transaction failed')
-        );
-
-        await expect(
-            updateServer({
-                'server-label': 'server1'
-            })
-        ).rejects.toThrow('transaction failed');
+        expect(DomainControllerStore.save).not.toHaveBeenCalled();
     });
 
     test('should reject when save fails', async () => {
-
-        DomainControllerStore.getDatastore.mockReturnValue({
-            data: {
-                server: [
-                    {
-                        label: 'server1'
-                    }
-                ]
-            }
-        });
-
-        executeTransaction.mockResolvedValue({
-            success: true
+        executeTransaction.mockImplementation(async (config) => {
+            await config.modifyCandidate(candidateData);
+            return { success: true };
         });
 
         DomainControllerStore.save.mockRejectedValue(
             new Error('save failed')
         );
 
+        const body = {
+            'server-label': 'server1',
+            'user-name': 'newUser'
+        };
+
         await expect(
-            updateServer({
-                'server-label': 'server1'
-            })
+            updateServer(body)
         ).rejects.toThrow('save failed');
     });
 
+    test('should keep existing values when optional fields are undefined', async () => {
+        executeTransaction.mockImplementation(async (config) => {
+            await config.modifyCandidate(candidateData);
+            return { success: true };
+        });
+
+        const body = {
+            'server-label': 'server1'
+        };
+
+        await updateServer(body);
+
+        expect(candidateData.server[0]).toEqual({
+            label: 'server1',
+            'user-name': 'oldUser',
+            password: 'oldPassword',
+            'ssh-key': 'oldKey'
+        });
+    });
 });
