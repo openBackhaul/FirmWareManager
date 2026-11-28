@@ -85,7 +85,7 @@
                         "name": "updateHwFunction",
                         "description": "Superordinate function that calls the hardware extraction functions",
                         "owner": "platform",
-                        "value": "p1MeasureHw",
+                        "value": "p2MeasureHw",
                         "pattern": "^p[1-9][0-9]?UpdateHw$"
                     },
                     {
@@ -106,7 +106,7 @@
                         "name": "updateHwFunction",
                         "description": "Superordinate function that calls the hardware extraction functions",
                         "owner": "platform",
-                        "value": "p1MeasureHw",
+                        "value": "p2MeasureHw",
                         "pattern": "^p[1-9][0-9]?UpdateHw$"
                     },
                     {
@@ -161,7 +161,7 @@
                         "name": "updateHwFunction",
                         "description": "Superordinate function that calls the hardware extraction functions",
                         "owner": "platform",
-                        "value": "p1MeasureHw",
+                        "value": "p2MeasureHw",
                         "pattern": "^p[1-9][0-9]?UpdateHw$"
                     },
                     {
@@ -286,7 +286,7 @@
                 ]
             },
             {
-                "name": "p1MeasureHw",
+                "name": "p2MeasureHw",
                 "task": "measurement",
                 "description": "Updates deviceModel specific hardware dependencies in OperationalDS",
                 "parameter": [

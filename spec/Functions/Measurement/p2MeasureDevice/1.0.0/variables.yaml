@@ -1,4 +1,4 @@
-updateDevice:
+measureDevice:
   type: object
   required:
     - updatedMountName
@@ -12,6 +12,27 @@ updateDevice:
       type: object
       description: >
         'from [/requestBody/control-construct]'
+
+    functionName:
+      type: string
+      enum:
+        - 'p2MeasureDevice'
+    createDeviceFunctionName:
+      type: string
+      description: >
+        'from [/domain-controller/function={functionName}/parameter={createDeviceFunctionName}/value]'
+    completeDeviceObjectFunctionName:
+      type: string
+      description: >
+        'from [/domain-controller/function={functionName}/parameter={completeDeviceObjectFunctionName}/value]'
+    measureHardwareFunctionName:
+      type: string
+      description: >
+        'from [/domain-controller/function={functionName}/parameter={measureHardwareFunctionName}/value]'
+    measureFirmwareFunctionName:
+      type: string
+      description: >
+        'from [/domain-controller/function={functionName}/parameter={measureFirmwareFunctionName}/value]'
 
     lastMeasurementTime:
       type: string
@@ -33,15 +54,6 @@ domain-controller:
             enum:
               - 'operational'
 
-          device:
-            type: array
-            items:
-              type: object
-              properties:
-                mount-name:
-                  type: string
-                  description: >
-                    'find [updatedMountName]'
           last-measurement-time:
             type: string
             description: >

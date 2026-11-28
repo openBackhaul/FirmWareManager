@@ -7,7 +7,9 @@ end title
 
 participant "requestor\n" as requestor
 participant "p2MeasureDevice\n" as indServ
-participant "p1MeasureHw\n" as updateHw
+participant "p1CreateOperational\nDevice" as createDev
+participant "p1CompleteDevice\nObject" as completeDev
+participant "p2MeasureHw\n" as updateHw
 participant "p1MeasureFw\n" as updateFw
 
 database "DomainController" as DC
@@ -15,14 +17,71 @@ database "OperationalDS" as OpDS
 
 requestor -> indServ: updatedMountName,\nCC
 activate indServ
-  note over indServ #LightGreen
-    Reads function names
-    from Parameters
+  note over indServ
+    Reads function names for 
+      - createDeviceFunction
+      - completeDeviceObjectFunction
+      - measureHardwareFunction
+      - measureFirmwareFunction
+    from parameters
   end note
   indServ -> DC
   activate DC
-  indServ <-- DC: functionName
+  indServ <-- DC: createDeviceFunctionName,\ncompleteDeviceObjectFunctionName,\nmeasureHardwareFunctionName,\nmeasureFirmwareFunctionName
   deactivate DC
+
+  note over indServ
+    Checks, whether updatedMountName
+    already exists in ODS:[Device]
+  end note
+  indServ -> OpDS: /domain-controller/network-control-domain=operational/device=updatedMountName/mount-name
+  activate OpDS
+  indServ <-- OpDS
+  deactivate OpDS
+  note over indServ
+    IF NOT existing:
+  end note
+  note right indServ
+    THEN {
+  end note
+  indServ -> createDev: updatedMountName,\nCC
+  activate createDev
+    note over createDev
+      Creates device object
+      in OperationalDS
+    end note
+  indServ <-- createDev
+  deactivate createDev
+  note right indServ
+    }
+  end note
+
+  note over indServ
+    Checks, whether Device object
+    completed in ODS:[Device]
+  end note
+  indServ -> OpDS: /domain-controller/network-control-domain=operational/device=updatedMountName/firmware-list
+
+  activate OpDS
+  indServ <-- OpDS
+  deactivate OpDS
+  note over indServ
+    IF NOT completed:
+  end note
+  note right indServ
+    THEN {
+  end note
+  indServ -> completeDev: updatedMountName,\nCC
+  activate completeDev
+    note over completeDev
+      Completes device object
+      in OperationalDS
+    end note
+  indServ <-- completeDev
+  deactivate completeDev
+  note right indServ
+    }
+  end note
 
   indServ -> updateHw: updatedMountName,\nCC
   activate updateHw

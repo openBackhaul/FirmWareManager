@@ -1,0 +1,71 @@
+complementSeparatedBootWebOduToo:
+  type: object
+  required:
+    - updatedMountName
+    - controlConstruct
+  properties:
+    updatedMountName:
+      type: string
+      description: >
+        'from [/requestBody/updated-mount-name]'
+    controlConstruct:
+      type: object
+      description: >
+        'from [/requestBody/control-construct]'
+
+    firmwareList:
+      type: array
+      description: >
+        'from []'
+    bootFirmwareList:
+      type: array
+      description: >
+        'from []'
+    webServerList:
+      type: array
+      description: >
+        'from []'
+    oduFirmwareList:
+      type: array
+      description: >
+        'from []'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'operational'
+
+          device:
+            type: array
+            items:
+              type: object
+              properties:
+                mount-name:
+                  type: string
+                  description: >
+                    'find [updatedMountName]'
+                firmware-list:
+                  type: array
+                  description: >
+                    'create from [firmwareList]'
+                boot-firmware-list:
+                  type: array
+                  description: >
+                    'create from [bootFirmwareList]'
+                web-server-list:
+                  type: array
+                  description: >
+                    'create from [webServerList]'
+                odu-firmware-list:
+                  type: array
+                  description: >
+                    'create from [oduFirmwareList]'

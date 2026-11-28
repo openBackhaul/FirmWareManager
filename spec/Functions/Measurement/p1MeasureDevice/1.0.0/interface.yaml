@@ -30,7 +30,7 @@ x-javascript-interface:
               enum:
                 - 'ok'
     processing:
-      p1MeasureHw:
+      p2MeasureHw:
         input:
           required: true
           content:

@@ -18,7 +18,11 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 ## Parameters
 
-./.  
+| Parameter                  | Description                                                                   |
+|----------------------------|-------------------------------------------------------------------------------|
+| listUpdatedCcsFunctionName | Name of the function that provides the list of updated ControlConstructs      |
+| measureDeviceFunctionName  | Name of the function that updates the device information in the OperationalDS |
+| mwdiEsName                 | Name of the Elasticsearch index to be used for loading the MWDI data          |
 
 ## NPM Module
 

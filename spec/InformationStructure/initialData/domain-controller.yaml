@@ -139,7 +139,7 @@ domain-controller:
         - name: 'measureHardwareFunctionName'
           description: 'Name of the function for measuring hardware'
           owner: 'platform'
-          value: 'p1MeasureHw'
+          value: 'p2MeasureHw'
           pattern: '^p[1-9][0-9]?[A-Za-z0-9]{3,}$'
         - name: 'measureFirmwareFunctionName'
           description: 'Name of the function for measuring firmware'
@@ -190,7 +190,7 @@ domain-controller:
       task: 'measurement'
       description: 'Completes the object of a device with firmwareStructure==separated-boot-and-web-and-odu in the OperationalDS'
       parameter: []
-    - name: 'p1MeasureHw'
+    - name: 'p2MeasureHw'
       task: 'measurement'
       description: 'Updates deviceModel specific hardware dependencies in OperationalDS'
       parameter:

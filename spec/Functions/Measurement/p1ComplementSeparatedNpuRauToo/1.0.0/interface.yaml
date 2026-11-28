@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: p1ComplementSeparatedNpuRauToo
+  version: 1.0.0
+
+x-javascript-interface:
+  p1ComplementSeparatedNpuRauToo:
+    summary: 'Complements ODS:Device with attributes for separated-npu-and-rau'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - updated-mount-name
+              - control-construct
+            properties:
+              updated-mount-name:
+                type: string
+              control-construct:
+                type: object
+    output:
+      success:
+        description: 'Device complemented'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'ok'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

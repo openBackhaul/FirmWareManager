@@ -1,0 +1,62 @@
+completeDeviceObject:
+  type: object
+  required:
+    - updatedMountName
+    - controlConstruct
+  properties:
+    updatedMountName:
+      type: string
+      description: >
+        'from [/requestBody/updated-mount-name]'
+    controlConstruct:
+      type: object
+      description: >
+        'from [/requestBody/control-construct]'
+
+    functionName:
+      type: string
+      enum:
+        - 'p1CompleteDeviceObject'
+
+    deviceModelName:
+      type: string
+      description: >
+        'from [/controlConstruct/equipment-augment-1-0:control-construct-pac/device-model-name]'
+    firmwareStructure:
+      type: string
+      description: >
+        'from [/domain-controller/network-control-domain=running/device-model={deviceModelName}/firmware-structure]'
+    objectCompletionFunctionName:
+      type: string
+      description: >
+        'from [/domain-controller/function={functionName}/parameter={firmwareStructure}/value] IF [/domain-controller/function={functionName}/parameter={firmwareStructure}/description]==objectCompletionFunction'
+
+    errorMessage:
+      type: string
+      description: >
+        'from
+          - no object completion function defined for deviceModel
+          - general processing error'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    historical-error-list:
+      type: array
+      items:
+        type: object
+        properties:
+          errored-function:
+            type: string
+            enum:
+              - {functionName}
+          error-message:
+            type: string
+            description: >
+              'from [errorMessage]'
+          timestamp:
+            type: string
+            description: >
+              'from current system time'
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'

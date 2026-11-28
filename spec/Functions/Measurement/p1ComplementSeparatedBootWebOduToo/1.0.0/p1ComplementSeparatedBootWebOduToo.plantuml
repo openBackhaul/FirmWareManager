@@ -1,0 +1,55 @@
+@startuml p1ComplementSeparatedBootWebOduToo
+skinparam responseMessageBelowArrow true
+
+title
+  p1ComplementSeparatedBootWebOduToo
+end title
+
+participant "requestor\n" as requestor
+participant "p1ComplementSeparatedBootWebOduToo\n" as indServ
+
+database "OperationalDS" as OpDS
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Instantiates [firmwareList]=[ ]
+  end note
+  note over indServ
+    Adds [firmwareList] to
+    Device in OperationalDS
+  end note
+  indServ -> OpDS: [firmwareList]
+
+  note over indServ
+    Instantiates [bootFirmwareList]=[ ]
+  end note
+  note over indServ
+    Adds [bootFirmwareList]
+    to Device in OperationalDS
+  end note
+  indServ -> OpDS: [bootFirmwareList]
+
+  note over indServ
+    Instantiates [webServerList]=[ ]
+  end note
+  note over indServ
+    Adds [webServerList]
+    to Device in OperationalDS
+  end note
+  indServ -> OpDS: [webServerList]
+
+  note over indServ
+    Instantiates [oduFirmwareList]=[ ]
+  end note
+  note over indServ
+    Adds [oduFirmwareList]
+    to Device in OperationalDS
+  end note
+  indServ -> OpDS: [oduFirmwareList]
+
+requestor <-- indServ: ok
+deactivate indServ
+
+@enduml

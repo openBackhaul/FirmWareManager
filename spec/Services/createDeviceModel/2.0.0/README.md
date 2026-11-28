@@ -39,7 +39,7 @@ Please find a detailed description of the [variables](./variables.yaml).
 
 | Parameter Name   | Description |
 |------------------|-------------|
-| updateHwFunction | p1MeasureHw |
+| updateHwFunction | p2MeasureHw |
 | updateFwFunction | p1MeasureFw |
 
 ## NPM Module

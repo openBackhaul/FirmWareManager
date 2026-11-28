@@ -7,7 +7,7 @@ end title
 
 participant "requestor\n" as requestor
 participant "p1MeasureDevice\n" as indServ
-participant "p1MeasureHw\n" as updateHw
+participant "p2MeasureHw\n" as updateHw
 participant "p1MeasureFw\n" as updateFw
 
 database "OperationalDS" as OpDS

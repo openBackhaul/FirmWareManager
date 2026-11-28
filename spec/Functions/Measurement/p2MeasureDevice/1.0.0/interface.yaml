@@ -30,7 +30,9 @@ x-javascript-interface:
               enum:
                 - 'ok'
     processing:
-      p1MeasureHw:
+      _createDeviceFunctionName_:
+        description: >
+          'to be called IF [/domain-controller/network-control-domain=operational/device={measureDevice/updatedMountName}/mount-name]==null'
         input:
           required: true
           content:
@@ -44,11 +46,11 @@ x-javascript-interface:
                   updated-mount-name:
                     type: string
                     description: >
-                      'from [/updateDevice/updatedMountName]'
+                      'from [/measureDevice/updatedMountName]'
                   control-construct:
                     type: object
                     description: >
-                      'from [/updateDevice/controlConstruct]'
+                      'from [/measureDevice/controlConstruct]'
         output:
           success:
             description: 'Hardware updated in OperationalDS'
@@ -56,7 +58,9 @@ x-javascript-interface:
               application/json:
                 schema:
                   type: string
-      p1MeasureFw:
+      _completeDeviceObjectFunctionName_:
+        description: >
+          'to be called IF [/domain-controller/network-control-domain=operational/device={measureDevice/updatedMountName}/firmware-list]==null'
         input:
           required: true
           content:
@@ -70,11 +74,63 @@ x-javascript-interface:
                   updated-mount-name:
                     type: string
                     description: >
-                      'from [/updateDevice/updatedMountName]'
+                      'from [/measureDevice/updatedMountName]'
                   control-construct:
                     type: object
                     description: >
-                      'from [/updateDevice/controlConstruct]'
+                      'from [/measureDevice/controlConstruct]'
+        output:
+          success:
+            description: 'Hardware updated in OperationalDS'
+            content:
+              application/json:
+                schema:
+                  type: string
+      _measureHardwareFunctionName_:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                    description: >
+                      'from [/measureDevice/updatedMountName]'
+                  control-construct:
+                    type: object
+                    description: >
+                      'from [/measureDevice/controlConstruct]'
+        output:
+          success:
+            description: 'Hardware updated in OperationalDS'
+            content:
+              application/json:
+                schema:
+                  type: string
+      _measureFirmwareFunctionName_:
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                    description: >
+                      'from [/measureDevice/updatedMountName]'
+                  control-construct:
+                    type: object
+                    description: >
+                      'from [/measureDevice/controlConstruct]'
         output:
           success:
             description: 'Firmware updated in OperationalDS'

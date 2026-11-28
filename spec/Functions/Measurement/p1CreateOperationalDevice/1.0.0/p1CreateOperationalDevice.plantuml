@@ -1,0 +1,36 @@
+@startuml p1CreateOperationalDevice
+skinparam responseMessageBelowArrow true
+
+title
+  p1CreateOperationalDevice
+end title
+
+participant "requestor\n" as requestor
+participant "p1CreateOperational\nDevice" as indServ
+
+database "OperationalDS" as OpDS
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Creates device
+    in OperationalDS
+  end note
+  indServ -> OpDS: updatedMountName
+
+  note over indServ
+    Extracts deviceModelName
+    from CC
+  end note
+
+  note over indServ
+    Writes deviceModelName
+    into OperationalDS
+  end note
+  indServ -> OpDS: deviceModelName
+
+requestor <-- indServ: ok
+deactivate indServ
+
+@enduml

@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  title: p1CompleteDeviceObject
+  version: 1.0.0
+
+x-javascript-interface:
+  p1CompleteDeviceObject:
+    summary: 'Calls sub-function for adding firmwareStructure specific attributes to Device object in OperationalDS'
+    input:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - updated-mount-name
+              - control-construct
+            properties:
+              updated-mount-name:
+                type: string
+              control-construct:
+                type: object
+    output:
+      success:
+        description: 'Device object completed in OperationalDS'
+        content:
+          application/json:
+            schema:
+              type: string
+              enum:
+                - 'ok'
+    processing:
+      [/completeDeviceObject/objectCompletionFunctionName]:
+        description: 'firmwareStructure specific function for completing the Device object in OperationalDS'
+        input:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - updated-mount-name
+                  - control-construct
+                properties:
+                  updated-mount-name:
+                    type: string
+                    description: >
+                      'from [/completeDeviceObject/updatedMountName]'
+                  control-construct:
+                    type: object
+                    description: >
+                      'from [/completeDeviceObject/controlConstruct]'
+
+paths:
+  /:
+    description: 'no rest path provided by this module'

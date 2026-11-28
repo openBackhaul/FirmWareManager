@@ -42,14 +42,15 @@ Deren Struktur und Sinnhaftigkeit muss jedoch noch einmal geprüft werden.
 | p1MeasureDomain                        | Th  | Th  |     | Th  | Th  | K   |     |  5  |
 | . p1ListUpdatedCcs                     | Th  | Th  |     | Th  | Th  | Ka  |     |  5  |
 | . p1MeasureDevice                      | Th  | Th  | Ka  | Th  | Th  | K   |     |  5  |
-| . p2MeasureDevice                      |     |     |     |     |     |     |     |     |
-| .. p1CreateOperationalDevice           |     |     |     |     |     |     |     |     |
-| .. p1CompleteDeviceObject              |     |     |     |     |     |     |     |     |
-| ... p1ComplementSingleFirmware         |     |     |     |     |     |     |     |     |
-| ... p1ComplementSeparatedAppToo        |     |     |     |     |     |     |     |     |
-| ... p1ComplementSeparatedNpuRauToo     |     |     |     |     |     |     |     |     |
-| ... p1ComplementSeparatedBootWebOduToo |     |     |     |     |     |     |     |     |
+| . p2MeasureDevice                      | Th  | Th  |     | Th  | Th  |     |     |     |
+| .. p1CreateOperationalDevice           | Th  | Th  |     | Th  | Th  |     |     |     |
+| .. p1CompleteDeviceObject              | Th  | Th  |     | Th  | Th  |     |     |     |
+| ... p1ComplementSingleFirmware         | Th  | Th  |     | Th  | Th  |     |     |     |
+| ... p1ComplementSeparatedNpuRauToo     | Th  | Th  |     | Th  | Th  |     |     |     |
+| ... p1ComplementSeparatedAppToo        | Th  | Th  |     | Th  | Th  |     |     |     |
+| ... p1ComplementSeparatedBootWebOduToo | Th  | Th  |     | Th  | Th  |     |     |     |
 | .. p1MeasureHw                         | Th  | Th  | Ka  | Th  | Th  | K   |     |  5  |
+| .. p2MeasureHw                         | Th  | Th  |     | Th  | Th  |     |     |     |
 | .. p1MeasureFw                         | Th  | Th  | Ka  | Th  | Th  | K   |     |  5  |
 | ... p1ExtractSingleFirmware            | Th  | Th  | Ka  | Th  | Th  | Ka  |     |  5  |
 | ... p1ExtractSeparatedNpuRauToo        | Th  | Th  |     | Th  | Th  | K   |     |  5  |

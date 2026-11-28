@@ -1,0 +1,28 @@
+@startuml p1ComplementSingleFirmware
+skinparam responseMessageBelowArrow true
+
+title
+  p1ComplementSingleFirmware
+end title
+
+participant "requestor\n" as requestor
+participant "p1ComplementSingleFirmware\n" as indServ
+
+database "OperationalDS" as OpDS
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Instantiates [firmwareList]=[ ]
+  end note
+  note over indServ
+    Adds [firmwareList] to
+    Device in OperationalDS
+  end note
+  indServ -> OpDS: [firmwareList]
+
+requestor <-- indServ: ok
+deactivate indServ
+
+@enduml

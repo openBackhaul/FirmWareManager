@@ -1,0 +1,87 @@
+@startuml p1CompleteDeviceObject
+skinparam responseMessageBelowArrow true
+
+title
+  p1CompleteDeviceObject
+end title
+
+participant "requestor\n" as requestor
+participant "p1CompleteDevice\nObject" as indServ
+participant "<i>objectCompletion</i>\n<i>FunctionName</i>" as completeFunc
+
+database "RunningDS" as RunDS
+database "DomainController" as DC
+database "ErrorList" as hEL
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Extracts deviceModelName
+    from CC
+  end note
+
+  note over indServ
+    Reads firmwareStructure
+    from DeviceModel
+  end note
+  indServ -> RunDS: deviceModelName
+  activate RunDS
+  indServ <-- RunDS: firmwareStructure
+  deactivate RunDS
+
+  note over indServ
+    Reads name of function
+    for object completion
+    from Parameters
+  end note
+  indServ -> DC: firmwareStructure
+  activate DC
+  indServ <-- DC: objectCompletionFunctionName
+  deactivate DC
+
+  note over indServ
+    IF failed OR
+      objectCompletionFunctionName==null:
+  end note
+  note right indServ
+    THEN {
+  end note
+  indServ -> hEL: erroredFunction="p1CompleteDeviceObject",\nerrorMessage
+  requestor <-- indServ: ok
+  note right indServ
+    }
+  end note
+  note over indServ
+    IF objectCompletionFunctionName=="":
+  end note
+  note left indServ
+    THEN {
+  end note
+  requestor <-- indServ: ok
+  note left indServ
+    }
+  end note
+
+  note over indServ
+    Calls objectCompletionFunctionName
+  end note
+  indServ -> completeFunc: updatedMountName,\nCC
+  activate completeFunc
+    note over RunDS #White
+      As it is not possible to define
+      specific input parameters. All
+      functions get called with
+      updatedMountName and CC.
+    end note
+    note over completeFunc
+      Completes Device object
+      in OperationalDS
+    end note
+  indServ <-- completeFunc
+  deactivate completeFunc
+
+requestor <-- indServ: ok
+deactivate indServ
+
+@enduml

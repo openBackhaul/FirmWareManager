@@ -1,0 +1,46 @@
+@startuml p1ComplementSeparatedNpuRauToo
+skinparam responseMessageBelowArrow true
+
+title
+  p1ComplementSeparatedNpuRauToo
+end title
+
+participant "requestor\n" as requestor
+participant "p1ComplementSeparatedNpuRauToo\n" as indServ
+
+database "OperationalDS" as OpDS
+
+requestor -> indServ: updatedMountName,\nCC
+activate indServ
+
+  note over indServ
+    Instantiates [firmwareList]=[ ]
+  end note
+  note over indServ
+    Adds [firmwareList] to
+    Device in OperationalDS
+  end note
+  indServ -> OpDS: [firmwareList]
+
+  note over indServ
+    Instantiates [controllerFirmwareList]=[ ]
+  end note
+  note over indServ
+    Adds [controllerFirmwareList]
+    to Device in OperationalDS
+  end note
+  indServ -> OpDS: [controllerFirmwareList]
+
+  note over indServ
+    Instantiates [oduFirmwareList]=[ ]
+  end note
+  note over indServ
+    Adds [oduFirmwareList]
+    to Device in OperationalDS
+  end note
+  indServ -> OpDS: [oduFirmwareList]
+
+requestor <-- indServ: ok
+deactivate indServ
+
+@enduml

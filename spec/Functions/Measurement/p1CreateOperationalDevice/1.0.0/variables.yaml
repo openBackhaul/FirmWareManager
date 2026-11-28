@@ -1,0 +1,46 @@
+createOperationalDevice:
+  type: object
+  required:
+    - updatedMountName
+    - controlConstruct
+  properties:
+    updatedMountName:
+      type: string
+      description: >
+        'from [/requestBody/updated-mount-name]'
+    controlConstruct:
+      type: object
+      description: >
+        'from [/requestBody/control-construct]'
+
+    deviceModelName:
+      type: string
+      description: >
+        'from [/controlConstruct/equipment-augment-1-0:control-construct-pac/device-model-name]'
+
+domain-controller:
+  type: object
+  description: '! simplified representation !'
+  properties:
+    network-control-domain:
+      type: array
+      items:
+        type: object
+        properties:
+          storage:
+            type: string
+            enum:
+              - 'operational'
+
+          device:
+            type: array
+            description: >
+              'create instance from [updatedMountName]'
+            items:
+              type: object
+              properties:
+
+                device-model:
+                  type: string
+                  description: >
+                    'from [deviceModelName]'
